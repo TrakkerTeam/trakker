@@ -13,5 +13,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<p>GIT 테스트 용 문구 입니다.</p>
+<P> 2차 테스트 용 문구 올립니다.</P>
 </body>
 </html>
