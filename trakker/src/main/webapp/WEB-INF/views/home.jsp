@@ -14,7 +14,7 @@
 <%@ include file="include/menu.jsp" %>
 <c:if test="${sessionScope.mem_email != null}">
  <h2>
-  ${sessionScope.mem_name}(${sessionScope.mem_email})님의 방문을 환영합니다.
+  ${sessionScope.mem_name}(${sessionScope.mem_email})님의 방문을 환영합니다. 테스트용
  </h2>
 </c:if>
 <h1>
