@@ -13,8 +13,8 @@
 		<!-- 연결문자열에 log4jdbc가 추가됨 -->
 		<property name="url"
 			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="hr" />
-		<property name="password" value="hr" />
+		<property name="username" value="trakker" />
+		<property name="password" value="trakker1234" />
 	</bean>
 	<!-- 아파치 DBCP 설정 -->
 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
