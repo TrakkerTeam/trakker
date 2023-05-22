@@ -4,13 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3475351f-dc19-4c40-9b4f-58b3e38ee37d" name="Default Changelist" comment="test입니다! 5/22 김윤규" />
+    <list default="true" id="3475351f-dc19-4c40-9b4f-58b3e38ee37d" name="Default Changelist" comment="test입니다! 5/22 김윤규">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/trakker_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/trakker_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_14_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_14_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_14_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trakker/trakker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/trakker/trakker.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LogFilters">
@@ -79,7 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1684755448002</updated>
       <workItem from="1684755449213" duration="570000" />
-      <workItem from="1684756212600" duration="512000" />
+      <workItem from="1684756212600" duration="1341000" />
     </task>
     <task id="LOCAL-00001" summary="test입니다! 5/22 김윤규">
       <created>1684756497748</created>
@@ -88,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684756497748</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test입니다! 5/22 김윤규">
+      <created>1684756894209</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684756894209</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
