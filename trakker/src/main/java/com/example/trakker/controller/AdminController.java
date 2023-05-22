@@ -24,9 +24,11 @@ public class AdminController {
 	@RequestMapping("/admin/memberList")
 	public String memberList(Model model) {
 		List<MemberDTO> list = adminService.memberList();
-		model.addAttribute("list", list);
+		String abc = "abc";
+		model.addAttribute("abc", abc);
+		/* model.addAttribute("list", list); */
 		
-		return "admin/admin_memberList";
+		return "admin/test";
 	}
 	@RequestMapping("/admin/adminPage.do")
 	public String adminPage(Model model) {

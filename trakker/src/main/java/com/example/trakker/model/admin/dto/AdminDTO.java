@@ -1,5 +1,6 @@
 package com.example.trakker.model.admin.dto;
 
+
 public class AdminDTO {
 
 	private Long manager_num;
