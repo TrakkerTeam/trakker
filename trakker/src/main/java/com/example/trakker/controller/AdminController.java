@@ -26,9 +26,9 @@ public class AdminController {
 		List<MemberDTO> list = adminService.memberList();
 		String abc = "abc";
 		model.addAttribute("abc", abc);
-		/* model.addAttribute("list", list); */
+		model.addAttribute("list", list);
 		
-		return "admin/test";
+		return "admin/admin_memberList";
 	}
 	@RequestMapping("/admin/adminPage.do")
 	public String adminPage(Model model) {
