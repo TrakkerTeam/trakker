@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp" %>
+<%@ include file="../itemfile.jsp" %>
 </head>
 <body>
-<%@ include file="../menu.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <div style="text-align: center;">
  	<a href="${path }/">main</a>
