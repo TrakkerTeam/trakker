@@ -8,10 +8,10 @@
 <head>
 <meta charset="UTF-8">
 	<title>Home</title>
-<%@ include file="include/header.jsp" %>	
+
+<%@ include file="header.jsp" %>
 </head>
 <body>
-<%@ include file="include/menu.jsp" %>
 <c:if test="${sessionScope.mem_email != null}">
  <h2>
   ${sessionScope.mem_name}(${sessionScope.mem_email})님의 방문을 환영합니다. 테스트용
@@ -25,5 +25,6 @@
 <!-- 실제로 서비스되는 디렉토리(배포 디렉토리) -->
 <%= application.getRealPath("/resources/images/") %>
 
+<%@ include file="footer.jsp" %>
 </body>
 </html>
