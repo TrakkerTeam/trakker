@@ -23,7 +23,7 @@ public class FaqController {
 	@Autowired
 	private FaqService faqService;
 		
-	@GetMapping("/list.do") 
+	@GetMapping("/faq/list.do")
 	public ModelAndView list(ModelAndView mav) {
 		List<FaqDTO> items=faqService.list();
 		mav.setViewName("faq/faq_list"); 
