@@ -55,7 +55,7 @@
                     </div>
                     <!-- CS CENTER -->
 
-                    <!-- BANK ACCOUNT -->
+
                     <div class="group bank">
                         <h4>AI 여행 스케줄링 플래너</h4>
                         <div class="con">
@@ -76,7 +76,7 @@
 
                                 <li><a href="#"><span>문의게시판</span></a></li>
                                 <li><a href="#"><span>FAQ</span></a></li>
-                                <li><a href="#"><span>이용약관</span></a></li>
+                                <li><a href="${path}/userAgreements.do" ><span>이용약관</span></a></li>
 
                             </ul>
                         </div>

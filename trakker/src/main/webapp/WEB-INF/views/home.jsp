@@ -8,10 +8,10 @@
 <head>
 <meta charset="UTF-8">
 	<title>Home</title>
-<%@ include file="include/header.jsp" %>	
+<%@ include file="header.jsp" %>
 </head>
 <body>
-<%@ include file="include/menu.jsp" %>
+<%@ include file="menu.jsp" %>
 <c:if test="${sessionScope.userid != null}">
  <h2>
   ${sessionScope.name}(${sessionScope.userid})님의 방문을 환영합니다.

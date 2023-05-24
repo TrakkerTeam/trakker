@@ -16,12 +16,13 @@ import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.service.AdminService;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping("/admin/memberList")
+	@RequestMapping("/memberList")
 	public String memberList(Model model) {
 		List<MemberDTO> list = adminService.memberList();
 		String abc = "abc";
@@ -30,12 +31,12 @@ public class AdminController {
 		
 		return "admin/admin_memberList";
 	}
-	@RequestMapping("/admin/adminPage.do")
+	@RequestMapping("/adminPage.do")
 	public String adminPage(Model model) {
 		
 		return "admin/admin_test_category";
 	}
-	@RequestMapping("/admin/view.do")
+	@RequestMapping("/view.do")
 	public String view(Model model, @RequestParam int mem_num) {
 		model.addAttribute("dto", adminService.viewMember(mem_num));
 		

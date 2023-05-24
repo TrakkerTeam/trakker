@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../header.jsp" %>
 </head>
 <body>
-<%@ include file="../include/menu.jsp" %>
+<%@ include file="../menu.jsp" %>
 <h2>회원목록</h2>
 <input type="button" value="회원등록" onclick="location.href='${path}/member/write.do'">
 <table border="1" style="width: 700px;">

@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../header.jsp" %>
 </head>
 <body>
-<%@ include file="../include/menu.jsp" %>
+<%@ include file="../menu.jsp" %>
 <h2>회원정보 수정</h2>
 <form name="form1" method="post">
 <table border="1" style="width: 400px;">
