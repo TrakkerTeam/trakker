@@ -7,6 +7,7 @@
     <logger name="jdbc.resultset"      level="ERROR"/>
     <logger name="jdbc.resultsettable" level="ERROR"/>
     <logger name="jdbc.connection"     level="INFO"/>
+	<logger name="org.springframework" level="DEBUG"/>
     
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
