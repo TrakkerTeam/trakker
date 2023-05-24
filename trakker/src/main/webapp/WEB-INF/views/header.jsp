@@ -1,30 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<div style="text-align: center;"> 
- <a href="${path}">Home</a> |
- 
- <c:if test="${sessionScope.admin_userid == null}">
- <a href="#">플래너</a> |
- <a href="#">리뷰게시판</a> |
- </c:if>
- 
- <div style="text-align: right;">
-  <c:choose>
-   <c:when test="${sessionScope.userid == null}">
-   <!-- 로그인 하지 않은 상태 -->
-    <a href="#">회원가입</a> |
-    <a href="#">로그인</a> |
-    <a href="${path }/admin/adminPage.do">관리자페이지</a> |
-   </c:when>
-   <c:otherwise>
-    <!-- 로그인한 상태 -->
-    ${sessionScope.name}님이 로그인중입니다.
-    <a href="#">마이페이지</a> |
-    <a href="#">로그아웃</a> |
-   </c:otherwise>
-  </c:choose>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="itemfile.jsp" %>
+<style>
+ .navbar {
+  background-color: #20c997;
+  position: fixed;
+  color: white;
+  width: 100%;
+  height: 80px;
+  top: 0;
+  z-index:1;
+ }
+ .navbar-nav > li,span {
+  font-size: 20px;
+  font-weight: bolder;
+ }
+ body {
+  padding-top: 100px;
+ }
+</style>
+<nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-dark">
+ <div class="container-fluid">
+  <a class="navbar-brand" href="${path}"><img src="${pageContext.request.contextPath}/resources/images/logo.png" style="width: 110px;" height="60;"></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+   <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+   <ul class="navbar-nav">
+    <li class="nav-item">
+     <a class="nav-link" href="#">플래너</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" href="${path}/review/list">리뷰게시판</a>
+    </li>
+   </ul>
+   <ul class="navbar-nav">
+    <span class="navbar-text">이학동</span>
+    <li class="nav-item">
+     <a class="nav-link" href="#">회원가입</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" href="#">로그인</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" href="#">관리자페이지</a>
+    </li>
+    <span class="navbar-text">${sessionScope.name}</span>
+    <li class="nav-item">
+     <a class="nav-link" href="#">마이페이지</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" href="#">로그아웃</a>
+    </li>
+   </ul>
+  </div>
  </div>
-</div>
-<hr>
+</nav>

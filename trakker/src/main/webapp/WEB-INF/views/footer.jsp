@@ -57,7 +57,7 @@
 
 
                     <div class="group bank">
-                        <h4>AI 여행 스케줄링 플래너</h4>
+                        <h4>여행 스케줄링 플래너</h4>
                         <div class="con">
                             <p class="call">TRAKKER</p>
                             <p class="s_txt">
