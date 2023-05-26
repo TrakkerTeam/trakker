@@ -6,14 +6,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="faq">
 	<select id="list" resultType="com.example.trakker.model.faq.dto.FaqDTO">
-	 select * from faq
+	 select faq_num,faq_subject,content,readcount,faq_reg_date from faq
+
 
 	</select>
 	
 	<insert id="insert">
-	 insert into faq(faq_num,faq_subject)
-	 values (faq_seq.nextval,#{faq_subject})
+	 insert into faq(faq_num,faq_subject,content)
+	 values (faq_seq.nextval,#{faq_subject},#{content})
 	</insert>
+
 </mapper>
 
 
