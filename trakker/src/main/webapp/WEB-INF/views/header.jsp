@@ -23,7 +23,7 @@
  body{
   padding-top: 80px;
  }
-</style>
+
 <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-dark">
  <div class="container-fluid">
   <a class="navbar-brand" href="${path}"><img src="${pageContext.request.contextPath}/resources/images/logo.png" style="width: 110px;" height="60;"></a>

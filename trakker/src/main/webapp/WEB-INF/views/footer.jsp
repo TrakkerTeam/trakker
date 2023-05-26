@@ -56,21 +56,21 @@
                     <!-- CS CENTER -->
 
 
+                    <!-- BANK ACCOUNT -->
+
                     <div class="group bank">
-                        <h4>여행 스케줄링 플래너</h4>
+                        <h4> 여행 스케줄링 플래너</h4>
                         <div class="con">
                             <p class="call">TRAKKER</p>
                             <p class="s_txt">
                                 <br>
-                                 (주) TRAKKER
+                                (주) TRAKKER
                             </p>
                         </div>
                     </div>
-                    <!-- BANK ACCOUNT -->
 
-                    <!-- BOARD -->
                     <div class="group board">
-                        <h4>BOARD</h4>
+                        <h4>COMMUNITY</h4>
                         <div class="con">
                             <ul>
 
