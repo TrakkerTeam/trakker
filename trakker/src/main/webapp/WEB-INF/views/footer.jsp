@@ -2,11 +2,6 @@
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>footer</title>
-</head>
 <body>
 
 <div style="width:100%">
@@ -33,6 +28,7 @@
             #y_footer address .ad_ti {font-weight: 600; color:#666;}
             #y_footer .escro_foot { position:absolute; right: 270px; top:0px; }
             #y_footer .escro_foot img {  height:80px; width:auto; }
+
         </style>
 
 
@@ -73,11 +69,9 @@
                         <h4>COMMUNITY</h4>
                         <div class="con">
                             <ul>
-
-                                <li><a href="#"><span>문의게시판</span></a></li>
-                                <li><a href="#"><span>FAQ</span></a></li>
-                                <li><a href="${path}/userAgreements.do" ><span>이용약관</span></a></li>
-
+                                <li><a href="#"><span style="font-size: 15px;">문의게시판</span></a></li>
+                                <li><a href="#"><span style="font-size: 15px;">FAQ</span></a></li>
+                                <li><a href="${path}/userAgreements.do" ><span style="font-size: 15px;">이용약관</span></a></li>
                             </ul>
                         </div>
                     </div>

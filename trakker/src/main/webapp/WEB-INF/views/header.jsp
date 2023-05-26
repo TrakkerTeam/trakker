@@ -1,14 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="itemfile.jsp" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <style>
+ body{margin: 0px; padding: 0px;}
  .navbar {
   background-color: #20c997;
-  position: sticky;
+  position: fixed;
+  color: white;
+  width: 100%;
+  height: 80px;
   top: 0;
+  z-index:1;
  }
- .navbar-nav > li,span {
+ .navbar-nav > li,.navbar-text {
   font-size: 20px;
   font-weight: bolder;
  }
+ .btn-group:hover .dropdown-menu {
+  display: flex;
+  margin-top: 50px;
+  margin-left: 100px;
+ }
+ body{
+  padding-top: 80px;
+ }
+
 </style>
 <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-dark">
  <div class="container-fluid">
@@ -22,10 +38,10 @@
      <a class="nav-link" href="#">플래너</a>
     </li>
     <li class="nav-item">
-     <a class="nav-link" href="#">리뷰게시판</a>
+     <a class="nav-link" href="${path}/review/list">리뷰게시판</a>
     </li>
    </ul>
-   <ul class="navbar-nav">
+   <div class="navbar-nav">
     <span class="navbar-text">이학동</span>
     <li class="nav-item">
      <a class="nav-link" href="#">회원가입</a>
@@ -34,16 +50,20 @@
      <a class="nav-link" href="#">로그인</a>
     </li>
     <li class="nav-item">
-     <a class="nav-link" href="#">관리자페이지</a>
+     <a class="nav-link" href="${path}/admin/adminPage.do">관리자페이지</a>
     </li>
     <span class="navbar-text">${sessionScope.name}</span>
-    <li class="nav-item">
-     <a class="nav-link" href="#">마이페이지</a>
-    </li>
-    <li class="nav-item">
-     <a class="nav-link" href="#">로그아웃</a>
-    </li>
-   </ul>
+    <div class="btn-group">
+     <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-person-circle"></i>
+     </button>
+     <ul class="dropdown-menu dropdown-menu-lg-end">
+      <li><a class="dropdown-item" href="#">마이페이지</a></li>
+      <li><a class="dropdown-item" href="#">로그아웃</a></li>
+     </ul>
+    </div>
+    </ul>
+   </div>
   </div>
  </div>
 </nav>
