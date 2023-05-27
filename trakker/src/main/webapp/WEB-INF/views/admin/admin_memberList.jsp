@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<script src="${path}/include/js/bootstrap.js"></script>
+<link rel="stylesheet" href="${path}/include/style.css">
+<script src="${path}/include/jquery-3.6.3.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <%@ include file="../itemfile.jsp" %>
 <style>
 .container {
 display: flex;
 flex-direction: column;
-align-items: center;
+  align-items: flex-start;
 }
 
 table {
@@ -24,14 +30,13 @@ padding: 8px;
 }
 </style>
 <body>
-<%@ include file="../header.jsp" %>
-<div class="container">
 
-  <h2>회원목록</h2>
-  <input type="button" value="회원등록" onclick="location.href='${path}/member/write.do'">
+<div class="container" >
 
+  <h2>유저 목록</h2>
 
-  <table>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <table class="table table-hover">
 
 
     <thead>
@@ -70,7 +75,7 @@ padding: 8px;
 
 
 
-        <td><a href="${path}/admin/view.do?mem_num=${row.mem_num}">${row.mem_name}</a></td>
+        <td><a href="#" onclick="userview()">${row.mem_name}</a></td>
 
 
         <td>${row.mem_address1}</td>
@@ -90,6 +95,18 @@ padding: 8px;
 
   </table>
 </div>
+<div id="result" style="display: flex;"></div>
+<script>
+  function userview() {
+    $.ajax({
+        type: "post",
+        url:"${path}/admin/view.do",
+        success:function (result){
+          $("#result").html(result);
+        }
 
+    });
+  }
+</script>
 </body>
 </html>

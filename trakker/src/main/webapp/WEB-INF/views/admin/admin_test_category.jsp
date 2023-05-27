@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../itemfile.jsp" %>
+
 	<style>
 
 #container{
@@ -62,20 +62,35 @@ div a.menu{
 	color: #fff;
 }
 	</style>
-<body id="maincon">
+<body>
 <%@ include file="../header.jsp" %>
 <div id="container">
 
-	<div style="display: flex; height: 500px;">
+	<div style="display: flex; height: 1000px;">
 		<div id="category" class="menu">
-			<a href="${path}/admin/memberList" >회원관리</a>
+			<a href="#" onclick="memberList()" >회원관리</a>
 			<a href="#">관광명소 관리</a>
 			<a href="#">문의 게시판</a>
 		</div>
 		<div id="result" style="display: flex; width:100%;"></div>
 	</div>
 </div>
-<%@ include file="../footer.jsp" %>
 </div>
+<script>
+	function memberList() {
+		$.ajax({
+			type: "post",
+			url: "${path}/admin/memberList",
+			success: function (result){
+				$("#result").html(result);
+			}
+
+		});
+
+	}
+
+
+</script>
+<%@include file="../footer.jsp"%>
 </body>
 </html>

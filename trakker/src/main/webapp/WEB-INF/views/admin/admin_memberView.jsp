@@ -5,7 +5,6 @@
 <head>
  <meta charset="UTF-8">
  <title>Insert title here</title>
- <%@ include file="../header.jsp"%>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  <script type="text/javascript">
   function daumZipCode() {
@@ -94,7 +93,7 @@
 </head>
 <body>
 
-<h2>프로필 수정</h2>
+<h2>프로필</h2>
 <form name="form1" method="post">
  <table  width="400px">
   <tr>
@@ -156,7 +155,5 @@
 
  </table>
 </form>
-
-<%@ include file="../footer.jsp" %>
 </body>
 </html>

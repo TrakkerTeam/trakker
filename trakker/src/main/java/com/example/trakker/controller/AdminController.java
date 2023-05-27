@@ -35,8 +35,8 @@ public class AdminController {
 		return "admin/admin_test_category";
 	}
 	@RequestMapping("/view.do")
-	public String view(Model model, @RequestParam int mem_num) {
-		model.addAttribute("dto", adminService.viewMember(mem_num));
+	public String view(Model model) {
+//		model.addAttribute("dto", adminService.viewMember(mem_num));
 		
 		return "admin/admin_memberView";
 		
