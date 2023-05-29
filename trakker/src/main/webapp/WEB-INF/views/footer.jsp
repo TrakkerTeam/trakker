@@ -8,16 +8,16 @@
     <div style="width:100%;float:left;">
         <style type="text/css">
             #footer_top{ background: #fff; text-align: left;}
-            #footer_top .footer-top { border-top: 1px solid #e9e9e9; padding: 40px 0 35px; display: inline-block; width: 100%;}
+            #footer_top .footer-top { border-top: 1px solid #e9e9e9; padding: 40px 0 35px; display: flex; width: 100%;}
             #footer_top .comm-w {width: 1260px;margin: 0 auto;}
             #footer_top .group h4 { margin-bottom: 24px;color: #666; font-size: 14px;font-weight: 600;}
             #footer_top .cs {width: 38%;float: left; border-right: 1px solid #e9e9e9;}
             #footer_top .cs p.call {color: #2e2b2d; font-size: 36px; line-height: 30px; font-weight: 500;font-family: 'Lato'; padding-bottom: 18px;}
             #footer_top .cs p {line-height: 22px;font-size: 14px; color: #888;}
-            #footer_top .bank {width: 42%;float: left;border-right: 1px solid #e9e9e9; margin-left: 5%;}
+            #footer_top .bank {width: 40%;float: left;border-right: 1px solid #e9e9e9; margin-left: 5%;}
             #footer_top .bank p.call {color: #2e2b2d; font-size: 36px; line-height: 30px; font-weight: 500;font-family: 'Lato'; padding-bottom: 18px;}
             #footer_top .bank p {line-height: 22px;font-size: 14px; color: #888;}
-            #footer_top .board {width: 9%;float: left; margin-left: 5%;}
+            #footer_top .board {width: 11%;float: left; margin-left: 5%;}
             #footer_top .board ul li {line-height: 22px; float: none;  width: 100%; margin-bottom: 0;}
             #footer_top .board ul li a {font-size:14px;color:#666;}
             #footer_top .board ul li a:hover {color:#000;}
