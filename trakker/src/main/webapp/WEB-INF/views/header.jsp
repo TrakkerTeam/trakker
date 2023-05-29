@@ -24,6 +24,7 @@
   padding-top: 80px;
  }
 </style>
+
 <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-dark">
  <div class="container-fluid">
   <a class="navbar-brand" href="${path}"><img src="${pageContext.request.contextPath}/resources/images/logo.png" style="width: 110px;" height="60;"></a>
@@ -48,7 +49,10 @@
      <a class="nav-link" href="#"><i class="bi bi-door-closed"></i>로그인</a>
     </li>
     <li class="nav-item">
+
      <a class="nav-link" href="${path}/admin/adminPage.do"><i class="bi bi-person-gear"></i>관리자페이지</a>
+
+    
     </li>
     <span class="navbar-text">${sessionScope.name}</span>
     <div class="btn-group">
@@ -59,9 +63,12 @@
       <li><a class="dropdown-item" href="#"><i class="bi bi-person-video2"></i> 마이페이지</a></li>
       <li><a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> 로그아웃</a></li>
      </ul>
+
     </div>
     </ul>
    </div>
+
   </div>
+ </div>
  </div>
 </nav>
