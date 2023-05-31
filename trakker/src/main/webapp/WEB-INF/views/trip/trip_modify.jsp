@@ -4,19 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>insert</title>
-    <%@ include file="../header.jsp" %>
     <!-- 서머노트를 위해 추가해야할 부분 -->
     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
     <script src="https://cdn.jsdelivr.net/npm/summernote-sticky-toolbar@1.0.0/summernote-sticky-toolbar.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#btnSave").click(function(){
-                document.form3.submit();
-            });
-        });
-    </script>
     <style>
         body {
             padding-top: 100px;
@@ -30,21 +22,16 @@
         .form-control, input {
             border: none;
         }
-        .btn-group {
-            position: fixed;
-            bottom: 0;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <form id="form3" name="form3" method="post" action="${path}/trip/insert.do">
-    <input class="form-control" type="text" placeholder="관광지 이름을 입력하세요" aria-label="default input example">
+    <input class="form-control" type="text" placeholder="제목을 입력하세요" aria-label="default input example">
     <hr>
     <textarea class="summernote"></textarea>
     <script>
         $('.summernote').summernote({
-            placeholder: '내용을 입력해주세요.',
+            placeholder: '여행리뷰를 입력해주세요.',
             height: 750,
             lang: "ko-KR",
             minHeight: null,
@@ -60,7 +47,10 @@
                 ['height', ['height']],
                 ['insert',['picture','link','video']],
                 ['view', ['fullscreen', 'help']]
+
             ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
             stickyToolbar: {
                 enabled: true, // enable/disable sticky toolbar
                 offset: 0, //y offset from top
@@ -72,11 +62,11 @@
     <input name="filename" value="이미지 이름"> <br><br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <div class="btn-group m-3" role="group" aria-label="First group">
-            <button type="button" id="btnSave" class="btn btn-success btn-lg">등록</button>
+            <button type="button" class="btn btn-danger btn-lg">삭제</button>
+            <button type="button" class="btn btn-success btn-lg">수정</button>
         </div>
     </div>
     <br>
-    </form>
 </div>
 </body>
 </html>

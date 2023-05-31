@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="faq">
-	<select id="list" resultType="com.example.trakker.model.faq.dto.FaqDTO">
-	 select faq_num,faq_subject,content,readcount,faq_reg_date from faq
+    <select id="list" resultType="com.example.trakker.model.faq.dto.FaqDTO">
+        select faq_num, faq_subject, content, readcount, faq_reg_date
+        from faq
+		order by faq_num desc
+    </select>
 
+    <insert id="insert">
+        insert into faq (faq_num, faq_subject, content)
+        values (faq_seq.nextval, #{faq_subject}, #{content})
+    </insert>
 
-	</select>
-	
-	<insert id="insert">
-	 insert into faq(faq_num,faq_subject,content)
-	 values (faq_seq.nextval,#{faq_subject},#{content})
-	</insert>
+    <update id="increaseViewcnt">
+        update faq
+        set readcount=readcount + 1
+        where faq_num = #{faq_num}
+    </update>
 
+    <select id="read" resultType="com.example.trakker.model.faq.dto.FaqDTO">
+        select faq_num, faq_subject, content, readcount, faq_reg_date
+        from faq
+    </select>
 </mapper>
 
 

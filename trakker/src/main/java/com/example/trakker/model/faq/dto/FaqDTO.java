@@ -7,9 +7,33 @@ public class FaqDTO {
 
 	private int faq_num;
 	private String faq_subject;
-	private Clob content;
+	private String content;
 	private int readcount;
 	private Date faq_reg_date;
+
+	public int getFaq_num() {
+		return faq_num;
+	}
+
+	public void setFaq_num(int faq_num) {
+		this.faq_num = faq_num;
+	}
+
+	public String getFaq_subject() {
+		return faq_subject;
+	}
+
+	public void setFaq_subject(String faq_subject) {
+		this.faq_subject = faq_subject;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public int getReadcount() {
 		return readcount;
@@ -32,13 +56,13 @@ public class FaqDTO {
 		return "FaqDTO{" +
 				"faq_num=" + faq_num +
 				", faq_subject='" + faq_subject + '\'' +
-				", content='" + content + '\'' +
+				", content=" + content +
 				", readcount=" + readcount +
 				", faq_reg_date=" + faq_reg_date +
 				'}';
 	}
 
-	public FaqDTO(int faq_num, String faq_subject, Clob content, int readcount, Date faq_reg_date) {
+	public FaqDTO(int faq_num, String faq_subject, String content, int readcount, Date faq_reg_date) {
 		this.faq_num = faq_num;
 		this.faq_subject = faq_subject;
 		this.content = content;
@@ -46,27 +70,6 @@ public class FaqDTO {
 		this.faq_reg_date = faq_reg_date;
 	}
 
-	public int getFaq_num() {
-		return faq_num;
-	}
-	public void setFaq_num(int faq_num) {
-		this.faq_num = faq_num;
-	}
-
-	public String getFaq_subject() {
-		return faq_subject;
-	}
-	public void setFaq_subject(String faq_subject) {
-		this.faq_subject = faq_subject;
-	}
-	public Clob getContent() {
-		return content;
-	}
-	public void setContent(Clob content) {
-		this.content = content;
-	}
-
 	public FaqDTO() {
-		
 	}
 }
