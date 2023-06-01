@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="album py-5 bg-light">
-    <div class="container">
+    <div class="container-sm">
         <div class="col-sm-3">
             <form class="d-flex" role="search">
                 <select>
