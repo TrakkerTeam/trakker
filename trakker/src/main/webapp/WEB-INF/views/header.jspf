@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="itemfile.jsp" %>
+<%@ include file="itemfile.jspf" %>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <style>
  .navbar {
   background-color: #20c997;
-  position: fixed;
+  position: sticky;
   color: white;
   width: 100%;
   height: 80px;
   top: 0;
-  z-index:1;
+  z-index:100;
  }
  .navbar-nav > li,.navbar-text {
   font-size: 20px;
@@ -19,9 +19,6 @@
   display: block;
   margin-top: 45px;
   left: -100%;
- }
- body{
-  padding-top: 80px;
  }
 </style>
 <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-dark">

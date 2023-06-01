@@ -5,25 +5,40 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
-	<title>Home</title>
-    <%@ include file="header.jsp" %>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <%@ include file="header.jspf" %>
 </head>
+<style>
+    button{
+        background-color:transparent;
+        border: none;
+    }
+    .bi-heart-fill{
+        font-size: 22px;
+        line-height: 22px;
+        color:crimson;
+    }
+
+</style>
 <body>
- <h2>
-  ${sessionScope.name}(${sessionScope.userid})님의 방문을 환영합니다.
- </h2>
+<h2>
+    ${sessionScope.name}(${sessionScope.userid})님의 방문을 환영합니다.
+</h2>
 <h1>
-	Hello world!  
+    Hello world!
 </h1>
 <img src="${pageContext.request.contextPath}/resources/images/logo.png" style="width: 110px;" height="60;">
 <P>  The time on the server is ${serverTime}. </P>
 <a href="${path}/review/list">목록</a>
-<a href="${path}/review/view">상세페이지</a>
 <a href="${path}/review/insert">작성페이지</a>
 <a href="${path}/review/edit">수정/삭제</a>
+<a href="${path}/review/detail">상세페이지</a>
+<a href="${path}/review/review_list">리뷰목록</a>
+<a href="${path}/planner/detail">플래너</a>
+<button type="button"><i class="bi bi-heart-fill"></i></button>
 
-
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jspf" %>
 </body>
 </html>
+
