@@ -15,17 +15,14 @@
             $("#btnWrite").click(function () {
                 location.href = "${path}/faq/write.do";
             });
-            $("#btnModify").click(function () {
-                location.href = "${path}/faq/view.do";
-            });
         });
     </script>
 
 </head>
 <body>
-<div class="album py-5 bg-light">
-    <div class="container-sm">
-        <div class="col-sm-3">
+<div class="album py-5">
+    <div class="container-xl">
+        <div class="col-xl-3">
             <form class="d-flex" role="search">
                 <select>
                     <option>제목</option>
@@ -48,12 +45,23 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="row" items="${list}">
+            <%--            <c:forEach var="row" items="${list}">--%>
+            <%--                <tr>--%>
+            <%--                    <td>${row.faq_num}</td>--%>
+            <%--                    <td><a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a></td>--%>
+            <%--                    <td><fmt:formatDate value="${row.faq_reg_date}"--%>
+            <%--                                        pattern="yyyy-MM-dd"/></td>--%>
+            <%--                    <td>${row.readcount}</td>--%>
+            <%--                </tr>--%>
+            <%--            </c:forEach>--%>
+            <c:set var="recentList" value="${list.subList(0, 10)}"/>
+            <c:forEach var="row" items="${recentList}">
                 <tr>
                     <td>${row.faq_num}</td>
-                    <td><a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a></td>
-                    <td><fmt:formatDate value="${row.faq_reg_date}"
-                                        pattern="yyyy-MM-dd"/></td>
+                    <td>
+                        <a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a>
+                    </td>
+                    <td><fmt:formatDate value="${row.faq_reg_date}" pattern="yyyy-MM-dd"/></td>
                     <td>${row.readcount}</td>
                 </tr>
             </c:forEach>

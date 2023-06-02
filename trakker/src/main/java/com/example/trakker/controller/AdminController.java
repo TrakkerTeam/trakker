@@ -3,11 +3,13 @@ package com.example.trakker.controller;
 import java.util.List;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
+import com.example.trakker.service.faq.FaqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,6 +24,8 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	FaqService faqService;
 
 	@RequestMapping("/memberList")
 	public String memberList(Model model) {
@@ -33,9 +37,11 @@ public class AdminController {
 		return "admin/admin_memberList";
 	}
 	@RequestMapping("/adminPage.do")
-	public String adminPage(Model model) {
-
-		return "admin/admin_test_category";
+	public ModelAndView adminPage(ModelAndView mav) throws Exception{
+		List<FaqDTO> items = faqService.list();
+		mav.setViewName("admin/admin_test_category");
+		mav.addObject("list", items);
+		return mav;
 	}
 	@RequestMapping("/view.do")
 	public String view(Model model) {

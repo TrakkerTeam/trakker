@@ -2,15 +2,11 @@ package com.example.trakker.controller;
 
 import java.util.List;
 
-import com.example.trakker.model.member.dto.MemberDTO;
-import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -46,7 +42,7 @@ public class FaqController {
 	public String insert(@ModelAttribute FaqDTO dto)
 			throws Exception{
 		faqService.create(dto);
-		return "redirect:/faq/list.do";
+		return "redirect:/admin/adminPage.do";
 	}
 
 	@GetMapping("/faq/view.do")

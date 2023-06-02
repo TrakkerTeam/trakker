@@ -21,9 +21,7 @@ public class TripController {
 
     @GetMapping("/trip/list.do")
     public ModelAndView list(ModelAndView mav) {
-        List<TripDTO> items=tripService.list();
         mav.setViewName("trip/trip_list");
-        mav.addObject("list", items);
         return mav;
     }
 
@@ -36,7 +34,7 @@ public class TripController {
     public String insert(@ModelAttribute TripDTO dto, HttpSession session)
             throws Exception{
         tripService.write(dto);
-        return "redirect:/trip/list.do";
+        return "redirect:/admin/adminPage.do";
     }
 
     @GetMapping("/trip/view.do")

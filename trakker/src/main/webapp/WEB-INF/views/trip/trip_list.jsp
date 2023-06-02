@@ -4,79 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<%--<link rel="stylesheet" type="text/css" href="trip_style.css">--%>
 <html>
 <head>
     <meta charset="UTF-8">
 
     <title>Home</title>
-    <style>
-        @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-        .rate {
-            display: inline-block;
-            border: 0;
-            margin-right: 15px;
-        }
-
-        .rate > input {
-            display: none;
-        }
-
-        .rate > label {
-            float: right;
-            color: #ddd
-        }
-
-        .rate > label:before {
-            display: inline-block;
-            font-size: 2rem;
-            padding: .3rem .2rem;
-            margin: 0;
-            cursor: pointer;
-            font-family: FontAwesome;
-            content: "\f005 ";
-        }
-
-        .rate .half:before {
-            content: "\f089 ";
-            position: absolute;
-            padding-right: 0;
-        }
-
-        .rate input:checked ~ label,
-        .rate label:hover, .rate label:hover ~ label {
-            color: #ffca2c !important;
-        }
-
-        .rate input:checked + .rate label:hover,
-        .rate input input:checked ~ label:hover,
-        .rate input:checked ~ .rate label:hover ~ label,
-        .rate label:hover ~ input:checked ~ label {
-            color: #ffca2c !important;
-        }
-        .bi-star-fill{
-            color: #ffca2c;
-        }
-        /* 모달 스타일 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-        }
-
-        .modal-content {
-            display: block;
-            margin: 15% auto;
-            max-width: 900px;
-            padding: 20px;
-            border-radius: 5px;
-        }
-    </style>
 
 </head>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -104,8 +37,79 @@
     }
 
 </script>
+<style>
+    @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+    .rate {
+        display: inline-block;
+        border: 0;
+        margin-right: 15px;
+    }
+
+    .rate > input {
+        display: none;
+    }
+
+    .rate > label {
+        float: right;
+        color: #ddd
+    }
+
+    .rate > label:before {
+        display: inline-block;
+        font-size: 2rem;
+        padding: .3rem .2rem;
+        margin: 0;
+        cursor: pointer;
+        font-family: FontAwesome;
+        content: "\f005 ";
+    }
+
+    .rate .half:before {
+        content: "\f089 ";
+        position: absolute;
+        padding-right: 0;
+    }
+
+    .rate input:checked ~ label,
+    .rate label:hover, .rate label:hover ~ label {
+        color: #ffca2c !important;
+    }
+
+    .rate input:checked + .rate label:hover,
+    .rate input input:checked ~ label:hover,
+    .rate input:checked ~ .rate label:hover ~ label,
+    .rate label:hover ~ input:checked ~ label {
+        color: #ffca2c !important;
+    }
+    .bi-star-fill{
+        color: #ffca2c;
+    }
+    /* 모달 스타일 */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .modal-content {
+        display: block;
+        margin: 15% auto;
+        max-width: 900px;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .card-body {
+        padding: 0.5rem; /* Adjust the padding as desired */
+    }
+</style>
 <body>
-<div class="album py-5 bg-light">
+<div class="album py-5">
     <div class="container">
         <div class="col-sm-3">
             <form class="d-flex" role="search">
@@ -123,7 +127,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/hanook.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
@@ -199,7 +203,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/junju.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -278,7 +282,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/gyeongboggung.png"
-                         class="card-img-top" style="width: 100%; height: 225px;">
+                         class="card-img-top" style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">경복궁</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -359,7 +363,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/sunglyemun.png"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">숭례문</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -437,7 +441,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -452,7 +456,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -467,7 +471,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -482,7 +486,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -497,7 +501,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                         style="max-height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
                         <div class="d-flex justify-content-between align-items-center">
