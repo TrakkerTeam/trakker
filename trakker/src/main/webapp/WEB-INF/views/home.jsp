@@ -9,18 +9,6 @@
     <title>Home</title>
     <%@ include file="header.jspf" %>
 </head>
-<style>
-    button{
-        background-color:transparent;
-        border: none;
-    }
-    .bi-heart-fill{
-        font-size: 22px;
-        line-height: 22px;
-        color:crimson;
-    }
-
-</style>
 <body>
 <h2>
     ${sessionScope.name}(${sessionScope.userid})님의 방문을 환영합니다.
@@ -36,7 +24,8 @@
 <a href="${path}/review/detail">상세페이지</a>
 <a href="${path}/review/review_list">리뷰목록</a>
 <a href="${path}/planner/detail">플래너</a>
-<button type="button"><i class="bi bi-heart-fill"></i></button>
+
+
 
 <%@ include file="footer.jspf" %>
 </body>

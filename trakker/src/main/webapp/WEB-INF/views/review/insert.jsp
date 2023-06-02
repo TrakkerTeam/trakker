@@ -32,6 +32,7 @@
 <body>
 <form method="post" action="${path}/review/insert">
 <div class="container"><br>
+    <form method="post">
     <select class="form-select w-25" aria-label="Default select example">
         <option selected>지역</option>
         <option value="1">One</option>
@@ -75,6 +76,7 @@
             <button type="button" class="btn btn-success btn-lg">등록</button>
         </div>
     </div>
+    </form>
     <br>
 </div>
 </form>
