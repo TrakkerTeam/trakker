@@ -4,7 +4,9 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/admin/test.jsp" value="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/admin" />
+        <entry key="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/admin/test2.jsp" value="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/admin" />
         <entry key="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/header.jsp" value="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views" />
+        <entry key="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views/home.jsp" value="file://$PROJECT_DIR$/trakker/src/main/webapp/WEB-INF/views" />
       </map>
     </option>
   </component>

@@ -2,9 +2,14 @@ package com.example.trakker.model.member.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
 
 	private int mem_num;//MEM_NUM
