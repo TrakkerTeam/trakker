@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="trip">
+    <select id="list" resultType="com.example.trakker.model.trip.dto.TripDTO">
+        select t_num,t_subject,content,readcount,t_date from trip
+
+    </select>
+
+    <insert id="insert">
+        insert into trip(t_num, t_subject, content)
+            values(trip_seq.nextval,#{t_subject},#{content})
+
+    </insert>
+</mapper>

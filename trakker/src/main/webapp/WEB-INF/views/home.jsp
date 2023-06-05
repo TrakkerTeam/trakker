@@ -5,10 +5,12 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<title>Home</title>
+	<%@ include file="header.jsp" %>
 </head>
 <body>
+
 <%@include file="header.jsp"%>
 <header class="wide-spacing" id="home">
 
