@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <%@ include file="header.jspf" %>
+    <%@ include file="header.jsp" %>
 </head>
 <body>
 
@@ -21,6 +21,6 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 
-<%@ include file="footer.jspf" %>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
