@@ -514,6 +514,6 @@
         <button class="btn btn-outline-success" type="submit" id="btnWrite" style="float:right;">글쓰기</button>
     </div>
 </div>
-<%@ include file="../footer.jspf" %>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>
