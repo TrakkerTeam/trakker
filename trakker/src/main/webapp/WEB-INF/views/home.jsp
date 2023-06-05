@@ -107,6 +107,5 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         </div>
     </div>
 </header>
-
 </body>
 </html>
