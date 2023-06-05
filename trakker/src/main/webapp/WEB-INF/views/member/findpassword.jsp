@@ -74,7 +74,6 @@ small {
 			<tr>
 				<td>회원가입시 등록하셨던 이메일 주소를 입력해주시면 임시 비밀번호를 발급해드립니다.</td>
 			</tr>
-
 			<tr>
 				<td  align="center">
 					<button type="button" id="goemail">발급받기</button>

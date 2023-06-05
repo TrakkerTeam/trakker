@@ -151,7 +151,6 @@ function daumZipCode() {
                              <td colspan="2"><button type="button" id="logback" name="logback">취소하기</button>
                              <div style="color: red;">${message}</div></td>
                          </tr>
-
         		</table>
         	</form>
 

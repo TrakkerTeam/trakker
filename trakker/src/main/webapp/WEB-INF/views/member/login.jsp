@@ -76,7 +76,6 @@
 
 </head>
 <body>
-
 	<h2>Login</h2>
 <div class="container" style="width:30% !important">
   <form name="form1" method="post">

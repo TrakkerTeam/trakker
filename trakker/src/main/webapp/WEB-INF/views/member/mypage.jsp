@@ -84,7 +84,6 @@ function setActiveTag(tagId) {
     </br>
     <a href="${path}/member/memdelete.do">회원탈퇴</a>
 </div>
-
 <div class="d-flex" style="display: flex;" id="containerall">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 230px;" id="sidebar">
         <!-- Sidebar content -->
