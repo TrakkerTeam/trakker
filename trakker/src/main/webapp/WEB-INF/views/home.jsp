@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- 세션 사용 옵션 -->
 <%@ page session="true" %>
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-
+<meta charset="UTF-8">
+	<title>Home</title>
 </head>
 <body>
 <%@include file="header.jsp"%>
@@ -39,11 +37,12 @@
             </div>
             <div style="margin: 0; padding: 0;" class="uk-width-3-5@m uk-grid-margin uk-first-column">
                 <div style="background-color: rgb(129,129,145); height: 100vh;">
-                    <div>
-                        <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
-                            <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
-                        </video>
-                    </div>
+
+                        <div>
+                            <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
+                                <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
+                            </video>
+                        </div>
                 </div>
             </div>
         </div>
