@@ -86,16 +86,6 @@
                 </div>
             </div>
         </div>
-        <div class="ps-5">
-            <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                검색
-            </button>
-            <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-            </div>
-            </div>
-        </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col p-5">
                 <div class="card rounded-3 shadow-sm">
@@ -315,24 +305,24 @@
             </div>
 
         </div>
-    </div>
-    <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
-        <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-left"></i></a>
-        <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-left"></i></a>
-        <a class="ms-3 text-muted" href="">1</a>
-        <a class="ms-3 text-muted" href="">2</a>
-        <a class="ms-3 text-muted" href="">3</a>
-        <a class="ms-3 text-muted" href="">4</a>
-        <a class="ms-3 text-muted" href="">5</a>
-        <a class="ms-3 text-muted" href=""><strong><u>6</u></strong></a>
-        <a class="ms-3 text-muted" href="">7</a>
-        <a class="ms-3 text-muted" href="">8</a>
-        <a class="ms-3 text-muted" href="">9</a>
-        <a class="ms-3 text-muted" href="">10</a>
-        <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-right"></i></a>
-        <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-right"></i></a>
+        <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
+            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-left"></i></a>
+            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-left"></i></a>
+            <a class="ms-3 text-muted" href="">1</a>
+            <a class="ms-3 text-muted" href="">2</a>
+            <a class="ms-3 text-muted" href="">3</a>
+            <a class="ms-3 text-muted" href="">4</a>
+            <a class="ms-3 text-muted" href="">5</a>
+            <a class="ms-3 text-muted" href=""><strong><u>6</u></strong></a>
+            <a class="ms-3 text-muted" href="">7</a>
+            <a class="ms-3 text-muted" href="">8</a>
+            <a class="ms-3 text-muted" href="">9</a>
+            <a class="ms-3 text-muted" href="">10</a>
+            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-right"></i></a>
+            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-right"></i></a>
+        </div>
+        <%@ include file="../footer.jspf" %>
     </div>
 </div>
 </body>
-<%@ include file="../footer.jspf" %>
 </html>

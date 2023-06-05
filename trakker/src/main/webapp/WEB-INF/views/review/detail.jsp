@@ -79,16 +79,12 @@
     }
 </style>
 <script>
-    function resize(obj) {
-        obj.style.height = '1px';
-        obj.style.height = (25 + obj.scrollHeight) + 'px';
-    }
-    // $('document').ready(function () {
-    //     $('textarea').keyup(function (e) {
-    //         $(this).css('height', 'auto');
-    //         $(this).height(this.scrollHeight);
-    //     });
-    // });
+    $('document').ready(function () {
+        $('#textarea1').keyup(function (e) {
+            $(this).css('height', 'auto');
+            $(this).height(this.scrollHeight);
+        });
+    });
 </script>
 <body>
 <div class="container">
@@ -182,11 +178,10 @@
                 <small class="text-muted text-nowrap">작성일자(수정됨)<a class="ms-2 text-muted" href="javascript:void(0);" onclick="addComment()">답글달기</a></small>
             </div>
             <hr>
-
                 <div class="commentbox1">
                     <div class="d-flex row">
                         <div class="col-sm-11">
-                        <textarea onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="1"></textarea>
+                        <textarea id="textarea1" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="1"></textarea>
                         </div>
                         <div class="col-sm-1 align-self-end">
                         <button class="btn btn-outline-success">등록</button>
@@ -205,7 +200,7 @@
             <button type="button" class="btn btn-success end-0">목록</button>
         </div>
     </div>
+    <%@ include file="../footer.jspf" %>
 </div>
-<%@ include file="../footer.jspf" %>
 </body>
 </html>
