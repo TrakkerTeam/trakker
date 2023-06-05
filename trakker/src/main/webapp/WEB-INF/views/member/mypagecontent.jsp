@@ -4,18 +4,7 @@
 
 
 <style>
-  #sidebar {
-    width: 230px;
-  }
 
-  #sidebar ul.nav-pills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-
-   /* Cardlist */
    #cardlist {
      flex: 1;
      display: flex;
@@ -32,48 +21,31 @@
   #containerall {
     align-items: center;
   }
-  #li1,#li2,#li3{
-  padding-top:20px;
-   padding-bottom:20px;
-  }
     #search1 {
-      margin-left: auto;
+     display: flex;
+     justify-content: center;
     }
 
+    .container{
+     justify-content: center;
+    }
+
+    .search2{
+     display: flex;
+     justify-content: center;
+    }
 </style>
+
 
 <html>
 <head>
 <meta charset="UTF-8">
 
-<div class="d-flex" style="display: flex;" id="containerall">
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 230px;" id="sidebar">
-      <!-- Sidebar content -->
-      <ul class="nav nav-pills flex-column mb-auto ">
-        <li class="nav-item" id="li1">
-          <a href="#" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-            좋아요한 플래너
-          </a>
-        </li>
-        <li class="nav-item"  id="li2">
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-            좋아요한 게시글
-          </a>
-        </li>
-        <li class="nav-item"  id="li3">
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            내가 단 댓글
-          </a>
-        </li>
-      </ul>
-    </div>
-  <div class="album py-5 bg-light" id="cardlist" style="flex: 1; overflow-y: auto;">
+<div class="d-flex"  id="containerall">
+  <div class="album py-5 bg-light" id="cardlist" >
     <!-- Cardlist content -->
     <div class="container">
-
+<div class="search2">
     <div id="search1">
 
       <div class="col-sm-3" >
@@ -89,7 +61,9 @@
       </div>
 
       </div>
+</div>
 
+<div class="div2">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="div1">
         <div class="col">
           <div class="card shadow-sm">
@@ -156,6 +130,9 @@
           </div>
         </div>
       </div>
+</div>
+
+
     </div>
   </div>
 </div>

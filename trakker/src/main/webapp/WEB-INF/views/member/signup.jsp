@@ -38,6 +38,12 @@ function daumZipCode() {
         }
     }).open();
 }
+
+        function TermofUse(){
+            var popOption ="width = 650xp, height=550px, top=300px, left=300px, scrollbars=yes";
+			window.open("${path}/member/termsofuse.do", "개인정보처리방침",popOption);
+		}
+
 </script>
 
 
@@ -122,13 +128,14 @@ function daumZipCode() {
 </head>
 <body>
 	<h2>SIGN UP</h2>
+<div id="container">
 	<form name="form1" method="post">
 		<table  width="400px">
 			<tr>
 				<td  colspan="2">이메일</td>
 			</tr>
 			<tr>
-            	<td><input type="email" id="email" name="email"></td>
+            	<td ><input type="email" id="email" name="email"></td>
             	<td id="auth_number"><button type="button" id="authentication_number" name="authentication_number">인증번호 발급</button></td>
             </tr>
 
@@ -187,7 +194,7 @@ function daumZipCode() {
                 </tr>
                 <tr>
                     <td><input type="checkbox" name="req"> 이용약관 동의 </td>
-                    <td><a href="#">[보기]</a> </td>
+                    <td><a onclick="TermofUse()">[보기]</a> </td>
                 </tr>
                 <tr>
                     <td colspan="2"><button type="button" id="signup" name="signup">회원가입</button></td>
@@ -198,6 +205,7 @@ function daumZipCode() {
 
 		</table>
 	</form>
+</div>
 	<%@ include file="../footer.jsp" %>
 </body>
 </html>

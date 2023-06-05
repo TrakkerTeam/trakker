@@ -62,11 +62,13 @@ small {
 	<h2>비밀번호 찾기</h2>
 	<form name="form1" method="post">
 		<table  width="400px">
+
 			<tr>
-				<td>이메일</td>
-			</tr>
-			<tr>
-            	<td><input type="email" id="email" name="mem_email"></td>
+            	<td>
+            	<div class="form-floating mb-1">
+                                      <input type="email" class="form-control" id="email" name="mem_email" placeholder="name@example.com">
+                                      <label for="floatingInput">Email address</label>
+                            </div></td>
             </tr>
 
 			<tr>

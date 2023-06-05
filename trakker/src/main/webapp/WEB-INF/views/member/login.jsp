@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 <%@ include file="../header.jsp"%>
 <style>
-
         body {
             font-family: Arial, sans-serif;
             padding-top:80px;
@@ -29,13 +28,6 @@
             padding: 12px;
         }
 
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
 
         form{
             padding:10px;
@@ -54,6 +46,9 @@
         .error-message {
             color: red;
             text-align: center;
+        }
+        div{
+        margin:10px;
         }
     </style>
 
@@ -78,43 +73,42 @@
 		});
 	});
 </script>
+
 </head>
 <body>
-	<h2>Login</h2>
-	<form name="form1" method="post">
-		<table  width="400px">
-			<tr>
-				<td>이메일</td>
-			</tr>
-			<tr>
-            	<td><input type="email" id="email" name="mem_email"></td>
-            </tr>
 
-			<tr>
-				<td>비밀번호</td>
-			</tr>
-			<tr>
-				<td><input type="password" id="passwd" name="mem_pass"></td>
-			</tr>
-			<tr>
-			    <td><a href="${path}/member/findpassword.do">비밀번호를 잊으셨나요?</a> </td>
-			</tr>
-			<tr>
-				<td  align="center">
-					<button type="button" id="btnLogin">로그인</button>
-					 <c:if
-						test="${message == 'error'}">
-						<div style="color: red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
-					</c:if> <c:if test="${message == 'logout'}">
-						<div style="color: red;">로그아웃되었습니다.</div>
-					</c:if>
-				</td>
-			</tr>
-			<tr>
-			    <td >회원이 아니세요? <a href="${path}/member/signup.do">회원가입하기</a></td>
-			</tr>
-		</table>
-	</form>
+	<h2>Login</h2>
+<div class="container" style="width:30% !important">
+  <form name="form1" method="post">
+  <table  width="400px">
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" id="email" name="mem_email"placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" id="passwd" name="mem_pass"placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div>
+    <a href="${path}/member/findpassword.do">비밀번호를 잊으셨나요?</a>
+    </div>
+
+    <div>
+    <button class="w-100 btn btn-lg" style="background-color: #4CAF50; color: #fff;" id="btnLogin">Login</button>
+     <c:if
+    						test="${message == 'error'}">
+    						<div style="color: red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+    					</c:if> <c:if test="${message == 'logout'}">
+    						<div style="color: red;">로그아웃되었습니다.</div>
+    					</c:if>
+    </div>
+   <div> <p>회원이 아니세요? <a href="${path}/member/signup.do">회원가입하기</a></p></div>
+    </table>
+  </form>
+</div>
+
+
 	<%@ include file="../footer.jsp" %>
 </body>
 </html>

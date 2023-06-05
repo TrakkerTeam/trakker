@@ -42,8 +42,9 @@ function daumZipCode() {
 <style>
         body {
             font-family: Arial, sans-serif;
-       padding-top:80px;
+            padding-top:80px;
         }
+
 
         h2 {
             padding: 20px;
@@ -52,13 +53,17 @@ function daumZipCode() {
         }
 
         table {
-            width: 400px;
+            width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
         }
 
         table td {
             padding: 8px;
+        }
+
+        #profileimg{
+             text-align: center;
         }
 
         input[type="email"],
@@ -95,48 +100,41 @@ function daumZipCode() {
 <body>
 
     <h2>프로필 수정</h2>
-    	<form name="form1" method="post">
-        		<table  width="400px">
+    	<form name="form1" method="post" style="text-align: left;">
+        		<table  width="600px" >
+        		    <tr>
+                         <td colspan="2" id="profileimg">
+                          <img  style="width:200px; height:200px;"  src="../resources/images/car.gif" class="img-thumbnail rounded-circle">
+                          </td>
+        		    </tr>
+
         			<tr>
-        				<td  colspan="2">이메일</td>
+        				<td>이메일</td>
+        				<td>이름</td>
         			</tr>
         			<tr>
-                    	<td colspan="2"> <input type="email" id="email" name="email" value="${sessionScope.mem_email}" readonly></td>
+                    	<td><input type="email" id="email" name="email" value="${sessionScope.mem_email}" readonly></td>
+                    	<td><input type="text" id="name" name="name" value="${sessionScope.mem_name}"></td>
                     </tr>
 
         			<tr>
-        				<td colspan="2">비밀번호</td>
+        				<td>비밀번호</td>
+        				<td >비밀번호 확인</td>
         			</tr>
         			<tr>
-        				<td colspan="2"><input type="password" id="passwd" name="passwd"></td>
-        			</tr>
+        				<td><input type="password" id="passwd" name="passwd"></td>
+        				<td><input type="password" id="passwd_ck" name="passwd_ck"></td>
 
-        			<tr>
-                    	<td colspan="2">비밀번호 확인</td>
-                    </tr>
                     <tr>
-                    	<td colspan="2"><input type="password" id="passwd_ck" name="passwd_ck"></td>
-                    </tr>
-
-                    <tr>
-                        <td>이름</td>
                         <td>닉네임</td>
+                        <td>전화번호</td>
                     </tr>
                     <tr>
-                         <td><input type="text" id="name" name="name" value="${sessionScope.mem_name}"></td>
                          <td><input type="text" id="nickname" name="nickname" value="${sessionScope.mem_nickname}"></td>
+                         <td><input type="text" id="tel" name="tel" value="${sessionScope.mem_phone}"></td>
                     </tr>
-
-                     <tr>
-                        	<td colspan="2">전화번호</td>
-                     </tr>
-
                         <tr>
-                        	<td colspan="2"><input type="text" id="tel" name="tel" value="${sessionScope.mem_phone}"></td>
-                        </tr>
-
-                        <tr>
-                             <td>우편번호</td>
+                             <td style="text-align:center;">우편번호</td>
                              <td><input type="text" id="zipcode" name="zipcode" onclick="daumZipCode()" value="${sessionScope.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
                         </tr>
                         <tr>

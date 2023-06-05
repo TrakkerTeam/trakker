@@ -56,18 +56,20 @@
             color: red;
             text-align: center;
         }
+
     </style>
 
 </head>
 <body>
     <h2>회원탈퇴</h2>
-    <form name="form1" method="post">
-    		<table  width="400px">
+<form name="form1" method="post">
+    <table  width="400px">
     <tr>
-        <td colspan="2">비밀번호</td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="password" id="passwd" name="passwd"></td>
+        <td colspan="2" >
+        <div class="form-floating" >
+              <input type="password" class="form-control"  id="floatingPassword" name="mem_pass" placeholder="Password" >
+              <label for="floatingPassword">Password</label>
+        </div></td>
     </tr>
 
     <tr>
@@ -82,8 +84,9 @@
         <td colspan="2"><button type="button" id="logback" name="logback">취소하기</button>
         <div style="color: red;">${message}</div></td>
     </tr>
-    </form>
     </table>
+</form>
+
 
 	<%@ include file="../footer.jsp" %>
 </body>
