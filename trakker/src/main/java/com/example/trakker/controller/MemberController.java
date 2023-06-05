@@ -20,6 +20,29 @@ public class MemberController {
 	MemberService memberService;
 
 
+	@RequestMapping("admin_test_category.do")
+	public String admin_test_category(){
+		return "admin/admin_test_category";
+	}
+	@RequestMapping("termsofuse.do")
+	public String termsofuse(){
+		return "member/TermsofUse";
+	}
+
+
+	@RequestMapping("mypagecontent3.do")
+	public String mypagecontent3(){
+		return "member/mypagecontent3";
+	}
+	@RequestMapping("mypagecontent2.do")
+	public String mypagecontent2(){
+		return "member/mypagecontent2";
+	}
+
+	@RequestMapping("mypagecontent.do")
+	public String mypagecontent(){
+		return "member/mypagecontent";
+	}
 	@RequestMapping("editprofile.do")
 	public String editprofile(){
 		return "member/editprofile";
@@ -59,7 +82,7 @@ public class MemberController {
 //		  } else { // If admin_ck is not 1
 //			  mav.setViewName("home"); // Redirect to home
 //		  }
-		 mav.setViewName("home"); // 뷰의 이름
+		 mav.setViewName("home");
 	   } else { // 로그인 실패 시
 	     mav.setViewName("member/login"); 		
 	     mav.addObject("message", "error");

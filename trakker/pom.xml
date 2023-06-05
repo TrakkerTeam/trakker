@@ -102,6 +102,13 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>
 
+		<!-- Spring AOP 안되면 지우기 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
 		<!-- Logging -->
 		<!-- logback 로깅 관련 -->
 		<dependency>
