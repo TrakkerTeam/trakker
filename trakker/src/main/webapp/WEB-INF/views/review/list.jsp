@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -39,6 +38,11 @@
         else $('#d-search').removeClass('show')
     });
 
+    $(function() {
+        $("#Write").click(function(){
+            location.href="${path}/review/write";
+        });
+    });
 </script>
 <body>
 <div class="album py-5 bg-light">
@@ -63,25 +67,25 @@
             </a>
             <div class="collapse" id="d-search">
                 <div class="mt-2">
-                    <a href="#" class="text-muted"><strong><u>인기순</u></strong></a>
+                    <a href="#" class="text-muted"><strong><u>별점순</u></strong></a>
                     <a href="#" class="text-muted">최신순</a>
                 </div>
                 <div class="mt-1">
                     <a href="#" class="text-muted">서울</a>
-                    <a href="#" class="text-muted">경기</a>
+                    <a href="#" class="text-muted">부산</a>
+                    <a href="#" class="text-muted">대구</a>
                     <a href="#" class="text-muted">인천</a>
+                    <a href="#" class="text-muted">광주</a>
+                    <a href="#" class="text-muted">대전</a>
+                    <a href="#" class="text-muted">울산</a>
+                    <a href="#" class="text-muted">경기</a>
                     <a href="#" class="text-muted">강원</a>
                     <a href="#" class="text-muted">충북</a>
                     <a href="#" class="text-muted">충남</a>
-                    <a href="#" class="text-muted">대전</a>
-                    <a href="#" class="text-muted">경북</a>
-                    <a href="#" class="text-muted">경남</a>
-                    <a href="#" class="text-muted">대구</a>
-                    <a href="#" class="text-muted">울산</a>
-                    <a href="#" class="text-muted">부산</a>
                     <a href="#" class="text-muted">전북</a>
                     <a href="#" class="text-muted">전남</a>
-                    <a href="#" class="text-muted">광주</a>
+                    <a href="#" class="text-muted">경북</a>
+                    <a href="#" class="text-muted">경남</a>
                     <a href="#" class="text-muted">제주</a>
                 </div>
             </div>
@@ -320,6 +324,11 @@
             <a class="ms-3 text-muted" href="">10</a>
             <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-right"></i></a>
             <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-right"></i></a>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div class="btn-group m-3" role="group" aria-label="First group">
+                <button type="button" class="btn btn-success" id="Write">글쓰기</button>
+            </div>
         </div>
         <%@ include file="../footer.jspf" %>
     </div>
