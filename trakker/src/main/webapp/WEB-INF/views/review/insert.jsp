@@ -29,7 +29,7 @@
 </style>
 <script>
     $(function() {
-        $("#btnInsert").click(function(){
+        $("#Insert").click(function(){
             document.form1.submit();
         });
     });
@@ -38,7 +38,7 @@
 <body>
 <form name="form1" method="post" action="${path}/review/insert">
 <div class="container"><br>
-    <select class="form-select w-25" aria-label="Default select example" name="local.l_NUM">
+    <select class="form-select w-25" aria-label="Default select example" name="l_num">
         <option selected>지역</option>
         <option value="1">서울</option>
         <option value="2">부산</option>
@@ -91,7 +91,7 @@
         <div name="filename" value="이미지 이름">asdasd.jpg</div> <br><br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <div class="btn-group m-3" role="group" aria-label="First group">
-            <button type="button" id="btnInsert" class="btn btn-success btn-lg">등록</button>
+            <button type="button" id="Insert" class="btn btn-success btn-lg">등록</button>
         </div>
     </div>
     <br>
