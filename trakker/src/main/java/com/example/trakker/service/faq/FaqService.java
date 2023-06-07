@@ -8,7 +8,6 @@ import com.example.trakker.model.faq.dao.FaqDAO;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpSession;
 
 @Service

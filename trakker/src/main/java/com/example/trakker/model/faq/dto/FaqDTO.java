@@ -5,7 +5,6 @@ package com.example.trakker.model.faq.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
 import java.util.Date;
 
 @Data

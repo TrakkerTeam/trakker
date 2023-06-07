@@ -3,8 +3,6 @@
 package com.example.trakker.model.faq.dao;
 
 import java.util.List;
-
-
 import com.example.trakker.model.faq.dto.FaqDTO;
 import org.springframework.stereotype.Repository;
 

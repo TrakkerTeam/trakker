@@ -18,7 +18,6 @@
             });
         });
     </script>
-
 </head>
 <body>
 <div class="album py-5">

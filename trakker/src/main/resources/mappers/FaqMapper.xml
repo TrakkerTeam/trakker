@@ -1,10 +1,10 @@
-<!--인터페이스에 대한 SQL 쿼리 및 매핑을 정의합니다-->
+
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--인터페이스에 대한 SQL 쿼리 및 매핑을 정의합니다-->
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="com.example.trakker.model.faq.dao.FaqDAO">
     <select id="list" resultType="faqdto">
