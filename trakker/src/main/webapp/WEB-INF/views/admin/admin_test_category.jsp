@@ -329,7 +329,7 @@
             </div>
         </div>
     </div>
-    <%@include file="../footer.jsp" %>
+    <%@include file="../footer.jspf" %>
 </div>
 </div>
 
