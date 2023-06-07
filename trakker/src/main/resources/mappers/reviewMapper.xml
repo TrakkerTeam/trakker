@@ -1,0 +1,57 @@
+<!--리뷰 게시판용 Mapper ReviewDAO와 연결되어 DB의 쿼리문을 수행-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.trakker.model.review.dao.ReviewDAO">
+
+    <select id="getReviewList" resultMap="reviewResultMap">
+        SELECT r.review_num, r.title, r.content, r.review_date, l.k_NAME
+        FROM review r JOIN local l
+        ON r.L_NUM = l.L_NUM
+        order by review_num desc
+    </select>
+
+    <insert id="insert">
+        insert into review (review_num, L_NUM, title, content)
+        values (review_seq.nextval, #{local.l_NUM}, #{title}, #{content})
+    </insert>
+
+    <update id="count">
+        update review
+        set readcount = readcount + 1
+        where review_num = #{review_num}
+    </update>
+
+    <select id="detail" resultMap="reviewResultMap">
+        SELECT r.review_num, r.title, r.content, r.review_date, l.k_NAME, r.readcount
+        FROM review r JOIN local l
+        ON r.L_NUM = l.L_NUM
+        where review_num = #{review_num}
+    </select>
+
+
+    <resultMap id="reviewResultMap" type="review">
+        <id property="review_num" column="review_num"/>
+        <id property="MEM_NUM" column="mem_NUM"/>
+        <id property="L_NUM" column="l_NUM"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="review_date" column="review_date"/>
+        <result property="review_date" column="review_date"/>
+        <result property="readcount" column="readcount"/>
+        <result property="edit_date" column="edit_date"/>
+        <association property="local" resultMap="localResultMap"/>
+    </resultMap>
+
+    <resultMap id="localResultMap" type="local">
+        <id property="L_NUM" column="l_NUM"/>
+        <result property="K_NAME" column="k_NAME"/>
+        <result property="E_NAME" column="e_NAME"/>
+    </resultMap>
+
+
+</mapper>
