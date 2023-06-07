@@ -5,6 +5,7 @@ package com.example.trakker.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class FaqController {
 
-	private final FaqService faqService;
+	@Autowired
+	FaqService faqService;
 
 	@GetMapping("/faq/list.do")
 	public ModelAndView list(ModelAndView mav) throws Exception {
@@ -40,13 +42,19 @@ public class FaqController {
 		faqService.insert(dto);
 		return "redirect:/admin/adminPage.do";
 	}
-
 	@GetMapping("/faq/view.do")
 	public ModelAndView view(int faq_num, HttpSession session) throws Exception {
 		faqService.increaseViewcnt(faq_num, session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("faq/faq_modify");
-		mav.addObject("dto", faqService.read(faq_num));
+		mav.addObject("dto", faqService.view(faq_num));
 		return mav;
+	}
+
+	@PostMapping("/faq/update.do")
+	public String update(@ModelAttribute FaqDTO dto)
+		throws Exception{
+		faqService.update(dto);
+		return "redirect:/admin/adminPage.do";
 	}
 }

@@ -7,17 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/trip_style.css">
+
     <meta charset="UTF-8">
     <title>Insert title here</title>
+
 </head>
 <script type="text/javascript">
-    $(function () {
-        $("#btnModify").click(function () {
-            location.href = "${path}/faq/view.do";
-        });
-    });
-
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
     }
@@ -130,7 +125,7 @@
 
 </style>
 
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jspf" %>
 
 <div id="container">
     <div style="display: flex; height: auto;">
