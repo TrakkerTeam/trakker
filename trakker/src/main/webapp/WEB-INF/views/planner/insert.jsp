@@ -40,9 +40,7 @@
                         </ul>
                     </li>
                     <li class="btn-group px-3">
-                        <button type="button" class="btn btn-success">
-                            플래너 작성
-                        </button>
+                        <button type="button" class="btn btn-success">플래너 작성</button>
                     </li>
                 </ul>
             </div>
@@ -54,34 +52,22 @@
 <div class="d-flex flex-column flex-shrink-0 bg-light h-100" style="width: 4.5rem; position: fixed;z-index:2;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li class="nav-item">
-                <strong class="nav-link active py-3 border-bottom rounded-0" style="background-color: #dff0d8; color: #198754;">
-                    DAY
-                </strong>
+            <strong class="nav-link active py-3 border-bottom rounded-0" style="background-color: #dff0d8; color: #198754;">DAY</strong>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">
-                1일
-            </a>
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">1일</a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">
-                2일
-            </a>
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">2일</a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">
-                3일
-            </a>
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">3일</a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">
-                4일
-            </a>
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">4일</a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">
-                5일
-            </a>
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">5일</a>
         </li>
     </ul>
 </div>
@@ -132,7 +118,7 @@
 </div>
 
 <%--맵 영역--%>
-<div class="d-flex flex-column w-100 h-100" id="map" style="margin-left:380px;position: fixed;"></div>
+<div class="d-flex flex-column w-100 h-100" id="map" style="margin-left:380px;position:fixed;"></div>
 
 
 <div class="alert fade alert-info" role="alert" tabindex="-1" aria-hidden="false">
@@ -142,12 +128,12 @@
 <%--div 영역에 맵 띄우는 js코드--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff578b49f92891ac0c09c13cd0555703&libraries=services"></script>
 <script>
-    var mapContainer= $("#map")[0];
-    var mapOptions = {
+    const mapContainer= $("#map")[0];
+    const mapOptions = {
         center: new kakao.maps.LatLng(37.565715842361456, 126.97791684733436),
         level: 6
     };
-    var map = new kakao.maps.Map(mapContainer, mapOptions);
+    const map = new kakao.maps.Map(mapContainer, mapOptions);
 </script>
 </body>
 </html>

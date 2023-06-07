@@ -353,12 +353,6 @@
     </div>
     <%@ include file="../footer.jspf" %>
 </div>
-<script>
-    console.log('$(document).높이 '+$(document).height())
-    console.log('$(window).높이 '+window.innerHeight)
-    console.log('footer의 outerHeight '+$('footer').outerHeight())
-    console.log('스크롤 현재위치 '+$(window).scrollTop())
-</script>
 </body>
 
 </html>
