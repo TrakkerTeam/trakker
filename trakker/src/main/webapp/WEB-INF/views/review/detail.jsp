@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -16,7 +15,7 @@
         border-radius: 6px;
         box-sizing: border-box;
     }
-    textarea {
+    #textarea1 {
         border: none;
         resize: none;
         outline: none;
@@ -79,12 +78,10 @@
     }
 </style>
 <script>
-    $('document').ready(function () {
-        $('#textarea1').keyup(function (e) {
-            $(this).css('height', 'auto');
-            $(this).height(this.scrollHeight);
-        });
-    });
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (22 + obj.scrollHeight) + 'px';
+    }
 </script>
 <body>
 <div class="container">
@@ -102,38 +99,24 @@
     <div class="mx-5">
         <div class="d-flex justify-content-between align-items-center ">
             <div>
-                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>지역</small></p></a>
+                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>${review.local.k_NAME}</small></p></a>
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center">
             <div class="col-md-4 d-flex align-items-center">
-                <p class="mb-0 h3">청주에서 서울까지</p>
+                <p class="mb-0 h3">${review.title}</p>
             </div>
         </div>
         <div>
             <p class="mb-0 h6"><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">이학동</p>
             <div>
-                <small class="opacity-50 mb-0 text-nowrap">2023.06.02 20:23</small>
-                <small class="opacity-50 mb-0 ms-2 text-nowrap">조회 80</small>
+                <small class="opacity-50 mb-0 text-nowrap"><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+                <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
             </div>
         </div>
         <hr>
         <div>
-            <p class="mb-1">확장이전하고나서 두번째 방문인데 전에도 맛본 통갈치구이코스는
-                손자 채운이도 이제는 먹성이 좋아져 맛있게 잘먹어주고..!!
-                변함이없는 다양한 메뉴구성과 실장님의 정성스런 서비스와 친절에
-                행복한 가족외식시간을 보냈습니다..!!
-                이제 여름철을 맞이해 시원한 물회가 생각나시거나 통갈치구이맛을 보고
-                싶으시면 수원 인계동 달인의횟집 바다예찬을 방문하셔서
-                바다내음 물씬풍기는 스폐셜코스를 맛보시기 바랍니다..!!
-                [출처] [수원 인계동 달인의횟집]바다예찬|작성자 임꺽정확장이전하고나서 두번째 방문인데 전에도 맛본 통갈치구이코스는
-                손자 채운이도 이제는 먹성이 좋아져 맛있게 잘먹어주고..!!
-                변함이없는 다양한 메뉴구성과 실장님의 정성스런 서비스와 친절에
-                행복한 가족외식시간을 보냈습니다..!!
-                이제 여름철을 맞이해 시원한 물회가 생각나시거나 통갈치구이맛을 보고
-                싶으시면 수원 인계동 달인의횟집 바다예찬을 방문하셔서
-                바다내음 물씬풍기는 스폐셜코스를 맛보시기 바랍니다..!!
-                [출처] [수원 인계동 달인의횟집]바다예찬|작성자 임꺽정</p>
+            <p class="mb-1">${review.content}</p>
         </div>
         <hr>
         <div class="text-center border-bottom mt-3">
@@ -181,10 +164,10 @@
                 <div class="commentbox1">
                     <div class="d-flex row">
                         <div class="col-sm-11">
-                        <textarea id="textarea1" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="1"></textarea>
+                            <textarea id="textarea1" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="2"></textarea>
                         </div>
                         <div class="col-sm-1 align-self-end">
-                        <button class="btn btn-outline-success">등록</button>
+                            <button class="btn btn-outline-success">등록</button>
                         </div>
                     </div>
                 </div>
