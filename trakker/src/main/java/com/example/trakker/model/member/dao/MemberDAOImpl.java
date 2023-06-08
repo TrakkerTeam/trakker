@@ -15,7 +15,7 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Autowired
 	SqlSession sqlSession;
-	
+
 	@Override
 	public String logincheck(MemberDTO dto) {
 		String name = sqlSession.selectOne("member.logincheck",dto);
@@ -30,6 +30,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void insertMember(MemberDTO dto) {
 		sqlSession.insert("member.insertMember",dto);
+	}
+
+	@Override
+	public int emailCheck(String mem_email) {
+		int cnt = sqlSession.selectOne("member.emailCheck",mem_email);
+		return cnt;
 	}
 
 

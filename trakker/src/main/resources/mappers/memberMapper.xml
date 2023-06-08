@@ -5,7 +5,7 @@
 
 <mapper namespace="member">
     <select id="logincheck" resultType="string"
-            parameterType="com.example.trakker.model.member.dto.MemberDTO">
+            parameterType="member">
         select mem_name
         from member
         where mem_email=#{mem_email}
@@ -13,14 +13,14 @@
     </select>
 
     <select id="memberView"
-            resultType="com.example.trakker.model.member.dto.MemberDTO">
+            resultType="member">
         select *
         from member
         where mem_email=#{mem_email}
     </select>
 
     <select id="memberList"
-            resultType="com.example.trakker.model.member.dto.MemberDTO">
+            resultType="member">
         select*from member
         order by mem_num desc
     </select>
@@ -30,6 +30,9 @@
         values (member_seq.NEXTVAL,#{mem_email},#{mem_pass},#{mem_name},#{mem_birth},#{mem_gender},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},#{mem_nickname})
     </insert>
 
+    <select id="emailCheck" parameterType="String" resultType="int">
+        select count(mem_email) from member where mem_email=#{mem_email}
+    </select>
 
 </mapper>
 

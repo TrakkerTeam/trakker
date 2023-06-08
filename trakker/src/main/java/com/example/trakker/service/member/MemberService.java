@@ -14,6 +14,7 @@ public interface MemberService {
 	public void logout(HttpSession session);
 	public MemberDTO viewMember(String mem_email);
 	public void insertMember(MemberDTO dto);
+	public int emailCheck(String mem_email); //mem_email 중복체크
 
 
 }
