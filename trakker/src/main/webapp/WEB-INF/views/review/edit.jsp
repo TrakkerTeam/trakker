@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>insert</title>
-    <%@ include file="../header.jsp" %>
+    <%@ include file="../header.jspf" %>
     <!-- 서머노트를 위해 추가해야할 부분 -->
     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>

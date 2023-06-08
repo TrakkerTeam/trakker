@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <%@ include file="../header.jsp" %>
+    <%@ include file="../header.jspf" %>
 </head>
 <body>
     <div class="album py-5 bg-light">

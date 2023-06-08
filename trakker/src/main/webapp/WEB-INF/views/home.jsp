@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%@include file="header.jspf"%>
 <header class="wide-spacing" id="home">
 
     <div class="main-top-container">

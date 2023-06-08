@@ -1,34 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+
 <script src="${path}/include/js/bootstrap.js"></script>
 <link rel="stylesheet" href="${path}/include/style.css">
 <script src="${path}/include/jquery-3.6.3.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="UTF-8">
   <title>Insert title here</title>
-<style>
-.container {
-display: flex;
-flex-direction: column;
-  align-items: flex-start;
-}
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-table {
-width: 700px;
-border-collapse: collapse;
-}
+    table {
+      width: 700px;
+      border-collapse: collapse;
+    }
 
-th, td {
-border: 1px solid black;
-padding: 8px;
-}
-</style>
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
 <body>
 
 <div class="container" >
@@ -99,11 +102,11 @@ padding: 8px;
 <script>
   function userview() {
     $.ajax({
-        type: "post",
-        url:"${path}/admin/view.do",
-        success:function (result){
-          $("#result").html(result);
-        }
+      type: "post",
+      url:"${path}/admin/view.do",
+      success:function (result){
+        $("#result").html(result);
+      }
 
     });
   }
