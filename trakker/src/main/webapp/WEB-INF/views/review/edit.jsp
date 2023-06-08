@@ -39,7 +39,7 @@
 <div class="container"><br>
         <input type="hidden" name="review_num" value="${review.review_num}" />
         <select class="form-select w-25" aria-label="Default select example" name="l_num">
-        <option selected>${review.local.k_name}</option>
+        <option selected value="${review.l_num}">${review.local.k_name}</option>
         <option value="1">서울</option>
         <option value="2">부산</option>
         <option value="3">대구</option>

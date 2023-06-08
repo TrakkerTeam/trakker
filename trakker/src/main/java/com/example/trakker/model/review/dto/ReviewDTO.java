@@ -1,21 +1,15 @@
-//DB의 review용 ReviewDTO
-
 package com.example.trakker.model.review.dto;
 
-import com.example.trakker.model.local.dto.LocalDTO;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.example.trakker.item.LocalDTO;
+import lombok.Data;
 
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class ReviewDTO {
     private Integer review_num;
-    private Integer MEM_NUM;
-    private Integer L_NUM;
+    private Integer mem_num;
+    private Integer l_num;
     private String title;
     private String content;
     private Date review_date;
