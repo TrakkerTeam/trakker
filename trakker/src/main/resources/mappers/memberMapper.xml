@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="member">
-<select id="memberList" resultType="com.example.trakker.model.member.dto.MemberDTO">
-select*from member
-order by mem_num desc
-</select>
-<select id="memberView"  resultType="com.example.trakker.model.member.dto.MemberDTO">
-select *from member
-where mem_num =#{mem_num}
-</select>
-</mapper>
+    <select id="logincheck" resultType="string"
+            parameterType="com.example.trakker.model.member.dto.MemberDTO">
+        select mem_name
+        from member
+        where mem_email=#{mem_email}
+          and mem_pass=#{mem_pass}
+    </select>
 
+    <select id="memberView"
+            resultType="com.example.trakker.model.member.dto.MemberDTO">
+        select *
+        from member
+        where mem_email=#{mem_email}
+    </select>
+
+    <select id="memberList"
+            resultType="com.example.trakker.model.member.dto.MemberDTO">
+        select*from member
+        order by mem_num desc
+    </select>
+
+    <insert id="insertMember">
+        insert into member (mem_num,mem_email,mem_pass,mem_name,mem_birth,mem_gender,mem_phone,mem_zipcode,mem_address1,mem_address2,mem_nickname)
+        values (member_seq.NEXTVAL,#{mem_email},#{mem_pass},#{mem_name},#{mem_birth},#{mem_gender},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},#{mem_nickname})
+    </insert>
+
+
+</mapper>
 
 
 
