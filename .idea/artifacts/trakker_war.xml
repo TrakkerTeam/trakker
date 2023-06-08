@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="trakker:war">
+    <output-path>$PROJECT_DIR$/trakker/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>trakker</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="trakker-1.0.0-BUILD-SNAPSHOT.war">
+      <element id="artifact" artifact-name="trakker:war exploded" />
+    </root>
+  </artifact>
+</component>
