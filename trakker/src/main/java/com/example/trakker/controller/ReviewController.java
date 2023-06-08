@@ -1,16 +1,12 @@
-//요청을 받아서 ReviewService로 전달하고, ReviewService로 처리된 결과를 받아 View에 전달함
-
 package com.example.trakker.controller;
 
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -22,44 +18,57 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @RequestMapping("/review/list")
-    public String list(Model model) {
-        return "review/list";
-    }
-
-    @GetMapping("/review/review_list")
+    @GetMapping("/review/list")
     public String getReviewList(Model model) {
-        List<ReviewDTO> reviewList = reviewService.getReviewList();
+        List<ReviewDTO> reviewList = reviewService.list();
         model.addAttribute("reviewList", reviewList);
-        return "review/review_list";
+        return "review/list";
     }
 
     @GetMapping("/review/write")
     public String write(Model model) {
-        model.addAttribute("reviewVO", new ReviewDTO());
+        model.addAttribute("reviewDTO", new ReviewDTO());
         return "review/insert";
     }
 
-
     @PostMapping("/review/insert")
-    public String insert(@ModelAttribute("reviewVO") ReviewDTO review) {
+    public String insert(@ModelAttribute("reviewDTO") ReviewDTO review) {
         reviewService.insert(review);
-        return "review/list";
-    }
-
-    @RequestMapping("/review/edit")
-    public String edit(Model model) {
-        return "review/edit";
+        return "redirect:/review/list";
     }
 
     @GetMapping("/review/detail")
     public ModelAndView detail(Integer review_num, HttpSession session) {
-        ReviewDTO review = reviewService.detail(review_num);
         reviewService.count(review_num, session);
+        ReviewDTO review = reviewService.detail(review_num);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/detail");
         mav.addObject("review", review);
         return mav;
     }
+
+    @GetMapping("/review/edit")
+    public ModelAndView edit(Integer review_num, HttpSession session) {
+        reviewService.count(review_num, session);
+        ReviewDTO review = reviewService.detail(review_num);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("review/edit");
+        mav.addObject("review", review);
+        return mav;
+    }
+
+    @PostMapping("/review/update")
+    public String update(@ModelAttribute("reviewDTO") ReviewDTO review) {
+        reviewService.update(review);
+        return "redirect:/review/detail?review_num="+review.getReview_num();
+    }
+
+    @PostMapping("/review/delete")
+    public String delete(Integer review_num) {
+        reviewService.delete(review_num);
+        return "redirect:/review/list";
+    }
+
+
 
 }

@@ -1,23 +1,21 @@
-<!--리뷰 게시판용 Mapper ReviewDAO와 연결되어 DB의 쿼리문을 수행-->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.example.trakker.model.review.dao.ReviewDAO">
+<mapper namespace="review">
 
-    <select id="getReviewList" resultMap="reviewResultMap">
-        SELECT r.review_num, r.title, r.content, r.review_date, l.k_NAME
-        FROM review r JOIN local l
-        ON r.L_NUM = l.L_NUM
+    <select id="list" resultMap="reviewResultMap">
+        select r.review_num, r.title, r.content, r.review_date, l.K_NAME, l.l_num
+        from review r join local l
+        on r.l_num = l.l_num
         order by review_num desc
     </select>
 
     <insert id="insert">
-        insert into review (review_num, L_NUM, title, content)
-        values (review_seq.nextval, #{local.l_NUM}, #{title}, #{content})
+        insert into review (review_num, l_num, title, content)
+        values (review_seq.nextval, #{l_num}, #{title}, #{content})
     </insert>
 
     <update id="count">
@@ -27,17 +25,37 @@
     </update>
 
     <select id="detail" resultMap="reviewResultMap">
-        SELECT r.review_num, r.title, r.content, r.review_date, l.k_NAME, r.readcount
-        FROM review r JOIN local l
-        ON r.L_NUM = l.L_NUM
+        select r.review_num, r.title, r.content, r.review_date, l.k_name, r.readcount, l.l_num, r.edit_date
+        from review r join local l
+        on r.l_num = l.l_num
         where review_num = #{review_num}
     </select>
+
+    <select id="edit" resultMap="reviewResultMap">
+        select r.review_num, r.title, r.content, r.review_date, l.k_name, l.l_num
+        from review r join local l
+        on r.l_num = l.l_num
+        where review_num = #{review_num}
+    </select>
+
+    <update id="update">
+        update review
+        set l_num = #{l_num}, title = #{title}, content = #{content}, edit_date = sysdate
+        where review_num = #{review_num}
+    </update>
+
+    <delete id="delete">
+        delete from review
+        where review_num = #{review_num}
+    </delete>
+
+
 
 
     <resultMap id="reviewResultMap" type="review">
         <id property="review_num" column="review_num"/>
-        <id property="MEM_NUM" column="mem_NUM"/>
-        <id property="L_NUM" column="l_NUM"/>
+        <id property="mem_num" column="MEM_NUM"/>
+        <id property="l_num" column="L_NUM"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="review_date" column="review_date"/>
@@ -48,10 +66,34 @@
     </resultMap>
 
     <resultMap id="localResultMap" type="local">
-        <id property="L_NUM" column="l_NUM"/>
-        <result property="K_NAME" column="k_NAME"/>
-        <result property="E_NAME" column="e_NAME"/>
+        <id property="l_num" column="L_NUM"/>
+        <result property="k_name" column="K_NAME"/>
+        <result property="Ee_name" column="E_NAM"/>
     </resultMap>
+
+<!--    <resultMap id="imgResultMap" type="img">-->
+<!--        <id property="ref_num" column="REF_NUM"/>-->
+<!--        <result property="ref_img" column="REF_IMG"/>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="ratingResultMap" type="rating">-->
+<!--        <id property="mem_num" column="MEM_NUM"/>-->
+<!--        <result property="t_num" column="T_NUM"/>-->
+<!--        <result property="review_num" column="review_num"/>-->
+<!--        <result property="star" column="star"/>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="commentResultMap" type="comment">-->
+<!--        <id property="comment_num" column="comment_num"/>-->
+<!--        <id property="review_num" column="review_num"/>-->
+<!--        <id property="mem_num" column="MEM_NUM"/>-->
+<!--        <id property="l_num" column="L_NUM"/>-->
+<!--        <id property="comment_p" column="comment_p"/>-->
+<!--        <id property="content" column="content"/>-->
+<!--        <result property="com_date" column="com_date"/>-->
+<!--        <result property="com_delete" column="com_delete"/>-->
+<!--        <result property="com_delete" column="com_delete"/>-->
+<!--    </resultMap>-->
 
 
 </mapper>

@@ -1,20 +1,21 @@
-//ReviewMapper 와 연결된 dao, DB에 접근함
-
 package com.example.trakker.model.review.dao;
 
 import com.example.trakker.model.review.dto.ReviewDTO;
-import org.springframework.stereotype.Repository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@Repository
 public interface ReviewDAO {
 
-    List<ReviewDTO> getReviewList();
+    List<ReviewDTO> list();
 
     void insert(ReviewDTO review);
 
+    void count(Integer review_num, HttpSession session);
+
     ReviewDTO detail(Integer review_num);
 
-    void count(Integer review_num);
+    void update(ReviewDTO review);
+
+    void delete(Integer review_num);
 }

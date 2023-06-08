@@ -90,224 +90,40 @@
                 </div>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스
-                                20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.레트로 감성 핫플레이스 20대 남녀노소 다 좋아할만한 코스들만 모아서 다녀왔습니다.</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">지역</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
 
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <c:forEach var="review" items="${reviewList}">
+            <div class="col p-5">
+                <div class="card rounded-3 shadow-sm">
+                    <a href="${path}/review/detail?review_num=${review.review_num}" style="text-decoration-line:none;">
+                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
+                        <div class="card-body rounded-3 p-0 w-100">
+                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
+                            <p class="card-text m-3">${review.title}</p>
+                        </div>
+                        <div class="card-img-overlay rounded-3 p-0">
+                            <div class="card-body align-text-top text-end p-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="text-muted">${review.local.k_name}</h6>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <i class="bi bi-star-fill me-1"></i>
+                                        <h5 class="mt-2"> 8.1</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+                <c:choose>
+                    <c:when test=" %3 == 1">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
+                    </c:when>
+                    <c:when test=" %3 == 2">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
         </div>
         <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
             <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-left"></i></a>

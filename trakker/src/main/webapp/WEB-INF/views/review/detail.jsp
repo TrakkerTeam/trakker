@@ -90,17 +90,21 @@
         $(".Edit").click(function() {
             location.href="${path}/review/edit?review_num=${review.review_num}";
         });
+        $(".Delete").click(function() {
+            if(confirm("삭제하시겠습니까?")){
+                document.form1.action="${path}/review/delete";
+                document.form1.submit();
+            }
+        });
     });
 
 </script>
 <body>
 <div class="container">
-    <input type="hidden" name="l_num" value="${review.l_num}">
-    <input type="hidden" name="review_num" value="${review.review_num}">
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5">
         <div class="justify-content-md-start">
-            <button type="button" class="btn Edit btn-light start-0">수정</button>
-            <button class="btn btn-light start-0">삭제</button>
+                <button type="button" class="btn Edit btn-light start-0">수정</button>
+                <button type="button" class="btn Delete btn-light start-0">삭제</button>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0">이전글</button>
@@ -115,7 +119,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-            <div class="col-md-4 d-flex align-items-center">
+            <div class="col-md-12 d-flex align-items-center">
                 <p class="mb-0 h3">${review.title}</p>
             </div>
         </div>
@@ -197,7 +201,7 @@
     <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
         <div class="justify-content-md-start">
             <button type="button" class="btn Edit btn-light start-0">수정</button>
-            <button type="button" class="btn btn-light start-0">삭제</button>
+            <button type="button" class="btn Delete btn-light start-0">삭제</button>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0"><i class="bi bi-caret-up-fill"></i>TOP</button>
@@ -206,5 +210,9 @@
     </div>
     <%@ include file="../footer.jspf" %>
 </div>
+<form name="form1" method="post">
+    <input type="hidden" name="l_num" value="${review.l_num}">
+    <input type="hidden" name="review_num" value="${review.review_num}">
+</form>
 </body>
 </html>
