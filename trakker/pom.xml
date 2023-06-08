@@ -11,7 +11,7 @@
 		<properties>
 		<java-version>11</java-version>
 		<!-- 스프링버전 5.0.3, 에러가 날 경우 호환성을 위해 버전조정 가능 -->
-		<org.springframework-version>5.0.3.RELEASE</org.springframework-version>
+		<org.springframework-version>5.3.9</org.springframework-version>
 		<org.aspectj-version>1.8.10</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
