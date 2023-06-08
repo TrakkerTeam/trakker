@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>insert</title>
+    <title>detail</title>
     <%@ include file="../header.jspf" %>
 </head>
 <style>
@@ -78,28 +78,40 @@
     }
 </style>
 <script>
+
     function resize(obj) {
         obj.style.height = '1px';
         obj.style.height = (22 + obj.scrollHeight) + 'px';
     }
+    $(function() {
+        $(".List").click(function() {
+            location.href="${path}/review/list";
+        });
+        $(".Edit").click(function() {
+            location.href="${path}/review/edit?review_num=${review.review_num}";
+        });
+    });
+
 </script>
 <body>
 <div class="container">
+    <input type="hidden" name="l_num" value="${review.l_num}">
+    <input type="hidden" name="review_num" value="${review.review_num}">
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5">
         <div class="justify-content-md-start">
-            <button type="button" class="btn btn-light start-0">수정</button>
-            <button type="button" class="btn btn-light start-0">삭제</button>
+            <button type="button" class="btn Edit btn-light start-0">수정</button>
+            <button class="btn btn-light start-0">삭제</button>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0">이전글</button>
             <button type="button" class="btn btn-light end-0">다음글</button>
-            <button type="button" class="btn btn-success end-0">목록</button>
+            <button type="button" class="btn List btn-success end-0">목록</button>
         </div>
     </div>
     <div class="mx-5">
         <div class="d-flex justify-content-between align-items-center ">
             <div>
-                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>${review.local.k_NAME}</small></p></a>
+                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>${review.local.k_name}</small></p></a>
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center">
@@ -108,9 +120,18 @@
             </div>
         </div>
         <div>
-            <p class="mb-0 h6"><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">이학동</p>
+            <p class="mb-0 h6"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="mdo" width="32" height="32" class="rounded-circle">이학동</p>
             <div>
-                <small class="opacity-50 mb-0 text-nowrap"><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+                <small class="opacity-50 mb-0 text-nowrap">
+                    <c:choose>
+                        <c:when test="${review.edit_date == null}">
+                            <fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:formatDate value="${review.edit_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </c:otherwise>
+                    </c:choose>
+                </small>
                 <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
             </div>
         </div>
@@ -175,12 +196,12 @@
     </div>
     <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
         <div class="justify-content-md-start">
-            <button type="button" class="btn btn-light start-0">수정</button>
+            <button type="button" class="btn Edit btn-light start-0">수정</button>
             <button type="button" class="btn btn-light start-0">삭제</button>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0"><i class="bi bi-caret-up-fill"></i>TOP</button>
-            <button type="button" class="btn btn-success end-0">목록</button>
+            <button type="button" class="btn List btn-success end-0">목록</button>
         </div>
     </div>
     <%@ include file="../footer.jspf" %>
