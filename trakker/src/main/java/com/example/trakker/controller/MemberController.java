@@ -5,10 +5,7 @@ import javax.servlet.http.HttpSession;
 import com.example.trakker.service.member.MailSendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.trakker.model.member.dto.MemberDTO;
@@ -25,6 +22,14 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	 MailSendService mailService;
+
+	//아이디 중복체크
+	@PostMapping("emailCheck.do")
+	@ResponseBody
+	public int emailCheck(@RequestParam("mem_email") String mem_email) {
+		int cnt = memberService.emailCheck(mem_email);
+		return cnt;
+	}
 
 	@GetMapping("mailCheck.do")
 	@ResponseBody

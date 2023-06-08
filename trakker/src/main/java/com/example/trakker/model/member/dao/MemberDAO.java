@@ -9,5 +9,6 @@ public interface MemberDAO {
 	 public String logincheck(MemberDTO dto); //로그인 체크기능
 	 public MemberDTO viewMember(String mem_email);//회원정보
 	 public void insertMember(MemberDTO dto);//회원가입
+	 public int emailCheck(String mem_email);
 
 }
