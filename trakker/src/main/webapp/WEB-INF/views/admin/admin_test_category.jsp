@@ -1,88 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/trip_style.css">
+
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <%@ include file="../header.jspf" %>
 </head>
-<script type="text/javascript">
-    $(function () {
-        $("#btnModify").click(function () {
-            location.href = "${path}/faq/view.do";
-        });
-    });
-
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = "block";
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
-    }
-
-    function redirectToPage() {
-        location.href = "${path}/faq/faq_list.jsp";
-    }
-
-    function memberList() {
-        $.ajax({
-            type: "post",
-            url: "${path}/admin/memberList",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function tripList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/trip/list_admin.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function faqList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/faq/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function adminList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/admin/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function reviewList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/review/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-</script>
 <style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
 
+    .modal-content {
+        display: block;
+        margin: 15% auto;
+        max-width: 900px;
+        padding: 20px;
+        border-radius: 5px;
+    }
 
     #container {
         display: flex;
@@ -129,8 +74,61 @@
     }
 
 </style>
+<script type="text/javascript">
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
 
-<%@ include file="../header.jsp" %>
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    function redirectToPage() {
+        location.href = "${path}/faq/faq_list.jsp";
+    }
+
+    function memberList() {
+        $.ajax({
+            type: "post",
+            url: "${path}/admin/memberList",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function tripList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/trip/list_admin.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function faqList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/faq/list.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function reviewList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/review/list.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+</script>
+
 
 <div id="container">
     <div style="display: flex; height: auto;">
@@ -150,7 +148,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>회원관리</h3>
-                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
+                                    <button class="btn" type="button" onclick="memberList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -192,7 +190,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>리뷰페이지</h3>
-                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
+                                    <button class="btn" type="button" onclick="memberList()" >
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -236,8 +234,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>FAQ</h3>
-                                    <button class="btn" type="button" onclick="faqList()"
-                                            style="float: right;">
+                                    <button class="btn" type="button" onclick="faqList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -272,9 +269,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>관광지</h3>
-
-                                    <button class="btn" type="button" onclick="tripList()"
-                                            style="float: right;">
+                                    <button class="btn" type="button" onclick="tripList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -331,11 +326,5 @@
     </div>
     <%@include file="../footer.jspf" %>
 </div>
-</div>
 
-<script>
-
-</script>
-
-</body>
 </html>

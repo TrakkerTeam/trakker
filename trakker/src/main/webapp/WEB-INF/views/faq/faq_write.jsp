@@ -1,11 +1,11 @@
 <!--faq를 추가하는 페이지입니다.-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
  <meta charset="UTF-8">
  <title>FAQ_write</title>
- <%@ include file="../header.jsp" %>
+ <%@include file="../itemfile.jspf"%>
  <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
  <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">

@@ -45,26 +45,26 @@
             </tr>
             </thead>
             <tbody>
-            <%--            <c:forEach var="row" items="${list}">--%>
-            <%--                <tr>--%>
-            <%--                    <td>${row.faq_num}</td>--%>
-            <%--                    <td><a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a></td>--%>
-            <%--                    <td><fmt:formatDate value="${row.faq_reg_date}"--%>
-            <%--                                        pattern="yyyy-MM-dd"/></td>--%>
-            <%--                    <td>${row.readcount}</td>--%>
-            <%--                </tr>--%>
-            <%--            </c:forEach>--%>
-            <c:set var="recentList" value="${list.subList(0, 10)}"/>
-            <c:forEach var="row" items="${recentList}">
-                <tr>
-                    <td>${row.faq_num}</td>
-                    <td>
-                        <a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a>
-                    </td>
-                    <td><fmt:formatDate value="${row.faq_reg_date}" pattern="yyyy-MM-dd"/></td>
-                    <td>${row.readcount}</td>
-                </tr>
-            </c:forEach>
+                        <c:forEach var="row" items="${list}">
+                            <tr>
+                                <td>${row.faq_num}</td>
+                                <td><a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a></td>
+                                <td><fmt:formatDate value="${row.faq_reg_date}"
+                                                    pattern="yyyy-MM-dd"/></td>
+                                <td>${row.readcount}</td>
+                            </tr>
+                        </c:forEach>
+<%--            <c:set var="recentList" value="${list.subList(0, 10)}"/>--%>
+<%--            <c:forEach var="row" items="${recentList}">--%>
+<%--                <tr>--%>
+<%--                    <td>${row.faq_num}</td>--%>
+<%--                    <td>--%>
+<%--                        <a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a>--%>
+<%--                    </td>--%>
+<%--                    <td><fmt:formatDate value="${row.faq_reg_date}" pattern="yyyy-MM-dd"/></td>--%>
+<%--                    <td>${row.readcount}</td>--%>
+<%--                </tr>--%>
+<%--            </c:forEach>--%>
             </tbody>
         </table>
         <button class="btn btn-outline-success" type="submit" id="btnWrite" style="float:right;">글쓰기</button>

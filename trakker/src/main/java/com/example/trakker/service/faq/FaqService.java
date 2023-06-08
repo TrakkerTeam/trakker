@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.trakker.model.faq.dao.FaqDAO;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class FaqService {
 
-	private final FaqDAO faqDao;
+	@Autowired
+	FaqDAO faqDao;
 
 	public List<FaqDTO> list() throws Exception {
 		return faqDao.list();
@@ -37,7 +39,8 @@ public class FaqService {
 	}
 
 
-	public FaqDTO read(int faq_num) throws Exception {
-		return faqDao.read(faq_num);
+	public FaqDTO view(int faq_num) throws Exception {
+		return faqDao.view(faq_num);
 	}
+
 }
