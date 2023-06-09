@@ -1,4 +1,4 @@
-//FAQ 클래스에서 구현할 수 있는 메서드를 선언합니다
+//FAQ 클래스에서 구현할 수 있는 메서드를 선언합니다.
 
 package com.example.trakker.model.faq.dao;
 
