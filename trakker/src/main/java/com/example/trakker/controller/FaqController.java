@@ -37,7 +37,7 @@ public class FaqController {
 	public String write() {
 		return "/faq/faq_write";
 	}
-	
+
 
 	@PostMapping("/faq/insert.do")
 	public String insert(@ModelAttribute FaqDTO dto)
