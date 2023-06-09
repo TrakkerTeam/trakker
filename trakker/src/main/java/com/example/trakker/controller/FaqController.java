@@ -67,4 +67,5 @@ public class FaqController {
 		faqService.delete(faq_num);
 		return "redirect:/admin/adminPage.do";
 	}
+
 }

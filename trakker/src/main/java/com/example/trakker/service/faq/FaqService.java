@@ -43,4 +43,6 @@ public class FaqService {
 		return faqDao.view(faq_num);
 	}
 
+
+
 }

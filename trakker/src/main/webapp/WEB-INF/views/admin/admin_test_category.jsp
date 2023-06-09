@@ -10,25 +10,6 @@
     <%@ include file="../header.jspf" %>
 </head>
 <style>
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-    }
-
-    .modal-content {
-        display: block;
-        margin: 15% auto;
-        max-width: 900px;
-        padding: 20px;
-        border-radius: 5px;
-    }
-
     #container {
         display: flex;
         height: 100%;
@@ -75,13 +56,6 @@
 
 </style>
 <script type="text/javascript">
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = "block";
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
-    }
 
     function redirectToPage() {
         location.href = "${path}/faq/faq_list.jsp";
@@ -285,7 +259,7 @@
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">북촌 한옥마을</a></td>
+                                        <td>북촌 한옥마을</td>
                                         <td><p class="content2">북촌 한옥마을은 서울에 위치한
                                             한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.
                                         </p>
@@ -294,7 +268,7 @@
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">전주 한옥마을</a></td>
+                                        <td>전주 한옥마을</td>
                                         <td><p class="content2"> 전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는
                                             한옥마을이다.
                                             원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때
@@ -306,7 +280,7 @@
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">경복궁</a></td>
+                                        <td>경복궁</td>
                                         <td><p class="content2">경복궁은 조선 왕조 제일의 법궁이다. 북으로
                                             북악산을 기대어 자리 잡았고 정문인 광화문
                                             앞으로는 넓은 육조거리가 펼쳐져,
@@ -326,5 +300,4 @@
     </div>
     <%@include file="../footer.jspf" %>
 </div>
-
 </html>
