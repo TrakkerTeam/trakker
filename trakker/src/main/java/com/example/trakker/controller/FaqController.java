@@ -4,12 +4,15 @@
 package com.example.trakker.controller;
 
 import java.util.List;
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.service.faq.FaqService;
@@ -34,7 +37,7 @@ public class FaqController {
 	public String write() {
 		return "/faq/faq_write";
 	}
-	
+
 
 	@PostMapping("/faq/insert.do")
 	public String insert(@ModelAttribute FaqDTO dto)
@@ -42,19 +45,27 @@ public class FaqController {
 		faqService.insert(dto);
 		return "redirect:/admin/adminPage.do";
 	}
-	@GetMapping("/faq/view.do")
+	@RequestMapping("/faq/view.do")
 	public ModelAndView view(int faq_num, HttpSession session) throws Exception {
 		faqService.increaseViewcnt(faq_num, session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("faq/faq_modify");
-		mav.addObject("dto", faqService.view(faq_num));
+		mav.addObject("faq", faqService.view(faq_num));
 		return mav;
 	}
 
-	@PostMapping("/faq/update.do")
-	public String update(@ModelAttribute FaqDTO dto)
-		throws Exception{
-		faqService.update(dto);
+	@RequestMapping ("/faq/update.do")
+	public String update(FaqDTO dto) throws Exception {
+		if(dto != null) {
+			faqService.update(dto);
+		}
 		return "redirect:/admin/adminPage.do";
 	}
+
+	@RequestMapping("/faq/delete.do")
+	public String delete(int faq_num) throws Exception {
+		faqService.delete(faq_num);
+		return "redirect:/admin/adminPage.do";
+	}
+
 }

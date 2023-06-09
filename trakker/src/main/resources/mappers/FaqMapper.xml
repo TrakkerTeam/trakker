@@ -1,3 +1,5 @@
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -5,7 +7,7 @@
 <!--인터페이스에 대한 SQL 쿼리 및 매핑을 정의합니다-->
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="com.example.trakker.model.faq.dao.FaqDAO">
-    <select id="list" resultType="faqdto">
+    <select id="list" resultType="faq">
         select faq_num, faq_subject, content, readcount, faq_reg_date
         from faq
 		order by faq_num desc
@@ -22,17 +24,20 @@
         where faq_num = #{faq_num}
     </update>
 
-    <select id="view" resultType="faqdto">
+    <select id="read" resultType="faq">
         select faq_num, faq_subject, content, readcount, faq_reg_date
         from faq
-        where faq_num = #{faq_num}
     </select>
-
     <update id="update">
         update faq
         set faq_subject=#{faq_subject}, content=#{content}
         where faq_num=#{faq_num}
     </update>
+
+    <delete id="delete">
+        delete from faq
+        where faq_num=#{faq_num}
+    </delete>
 </mapper>
 
 

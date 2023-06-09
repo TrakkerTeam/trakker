@@ -1,84 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
 
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
+    <%@ include file="../header.jspf" %>
 </head>
-<script type="text/javascript">
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = "block";
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
-    }
-
-    function redirectToPage() {
-        location.href = "${path}/faq/faq_list.jsp";
-    }
-
-    function memberList() {
-        $.ajax({
-            type: "post",
-            url: "${path}/admin/memberList",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function tripList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/trip/list_admin.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function faqList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/faq/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function adminList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/admin/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function reviewList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/review/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-</script>
 <style>
-
-
     #container {
         display: flex;
         height: 100%;
@@ -124,8 +55,54 @@
     }
 
 </style>
+<script type="text/javascript">
 
-<%@ include file="../header.jspf" %>
+    function redirectToPage() {
+        location.href = "${path}/faq/faq_list.jsp";
+    }
+
+    function memberList() {
+        $.ajax({
+            type: "post",
+            url: "${path}/admin/memberList",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function tripList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/trip/list_admin.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function faqList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/faq/list.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+    function reviewList() {
+        $.ajax({
+            type: "get",
+            url: "${path}/review/list.do",
+            success: function (result) {
+                $("#result").html(result);
+            }
+        });
+    }
+
+</script>
+
 
 <div id="container">
     <div style="display: flex; height: auto;">
@@ -145,7 +122,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>회원관리</h3>
-                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
+                                    <button class="btn" type="button" onclick="memberList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -187,7 +164,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>리뷰페이지</h3>
-                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
+                                    <button class="btn" type="button" onclick="memberList()" >
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -231,8 +208,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>FAQ</h3>
-                                    <button class="btn" type="button" onclick="faqList()"
-                                            style="float: right;">
+                                    <button class="btn" type="button" onclick="faqList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -267,9 +243,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>관광지</h3>
-
-                                    <button class="btn" type="button" onclick="tripList()"
-                                            style="float: right;">
+                                    <button class="btn" type="button" onclick="tripList()">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -285,7 +259,7 @@
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">북촌 한옥마을</a></td>
+                                        <td>북촌 한옥마을</td>
                                         <td><p class="content2">북촌 한옥마을은 서울에 위치한
                                             한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.
                                         </p>
@@ -294,7 +268,7 @@
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">전주 한옥마을</a></td>
+                                        <td>전주 한옥마을</td>
                                         <td><p class="content2"> 전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는
                                             한옥마을이다.
                                             원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때
@@ -306,7 +280,7 @@
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">경복궁</a></td>
+                                        <td>경복궁</td>
                                         <td><p class="content2">경복궁은 조선 왕조 제일의 법궁이다. 북으로
                                             북악산을 기대어 자리 잡았고 정문인 광화문
                                             앞으로는 넓은 육조거리가 펼쳐져,
@@ -326,11 +300,4 @@
     </div>
     <%@include file="../footer.jspf" %>
 </div>
-</div>
-
-<script>
-
-</script>
-
-</body>
 </html>
