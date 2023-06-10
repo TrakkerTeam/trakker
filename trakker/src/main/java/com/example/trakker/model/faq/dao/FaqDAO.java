@@ -15,4 +15,5 @@ public interface FaqDAO {
 	void delete(int faq_num) throws Exception;
 	void increaseViewcnt(int faq_num) throws Exception;
 	FaqDTO view(int faq_num) throws Exception;
+
 }
