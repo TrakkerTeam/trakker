@@ -8,6 +8,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="adminMemberList" resultType="member">
         select*from member
     </select>
+    <select id="adminMemberView" resultType="member">
+    select *
+    from member
+    where mem_num =#{mem_num}
+    </select>
+
+<!--    <update id="updateMember">-->
+<!--    update member-->
+<!--    set mem_name=#{mem_name},mem_nickname=#{mem_nickname},mem_zipcode=#{mem_zipcode}-->
+<!--    ,mem_address1=#{mem_address1},mem_address2=#{mem_address2}-->
+<!--    where mem_num=#{mem_num}-->
+<!--    </update>-->
+    <update id="updateMember">
+        update member
+        set mem_name=#{mem_name, jdbcType=VARCHAR}, mem_nickname=#{mem_nickname, jdbcType=VARCHAR},
+            mem_zipcode=#{mem_zipcode, jdbcType=VARCHAR}, mem_address1=#{mem_address1, jdbcType=VARCHAR},
+            mem_address2=#{mem_address2, jdbcType=VARCHAR}
+        where mem_num=#{mem_num,jdbcType=INTEGER}
+    </update>
 </mapper>
 
 

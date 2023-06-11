@@ -5,12 +5,13 @@ import java.util.List;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.service.faq.FaqService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.trakker.service.admin.AdminService;
@@ -44,16 +45,19 @@ public class AdminController {
 		return mav;
 	}
 	@RequestMapping("/view.do")
-	public String view(Model model, @RequestParam String mem_email) {
-		model.addAttribute("dto", adminService.viewMember(mem_email));
+	public String view(Model model, @RequestParam int mem_num) {
+		model.addAttribute("dto", adminService.adminViewMember(mem_num));
 
 		return "admin/admin_memberView";
 
 	}
-
-	@RequestMapping("/list.do")
-	public ModelAndView list(ModelAndView mav) throws Exception {
-		mav.setViewName("admin/adminList");
-		return mav;
+	@RequestMapping("/userUpdate")
+	public String UpdateUser(@ModelAttribute MemberDTO dto , @RequestParam int mem_num) throws Exception{
+		System.out.println("mem_num = " + mem_num);
+		System.out.println("테스트용:"+dto);
+		adminService.updateMember(dto);
+		return "redirect:/admin/adminPage.do";
 	}
+
+
 }

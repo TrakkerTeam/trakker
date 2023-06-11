@@ -23,9 +23,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public MemberDTO viewMember(String mem_email) {
+    public MemberDTO adminViewMember(int mem_num) {
 
-        return memberDao.viewMember(mem_email);
+        return memberDao.adminViewMember(mem_num);
+    }
+
+    @Override
+    public void updateMember(MemberDTO dto) {
+        memberDao.updateMember(dto);
     }
 
 }

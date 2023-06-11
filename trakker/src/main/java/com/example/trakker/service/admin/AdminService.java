@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdminService {
 
-    public List<MemberDTO> memberList();
-    public MemberDTO viewMember(String mem_email);
-
+     List<MemberDTO> memberList();
+     MemberDTO adminViewMember(int mem_num);
+     void updateMember(MemberDTO dto);
 }
