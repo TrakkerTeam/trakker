@@ -45,7 +45,7 @@
                     <a class="nav-link" href="#"><i class="bi bi-door-closed"></i>로그인</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-person-gear"></i>관리자페이지</a>
+                    <a class="nav-link" href="${path}/admin/adminPage.do"><i class="bi bi-person-gear"></i>관리자페이지</a>
                 </li>
                 <span class="navbar-text">${sessionScope.name}</span>
                 <div class="btn-group">

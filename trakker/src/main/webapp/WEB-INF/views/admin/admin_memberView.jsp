@@ -4,9 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<script src="${path}/include/js/bootstrap.js"></script>
-<link rel="stylesheet" href="${path}/include/style.css">
-<script src="${path}/include/jquery-3.6.3.min.js"></script>
+<script src="${path}/resources/include/js/bootstrap.js"></script>
+<link rel="stylesheet" href="${path}/resources/include/style.css">
+<script src="${path}/resources/include/jquery-3.6.3.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,6 @@
  <style>
   body {
    font-family: Arial, sans-serif;
-   padding-top:80px;
   }
 
 
@@ -104,9 +103,8 @@
  </style>
 </head>
 <body>
-
 <h2>프로필 수정</h2>
-<form name="form1" method="post" style="text-align: left;">
+<form name="form1" id="form1" method="post" style="text-align: left;">
  <table  width="600px" >
   <tr>
    <td colspan="2" id="profileimg">
@@ -119,8 +117,8 @@
    <td>이름</td>
   </tr>
   <tr>
-   <td><input type="email" id="email" name="email" value="${sessionScope.mem_email}" readonly></td>
-   <td><input type="text" id="name" name="name" value="${sessionScope.mem_name}"></td>
+   <td><input type="email" id="email" name="email" value="${dto.mem_email}" readonly></td>
+   <td><input type="text" id="name" name="name" value="${dto.mem_name}"></td>
   </tr>
 
   <tr>
@@ -128,38 +126,52 @@
    <td >비밀번호 확인</td>
   </tr>
   <tr>
-   <td><input type="password" id="passwd" name="passwd"></td>
-   <td><input type="password" id="passwd_ck" name="passwd_ck"></td>
+   <td><input type="password" id="passwd" name="passwd" value="${dto.mem_pass}" readonly></td>
+   <td><input type="password" id="passwd_ck" name="passwd_ck" value="${dto.mem_pass}"  readonly></td>
 
   <tr>
    <td>닉네임</td>
    <td>전화번호</td>
   </tr>
   <tr>
-   <td><input type="text" id="nickname" name="nickname" value="${sessionScope.mem_nickname}"></td>
-   <td><input type="text" id="tel" name="tel" value="${sessionScope.mem_phone}"></td>
+   <td><input type="text" id="nickname" name="nickname" value="${dto.mem_nickname}"></td>
+   <td><input type="text" id="tel" name="tel" value="${dto.mem_phone}"></td>
   </tr>
   <tr>
    <td style="text-align:center;">우편번호</td>
-   <td><input type="text" id="zipcode" name="zipcode" onclick="daumZipCode()" value="${sessionScope.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
+   <td><input type="text" id="zipcode" name="zipcode" onclick="daumZipCode()" value="${dto.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
   </tr>
   <tr>
-   <td colspan="2"><input type="text" id="address1" name="address1" value="${sessionScope.mem_address1}" readonly></td>
+   <td colspan="2"><input type="text" id="address1" name="address1" value="${dto.mem_address1}" readonly></td>
   </tr>
   <tr>
-   <td colspan="2"><input type="text" id="address2" name="address2" value="${sessionScope.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
+   <td colspan="2"><input type="text" id="address2" name="address2" value="${dto.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
   </tr>
-
+     <tr>
+      <td colspan="2">
+        <button type="button" id="userUpdate">수정하기</button>
+      </td>
+     </tr>
   <tr>
-   <td colspan="2"><button type="button" id="mem_update" name="mem_update">수정하기</button></td>
-  </tr>
-  <tr>
-   <td colspan="2"><button type="button" id="logback" name="logback">취소하기</button>
+   <td colspan="2"><button type="button" id="logback" name="logback">목록</button>
     <div style="color: red;">${message}</div></td>
   </tr>
 
  </table>
 </form>
+<script>
+ console.log("회원 번호 :" + ${dto.mem_num});
+
+ $("#userUpdate").click(function (){
+
+  if(confirm("정보 수정 완료")){
+
+   document.form1.action="${path}/admin/userUpdate";
+   document.form1.submit();
+  }
+
+ });
+</script>
 
 </body>
 </html>

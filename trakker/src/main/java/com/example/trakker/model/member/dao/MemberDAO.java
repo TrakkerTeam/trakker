@@ -13,4 +13,6 @@ public interface MemberDAO {
 
 	// admin member view
 	List<MemberDTO> memberList();
+    MemberDTO adminViewMember(int mem_num);
+	void updateMember(MemberDTO dto);
 }

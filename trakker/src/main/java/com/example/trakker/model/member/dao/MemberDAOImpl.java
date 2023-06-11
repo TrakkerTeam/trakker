@@ -38,5 +38,15 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("admin.adminMemberList");
 	}
 
+	@Override
+	public MemberDTO adminViewMember(int mem_num) {
+		return sqlSession.selectOne("admin.adminMemberView",mem_num);
+	}
+
+	@Override
+	public void updateMember(MemberDTO dto) {
+		sqlSession.update("admin.updateMember" , dto);
+	}
+
 
 }

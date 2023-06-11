@@ -5,7 +5,9 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faqdto"/>
+		<typeAlias type="com.example.trakker.model.member.dto.MemberDTO" alias="member"/>
+		<typeAlias type="com.example.trakker.item.LocalDTO" alias="local"/>
 	</typeAliases>
-
 </configuration>
 

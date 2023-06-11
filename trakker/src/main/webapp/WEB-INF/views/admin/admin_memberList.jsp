@@ -46,7 +46,7 @@
 
 
     <tr>
-
+      <th>회원번호</th>
 
       <th>이메일</th>
 
@@ -71,14 +71,16 @@
 
     <c:forEach var="row" items="${list}">
       <tr>
-
+        <td>${row.mem_num}</td>
 
         <td>${row.mem_email}</td>
 
 
 
-
-        <td><a href="#" onclick="userview()">${row.mem_name}</a></td>
+        <td>
+          <input type="hidden" id="mem_num" name="mem_num" value="${row.mem_num}">
+          <a href="#" onclick="userview()">${row.mem_name}</a>
+        </td>
 
 
         <td>${row.mem_address1}</td>
@@ -101,9 +103,11 @@
 <div id="result" style="display: flex;"></div>
 <script>
   function userview() {
+   var mem_num = $("#mem_num").val();
+    console.log("mem_num : "+ mem_num);
     $.ajax({
       type: "post",
-      url:"${path}/admin/view.do",
+      url:"${path}/admin/view.do?mem_num="+mem_num,
       success:function (result){
         $("#result").html(result);
       }
