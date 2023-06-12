@@ -17,8 +17,8 @@ public class MemberDAOImpl implements MemberDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public String logincheck(MemberDTO dto) {
-		String name = sqlSession.selectOne("member.logincheck",dto);
+	public MemberDTO logincheck(MemberDTO dto) {
+		MemberDTO name = sqlSession.selectOne("member.logincheck",dto);
 		return name;
 	}
 
@@ -36,6 +36,23 @@ public class MemberDAOImpl implements MemberDAO {
 	public int emailCheck(String mem_email) {
 		int cnt = sqlSession.selectOne("member.emailCheck",mem_email);
 		return cnt;
+	}
+
+	@Override
+	public void updateMember(MemberDTO dto) {
+		sqlSession.update("member.updateMember",dto);
+	}
+
+	@Override
+	public void memberDelete(MemberDTO dto) {
+		sqlSession.delete("member.deleteMember",dto);
+	}
+
+
+
+	@Override
+	public MemberDTO getupdateMember(String mem_email) {
+		return sqlSession.selectOne("member.getupdateMember", mem_email);
 	}
 
 

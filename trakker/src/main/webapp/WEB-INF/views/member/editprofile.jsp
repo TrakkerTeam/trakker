@@ -28,16 +28,22 @@ function daumZipCode() {
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                document.getElementById("address1").value = extraAddr;
+                document.getElementById("mem_address1").value = extraAddr;
             } else {
-                document.getElementById("address2").value = '';
+                document.getElementById("mem_address2").value = '';
             }
-            document.getElementById('zipcode').value = data.zonecode;
-            document.getElementById("address1").value = addr;
-            document.getElementById("address2").focus();
+            document.getElementById('mem_zipcode').value = data.zonecode;
+            document.getElementById("mem_address1").value = addr;
+            document.getElementById("mem_address2").focus();
         }
     }).open();
 }
+
+  function btnUpdate() {
+    window.location.href = "${path}/member/mem_update.do";
+    document.form1.submit();
+  }
+
 </script>
 <style>
         body {
@@ -100,12 +106,12 @@ function daumZipCode() {
 <body>
 
     <h2>프로필 수정</h2>
-    	<form name="form1" method="post" style="text-align: left;">
+    	<form name="form1" method="post" style="text-align: left;" action="${path}/member/mem_update.do">
         		<table  width="600px" >
         		    <tr>
                          <td colspan="2" id="profileimg">
-                          <img  style="width:200px; height:200px;"  src="../resources/images/car.gif" class="img-thumbnail rounded-circle">
-                          </td>
+                            <a> <img  style="width:200px; height:200px;"  src="../resources/images/hanook.png" class="img-thumbnail rounded-circle"></a>
+                         </td>
         		    </tr>
 
         			<tr>
@@ -113,8 +119,8 @@ function daumZipCode() {
         				<td>이름</td>
         			</tr>
         			<tr>
-                    	<td><input type="email" id="email" name="email" value="${sessionScope.mem_email}" readonly></td>
-                    	<td><input type="text" id="name" name="name" value="${sessionScope.mem_name}"></td>
+                    	<td><input type="email" id="mem_email" name="mem_email" value="${sessionScope.mem_email}" readonly></td>
+                    	<td><input type="text" id="mem_name" name="mem_name" value="${sessionScope.mem_name}"></td>
                     </tr>
 
         			<tr>
@@ -122,30 +128,30 @@ function daumZipCode() {
         				<td >비밀번호 확인</td>
         			</tr>
         			<tr>
-        				<td><input type="password" id="passwd" name="passwd"></td>
-        				<td><input type="password" id="passwd_ck" name="passwd_ck"></td>
+        				<td><input type="password" id="mem_pass" name="mem_pass" ></td>
+        				<td><input type="password" id="mem_pass_ck" name="mem_pass_ck"></td>
 
                     <tr>
                         <td>닉네임</td>
                         <td>전화번호</td>
                     </tr>
                     <tr>
-                         <td><input type="text" id="nickname" name="nickname" value="${sessionScope.mem_nickname}"></td>
-                         <td><input type="text" id="tel" name="tel" value="${sessionScope.mem_phone}"></td>
+                         <td><input type="text" id="mem_nickname" name="mem_nickname" value="${sessionScope.mem_nickname}"></td>
+                         <td><input type="text" id="mem_phone" name="mem_phone" value="${sessionScope.mem_phone}"></td>
                     </tr>
                         <tr>
                              <td style="text-align:center;">우편번호</td>
-                             <td><input type="text" id="zipcode" name="zipcode" onclick="daumZipCode()" value="${sessionScope.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
+                             <td><input type="text" id="mem_zipcode" name="mem_zipcode" onclick="daumZipCode()" value="${sessionScope.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
                         </tr>
                         <tr>
-                             <td colspan="2"><input type="text" id="address1" name="address1" value="${sessionScope.mem_address1}" readonly></td>
+                             <td colspan="2"><input type="text" id="mem_address1" name="mem_address1" value="${sessionScope.mem_address1}" readonly></td>
                         </tr>
                         <tr>
-                             <td colspan="2"><input type="text" id="address2" name="address2" value="${sessionScope.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
+                             <td colspan="2"><input type="text" id="mem_address2" name="mem_address2" value="${sessionScope.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
                         </tr>
 
                          <tr>
-                             <td colspan="2"><button type="button" id="mem_update" name="mem_update">수정하기</button></td>
+                             <td colspan="2"><button type="button" id="mem_update" name="mem_update" onclick="btnUpdate()" >수정하기</button></td>
                          </tr>
                          <tr>
                              <td colspan="2"><button type="button" id="logback" name="logback">취소하기</button>
