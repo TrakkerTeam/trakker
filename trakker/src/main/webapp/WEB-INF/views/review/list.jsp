@@ -27,6 +27,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
 </style>
 <script>
     $(window).on('load', function() {
@@ -43,6 +44,7 @@
             location.href="${path}/review/write";
         });
     });
+
 </script>
 <body>
 <div class="album py-5 bg-light">
@@ -57,7 +59,7 @@
                         <option>작성자</option>
                     </select>
                     <input class="form-control ms-2 me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="btn btn-outline-success" type="button" valign="bottom" value="검색" onclick="go_such();">
                 </form>
             </div>
         </div>
@@ -90,31 +92,30 @@
                 </div>
             </div>
         </div>
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <c:forEach var="review" items="${reviewList}">
-            <div class="col p-5">
-                <div class="card rounded-3 shadow-sm">
-                    <a href="${path}/review/detail?review_num=${review.review_num}" style="text-decoration-line:none;">
-                        <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
-                        <div class="card-body rounded-3 p-0 w-100">
-                            <h6 class="text-muted ms-3 mt-3">닉네임</h6>
-                            <p class="card-text m-3">${review.title}</p>
-                        </div>
-                        <div class="card-img-overlay rounded-3 p-0">
-                            <div class="card-body align-text-top text-end p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="text-muted">${review.local.k_name}</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-star-fill me-1"></i>
-                                        <h5 class="mt-2"> 8.1</h5>
+            <c:forEach var="review" items="${list}">
+                <div class="col p-5">
+                    <div class="card rounded-3 shadow-sm">
+                        <a href="${path}/review/detail?review_num=${review.review_num}" style="text-decoration-line:none;">
+                            <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
+                            <div class="card-body rounded-3 p-0 w-100">
+                                <h6 class="text-muted ms-3 mt-3">닉네임</h6>
+                                <p class="card-text m-3">${review.title}</p>
+                            </div>
+                            <div class="card-img-overlay rounded-3 p-0">
+                                <div class="card-body align-text-top text-end p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="text-muted">${review.local.k_name}</h6>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <i class="bi bi-star-fill me-1"></i>
+                                            <h5 class="mt-2"> 8.1</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
                 <c:choose>
                     <c:when test=" %3 == 1">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
@@ -125,22 +126,21 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
-            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-left"></i></a>
-            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-left"></i></a>
-            <a class="ms-3 text-muted" href="">1</a>
-            <a class="ms-3 text-muted" href="">2</a>
-            <a class="ms-3 text-muted" href="">3</a>
-            <a class="ms-3 text-muted" href="">4</a>
-            <a class="ms-3 text-muted" href="">5</a>
-            <a class="ms-3 text-muted" href=""><strong><u>6</u></strong></a>
-            <a class="ms-3 text-muted" href="">7</a>
-            <a class="ms-3 text-muted" href="">8</a>
-            <a class="ms-3 text-muted" href="">9</a>
-            <a class="ms-3 text-muted" href="">10</a>
-            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-right"></i></a>
-            <a class="ms-3 text-muted" href=""><i class="bi bi-chevron-double-right"></i></a>
-        </div>
+                <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
+                    <c:if test="${page.prev}">
+                        <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.startPageNum - 1}"><i class="bi bi-chevron-left"></i></a></span>
+                    </c:if>
+
+                    <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+                        <span class="ms-3 text-muted">
+                         <c:if test="${select != num}"><a class="ms-3 text-muted" href="${path}/review/list?num=${num}">${num}</a></c:if>
+                         <c:if test="${select == num}"><b class="ms-3 text-muted">${num}</b></c:if>
+                        </span>
+                    </c:forEach>
+                    <c:if test="${page.next}">
+                        <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.endPageNum + 1}"><i class="bi bi-chevron-right"></i></a></span>
+                    </c:if>
+                </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <div class="btn-group m-3" role="group" aria-label="First group">
                 <button type="button" class="btn btn-success" id="Write">글쓰기</button>
