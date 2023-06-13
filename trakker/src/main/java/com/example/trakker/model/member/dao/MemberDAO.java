@@ -11,7 +11,11 @@ public interface MemberDAO {
 	 public void insertMember(MemberDTO dto);//회원가입
 	 public int emailCheck(String mem_email);
 	public void updateMember(MemberDTO dto);
-	public void memberDelete(MemberDTO dto);
+
+	public void memberDelete(String mem_email);
+	public boolean checkPw(String mem_email, String mem_pass);
+
+
 
 
 	public MemberDTO getupdateMember(String mem_email); //안되면 지우기

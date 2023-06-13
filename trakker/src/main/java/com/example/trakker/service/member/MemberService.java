@@ -17,7 +17,8 @@ public interface MemberService {
 	public int emailCheck(String mem_email); //mem_email 중복체크
 	public void updateMember(MemberDTO dto);
 
-	public void memberDelete(MemberDTO dto);
+	public void memberDelete(String mem_email);
+	public boolean checkPass(String mem_email, String mem_pass);
 
 
 	public MemberDTO getupdateMember(String mem_email); //안되면 지우기
