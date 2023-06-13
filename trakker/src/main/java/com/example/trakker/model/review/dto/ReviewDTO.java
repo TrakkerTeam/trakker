@@ -17,4 +17,5 @@ public class ReviewDTO {
     private Date edit_date;
     private LocalDTO local;
 
+
 }
