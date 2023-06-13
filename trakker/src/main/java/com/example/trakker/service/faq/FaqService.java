@@ -36,6 +36,15 @@ public class FaqService {
 
 	public void increaseViewcnt(int faq_num, HttpSession session) throws Exception {
 		faqDao.increaseViewcnt(faq_num);
+		long update_time=0;
+		if(session.getAttribute("update_time_"+faq_num)!=null) {
+			update_time=(long)session.getAttribute("update_time_"+faq_num);
+		}
+		long current_time=System.currentTimeMillis();
+		if(current_time - update_time > 5*1000) {
+			faqDao.increaseViewcnt(faq_num);
+			session.setAttribute("update_time_"+faq_num, current_time);
+		}
 	}
 
 
@@ -43,6 +52,12 @@ public class FaqService {
 		return faqDao.view(faq_num);
 	}
 
+	public int count() throws Exception{
+		return faqDao.count();
+	}
 
+	public List<FaqDTO> listPage(int displayPost, int postNum) throws Exception {
+		return faqDao.listPage(displayPost, postNum);
+	}
 
 }

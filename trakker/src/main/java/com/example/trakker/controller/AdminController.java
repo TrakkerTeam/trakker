@@ -50,9 +50,4 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/list.do")
-	public ModelAndView list(ModelAndView mav) throws Exception {
-		mav.setViewName("admin/adminList");
-		return mav;
-	}
 }

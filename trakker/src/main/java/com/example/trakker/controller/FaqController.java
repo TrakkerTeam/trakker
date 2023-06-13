@@ -6,16 +6,16 @@ package com.example.trakker.controller;
 import java.util.List;
 
 
+import com.example.trakker.model.faq.dto.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.service.faq.FaqService;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -26,11 +26,10 @@ public class FaqController {
 	FaqService faqService;
 
 	@GetMapping("/faq/list.do")
-	public ModelAndView list(ModelAndView mav) throws Exception {
-		List<FaqDTO> items=faqService.list();
-		mav.setViewName("faq/faq_list");
-		mav.addObject("list", items);
-		return mav;
+	public String list(Model model) throws Exception {
+		List<FaqDTO> items = faqService.list();
+		model.addAttribute("list", items);
+		return "faq/faq_list";
 	}
 
 	@GetMapping("/faq/write.do")
@@ -41,10 +40,11 @@ public class FaqController {
 
 	@PostMapping("/faq/insert.do")
 	public String insert(@ModelAttribute FaqDTO dto)
-			throws Exception{
+			throws Exception {
 		faqService.insert(dto);
 		return "redirect:/admin/adminPage.do";
 	}
+
 	@RequestMapping("/faq/view.do")
 	public ModelAndView view(int faq_num, HttpSession session) throws Exception {
 		faqService.increaseViewcnt(faq_num, session);
@@ -54,9 +54,9 @@ public class FaqController {
 		return mav;
 	}
 
-	@RequestMapping ("/faq/update.do")
+	@RequestMapping("/faq/update.do")
 	public String update(FaqDTO dto) throws Exception {
-		if(dto != null) {
+		if (dto != null) {
 			faqService.update(dto);
 		}
 		return "redirect:/admin/adminPage.do";
@@ -68,4 +68,15 @@ public class FaqController {
 		return "redirect:/admin/adminPage.do";
 	}
 
+	@RequestMapping(value = "/faq/listPage", method = RequestMethod.GET)
+	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
+		Page page = new Page();
+		page.setNum(num);
+		page.setCount(faqService.count());
+		List<FaqDTO> list = null;
+		list = faqService.listPage(page.getDisplayPost(), page.getPostNum());
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+	}
 }
