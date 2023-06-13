@@ -62,7 +62,7 @@
 </head>
 <body>
     <h2>회원탈퇴</h2>
-<form name="form1" method="post">
+<form name="form1" method="post" >
     <table  width="400px">
     <tr>
         <td colspan="2" >
@@ -77,7 +77,7 @@
     </tr>
 
     <tr>
-        <td colspan="2"><button type="button" id="mem_delete" name="mem_delete">탈퇴하기</button></td>
+        <td colspan="2"><button type="button" id="mem_delete" name="mem_delete" onclick="removeMember();">탈퇴하기</button></td>
     </tr>
 
     <tr>
@@ -86,6 +86,15 @@
     </tr>
     </table>
 </form>
+
+<script type="text/javascript">
+function removeMember() {
+	if(window.confirm("탈퇴하시겠습니까?")){
+	location.href="${path}/member/removeMember.do";
+	}
+
+}
+</script>
 
 	<%@ include file="../footer.jsp" %>
 </body>

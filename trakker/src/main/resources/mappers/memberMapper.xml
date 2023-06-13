@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
-    <select id="logincheck" resultType="string"
+    <select id="logincheck" resultType="member"
             parameterType="member">
-        select mem_name
+        select mem_email,mem_pass,mem_name,mem_num
         from member
         where mem_email=#{mem_email}
-        and mem_pass=#{mem_pass}
+        <!--and mem_pass=#{mem_pass} -->
     </select>
 
     <select id="memberView"
@@ -33,6 +33,34 @@
     <select id="emailCheck" parameterType="String" resultType="int">
         select count(mem_email) from member where mem_email=#{mem_email}
     </select>
+
+    <update id="updateMember">
+        UPDATE member
+        SET mem_pass = CASE
+        WHEN #{mem_pass} IS NULL THEN mem_pass
+        ELSE #{mem_pass}
+        END , mem_name=#{mem_name}, mem_nickname=#{mem_nickname}, mem_zipcode=#{mem_zipcode},
+        mem_phone=#{mem_phone}, mem_address1=#{mem_address1}, mem_address2=#{mem_address2},
+        mem_edit_date=SYSDATE
+        WHERE mem_email=#{mem_email}
+    </update>
+
+    <select id="getupdateMember" resultType="member">
+        select mem_name
+        from member
+        order by mem_num desc
+    </select>
+
+    <delete id="deleteMember">
+        delete from member
+        where mem_email = #{mem_email}
+    </delete>
+
+<!--    <select id="getremoveMember" resultType="member">-->
+<!--        select mem_email-->
+<!--        from member-->
+<!--        where mem_email=#{mem_email}-->
+<!--    </select>-->
 
 </mapper>
 
