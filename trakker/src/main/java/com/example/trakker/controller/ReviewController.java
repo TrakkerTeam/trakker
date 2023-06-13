@@ -1,9 +1,9 @@
 package com.example.trakker.controller;
 
+import com.example.trakker.item.Page;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +19,19 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("/review/list")
-    public String getReviewList(Model model) {
-        List<ReviewDTO> reviewList = reviewService.list();
-        model.addAttribute("reviewList", reviewList);
-        return "review/list";
+    public void list(Model model, @RequestParam("num") int num,
+                     @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+                     @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
+        Page page = new Page();
+        page.setNum(num);
+        page.setTotal(reviewService.total(searchType, keyword));
+        page.setSearchType(searchType);
+        page.setKeyword(keyword);
+        List<ReviewDTO> list = null;
+        list = reviewService.list(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+        model.addAttribute("list", list);
+        model.addAttribute("page", page);
+        model.addAttribute("select", num);
     }
 
     @GetMapping("/review/write")

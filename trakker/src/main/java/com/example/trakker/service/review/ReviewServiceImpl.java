@@ -14,18 +14,22 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewDAO reviewDao;
 
-    public List<ReviewDTO> list() {
-        return reviewDao.list();
+    @Override
+    public List<ReviewDTO> list(int displayPost, int postNum, String searchType, String keyword) {
+        return reviewDao.list(displayPost, postNum, searchType, keyword);
     }
 
+    @Override
     public void insert(ReviewDTO review) {
         reviewDao.insert(review);
     }
 
+    @Override
     public void count(Integer review_num, HttpSession session) {
         reviewDao.count(review_num,session);
     }
 
+    @Override
     public ReviewDTO detail(Integer review_num) {
         return reviewDao.detail(review_num);
     }
@@ -39,5 +43,11 @@ public class ReviewServiceImpl implements ReviewService {
     public void delete(Integer review_num) {
         reviewDao.delete(review_num);
     }
+
+    @Override
+    public int total(String searchType, String keyword) {
+        return reviewDao.total(searchType, keyword);
+    }
+
 
 }

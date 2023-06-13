@@ -6,11 +6,45 @@
 
 <mapper namespace="review">
 
-    <select id="list" resultMap="reviewResultMap">
-        select r.review_num, r.title, r.content, r.review_date, l.K_NAME, l.l_num
-        from review r join local l
-        on r.l_num = l.l_num
-        order by review_num desc
+    <select id="list" parameterType="hashMap" resultMap="reviewResultMap">
+        SELECT *
+        FROM (
+                 SELECT rn, review_num, title, content, review_date, k_name, l_num
+                 FROM (
+                          SELECT ROW_NUMBER() OVER (ORDER BY r.review_num DESC) AS rn,
+                                 r.review_num,
+                                 r.title,
+                                 r.content,
+                                 r.review_date,
+                                 l.k_name,
+                                 l.l_num
+                          FROM review r
+                                   JOIN local l ON r.l_num = l.l_num
+                      )
+        <if test='searchType.equals("title")'>
+            WHERE title LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("content")'>
+            WHERE content LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("writer")'>
+            WHERE writer LIKE '%' || #{keyword} || '%'
+        </if>
+             )
+        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}
+    </select>
+
+    <select id="total" parameterType="hashMap" resultType="int">
+        select count(review_num) from review
+        <if test='searchType.equals("title")'>
+            WHERE title LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("content")'>
+            WHERE content LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("writer")'>
+            WHERE writer LIKE '%' || #{keyword} || '%'
+        </if>
     </select>
 
     <insert id="insert">

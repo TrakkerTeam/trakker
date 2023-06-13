@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReviewDAO {
 
-    List<ReviewDTO> list();
+    List<ReviewDTO> list(int displayPost, int postNum, String searchType, String keyword);
 
     void insert(ReviewDTO review);
 
@@ -18,4 +18,7 @@ public interface ReviewDAO {
     void update(ReviewDTO review);
 
     void delete(Integer review_num);
+
+    int total(String searchType, String keyword);
+
 }
