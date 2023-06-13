@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //memberMapper 와의 상호작용을 담당합니다
 @Repository
@@ -44,9 +46,22 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void memberDelete(MemberDTO dto) {
-		sqlSession.delete("member.deleteMember",dto);
+	public void memberDelete(String mem_email) {
+		sqlSession.delete("member.deleteMember",mem_email);
 	}
+
+	@Override
+	public boolean checkPw(String mem_email, String mem_pass) {
+		boolean result = false;
+		Map<String,String> map =new HashMap<>();
+		map.put("mem_email", mem_email);
+		map.put("mem_pass",mem_pass);
+		int count =sqlSession.selectOne("member.checkPw",map);
+		//비번이 맞으면(1), 틀리면 (0)리턴
+		if(count ==1) result =true;
+		return result;
+	}
+
 
 
 

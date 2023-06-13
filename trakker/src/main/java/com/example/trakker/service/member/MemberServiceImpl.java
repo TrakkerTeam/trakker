@@ -59,9 +59,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void memberDelete(MemberDTO dto) {
-		memberDao.memberDelete(dto);
+	public void memberDelete(String mem_email) {
+		memberDao.memberDelete(mem_email);
 	}
+
+	@Override
+	public boolean checkPass(String mem_email, String mem_pass) {
+		return memberDao.checkPw(mem_email,mem_pass);
+	}
+
 
 
 

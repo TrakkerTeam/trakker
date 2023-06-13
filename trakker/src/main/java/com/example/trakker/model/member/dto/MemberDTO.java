@@ -1,5 +1,6 @@
 package com.example.trakker.model.member.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,9 +8,8 @@ import lombok.ToString;
 import java.util.Date;
 
 //DB 의 member용 memberDTO 입니다.
-@Getter
-@Setter
-@ToString
+
+@Data
 public class MemberDTO {
 	private Integer mem_num; //MEM_NUM
 	private String mem_email;  //MEM_EMAIL

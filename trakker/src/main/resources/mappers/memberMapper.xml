@@ -12,12 +12,12 @@
         <!--and mem_pass=#{mem_pass} -->
     </select>
 
-    <select id="memberView"
-            resultType="member">
-        select *
-        from member
-        where mem_email=#{mem_email}
+    <select id="memberView" resultType="member">
+        SELECT *
+        FROM member
+        WHERE mem_email = #{mem_email}
     </select>
+
 
     <select id="memberList"
             resultType="member">
@@ -55,6 +55,12 @@
         delete from member
         where mem_email = #{mem_email}
     </delete>
+
+    <select id="checkPw" resultType="int">
+        select count(*) from member
+        where mem_email=#{mem_email} and mem_pass=#{mem_pass}
+    </select>
+
 
 <!--    <select id="getremoveMember" resultType="member">-->
 <!--        select mem_email-->

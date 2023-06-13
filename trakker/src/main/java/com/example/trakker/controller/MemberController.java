@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import com.example.trakker.service.member.MailSendService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class MemberController {
 	 MailSendService mailService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+
 
 	//아이디 중복체크
 	@PostMapping("emailCheck.do")
@@ -53,6 +55,11 @@ public class MemberController {
 		return "member/TermsofUse";
 	}
 
+
+	@RequestMapping("home.do")
+	public String home(){
+		return "home";
+	}
 
 	@RequestMapping("mypagecontent3.do")
 	public String mypagecontent3(){
@@ -94,7 +101,7 @@ public class MemberController {
 	//로그인
 	@RequestMapping("login.do")
 	 public String login() {
-	  return "member/login";
+	  return "login";
 	}
 
 	//회원가입
@@ -157,37 +164,66 @@ public ModelAndView login_check(MemberDTO dto, HttpSession session) {
 //	}
 
 
-	@RequestMapping("removeMember.do") //다시해야함 회원탈퇴
-	public String remove(MemberDTO dto, HttpSession session, RedirectAttributes rttr) {
-		MemberDTO member = (MemberDTO) session.getAttribute("member");
-		String oldpass = member.getMem_pass();
-		String newpass = dto.getMem_pass();
-		// 기존 비밀번호와 입력한 새 비밀번호가 모두 null인 경우 처리
-		if (oldpass == null && newpass == null) {
-			memberService.memberDelete(dto);
-			session.invalidate();
-			return "redirect:/";
-		}
+//	@RequestMapping("removeMember.do") // 다시해야함 회원탈퇴
+//	public String remove(String mem_email, String mem_pass, Model model) {
+//		boolean passwordMatches = memberService.checkPass(mem_email, mem_pass);
+//
+//		System.out.println("mem_email: " + mem_email);
+//		System.out.println("mem_pass: " + mem_pass);
+//		System.out.println("passwordMatches: " + passwordMatches);
+//
+//		if (passwordMatches) {
+//			memberService.memberDelete(mem_email);
+//			return "home";
+//		} else {
+//			model.addAttribute("message", "비밀번호를 확인해주세요");
+//			model.addAttribute("dto", memberService.viewMember(mem_email));
+//			return "member/memdelete";
+//		}
+//	}
 
-		// 기존 비밀번호와 입력한 새 비밀번호가 모두 null이 아닌 경우 암호화하여 비교
-		if (oldpass != null && newpass != null) {
-			String encodedOldpass = passwordEncoder.encode(oldpass);
-			String encodedNewpass = passwordEncoder.encode(newpass);
+	@RequestMapping("removeMember.do") // 다시해야함 회원탈퇴
+	public ResponseEntity<String> remove(String mem_email, String mem_pass, Model model,HttpSession session) {
+		MemberDTO member = memberService.viewMember(mem_email);
+		String hashedPassword = member.getMem_pass(); // 데이터베이스에 저장된 암호화된 비밀번호
 
-			if (!encodedOldpass.equals(encodedNewpass)) {
-				rttr.addFlashAttribute("message", false);
-				return "redirect:/member/memdelete";
-			}
+		System.out.println("암호화된 비밀번호: " + hashedPassword);
+		System.out.println("입력된 비밀번호: " + mem_pass);
+
+		boolean passwordMatches = passwordEncoder.matches(mem_pass, hashedPassword); // 입력한 비밀번호와 암호화된 비밀번호 비교
+
+		if (passwordMatches) {
+			memberService.memberDelete(mem_email);
+			session.invalidate(); // 세션 초기화
+			return ResponseEntity.ok("success");
 		} else {
-			// 기존 비밀번호와 입력한 새 비밀번호 중 하나가 null인 경우 처리
-			rttr.addFlashAttribute("message", false);
-			return "redirect:/member/memdelete";
+			model.addAttribute("message", "비밀번호를 확인해주세요");
+			model.addAttribute("dto", memberService.viewMember(mem_email));
+			return ResponseEntity.ok("false");
 		}
-
-		memberService.memberDelete(dto);
-		session.invalidate();
-		return "redirect:/";
 	}
+
+
+//	@RequestMapping("removeMember.do")
+//	public String remove(HttpSession session, @RequestParam("mem_email") String mem_email, @RequestParam("mem_pass") String mem_pass,Model model) {
+//
+//		MemberDTO member = memberService.viewMember(mem_email);
+//		String hashedPassword = member.getMem_pass(); // 데이터베이스에 저장된 암호화된 비밀번호
+//
+//		System.out.println("암호화된 비밀번호 : " + hashedPassword);
+//		System.out.println("그냥비밀번호 : " + mem_pass);
+//
+//		boolean passwordMatches = passwordEncoder.matches(mem_pass, hashedPassword); // 입력한 비밀번호와 암호화된 비밀번호 비교
+//
+//		if (passwordMatches) {
+//			memberService.memberDelete(mem_email);
+//			return "home";
+//		} else {
+//			model.addAttribute("message", "비밀번호를 확인해주세요");
+//			model.addAttribute("dto", member);
+//			return "member/memdelete";
+//		}
+//	}
 
 
 	@RequestMapping("logout.do")
