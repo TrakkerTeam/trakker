@@ -1,15 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <%@ include file="../header.jspf" %>
+
 </head>
+<script type="text/javascript">
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+    function memberList(){
+        location.href = "${path}/admin/memberList";
+    }
+    function reviewList(){
+        location.href = "${path}/review/list.do";
+    }
+    function faqList(){
+        location.href = "${path}/faq/listPage?num=1";
+    }
+    function tripList(){
+        location.href = "${path}/trip/list_admin.do";
+    }
+
+
+</script>
 <style>
+
     #container {
         display: flex;
         height: 100%;
@@ -55,62 +82,16 @@
     }
 
 </style>
-<script type="text/javascript">
-
-    function redirectToPage() {
-        location.href = "${path}/faq/faq_list.jsp";
-    }
-
-    function memberList() {
-        $.ajax({
-            type: "post",
-            url: "${path}/admin/memberList",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function tripList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/trip/list_admin.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function faqList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/faq/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-    function reviewList() {
-        $.ajax({
-            type: "get",
-            url: "${path}/review/list.do",
-            success: function (result) {
-                $("#result").html(result);
-            }
-        });
-    }
-
-</script>
-
+<body>
+<%@ include file="../header.jspf" %>
 
 <div id="container">
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
-            <a class="menubar" href="#" onclick="memberList()">회원관리</a>
-            <a class="menubar" href="#" onclick="tripList()">관광명소 관리</a>
-            <a class="menubar" href="#" onclick="reviewList()">리뷰리스트 관리</a>
-            <a class="menubar" href="#" onclick="faqList()">FAQ</a>
+            <a class="menubar" href="${path}/admin/memberList">회원관리</a>
+            <a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
+            <a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
+            <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
         </div>
 
         <div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -122,7 +103,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>회원관리</h3>
-                                    <button class="btn" type="button" onclick="memberList()">
+                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -137,26 +118,20 @@
                                     </tr>
                                     </thead>
 
-                                    <tbody>
-                                    <tr>
-                                        <td>dkjfwk@naver.com</td>
-                                        <td><a href="#" onclick="memberList()">홍길동</a></td>
-                                        <td>서울시 강남구</td>
-                                        <td>2023년 5월 31일</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ddwwwd@naver.com</td>
-                                        <td><a href="#" onclick="memberList()">이순신</a></td>
-                                        <td>서울시 용산구</td>
-                                        <td>2023년 5월 3일</td>
-                                    </tr>
-                                    <tr>
-                                        <td>daaaewe@naver.com</td>
-                                        <td><a href="#" onclick="memberList()">김김김</a></td>
-                                        <td>서울시 종로구</td>
-                                        <td>2023년 5월 1일</td>
-                                    </tr>
+                                    <c:forEach var="dto" items="${memberList}" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${status.index < 4}">
+                                                <tr>
+                                                    <td>${dto.mem_email}</td>
+                                                    <td><a href="${path}/admin/view.do?mem_num=${dto.mem_num}">${dto.mem_name}</a></td>
+                                                    <td>${dto.mem_address1}</td>
+                                                    <td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                </tr>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
                                     </tbody>
+
                                 </table>
                             </div>
                         </div>
@@ -164,7 +139,7 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>리뷰페이지</h3>
-                                    <button class="btn" type="button" onclick="memberList()" >
+                                    <button class="btn" type="button" onclick="memberList()" style="float:right;">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -208,7 +183,8 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>FAQ</h3>
-                                    <button class="btn" type="button" onclick="faqList()">
+                                    <button class="btn" type="button" onclick="faqList()"
+                                            style="float: right;">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -243,7 +219,9 @@
                             <div class="container">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                                     <h3>관광지</h3>
-                                    <button class="btn" type="button" onclick="tripList()">
+
+                                    <button class="btn" type="button" onclick="tripList()"
+                                            style="float: right;">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
@@ -259,7 +237,7 @@
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>북촌 한옥마을</td>
+                                        <td><a href="#" onclick="openModal('myModal3')">북촌 한옥마을</a></td>
                                         <td><p class="content2">북촌 한옥마을은 서울에 위치한
                                             한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.
                                         </p>
@@ -268,7 +246,7 @@
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>전주 한옥마을</td>
+                                        <td><a href="#" onclick="openModal('myModal3')">전주 한옥마을</a></td>
                                         <td><p class="content2"> 전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는
                                             한옥마을이다.
                                             원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때
@@ -280,7 +258,7 @@
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>경복궁</td>
+                                        <td><a href="#" onclick="openModal('myModal3')">경복궁</a></td>
                                         <td><p class="content2">경복궁은 조선 왕조 제일의 법궁이다. 북으로
                                             북악산을 기대어 자리 잡았고 정문인 광화문
                                             앞으로는 넓은 육조거리가 펼쳐져,
@@ -300,4 +278,6 @@
     </div>
     <%@include file="../footer.jspf" %>
 </div>
+
+</body>
 </html>

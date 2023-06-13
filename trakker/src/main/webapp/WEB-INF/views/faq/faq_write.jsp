@@ -1,18 +1,28 @@
 <!--faq를 추가하는 페이지입니다.-->
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html>
 <head>
  <meta charset="UTF-8">
  <title>FAQ_write</title>
- <%@include file="../itemfile.jspf"%>
+ <%@include file="../itemfile.jspf" %>
  <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
  <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
  <script src="https://cdn.jsdelivr.net/npm/summernote-sticky-toolbar@1.0.0/summernote-sticky-toolbar.min.js"></script>
  <script type="text/javascript">
-  $(function() {
-   $("#btnSave").click(function(){
+  $(function () {
+   $("#btnSave").click(function () {
+    if ($("#faq_subject").val() == "") {
+     alert("제목을 입력하세요");
+     $("#faq_subject").focus();
+     return;
+    }
+    if ($("#content").val() == "") {
+     alert("내용을 입력하세요");
+     $("#content").focus();
+     return;
+    }
     document.form2.submit();
    });
   });
@@ -21,15 +31,18 @@
   body {
    padding-top: 100px;
   }
+
   textarea {
    display: flex;
    width: 100%;
    border: none;
    resize: none;
   }
+
   .form-control, input {
    border: none;
   }
+
   .btn-group {
    position: fixed;
    bottom: 0;
@@ -39,9 +52,10 @@
 <body>
 <div class="container">
  <form id="form2" name="form2" method="post" action="${path}/faq/insert.do">
-  <input class="form-control" name="faq_subject" type="text" placeholder="제목을 입력하세요" aria-label="default input example">
+  <input class="form-control" name="faq_subject" id="faq_subject" type="text" placeholder="제목을 입력하세요"
+         aria-label="default input example">
   <hr>
-  <textarea class="summernote" name="content"></textarea>
+  <textarea class="summernote" name="content" id="content"></textarea>
   <script>
    $('.summernote').summernote({
     placeholder: '내용을 입력해주세요.',
@@ -53,12 +67,12 @@
     toolbar: [
      ['fontname', ['fontname']],
      ['fontsize', ['fontsize']],
-     ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-     ['color', ['forecolor','color']],
+     ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+     ['color', ['forecolor', 'color']],
      ['table', ['table']],
      ['para', ['ul', 'ol', 'paragraph']],
      ['height', ['height']],
-     ['insert',['picture','link','video']],
+     ['insert', ['picture', 'link', 'video']],
      ['view', ['fullscreen', 'help']]
     ],
     stickyToolbar: {
