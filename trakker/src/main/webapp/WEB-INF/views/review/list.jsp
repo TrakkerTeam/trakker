@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.Random" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -101,7 +102,9 @@
                     <div class="card rounded-3 shadow-sm">
                         <a href="${path}/review/detail?review_num=${review.review_num}"
                            style="text-decoration-line:none;">
-                            <img src="${path}/resources/images/7_5.jpg" class="card-img-top w-100">
+                            <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
+                            <c:set var="region" value="${review.l_num}" />
+                            <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" class="card-img-top w-100" style="height: 242px;">
                             <div class="card-body rounded-3 p-0 w-100">
                                 <h6 class="text-muted ms-3 mt-3">닉네임</h6>
                                 <p class="card-text m-3">${review.title}</p>
@@ -126,7 +129,7 @@
         <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
             <c:if test="${page.prev}">
                 <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}"><i
-                class="bi bi-chevron-left"></i></a></span>
+                        class="bi bi-chevron-left"></i></a></span>
             </c:if>
 
             <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
@@ -139,7 +142,7 @@
 
             <c:if test="${page.next}">
                 <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}"><i
-                class="bi bi-chevron-right"></i></a></span>
+                        class="bi bi-chevron-right"></i></a></span>
             </c:if>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
