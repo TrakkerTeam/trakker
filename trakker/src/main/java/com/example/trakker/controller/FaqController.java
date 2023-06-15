@@ -42,7 +42,7 @@ public class FaqController {
     public String insert(@ModelAttribute FaqDTO dto)
             throws Exception {
         faqService.insert(dto);
-        return "redirect:/admin/adminPage.do";
+        return "redirect:/faq/listPage?num=1";
     }
 
     @RequestMapping("/faq/view.do")
@@ -59,13 +59,13 @@ public class FaqController {
         if (dto != null) {
             faqService.update(dto);
         }
-        return "redirect:/admin/adminPage.do";
+        return "redirect:/faq/listPage?num=1";
     }
 
     @RequestMapping("/faq/delete.do")
     public String delete(int faq_num) throws Exception {
         faqService.delete(faq_num);
-        return "redirect:/admin/adminPage.do";
+        return "redirect:/faq/listPage?num=1";
     }
 
     @RequestMapping(value = "/faq/listPage", method = RequestMethod.GET)

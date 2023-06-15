@@ -80,7 +80,24 @@
         -webkit-line-clamp: 1; /* Set the number of lines to display */
         -webkit-box-orient: vertical;
     }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
 
+    .modal-content {
+        display: block;
+        margin: 15% auto;
+        max-width: 900px;
+        padding: 20px;
+        border-radius: 5px;
+    }
 </style>
 <body>
 <%@ include file="../header.jspf" %>
@@ -237,16 +254,46 @@
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">북촌 한옥마을</a></td>
+                                        <td><a href="#" onclick="openModal('myModal')">북촌 한옥마을</a></td>
                                         <td><p class="content2">북촌 한옥마을은 서울에 위치한
                                             한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.
                                         </p>
                                         </td>
+                                        <div id="myModal" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">북촌 한옥마을</h4>
+                                                    <div class="ml-auto">
+                                                        <button type="button" class="btn btn-outline-success">글수정</button>
+                                                        <button type="button" class="btn-close" aria-label="Close"
+                                                                onclick="closeModal('myModal')" data-dismiss="modal"></button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body" style="display: flex;">
+                                                    <div style="flex: 1;">
+                                                        <img src="${pageContext.request.contextPath}/resources/images/hanook.png"
+                                                             alt="이미지" style="width: 100%; height: auto;">
+                                                    </div>
+                                                    <div style="flex: 1; padding-left: 10px;">
+                                                        <p style="float:right;">Some text in the modal. 안녕하세요 북촌 한옥마을은 서울에 위치한
+                                                            한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex">
+                                                    <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
+                                                        <small class="text-muted" style="margin-right: 10px;">조회수:0</small>
+                                                        <small class="text-muted" style="margin-right: 10px;">작성일: 2023-05-28</small>
+                                                        <button class="btn btn-outline-success" onclick="redirectToPage()">플래너
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <td>0</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td><a href="#" onclick="openModal('myModal3')">전주 한옥마을</a></td>
+                                        <td><a href="#" onclick="openModal('myModal2')">전주 한옥마을</a></td>
                                         <td><p class="content2"> 전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는
                                             한옥마을이다.
                                             원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때
@@ -255,6 +302,39 @@
                                         </p>
                                         </td>
                                         <td>1</td>
+                                        <div id="myModal2" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">전주 한옥마을</h4>
+                                                    <div class="ml-auto">
+                                                        <button type="button" class="btn btn-outline-success">글수정</button>
+                                                        <button type="button" class="btn-close" aria-label="Close"
+                                                                onclick="closeModal('myModal2')" data-dismiss="modal"></button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body" style="display: flex;">
+                                                    <div style="flex: 1;">
+                                                        <img src="${pageContext.request.contextPath}/resources/images/junju.png"
+                                                             alt="이미지" style="width: 100%; height: auto;">
+                                                    </div>
+                                                    <div style="flex: 1; padding-left: 10px;">
+                                                        <p style="float:right;">전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는 한옥마을이다. 전주에는 지금으로부터
+                                                            약 1만 5천년 전부터 사람이 살기 시작했다고 추측되고 있다.
+                                                            원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때 완산주(完山州)가 설치되면서 주거지가
+                                                            평지로 이동했다.
+                                                            전주사람들의 본격적인 평지에서의 생활은 전주성의 축조와 함께 시작되었다.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex">
+                                                    <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
+                                                        <small class="text-muted" style="margin-right: 10px;">조회수:0</small>
+                                                        <small class="text-muted" style="margin-right: 10px;">작성일: 2023-05-28</small>
+                                                        <button class="btn btn-outline-success" onclick="redirectToPage()">플래너
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     <tr>
                                         <td>3</td>
@@ -266,6 +346,40 @@
                                         </p>
                                         </td>
                                         <td>25</td>
+                                        <div id="myModal3" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">경복궁</h4>
+                                                    <div class="ml-auto">
+                                                        <button type="button" class="btn btn-outline-success" id="btnModify">글수정</button>
+                                                        <button type="button" class="btn-close" aria-label="Close"
+                                                                onclick="closeModal('myModal3')" data-dismiss="modal"></button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body" style="display: flex;">
+                                                    <div style="flex: 1;">
+                                                        <img src="${pageContext.request.contextPath}/resources/images/gyengboggungung.png"
+                                                             alt="이미지" style="width: 100%; height: auto;">
+                                                    </div>
+                                                    <div style="flex: 1; padding-left: 10px;">
+                                                        <p style="float:right;">경복궁은 조선 왕조 제일의 법궁이다. 북으로 북악산을 기대어 자리 잡았고 정문인 광화문
+                                                            앞으로는 넓은 육조거리(지금의 세종로)가 펼쳐져,
+                                                            왕도인 한양(서울) 도시 계획의 중심이기도 하다. 1395년 태조 이성계가 창건하였고, 1592년 임진 왜란으로 불타
+                                                            없어졌다가,
+                                                            고종 때인 1867년 중건 되었다. 흥선대원군이 주도한 중건 경복궁은 500여 동의 건물들이 미로같이 빼곡히 들어선 웅장한
+                                                            모습 이었다.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex">
+                                                    <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
+                                                        <small class="text-muted" style="margin-right: 10px;">조회수:0</small>
+                                                        <small class="text-muted" style="margin-right: 10px;">작성일: 2023-05-28</small>
+                                                        <button class="btn btn-outline-success" onclick="redirectToPage()">플래너
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     </tbody>
                                 </table>
