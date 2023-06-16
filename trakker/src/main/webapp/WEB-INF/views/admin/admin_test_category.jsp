@@ -106,7 +106,7 @@
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
             <a class="menubar" href="${path}/admin/memberList">회원관리</a>
-            <a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
+            <a class="menubar" href="${path}/trip/list_admin">관광명소 관리</a>
             <a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
             <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
         </div>
