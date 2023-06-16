@@ -1,8 +1,11 @@
 package com.example.trakker.model.planner.dto;
 
+import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.member.dto.MemberDTO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PlannerDTO {
@@ -13,6 +16,8 @@ public class PlannerDTO {
     private String memo; //메모
     private Integer days; //일정 수
     private Date regdate; //등록일자
-    private Integer read; //조회수
+    private Integer hit; //조회수
 
+    private List<MemberDTO> member;
+    private List<LocalDTO> local;
 }

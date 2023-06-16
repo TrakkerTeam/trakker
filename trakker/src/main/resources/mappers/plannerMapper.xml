@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planner">
+    <!--insert-->
+    <insert id="insert" parameterType="java.util.List">
+        INSERT INTO PLANNER (
+            MEM_NUM,L_NUM,TITLE,MEMO,DAYS
+        ) VALUES ( #{memNum},#{lNum},#{title},#{memo},#{days} );
+    </insert>
+
+    <!--list-->
+
+    <select id="count" resultMap="planner">
+
+    </select>
+
+    <select id="list" resultMap="planner">
+
+    </select>
+
+    <!--detail-->
+    <update id="updateHit">
+        UPDATE PLANNER
+        SET HIT = HIT + 1
+        WHERE PLAN_NUM = #{planNum}
+    </update>
+    <select id="detail" resultMap="planner">
+        SELECT P.PLAN_NUM,
+               L.K_NAME,
+               M.MEM_NICKNAME,
+               P.TITLE, P.MEMO, P.DAYS, P.REGDATE, P.HIT
+        FROM PLANNER P
+                 LEFT JOIN LOCAL L
+                           ON P.L_NUM = L.L_NUM
+                 LEFT JOIN MEMBER M
+                           ON P.MEM_NUM = M.MEM_NUM
+        WHERE P.PLAN_NUM = #{planNum}
+    </select>
+
+    <!--update-->
+    <update id="update">
+        UPDATE PLANNER
+        SET L_NUM = #{lNum}, TITLE = #{title}, MEMO = #{memo}, DAYS = #{days}
+        WHERE PLAN_NUM = #{planNum}
+    </update>
+
+    <!--delete-->
+    <delete id="delete">
+        DELETE FROM PLANNER
+        WHERE PLAN_NUM = #{planNum}
+    </delete>
+
+    <resultMap id="planner" type="planner">
+        <result column="PLAN_NUM" property="planNum" />
+        <result column="MEM_NUM" property="memNum" />
+        <result column="L_NUM" property="lNum" />
+        <result column="TITLE" property="title" />
+        <result column="MEMO" property="memo" />
+        <result column="DAYS" property="days" />
+        <result column="REGDATE" property="regdate" />
+        <result column="HIT" property="hit" />
+        <collection property="member" ofType="member">
+            <result column="MEM_NICKNAME" property="mem_nickname" />
+        </collection>
+        <collection property="local" ofType="local" >
+            <result column="K_NAME" property="K_NAME" />
+        </collection>
+    </resultMap>
+</mapper>

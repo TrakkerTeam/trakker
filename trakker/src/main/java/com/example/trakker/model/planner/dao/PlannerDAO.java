@@ -1,24 +1,21 @@
 package com.example.trakker.model.planner.dao;
 
 import com.example.trakker.model.planner.dto.PlannerDTO;
-import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
 public interface PlannerDAO {
+    void insert(PlannerDTO planner);
 
-    Integer getPlanListCount(Map map);
+    Integer count(Map param);
+    List<PlannerDTO> list(Map param);
 
-    List<PlannerDTO> getPlanList(Map map);
+    Integer updateHit(Integer planNum);
+    HashMap<String, Object> detail(Integer planNum);
 
-    Integer getPlanSearchListCount(Map map);
+    void update(PlannerDTO planner);
 
-    List<PlannerDTO> getPlanSearchList(Map map);
-
-    void insert(PlannerDTO plan);
-
-    PlannerDTO detail(Integer planNum);
-    
+    void delete(Integer planNum);
 }
