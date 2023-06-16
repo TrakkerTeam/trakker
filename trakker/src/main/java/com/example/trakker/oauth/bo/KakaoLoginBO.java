@@ -1,29 +1,26 @@
 package com.example.trakker.oauth.bo;
 
-import com.example.trakker.oauth.model.NaverLoginApi;
+import com.example.trakker.oauth.model.KakaoLoginApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
-public class NaverLoginBO {
+public class KakaoLoginBO {
 
-    private final static String CLIENT_ID = "iZ27MrgWUPNXaHPlkoVL";
-    private final static String CLIENT_SECRET = "2blWUpGvWI";
-    private final static String REDIRECT_URI = "http://localhost:9090/trakker/callbackNaver";
-    private final static String SESSION_STATE = "oauth_state";
+    private final static String KAKAO_CLIENT_ID = "b85bcca84d75d6ade2ff85e419041c99";
+    private final static String KAKAO_CLIENT_SECRET = "Ny8gt87juxwA6Q18Gc3rryOvCBEu0lk0";
+    private final static String KAKAO_REDIRECT_URI = "http://localhost:9090/trakker/callbackKakao";
+    private final static String SESSION_STATE = "kakao_oauth_state";
     /* 프로필 조회 API URL */
-    private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
-
-
+    private final static String PROFILE_API_URL ="https://kapi.kakao.com/v2/user/me";
 
 
     /* 네아로 인증  URL 생성  Method */
@@ -36,28 +33,28 @@ public class NaverLoginBO {
 
         /* Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로 인증 URL 생성 */
         OAuth20Service oauthService = new ServiceBuilder()
-                .apiKey(CLIENT_ID)
-                .apiSecret(CLIENT_SECRET)
-                .callback(REDIRECT_URI)
+                .apiKey(KAKAO_CLIENT_ID)
+                .apiSecret(KAKAO_CLIENT_SECRET)
+                .callback(KAKAO_REDIRECT_URI)
                 .state(state) //앞서 생성한 난수값을 인증 URL생성시 사용함
-                .build(NaverLoginApi.instance());
+                .build(KakaoLoginApi.instance());
 
         return oauthService.getAuthorizationUrl();
     }
 
     /* 네아로 Callback 처리 및  AccessToken 획득 Method */
-    public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException, IOException {
+    public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 
         /* Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인 */
         String sessionState = getSession(session);
         if(StringUtils.pathEquals(sessionState, state)){
 
             OAuth20Service oauthService = new ServiceBuilder()
-                    .apiKey(CLIENT_ID)
-                    .apiSecret(CLIENT_SECRET)
-                    .callback(REDIRECT_URI)
+                    .apiKey(KAKAO_CLIENT_ID)
+                    .apiSecret(KAKAO_CLIENT_SECRET)
+                    .callback(KAKAO_REDIRECT_URI)
                     .state(state)
-                    .build(NaverLoginApi.instance());
+                    .build(KakaoLoginApi.instance());
 
             /* Scribe에서 제공하는 AccessToken 획득 기능으로 네아로 Access Token을 획득 */
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
@@ -85,9 +82,9 @@ public class NaverLoginBO {
     public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 
         OAuth20Service oauthService =new ServiceBuilder()
-                .apiKey(CLIENT_ID)
-                .apiSecret(CLIENT_SECRET)
-                .callback(REDIRECT_URI).build(NaverLoginApi.instance());
+                .apiKey(KAKAO_CLIENT_ID)
+                .apiSecret(KAKAO_CLIENT_SECRET)
+                .callback(KAKAO_REDIRECT_URI).build(KakaoLoginApi.instance());
 
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         oauthService.signRequest(oauthToken, request);
@@ -95,7 +92,7 @@ public class NaverLoginBO {
 
         // 응답 데이터 확인
         String responseBody = response.getBody();
-        System.out.println("Naver API Response: " + responseBody);
+        System.out.println("Kakao API Response: " + responseBody);
 
         return response.getBody();
     }

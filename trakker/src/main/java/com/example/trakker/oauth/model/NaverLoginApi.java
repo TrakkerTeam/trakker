@@ -4,8 +4,7 @@ import com.github.scribejava.core.builder.api.DefaultApi20;
 
 public class NaverLoginApi extends DefaultApi20 {
 
-    protected NaverLoginApi(){
-    }
+    protected NaverLoginApi(){ }
 
     private static class InstanceHolder{
         private static final NaverLoginApi INSTANCE = new NaverLoginApi();

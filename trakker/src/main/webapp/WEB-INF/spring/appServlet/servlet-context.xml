@@ -18,6 +18,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/include/**"  location="/resources/include/" />
+	<resources mapping="/img/**"  location="/resources/img/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -31,6 +32,10 @@
 	<!-- aop의 설정으로 Proxy 객체를 자동으로 생성 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+	<beans:bean id="naverLoginBO" class="com.example.trakker.oauth.bo.NaverLoginBO">
+	</beans:bean>
+	<beans:bean id="kakaoLoginBO" class="com.example.trakker.oauth.bo.KakaoLoginBO">
+	</beans:bean>
 
 
 
