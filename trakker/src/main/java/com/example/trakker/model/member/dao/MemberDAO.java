@@ -15,4 +15,5 @@ public interface MemberDAO {
 	List<MemberDTO> memberList();
     MemberDTO adminViewMember(int mem_num);
 	void updateMember(MemberDTO dto);
+    int memberCount() throws Exception;
 }

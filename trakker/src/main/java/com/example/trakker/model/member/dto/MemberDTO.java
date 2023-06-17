@@ -1,8 +1,6 @@
 package com.example.trakker.model.member.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
@@ -10,6 +8,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
 	private Integer mem_num; //MEM_NUM
 	private String mem_email;  //MEM_EMAIL

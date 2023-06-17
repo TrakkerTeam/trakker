@@ -36,7 +36,7 @@ public class MemberController {
 
     @RequestMapping("admin_test_category.do")
     public String admin_test_category(){
-        return "admin/admin_test_category";
+        return "admin/admin_main";
     }
     @RequestMapping("termsofuse.do")
     public String termsofuse(){

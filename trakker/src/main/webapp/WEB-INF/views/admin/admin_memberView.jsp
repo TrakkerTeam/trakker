@@ -34,13 +34,13 @@
       if(extraAddr !== ''){
        extraAddr = ' (' + extraAddr + ')';
       }
-      document.getElementById("address1").value = extraAddr;
+      document.getElementById("mem_address1").value = extraAddr;
      } else {
-      document.getElementById("address2").value = '';
+      document.getElementById("mem_address2").value = '';
      }
-     document.getElementById('zipcode').value = data.zonecode;
-     document.getElementById("address1").value = addr;
-     document.getElementById("address2").focus();
+     document.getElementById('mem_zipcode').value = data.zonecode;
+     document.getElementById("mem_address1").value = addr;
+     document.getElementById("mem_address2").focus();
     }
    }).open();
   }
@@ -99,12 +99,46 @@
   .button-container button {
    width: 48%;
   }
+  #container {
+   display: flex;
+   height: 100%;
+   width: 100%;
+   flex-direction: column;
+  }
 
+  #category {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   width: 15%;
+   gap: 25px;
+   align-items: center;
+   border-right: 1px solid #000000;
+   padding-top: 50px;
+  }
+  div a.menubar {
+   text-decoration: none;
+   display: flex;
+   color: #000;
+   padding: 25px 25px 25px 25px;
+   font-weight: bold;
+  }
  </style>
 </head>
 <body>
-<h2>프로필 수정</h2>
-<form name="form1" id="form1" method="post" style="text-align: left;">
+<%@ include file="../header.jspf" %>
+
+<div id="container">
+ <div style="display: flex; height: auto;">
+  <div id="category" class="menu" style="width:10%; height:auto;">
+   <a class="menubar" href="${path}/admin/memberList">회원관리</a>
+   <a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
+   <a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
+   <a class="menubar" href="${path}/faq/list.do">FAQ</a>
+  </div>
+
+<h2 style="font-size: 20px; margin-left: 100px;">프로필 수정</h2>
+<form name="form1" id="form1" method="post" style="text-align: left; padding-left: 100px; margin-top: 80px; ">
  <table  width="600px" >
   <tr>
    <td colspan="2" id="profileimg">
@@ -117,8 +151,8 @@
    <td>이름</td>
   </tr>
   <tr>
-   <td><input type="email" id="email" name="email" value="${dto.mem_email}" readonly></td>
-   <td><input type="text" id="name" name="name" value="${dto.mem_name}"></td>
+   <td><input type="email" id="mem_email" name="mem_email" value="${dto.mem_email}" readonly></td>
+   <td><input type="text" id="mem_name" name="mem_name" value="${dto.mem_name}"></td>
   </tr>
 
   <tr>
@@ -126,7 +160,7 @@
    <td >비밀번호 확인</td>
   </tr>
   <tr>
-   <td><input type="password" id="passwd" name="passwd" value="${dto.mem_pass}" readonly></td>
+   <td><input type="password" id="mem_pass" name="mem_pass" value="${dto.mem_pass}" readonly></td>
    <td><input type="password" id="passwd_ck" name="passwd_ck" value="${dto.mem_pass}"  readonly></td>
 
   <tr>
@@ -134,21 +168,22 @@
    <td>전화번호</td>
   </tr>
   <tr>
-   <td><input type="text" id="nickname" name="nickname" value="${dto.mem_nickname}"></td>
-   <td><input type="text" id="tel" name="tel" value="${dto.mem_phone}"></td>
+   <td><input type="text" id="mem_nickname" name="mem_nickname" value="${dto.mem_nickname}"></td>
+   <td><input type="text" id="mem_phone" name="mem_phone" value="${dto.mem_phone}"></td>
   </tr>
   <tr>
    <td style="text-align:center;">우편번호</td>
-   <td><input type="text" id="zipcode" name="zipcode" onclick="daumZipCode()" value="${dto.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
+   <td><input type="text" id="mem_zipcode" name="mem_zipcode" onclick="daumZipCode()" value="${dto.mem_zipcode}" placeholder="우편번호 찾기" readonly></td>
   </tr>
   <tr>
-   <td colspan="2"><input type="text" id="address1" name="address1" value="${dto.mem_address1}" readonly></td>
+   <td colspan="2"><input type="text" id="mem_address1" name="mem_address1" value="${dto.mem_address1}" readonly></td>
   </tr>
   <tr>
-   <td colspan="2"><input type="text" id="address2" name="address2" value="${dto.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
+   <td colspan="2"><input type="text" id="mem_address2" name="mem_address2" value="${dto.mem_address2}" placeholder="상세주소를 입력해주세요."></td>
   </tr>
      <tr>
       <td colspan="2">
+       <input type="hidden" name="mem_num" value="${dto.mem_num}">
         <button type="button" id="userUpdate">수정하기</button>
       </td>
      </tr>
@@ -159,10 +194,49 @@
 
  </table>
 </form>
+ </div>
 <script>
- console.log("회원 번호 :" + ${dto.mem_num});
+ $("#logback").click(function (){
+  location.href="${path}/admin/memberList";
+
+ });
+
 
  $("#userUpdate").click(function (){
+
+  var mem_name = $("#mem_name").val();
+  var mem_nickname = $("#mem_nickname").val();
+  var mem_phone = $("#mem_phone").val();
+  var mem_zipcode = $("#mem_zipcode").val();
+  var mem_address1 = $("#mem_address1").val();
+  var mem_address2 = $("#mem_address2").val();
+
+
+  if(mem_name == ""){
+   alert("이름은 필수입니다.");
+   $("#mem_name").focus();
+   return;
+  }
+  if(mem_nickname == ""){
+   alert("닉네임을 입력하세요.");
+   $("#mem_nickname").focus();
+   return;
+  }
+  if(mem_phone == ""){
+   alert("번호를 입력하세요.");
+   $("#mem_phone").focus();
+   return;
+  }
+  if(mem_zipcode == ""){
+   alert("우편번호를 입력하세요.");
+   $("#mem_zipcode").focus();
+   return;
+  }
+  if(mem_address2 == ""){
+   alert("상세주소를 입력하세요.");
+   $("#mem_address2").focus();
+   return;
+  }
 
   if(confirm("정보 수정 완료")){
 
@@ -172,6 +246,6 @@
 
  });
 </script>
-
+</div>
 </body>
 </html>

@@ -40,8 +40,16 @@ public class AdminController {
 	@RequestMapping("/adminPage.do")
 	public ModelAndView adminPage(ModelAndView mav) throws Exception{
 		List<FaqDTO> items = faqService.list();
-		mav.setViewName("admin/admin_test_category");
+		List<MemberDTO> memberList = adminService.memberList();
+
+		//레코드 개수
+		int memberCount = adminService.memberCount();
+
+		mav.setViewName("admin/admin_main");
+		mav.addObject("memberList", memberList);
 		mav.addObject("list", items);
+		// View 단에 전송
+		mav.addObject("memberCount", memberCount);
 		return mav;
 	}
 	@RequestMapping("/view.do")
@@ -52,11 +60,12 @@ public class AdminController {
 
 	}
 	@RequestMapping("/userUpdate")
-	public String UpdateUser(@ModelAttribute MemberDTO dto , @RequestParam int mem_num) throws Exception{
-		System.out.println("mem_num = " + mem_num);
-		System.out.println("테스트용:"+dto);
-		adminService.updateMember(dto);
-		return "redirect:/admin/adminPage.do";
+	public String UpdateUser(MemberDTO dto) throws Exception{
+		//회원 정보가 null이 들어오면 작동 안함.
+		if (dto != null){
+			adminService.updateMember(dto);
+		}
+		return "redirect:/admin/memberList";
 	}
 
 

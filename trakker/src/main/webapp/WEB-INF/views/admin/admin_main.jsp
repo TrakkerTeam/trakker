@@ -24,60 +24,13 @@
 	function redirectToPage() {
 		location.href = "${path}/faq/faq_list.jsp";
 	}
-
 	function memberList() {
-		$.ajax({
-			type: "post",
-			url: "${path}/admin/memberList",
-			success: function (result) {
-				$("#result").html(result);
-			}
-		});
-	}
+		location.href="${path}/admin/memberList";
 
-	function tripList() {
-		$.ajax({
-			type: "get",
-			url: "${path}/trip/list_admin.do",
-			success: function (result) {
-				$("#result").html(result);
-			}
-		});
-	}
-
-	function faqList() {
-		$.ajax({
-			type: "get",
-			url: "${path}/faq/list.do",
-			success: function (result) {
-				$("#result").html(result);
-			}
-		});
-	}
-
-	function adminList() {
-		$.ajax({
-			type: "get",
-			url: "${path}/admin/list.do",
-			success: function (result) {
-				$("#result").html(result);
-			}
-		});
-	}
-
-	function reviewList() {
-		$.ajax({
-			type: "get",
-			url: "${path}/review/list.do",
-			success: function (result) {
-				$("#result").html(result);
-			}
-		});
 	}
 
 </script>
 <style>
-
 
 	#container {
 		display: flex;
@@ -124,16 +77,16 @@
 	}
 
 </style>
-
+<body>
 <%@ include file="../header.jspf" %>
 
 <div id="container">
 	<div style="display: flex; height: auto;">
 		<div id="category" class="menu" style="width:10%; height:auto;">
-			<a class="menubar" href="#" onclick="memberList()">회원관리</a>
-			<a class="menubar" href="#" onclick="tripList()">관광명소 관리</a>
-			<a class="menubar" href="#" onclick="reviewList()">리뷰리스트 관리</a>
-			<a class="menubar" href="#" onclick="faqList()">FAQ</a>
+			<a class="menubar" href="${path}/admin/memberList">회원관리</a>
+			<a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
+			<a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
+			<a class="menubar" href="${path}/faq/list.do">FAQ</a>
 		</div>
 
 		<div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -161,24 +114,18 @@
 									</thead>
 
 									<tbody>
+									<c:forEach var="dto" items="${memberList}" varStatus="status">
+										<c:choose>
+										<c:when test="${status.index < 4}">
 									<tr>
-										<td>dkjfwk@naver.com</td>
-										<td><a href="#" onclick="memberList()">홍길동</a></td>
-										<td>서울시 강남구</td>
-										<td>2023년 5월 31일</td>
+										<td>${dto.mem_email}</td>
+										<td><a href="${path}/admin/view.do?mem_num=${dto.mem_num}">${dto.mem_name}</a></td>
+										<td>${dto.mem_address1}</td>
+										<td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									</tr>
-									<tr>
-										<td>ddwwwd@naver.com</td>
-										<td><a href="#" onclick="memberList()">이순신</a></td>
-										<td>서울시 용산구</td>
-										<td>2023년 5월 3일</td>
-									</tr>
-									<tr>
-										<td>daaaewe@naver.com</td>
-										<td><a href="#" onclick="memberList()">김김김</a></td>
-										<td>서울시 종로구</td>
-										<td>2023년 5월 1일</td>
-									</tr>
+										</c:when>
+										</c:choose>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -326,11 +273,6 @@
 	</div>
 	<%@include file="../footer.jspf" %>
 </div>
-</div>
-
-<script>
-
-</script>
 
 </body>
 </html>

@@ -9,5 +9,7 @@ public interface AdminService {
 
      List<MemberDTO> memberList();
      MemberDTO adminViewMember(int mem_num);
-     void updateMember(MemberDTO dto);
+     void updateMember(MemberDTO dto) throws Exception;
+     int memberCount() throws Exception;
+
 }

@@ -31,8 +31,42 @@
       border: 1px solid black;
       padding: 8px;
     }
+    div a.menubar {
+      text-decoration: none;
+      display: flex;
+      color: #000;
+      padding: 25px 25px 25px 25px;
+      font-weight: bold;
+    }
+    #container {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    #category {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 15%;
+      gap: 25px;
+      align-items: center;
+      border-right: 1px solid #000000;
+      padding-top: 50px;
+    }
   </style>
 <body>
+<%@ include file="../header.jspf" %>
+
+<div id="container">
+  <div style="display: flex; height: auto;">
+    <div id="category" class="menu" style="width:10%; height:auto;">
+      <a class="menubar" href="${path}/admin/memberList">회원관리</a>
+      <a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
+      <a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
+      <a class="menubar" href="${path}/faq/list.do">FAQ</a>
+    </div>
 
 <div class="container" >
 
@@ -77,9 +111,9 @@
 
 
 
-        <td>
+        <td><%-- 클릭 시 상세페이지 호출--%>
           <input type="hidden" id="mem_num" name="mem_num" value="${row.mem_num}">
-          <a href="#" onclick="userview()">${row.mem_name}</a>
+          <a href="${path}/admin/view.do?mem_num=${row.mem_num}">${row.mem_name}</a>
         </td>
 
 
@@ -100,20 +134,7 @@
 
   </table>
 </div>
-<div id="result" style="display: flex;"></div>
-<script>
-  function userview() {
-   var mem_num = $("#mem_num").val();
-    console.log("mem_num : "+ mem_num);
-    $.ajax({
-      type: "post",
-      url:"${path}/admin/view.do?mem_num="+mem_num,
-      success:function (result){
-        $("#result").html(result);
-      }
-
-    });
-  }
-</script>
+  </div>
+</div>
 </body>
 </html>

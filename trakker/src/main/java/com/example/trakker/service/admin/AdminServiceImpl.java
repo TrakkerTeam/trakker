@@ -28,9 +28,15 @@ public class AdminServiceImpl implements AdminService {
         return memberDao.adminViewMember(mem_num);
     }
 
+    // 수정 기능 추가
     @Override
     public void updateMember(MemberDTO dto) {
         memberDao.updateMember(dto);
+    }
+    // 관리자 메인 페이지 ajax 박스 데이터 개수 정하는 메서드
+    @Override
+    public int memberCount() throws Exception {
+        return memberDao.memberCount();
     }
 
 }

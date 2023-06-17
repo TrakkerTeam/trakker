@@ -37,15 +37,21 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList("admin.adminMemberList");
 	}
-
+	// admin 회원 상세 정보 조회
 	@Override
 	public MemberDTO adminViewMember(int mem_num) {
 		return sqlSession.selectOne("admin.adminMemberView",mem_num);
 	}
-
+	// admin 회원 정보 업데이트
 	@Override
 	public void updateMember(MemberDTO dto) {
 		sqlSession.update("admin.updateMember" , dto);
+	}
+
+	// admin 메인 페이지 회원 레코드 조회
+	@Override
+	public int memberCount() throws Exception {
+		return sqlSession.selectOne("admin.memberCount");
 	}
 
 
