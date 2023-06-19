@@ -3,6 +3,8 @@ package com.example.trakker.model.member.dao;
 import java.util.List;
 
 import com.example.trakker.model.member.dto.MemberDTO;
+import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.ResponseResultList;
 
 //MemberDAO 인터페이스는 회원 데이터에 접근하기 위한 기능을 정의하고 있습니다.
 public interface MemberDAO {
@@ -16,4 +18,5 @@ public interface MemberDAO {
     MemberDTO adminViewMember(int mem_num);
 	void updateMember(MemberDTO dto);
     int memberCount() throws Exception;
+    ResponseResultList listPage(ItemSearchVO vo);
 }

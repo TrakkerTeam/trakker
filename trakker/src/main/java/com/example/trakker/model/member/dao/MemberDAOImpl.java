@@ -1,12 +1,16 @@
 package com.example.trakker.model.member.dao;
 
 
+import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 //memberMapper 와의 상호작용을 담당합니다
@@ -52,6 +56,28 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int memberCount() throws Exception {
 		return sqlSession.selectOne("admin.memberCount");
+	}
+
+	@Override
+	public ResponseResultList listPage(ItemSearchVO vo) {
+		HashMap<String, Object> data = new HashMap<>();
+
+		data.put("pageNum", vo.getPageNum());
+		data.put("pageRowCount", vo.getPageRowCount());
+		data.put("searchType", vo.getStype());
+		data.put("keyword", vo.getSdata());
+
+		List<MemberDTO> resultdata = sqlSession.selectList("admin.listPage",data);
+		Integer cnt =(Integer) sqlSession.selectOne("admin.listPageCount", data);
+
+		PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(),cnt,vo.getPageRowCount());
+
+		ResponseResultList responseResultList = new ResponseResultList();
+		responseResultList.setPagingInfo(pagingInfoVO);
+		responseResultList.setBody(resultdata);
+
+
+		return responseResultList;
 	}
 
 

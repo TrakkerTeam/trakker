@@ -27,6 +27,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     from member
     </select>
 
+    <!--유저 목록 페이징-->
+    <select id="listPage"  parameterType="hashMap" resultType="member">
+        SELECT *
+        FROM (
+                 SELECT rn, mem_num, mem_name, mem_email, mem_address1, mem_join_date
+                 FROM (
+                          SELECT ROW_NUMBER() OVER (ORDER BY mem_num DESC) AS rn,
+                                 mem_num,
+                                 mem_name,
+                                 mem_email,
+                                 mem_address1,
+                                 mem_join_date
+                          FROM member
+                      )
+        <if test='searchType.equals("mem_name")'>
+            WHERE mem_name LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("mem_email")'>
+            WHERE mem_email LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("all")'>
+            WHERE mem_name LIKE '%' || #{keyword} || '%'
+            or mem_email LIKE '%' || #{keyword} || '%'
+        </if>
+        )
+        WHERE rn between ${(pageNum -1) * pageRowCount} +1  and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
+    </select>
+
+    <select id="listPageCount" parameterType="hashMap" resultType="Integer">
+        SELECT count(*)
+        FROM member
+        WHERE 1=1
+        <if test='searchType.equals("mem_name")'>
+            AND mem_name LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("mem_email")'>
+            AND mem_email LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("all")'>
+            AND mem_name LIKE '%' || #{keyword} || '%'
+            or mem_email LIKE '%' || #{keyword} || '%'
+        </if>
+
+    </select>
+
 </mapper>
 
 

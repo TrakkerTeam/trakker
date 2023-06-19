@@ -36,4 +36,5 @@
 	<beans:bean id="kakaoLoginBO" class="com.example.trakker.oauth.bo.KakaoLoginBO">
 	</beans:bean>
 
+
 </beans:beans>
