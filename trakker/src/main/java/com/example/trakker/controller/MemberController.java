@@ -1,19 +1,25 @@
 package com.example.trakker.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.example.trakker.service.member.MailSendService;
+import com.example.trakker.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.service.member.MemberService;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
 
 //이 멤버 컨트롤러는 회원 관련 기능을 처리하기 위한 역할을 담당합니다.
 //멤버 컨트롤러는 회원 관련 기능의 처리와 관련된 메서드들을 정의하고,
@@ -28,6 +34,9 @@ public class MemberController {
 	 MailSendService mailService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+
+
+
 
 
 	//아이디 중복체크
@@ -101,7 +110,7 @@ public class MemberController {
 	//로그인
 	@RequestMapping("login.do")
 	 public String login() {
-	  return "login";
+	  return "member/login";
 	}
 
 	//회원가입
@@ -114,29 +123,68 @@ public class MemberController {
 	}
 
 
-@RequestMapping("login_check.do")
-public ModelAndView login_check(MemberDTO dto, HttpSession session) {
-	MemberDTO result = memberService.logincheck(dto, session);
-	System.out.println("테스트용 : " + result);
-	ModelAndView mav = new ModelAndView();
-	if (result != null) { // 인증 성공 시
-		boolean pwdMatch = passwordEncoder.matches(dto.getMem_pass(), result.getMem_pass());
-		if (pwdMatch) {
-			session.setAttribute("mem_email", dto.getMem_email());
-			mav.setViewName("home");
-		} else { // 비밀번호 불일치 시
+	@RequestMapping("login_check.do")
+	public ModelAndView login_check(MemberDTO dto, HttpSession session) {
+		MemberDTO result = memberService.logincheck(dto, session);
+		System.out.println("테스트용 : " + result);
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("dto.getMem_pass"+dto.getMem_pass());
+		System.out.println("result.getMem_pass"+result.getMem_pass());
+
+		if (result != null) { // 인증 성공 시
+			boolean pwdMatch = passwordEncoder.matches(dto.getMem_pass(), result.getMem_pass());
+			if (pwdMatch) {
+				session.setAttribute("mem_email", dto.getMem_email());
+				mav.setViewName("home");
+			} else { // 비밀번호 불일치 시
+				mav.setViewName("member/login");
+				mav.addObject("message", "error");
+				// Remove all other session attributes
+				Enumeration<String> attributeNames = session.getAttributeNames();
+				while (attributeNames.hasMoreElements()) {
+					String attributeName = attributeNames.nextElement();
+					if (!attributeName.equals("mem_email")) {
+						session.removeAttribute(attributeName);
+					}
+				}
+			}
+		} else { // 로그인 실패 시
 			mav.setViewName("member/login");
 			mav.addObject("message", "error");
 		}
-	} else { // 로그인 실패 시
-		mav.setViewName("member/login");
-		mav.addObject("message", "error");
+		return mav;
 	}
-	return mav;
-}
+
+
+//	@RequestMapping("login_check.do")
+//	public ModelAndView login_check(MemberDTO dto, HttpSession session) {
+//		MemberDTO result = memberService.logincheck(dto, session);
+//		System.out.println("테스트용 : " + result);
+//		ModelAndView mav = new ModelAndView();
+//		if (result != null) { // 인증 성공 시
+//			boolean pwdMatch = passwordEncoder.matches(dto.getMem_pass(), result.getMem_pass());
+//			if (pwdMatch) {
+//				session.setAttribute("mem_email", dto.getMem_email());
+//				mav.setViewName("home");
+//			} else { // 비밀번호 불일치 시
+//				mav.setViewName("member/login");
+//				mav.addObject("message", "error");
+//				session.removeAttribute("mem_email");
+//			}
+//		} else { // 로그인 실패 시
+//			mav.setViewName("member/login");
+//			mav.addObject("message", "error");
+//			session.removeAttribute("mem_email");
+//		}
+//		return mav;
+//	}
+
+
+
 
 	@RequestMapping("mem_update.do")
-	public String mem_update(@ModelAttribute MemberDTO dto,HttpSession session ){
+	public String mem_update(@ModelAttribute MemberDTO dto,HttpSession session){
 		// 비밀번호 암호화
 		String encodedPassword = passwordEncoder.encode(dto.getMem_pass());
 		dto.setMem_pass(encodedPassword);
@@ -157,11 +205,6 @@ public ModelAndView login_check(MemberDTO dto, HttpSession session) {
 		return "redirect:/member/mypage.do";
 	}
 
-//	@RequestMapping("mem_update.do")
-//	public String mem_update(MemberDTO dto){
-//		memberService.updateMember(dto);
-//		return "member/mypage";
-//	}
 
 
 //	@RequestMapping("removeMember.do") // 다시해야함 회원탈퇴
@@ -182,18 +225,32 @@ public ModelAndView login_check(MemberDTO dto, HttpSession session) {
 //		}
 //	}
 
-	@RequestMapping("removeMember.do") // 다시해야함 회원탈퇴
+	@RequestMapping("removeMember.do")
 	public ResponseEntity<String> remove(String mem_email, String mem_pass, Model model,HttpSession session) {
 		MemberDTO member = memberService.viewMember(mem_email);
 		String hashedPassword = member.getMem_pass(); // 데이터베이스에 저장된 암호화된 비밀번호
-
-		System.out.println("암호화된 비밀번호: " + hashedPassword);
-		System.out.println("입력된 비밀번호: " + mem_pass);
 
 		boolean passwordMatches = passwordEncoder.matches(mem_pass, hashedPassword); // 입력한 비밀번호와 암호화된 비밀번호 비교
 
 		if (passwordMatches) {
 			memberService.memberDelete(mem_email);
+			session.invalidate(); // 세션 초기화
+			return ResponseEntity.ok("success");
+		} else {
+			model.addAttribute("message", "비밀번호를 확인해주세요");
+			model.addAttribute("dto", memberService.viewMember(mem_email));
+			return ResponseEntity.ok("false");
+		}
+	}
+	@PostMapping("pwUpdate.do")
+	public ResponseEntity<String>  pwUpdate(String mem_email, String mem_pass, String new_pass, HttpSession session, Model model){
+		MemberDTO member = memberService.viewMember(mem_email);
+		String hashedPassword = member.getMem_pass(); // 데이터베이스에 저장된 암호화된 비밀번호
+
+		boolean passwordMatches = passwordEncoder.matches(mem_pass, hashedPassword); // 입력한 비밀번호와 암호화된 비밀번호 비교
+		if (passwordMatches) {
+			String newHashedPassword = passwordEncoder.encode(new_pass);
+			memberService.pwUpdate(mem_email,newHashedPassword);
 			session.invalidate(); // 세션 초기화
 			return ResponseEntity.ok("success");
 		} else {
@@ -226,13 +283,38 @@ public ModelAndView login_check(MemberDTO dto, HttpSession session) {
 //	}
 
 
+
 	@RequestMapping("logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 	memberService.logout(session); 
-	 mav.setViewName("member/login"); 
+	 mav.setViewName("member/login");
 	 mav.addObject("message", "logout"); 
 	  return mav;
 	  }
-	 
-	
+
+
+	@RequestMapping("editpass.do")
+	public String editpass(){
+		return "member/editpass";
+	}
+
+
+	@RequestMapping("findpass")
+	public ResponseEntity<String> findPassEmail(@RequestParam("mem_email")String mem_email) {
+		// Check if the mem_email exists in the database
+		if (emailCheck(mem_email) == 1) {
+			mailService.makeRandomNumber1();
+			String authNumber = mailService.getAuthNumber(); //새로운 비밀번호 받기
+
+			String new_pass = passwordEncoder.encode(authNumber); //새로받은 비밀번호 암호화
+
+			memberService.pwUpdate(mem_email, new_pass); //새롭게 받은 비밀번호 업데이트
+
+			mailService.joinPassEmail(mem_email); //이메일 보내기
+			return ResponseEntity.ok("success");
+		} else {
+			return ResponseEntity.ok("false");
+		}
+	}
+
 }
