@@ -18,6 +18,6 @@ public class PlannerDTO {
     private Date regdate; //등록일자
     private Integer hit; //조회수
 
-    private List<MemberDTO> member;
-    private List<LocalDTO> local;
+    private MemberDTO member;
+    private LocalDTO local;
 }

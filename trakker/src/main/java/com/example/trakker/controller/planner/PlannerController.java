@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -18,22 +20,75 @@ public class PlannerController {
 	@Autowired
 	private PlannerService planerService;
 
+	//플래너 작성
+	@GetMapping("planner/new")
+	public String write(Model model) {
+		logger.info("작성 페이지 이동");
+		return "planner/insert";
+	}
+	@PostMapping("planner/new")
+	public String insert(@PathVariable("planNum") int planNum) {
+		logger.info("작성완료 버튼");
+//		model.addAttribute(PlannerDTO planner)
+		//planerService.insert(planner, schedules);
 
-	
-	//기존에 간단하게 페이지 로딩용으로 사용하던 코드
+		return "redirect:planner/detail";
+	}
 
-	@RequestMapping("planner/insert")
-	public void insert() {
-		logger.info("insert 호출");
+	//플래너 목록
+	@GetMapping("planner")
+	public String list(Model model,
+					   @RequestParam("page") int page,
+					   @RequestParam(value = "area",required = false, defaultValue = "0") int area,
+					   @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
+					   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
+
+		Map <String, Object> param = new HashMap<>();
+		param.put("page", page);
+		param.put("area", area);
+		param.put("searchType", searchType);
+		param.put("keyword", keyword);
+
+		planerService.list(param);
+		logger.info("목록 페이지 이동");
+
+
+		return "planner/list";
 	}
-	@GetMapping("planner/detail")
-	public void detail() {
-		logger.info("detail 호출");
+
+	//플래너 상세
+	@GetMapping("planner/{planNum}")
+	public String detail(@PathVariable("planNum") int planNum, Model model) {
+		logger.info("상세 페이지 이동");
+
+		return "planner/detail";
 	}
-	@GetMapping("planner/list")
-	public void list(Model model) {
-		logger.info("list 호출");
+	@PostMapping("planner/{planNum}")
+	public void heart() {
+		logger.info("좋아요 버튼 클릭");
+
 	}
+
+	//플래너 수정
+	@GetMapping("planner/edit")
+	public void edit(Model model) {
+		logger.info("수정 페이지 이동");
+	}
+	@PostMapping("planner/edit")
+	public String update(Model model) {
+		logger.info("수정완료 버튼");
+
+		return "redirect:planner/detail";
+	}
+
+	//플래너 삭제
+	@PostMapping("planner/delete/{planNum}")
+	public String delete(Model model) {
+		logger.info("삭제 버튼");
+		return "redirect:planner/list";
+	}
+
+
 
 
 	@RequestMapping("planner/modal")
@@ -41,16 +96,9 @@ public class PlannerController {
 			logger.info("modal 호출");
 		}
 
-
+	//테스트 페이지
 	@GetMapping("planner/test/mapTest")
-	public String mapTest(Integer plan_num, Model model) {
-		logger.info("플래너 번호: "+plan_num);
-		logger.info("모델?: "+model);
-
-		planerService.detail(plan_num);
-
-//		model.addAttribute("list",planner);
-
+	public String mapTest(Model model) {
 		logger.info("상세테스트 호출");
 		return "planner/test/mapTest";
 	}

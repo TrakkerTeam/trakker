@@ -11,12 +11,65 @@
     </insert>
 
     <!--list-->
-
+<!--게시글 총 수 : 작성중, sql 파일 체크할 것 -->
     <select id="count" resultMap="planner">
-
+        SELECT COUNT(*)
+        FROM (
+            SELECT P.PLAN_NUM,
+                P.L_NUM, L.K_NAME,
+                P.MEM_NUM, M.MEM_NICKNAME,
+                P.TITLE, P.MEMO
+            FROM PLANNER P
+                LEFT JOIN LOCAL L
+                    ON P.L_NUM = L.L_NUM
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+            )
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='area != 0'>
+                AND L_NUM = #{area}
+            </if>
+            <if test='keyword != "" || searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("writer")'>
+                        AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        AND TITLE LIKE '%' || #{keyword} || '%'
+                        OR MEMO LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        </trim>
     </select>
-
+<!--게시글 리스트 : 페이지네이션 쿼리 -> 오라클 파일 // 하단 쿼리는 검색까지 구현 완료 -->
     <select id="list" resultMap="planner">
+
+            SELECT P.PLAN_NUM,
+                P.L_NUM, L.K_NAME,
+                P.MEM_NUM, M.MEM_NICKNAME,
+                P.TITLE, P.MEMO
+            FROM PLANNER P
+                LEFT JOIN LOCAL L
+                    ON P.L_NUM = L.L_NUM
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+            <trim prefix="WHERE" prefixOverrides="AND">
+                <if test='area != 0'>
+                    AND P.L_NUM = #{area}
+                </if>
+                <if test='keyword != "" || searchType != ""'>
+                    <choose>
+                        <when test='searchType.equals("writer")'>
+                            AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                        </when>
+                        <when test='searchType.equals("content")'>
+                            AND TITLE LIKE '%' || #{keyword} || '%'
+                            OR MEMO LIKE '%' || #{keyword} || '%'
+                        </when>
+                    </choose>
+                </if>
+            </trim>
 
     </select>
 
@@ -28,14 +81,14 @@
     </update>
     <select id="detail" resultMap="planner">
         SELECT P.PLAN_NUM,
-               L.K_NAME,
-               M.MEM_NICKNAME,
-               P.TITLE, P.MEMO, P.DAYS, P.REGDATE, P.HIT
+            P.L_NUM, L.K_NAME,
+            P.MEM_NUM, M.MEM_NICKNAME,
+            P.TITLE, P.MEMO, P.DAYS, P.REGDATE, P.HIT
         FROM PLANNER P
-                 LEFT JOIN LOCAL L
-                           ON P.L_NUM = L.L_NUM
-                 LEFT JOIN MEMBER M
-                           ON P.MEM_NUM = M.MEM_NUM
+            LEFT JOIN LOCAL L
+                ON P.L_NUM = L.L_NUM
+            LEFT JOIN MEMBER M
+                ON P.MEM_NUM = M.MEM_NUM
         WHERE P.PLAN_NUM = #{planNum}
     </select>
 
@@ -53,9 +106,9 @@
     </delete>
 
     <resultMap id="planner" type="planner">
-        <result column="PLAN_NUM" property="planNum" />
-        <result column="MEM_NUM" property="memNum" />
-        <result column="L_NUM" property="lNum" />
+        <id column="PLAN_NUM" property="planNum" />
+        <id column="MEM_NUM" property="memNum" />
+        <id column="L_NUM" property="lNum" />
         <result column="TITLE" property="title" />
         <result column="MEMO" property="memo" />
         <result column="DAYS" property="days" />
