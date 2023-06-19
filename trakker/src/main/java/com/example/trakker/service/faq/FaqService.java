@@ -4,8 +4,11 @@
 package com.example.trakker.service.faq;
 
 import java.util.List;
+
 import com.example.trakker.model.faq.dao.FaqDAO;
 import com.example.trakker.model.faq.dto.FaqDTO;
+import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class FaqService {
 
 	@Autowired
-	FaqDAO faqDao;
+	private FaqDAO faqDao;
 
 	public List<FaqDTO> list() throws Exception {
 		return faqDao.list();
@@ -52,12 +55,8 @@ public class FaqService {
 		return faqDao.view(faq_num);
 	}
 
-	public int count() throws Exception{
-		return faqDao.count();
-	}
-
-	public List<FaqDTO> listPage(int displayPost, int postNum) throws Exception {
-		return faqDao.listPage(displayPost, postNum);
+	public ResponseResultList listPage(ItemSearchVO vo){
+		return faqDao.listPage(vo);
 	}
 
 }

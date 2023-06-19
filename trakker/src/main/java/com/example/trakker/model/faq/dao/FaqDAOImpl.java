@@ -1,6 +1,9 @@
 package com.example.trakker.model.faq.dao;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
+import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,17 +42,22 @@ public class FaqDAOImpl implements FaqDAO{
     public FaqDTO view(int faq_num) throws Exception{
         return sqlSession.selectOne("faq.view",faq_num);
     }
-    @Override
-    public int count() throws Exception{
-        return sqlSession.selectOne("faq.count");
-    }
-    @Override
-    public List<FaqDTO> listPage(int displayPost, int postNum) throws Exception{
-        HashMap<String, Integer> data = new HashMap<String, Integer>();
 
-        data.put("displayPost", displayPost);
-        data.put("postNum", postNum);
+    @Override
+    public ResponseResultList listPage(ItemSearchVO vo){
+        HashMap<String, Object> data = new HashMap<String, Object>();
 
-        return sqlSession.selectList("faq.listPage", data);
+        data.put("pageNum", vo.getPageNum());
+        data.put("pageRowCount", vo.getPageRowCount());
+        data.put("searchType", vo.getStype());
+        data.put("keyword", vo.getSdata());
+        List<FaqDTO> resultdata = sqlSession.selectList("faq.listPage", data);
+        Integer cnt = (Integer)sqlSession.selectOne("faq.listPageCount", data);
+        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), cnt, vo.getPageRowCount());
+        ResponseResultList responseResultList = new ResponseResultList();
+        responseResultList.setPagingInfo(pagingInfoVO);
+        responseResultList.setBody(resultdata);
+//        responseResultList.setEgovExpressStartPageNum(cnt);
+        return responseResultList;
     }
 }

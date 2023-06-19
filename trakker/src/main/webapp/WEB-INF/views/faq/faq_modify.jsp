@@ -22,7 +22,7 @@
                 }
             });
                 $(".List").click(function() {
-                    location.href="${path}/admin/adminPage.do";
+                    location.href="${path}/faq/listPage?num=1";
                 });
         });
     </script>
@@ -52,8 +52,6 @@
         <input type="hidden" name="faq_num" value="${faq.faq_num}">
         <div class="d-flex justify-content-between align-items-center mt-5 mb-5 justify-content-md-end text-end">
             <div>
-                <button type="button" class="btn btn-light end-0">이전글</button>
-                <button type="button" class="btn btn-light end-0">다음글</button>
                 <button type="button" class="btn List btn-success end-0">목록</button>
             </div>
         </div>
@@ -65,7 +63,7 @@
     <script>
         $('.summernote').summernote({
 
-            height: 750,
+            height: 300,
             lang: "ko-KR",
             minHeight: null,
             maxHeight: null,
