@@ -18,7 +18,6 @@
         WHERE mem_email = #{mem_email}
     </select>
 
-
     <select id="memberList"
             resultType="member">
         select*from member
@@ -62,7 +61,16 @@
     </select>
 
 
-<!--    <select id="getremoveMember" resultType="member">-->
+    <select id="pwCheck" resultType="String">
+        SELECT mem_pass FROM member WHERE mem_email = #{mem_email}
+    </select>
+
+    <update id="pwUpdate">
+        UPDATE member SET mem_pass = #{new_pass} WHERE mem_email = #{mem_email}
+    </update>
+
+
+    <!--    <select id="getremoveMember" resultType="member">-->
 <!--        select mem_email-->
 <!--        from member-->
 <!--        where mem_email=#{mem_email}-->

@@ -81,4 +81,15 @@ public class MemberServiceImpl implements MemberService{
 		session.invalidate();
 	}
 
+
+	@Override
+	public String pwCheck(String mem_email){
+		return memberDao.pwCheck(mem_email);
+	}
+
+	@Override
+	public void pwUpdate(String mem_email, String new_pass){
+		memberDao.pwUpdate(mem_email, new_pass);
+	}
+
 }

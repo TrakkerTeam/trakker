@@ -16,7 +16,9 @@ public interface MemberDAO {
 	public boolean checkPw(String mem_email, String mem_pass);
 
 
+	public String pwCheck(String mem_email);
 
+	public void pwUpdate(String mem_email, String new_pass);
 
 	public MemberDTO getupdateMember(String mem_email); //안되면 지우기
 }

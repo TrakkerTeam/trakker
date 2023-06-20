@@ -6,6 +6,47 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../header.jsp"%>
+<script>
+	$(function(){
+        $("#findpassbtn").click(function(){
+            const mem_email = $('#mem_email').val();
+            console.log('완성된 이메일: ' + mem_email);
+
+            // 이메일 유효성 검사
+            if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$/.test(mem_email)) {
+                alert('유효한 이메일 주소를 입력해주세요');
+                return;
+            }
+
+            $.ajax({
+                url: "${path}/member/findpass",
+                type: "POST",
+                data: {
+                    mem_email: $("#mem_email").val()
+                },
+                success: function(response) {
+                    console.log("response: " + response);
+                    if (response === "success") {
+                        alert("임시 비밀번호 발급완료");
+                        document.form1.submit();
+                        window.location.href = "${path}/member/home.do";
+                    } else {
+                        alert("이메일이 존재하지 않습니다.");
+                        window.location.href = "${path}/member/findpassword.do";
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("임시 비밀번호 발급 실패: " + error);
+                    window.location.href = "${path}/member/findpassword.do";
+                }
+            })
+        });
+    });
+
+
+</script>
+
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -62,21 +103,19 @@ small {
 	<h2>비밀번호 찾기</h2>
 	<form name="form1" method="post">
 		<table  width="400px">
-
 			<tr>
             	<td>
             	<div class="form-floating mb-1">
-                                      <input type="email" class="form-control" id="email" name="mem_email" placeholder="name@example.com">
+                                      <input type="email" class="form-control" id="mem_email" name="mem_email" placeholder="name@example.com">
                                       <label for="floatingInput">Email address</label>
                             </div></td>
             </tr>
-
 			<tr>
 				<td>회원가입시 등록하셨던 이메일 주소를 입력해주시면 임시 비밀번호를 발급해드립니다.</td>
 			</tr>
 			<tr>
 				<td  align="center">
-					<button type="button" id="goemail">발급받기</button>
+					<button type="button" id="findpassbtn">발급받기</button>
 				</td>
 			</tr>
 			<tr>

@@ -71,4 +71,18 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 
+
+	@Override
+	public String pwCheck(String mem_email){
+		return sqlSession.selectOne("member.pwCheck", mem_email);
+	}
+
+	@Override
+	public void pwUpdate(String mem_email, String new_pass){
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("mem_email", mem_email);
+		map.put("new_pass", new_pass);
+		sqlSession.update("member.pwUpdate", map);
+	}
+
 }

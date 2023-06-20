@@ -120,12 +120,11 @@
                 },
                 error: function(xhr, status, error) {
                     console.log("회원 탈퇴 실패: " + error);
-                    window.location.href = "${path}/member/memdelete";
+                    window.location.href = "${path}/member/memdelete.do";
                 }
             });
         }
     }
-
 
     function back() {
         history.back();
