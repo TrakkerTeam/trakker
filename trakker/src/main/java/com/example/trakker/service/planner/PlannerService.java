@@ -1,17 +1,17 @@
 package com.example.trakker.service.planner;
 
-import com.example.trakker.item.ResponseResultList;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface PlannerService {
 
     void insert(PlannerDTO planner, List<ScheduleDTO> schedules);
 
-    ResponseResultList list(Map param);
+    ResponseResultList list(PagingInfoVO vo);
 
     ResponseResultList detail(Integer planNum);
 

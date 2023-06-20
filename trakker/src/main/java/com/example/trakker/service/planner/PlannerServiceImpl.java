@@ -1,11 +1,12 @@
-package com.example.trakker.service.impl;
+package com.example.trakker.service.planner;
 
-import com.example.trakker.item.ResponseResultList;
+import com.example.trakker.item.HeartDAO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import com.example.trakker.model.planner.dao.PlannerDAO;
 import com.example.trakker.model.planner.dao.ScheduleDAO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
-import com.example.trakker.service.planner.PlannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,8 @@ public class PlannerServiceImpl implements PlannerService {
     private PlannerDAO plannerDAO;
     @Autowired
     private ScheduleDAO scheduleDAO;
+    @Autowired
+    private HeartDAO heartDAO;
 
     //플래너 작성
     @Transactional
@@ -32,16 +35,21 @@ public class PlannerServiceImpl implements PlannerService {
 
     //플래너 목록
     @Override
-    public ResponseResultList list(Map param) {
-        Integer count = plannerDAO.count(param);
-        List<PlannerDTO> list = plannerDAO.list(param);
+    public ResponseResultList list(PagingInfoVO vo) {
+        HashMap<String, Object> data = new HashMap<String, Object>();
+        data.put("pageNum", vo.getPageNum());
+        data.put("pageRowCount", vo.getPageRowCount());
+        data.put("searchType", vo.getStype());
+        data.put("keyword", vo.getSdata());
 
-        // Paging
-//        PagingInfoDTO pagingInfoDTO = new PagingInfoDTO(dto.getPageNum(), count, dto.getPageRowCount());
+        Integer count = plannerDAO.count(data);
+        List<PlannerDTO> list = plannerDAO.list(data);
 
+        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), count, vo.getPageRowCount());
         ResponseResultList resultList = new ResponseResultList();
         resultList.setBody(list);
-//        resultList.setPagingInfo(pagingInfoDTO);
+        resultList.setPagingInfo(pagingInfoVO);
+
         return resultList;
     }
 
@@ -53,7 +61,6 @@ public class PlannerServiceImpl implements PlannerService {
 
         HashMap<String, Object> planner = plannerDAO.detail(planNum);
         List<ScheduleDTO> schedules =  scheduleDAO.detail(planNum);
-
         ResponseResultList resultList = new ResponseResultList();
         resultList.setMeta(planner);
         resultList.setBody(schedules);
@@ -76,6 +83,9 @@ public class PlannerServiceImpl implements PlannerService {
     public void delete(Integer planNum) {
         plannerDAO.delete(planNum);
         scheduleDAO.delete(planNum);
+
+        //추가 - 좋아요 테이블의 데이터도 삭제
+        heartDAO.deletePlanner(planNum);
     }
 
 

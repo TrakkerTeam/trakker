@@ -43,7 +43,6 @@ public class PlannerDAOImpl implements PlannerDAO {
 
         ObjectMapper objectMapper = new ObjectMapper();
         HashMap<String, Object> planner = (HashMap<String, Object>) objectMapper.convertValue(plan, Map.class);
-
         return planner;
     }
 
@@ -56,6 +55,6 @@ public class PlannerDAOImpl implements PlannerDAO {
     //플래너 삭제
     @Override
     public void delete(Integer planNum) {
-
+        sqlSession.delete("planner.delete", planNum);
     }
 }

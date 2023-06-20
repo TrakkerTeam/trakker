@@ -12,7 +12,7 @@
 
     <!--list-->
 <!--게시글 총 수 : 작성중, sql 파일 체크할 것 -->
-    <select id="count" resultMap="planner">
+    <select id="count" resultType="Integer">
         SELECT COUNT(*)
         FROM (
             SELECT P.PLAN_NUM,
@@ -24,41 +24,11 @@
                     ON P.L_NUM = L.L_NUM
                 LEFT JOIN MEMBER M
                     ON P.MEM_NUM = M.MEM_NUM
-            )
-        <trim prefix="WHERE" prefixOverrides="AND">
-            <if test='area != 0'>
-                AND L_NUM = #{area}
-            </if>
-            <if test='keyword != "" || searchType != ""'>
-                <choose>
-                    <when test='searchType.equals("writer")'>
-                        AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-                    </when>
-                    <when test='searchType.equals("content")'>
-                        AND TITLE LIKE '%' || #{keyword} || '%'
-                        OR MEMO LIKE '%' || #{keyword} || '%'
-                    </when>
-                </choose>
-            </if>
-        </trim>
-    </select>
-<!--게시글 리스트 : 페이지네이션 쿼리 -> 오라클 파일 // 하단 쿼리는 검색까지 구현 완료 -->
-    <select id="list" resultMap="planner">
-
-            SELECT P.PLAN_NUM,
-                P.L_NUM, L.K_NAME,
-                P.MEM_NUM, M.MEM_NICKNAME,
-                P.TITLE, P.MEMO
-            FROM PLANNER P
-                LEFT JOIN LOCAL L
-                    ON P.L_NUM = L.L_NUM
-                LEFT JOIN MEMBER M
-                    ON P.MEM_NUM = M.MEM_NUM
             <trim prefix="WHERE" prefixOverrides="AND">
-                <if test='area != 0'>
+                <if test='area != 0 and area != null'>
                     AND P.L_NUM = #{area}
                 </if>
-                <if test='keyword != "" || searchType != ""'>
+                <if test='keyword != "" and searchType != ""'>
                     <choose>
                         <when test='searchType.equals("writer")'>
                             AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
@@ -70,7 +40,42 @@
                     </choose>
                 </if>
             </trim>
-
+            )
+    </select>
+<!--게시글 리스트 : 페이지네이션 쿼리 -> 오라클 파일 // 하단 쿼리는 검색까지 구현 완료 -->
+    <select id="list" resultMap="planner">
+    SELECT X.RN, X.PLAN_NUM, X.L_NUM, X.MEM_NUM, X.MEM_NICKNAME, X.TITLE, X.MEMO
+    FROM (
+        SELECT ROWNUM AS RN, A.PLAN_NUM, A.L_NUM, A.MEM_NUM, A.MEM_NICKNAME, A.TITLE, A.MEMO
+        FROM (
+            SELECT P.PLAN_NUM,
+                P.L_NUM, L.K_NAME,
+                P.MEM_NUM, M.MEM_NICKNAME,
+                P.TITLE, P.MEMO
+            FROM PLANNER P
+                LEFT JOIN LOCAL L
+                    ON P.L_NUM = L.L_NUM
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+            <trim prefix="WHERE" prefixOverrides="AND">
+                <if test='area != 0 and area != null'>
+                    AND P.L_NUM = #{area}
+                </if>
+                <if test='keyword != "" and searchType != ""'>
+                    <choose>
+                        <when test='searchType.equals("writer")'>
+                            AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                        </when>
+                        <when test='searchType.equals("content")'>
+                            AND TITLE LIKE '%' || #{keyword} || '%'
+                            OR MEMO LIKE '%' || #{keyword} || '%'
+                        </when>
+                    </choose>
+                </if>
+            </trim>
+               ) A
+        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} +1 ) ) X
+    WHERE X.RN &gt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} )
     </select>
 
     <!--detail-->

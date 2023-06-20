@@ -1,7 +1,9 @@
-package com.example.trakker.controller.planner;
+package com.example.trakker.controller;
 
 import com.example.trakker.service.planner.PlannerService;
 
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +45,14 @@ public class PlannerController {
 					   @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
 					   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
 
-		Map <String, Object> param = new HashMap<>();
-		param.put("page", page);
-		param.put("area", area);
-		param.put("searchType", searchType);
-		param.put("keyword", keyword);
+		PagingInfoVO vo = new PagingInfoVO();
+		vo.setPageNum(page);
+		vo.setArea(area);
+		vo.setStype(searchType);
+		vo.setSdata(keyword);
 
-		planerService.list(param);
+		ResponseResultList responseResultList = planerService.list(vo);
 		logger.info("목록 페이지 이동");
-
 
 		return "planner/list";
 	}
