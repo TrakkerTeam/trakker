@@ -17,6 +17,4 @@ public class TripDTO {
     private int readcount;
     private Date t_regdate;
 
-
-
 }

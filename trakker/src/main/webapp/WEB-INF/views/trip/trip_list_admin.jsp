@@ -94,8 +94,8 @@
             <tr>
                 <th style="width: 8%">번호</th>
                 <th style="width: 20%">관광명소</th>
-                <th style="width: 52%">내용</th>
-                <th style="width: 10%">조회수</th>
+                <th style="width: 50%">내용</th>
+                <th style="width: 10%">작성일자</th>
             </tr>
             </thead>
             <tbody>
@@ -104,7 +104,7 @@
                 <td>${trip.t_num}</td>
                 <td><a href="#" onclick="openModal('myModal${trip.t_num}')">${trip.t_subject}</a></td>
                 <td>${trip.content}</td>
-                <td>${trip.readcount}</td>
+                <td><fmt:formatDate value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></td>
             </tr>
             <div id="myModal${trip.t_num}" class="modal">
                 <div class="modal-content">
@@ -127,7 +127,6 @@
                     </div>
                     <div class="modal-footer d-flex">
                         <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
-                            <small class="text-muted" style="margin-right: 15px;">조회수:${trip.readcount}</small>
                             <small class="text-muted" style="margin-right: 15px;">작성일:<fmt:formatDate
                                     value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
                             <button class="btn btn-outline-success" onclick="redirectToPage()">플래너
@@ -143,8 +142,14 @@
         <button class="btn btn-outline-success" type="submit" id="btnWrite" style="float:right;">글쓰기</button>
         <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
             <span>
+                <c:if test="${page.pageNum  > 2}">
+                    <c:set var="firstPageNum" value="1" />
+                <a class="ms-3 text-muted" href="${path}/trip/trip_list_admin?num=${firstPageNum}">
+                <i class="bi bi-chevron-left"></i>
+                </a>
+                </c:if>
                 <c:if test="${page.pageNum  > 1}">
-                <a class="ms-3 text-muted" href="${path}/trip/trip_list_admin?num=${page.pageNum - 1}">
+                <a class="ms-3 text-muted" href="${path}/trip/listPage?num=${page.pageNum - 1}">
                 <i class="bi bi-chevron-left"></i></a>
                 </c:if>
             </span>
@@ -161,6 +166,11 @@
                 <a class="ms-3 text-muted" href="${path}/trip/trip_list_admin?num=${page.pageNum + 1}">
                     <i class="bi bi-chevron-right"></i>
                 </a>
+                </c:if>
+                <c:if test="${page.pageNum != page.lastPageNum}">
+                    <a class="ms-3 text-muted" href="${path}/trip/trip_list_admin?num=${page.lastPageNum}">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </a>
                 </c:if>
             </span>
         </div>

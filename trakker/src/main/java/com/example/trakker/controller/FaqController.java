@@ -3,10 +3,13 @@
 
 package com.example.trakker.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +74,9 @@ public class FaqController {
 
     @RequestMapping(value = "/faq/listPage", method = RequestMethod.GET)
     public void getListPage(Model model, @RequestParam("num") Integer num,
-                            @RequestParam(value = "searchType",required = false, defaultValue = "faq_subject") String searchType,
+                            @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
                             @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
-        ItemSearchVO vo = new ItemSearchVO();
+        PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(num);
         vo.setStype(searchType);
         vo.setSdata(keyword);

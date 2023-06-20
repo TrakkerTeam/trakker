@@ -3,8 +3,10 @@
 package com.example.trakker.model.faq.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.example.trakker.model.faq.dto.FaqDTO;
-import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 
 import javax.servlet.http.HttpSession;
@@ -16,5 +18,7 @@ public interface FaqDAO {
 	void delete(int faq_num) throws Exception;
 	void increaseViewcnt(int faq_num, HttpSession session) throws Exception;
 	FaqDTO view(int faq_num) throws Exception;
-	ResponseResultList listPage(ItemSearchVO vo);
+	Integer count(Map data);
+	List<FaqDTO> listPage(Map data);
+
 }

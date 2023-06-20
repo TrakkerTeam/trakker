@@ -3,6 +3,7 @@ package com.example.trakker.controller;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -46,7 +48,6 @@ public class TripController {
 
     @GetMapping("/trip/view.do")
     public ModelAndView view(int t_num, HttpSession session) throws Exception {
-        tripService.increaseViewcnt(t_num, session);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("trip/trip_modify");
         mav.addObject("trip",tripService.view(t_num));
@@ -67,9 +68,10 @@ public class TripController {
     }
     @RequestMapping(value = "/trip/trip_list_admin", method = RequestMethod.GET)
     public void getListPage(Model model, @RequestParam("num") Integer num,
-                            @RequestParam(value = "searchType",required = false, defaultValue = "t_subject") String searchType,
+                            @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
                             @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
-        ItemSearchVO vo = new ItemSearchVO();
+        PagingInfoVO vo = new PagingInfoVO();
+
         vo.setPageNum(num);
         vo.setStype(searchType);
         vo.setSdata(keyword);
