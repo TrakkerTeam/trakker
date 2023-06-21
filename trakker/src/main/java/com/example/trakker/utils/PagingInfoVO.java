@@ -18,22 +18,7 @@ public class PagingInfoVO extends BaseVO {
     this.lastPageNum = 0;
   }
 
-  public PagingInfoVO(List list, int pageRowCount) {
-    if (list != null && list.size() > 0){
-      PagingInfoEntity info = (PagingInfoEntity)list.get(0);
-      if (info != null){
-        this.pageNum = info.getPageNum();
-        this.pageTotalCount = info.getPageTotalCount();
 
-        if(info.getPageTotalCount() % pageRowCount > 0){
-          this.lastPageNum = (info.getPageTotalCount() / pageRowCount) + 1;
-        }else{
-          this.lastPageNum = info.getPageTotalCount() / pageRowCount;
-        }
-      }
-      this.pageRowCount = pageRowCount;
-    }
-  }
 
   public PagingInfoVO(int pageNum, int pageTotalCount, int pageRowCount) {
     this.pageNum = pageNum;

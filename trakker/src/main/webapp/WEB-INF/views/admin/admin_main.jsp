@@ -21,12 +21,17 @@
 		document.getElementById(modalId).style.display = "none";
 	}
 
-	function redirectToPage() {
-		location.href = "${path}/faq/faq_list.jsp";
-	}
 	function memberList() {
-		location.href="${path}/admin/memberList";
-
+		location.href="${path}/admin/admin_listPage?num=1";
+	}
+	function reviewList(){
+		location.href = "${path}/review/list.do";
+	}
+	function faqList(){
+		location.href = "${path}/faq/listPage?num=1";
+	}
+	function tripList(){
+		location.href = "${path}/trip/trip_list_admin?num=1";
 	}
 
 </script>
@@ -84,9 +89,9 @@
 	<div style="display: flex; height: auto;">
 		<div id="category" class="menu" style="width:10%; height:auto;">
 			<a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-			<a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
-			<a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
-			<a class="menubar" href="${path}/faq/list.do">FAQ</a>
+			<a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
+			<a class="menubar" href="${path}/review/list?num=1" >리뷰리스트 관리</a>
+			<a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
 		</div>
 
 		<div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -194,16 +199,16 @@
 									</tr>
 									</thead>
 									<tbody>
-									<c:set var="recentList" value="${list.subList(0, 5)}"/>
-									<c:forEach var="row" items="${recentList}">
+									<c:set var="list" value="${list.subList(0, 4)}"/>
+									<c:forEach var="faq" items="${list}">
 										<tr>
-											<td>${row.faq_num}</td>
+											<td>${faq.faq_num}</td>
 											<td>
-												<a href="${path}/faq/view.do?faq_num=${row.faq_num}">${row.faq_subject}</a>
+												<a href="${path}/faq/view.do?faq_num=${faq.faq_num}">${faq.faq_subject}</a>
 											</td>
-											<td><fmt:formatDate value="${row.faq_reg_date}"
+											<td><fmt:formatDate value="${faq.faq_reg_date}"
 																pattern="yyyy-MM-dd"/></td>
-											<td>${row.readcount}</td>
+											<td>${faq.readcount}</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -224,44 +229,51 @@
 									<thead>
 									<tr>
 										<th style="width: 8%">번호</th>
-										<th style="width: 18%">관광명소</th>
-										<th style="width: 62%">내용</th>
-										<th style="width: 12%">조회수</th>
+										<th style="width: 20%">관광명소</th>
+										<th style="width: 57%">내용</th>
+										<th style="width: 15%">작성일자</th>
 									</tr>
 									</thead>
 									<tbody>
-									<tr>
-										<td>1</td>
-										<td><a href="#" onclick="openModal('myModal3')">북촌 한옥마을</a></td>
-										<td><p class="content2">북촌 한옥마을은 서울에 위치한
-											한옥마을으로 사진찍기도 좋고 예쁜 카페도 많이 있습니다.
-										</p>
-										</td>
-										<td>0</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><a href="#" onclick="openModal('myModal3')">전주 한옥마을</a></td>
-										<td><p class="content2"> 전주한옥마을은 전라북도 전주시 완산구 풍남동에 있는
-											한옥마을이다.
-											원래 자연부락 형태의 마을들이 산자락에 형성되었었으나, 665년 신라 문무왕 때
-											완산주(完山州)가 설치되면서 주거지가
-											평지로 이동했다.
-										</p>
-										</td>
-										<td>1</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td><a href="#" onclick="openModal('myModal3')">경복궁</a></td>
-										<td><p class="content2">경복궁은 조선 왕조 제일의 법궁이다. 북으로
-											북악산을 기대어 자리 잡았고 정문인 광화문
-											앞으로는 넓은 육조거리가 펼쳐져,
-											왕도인 한양(서울) 도시 계획의 중심이기도 하다.
-										</p>
-										</td>
-										<td>25</td>
-									</tr>
+									<c:set var="lists" value="${lists.subList(0, 3)}"/>
+									<c:forEach var="trip" items="${lists}">
+										<tr>
+											<td>${trip.t_num}</td>
+											<td><a href="#" onclick="openModal('myModal${trip.t_num}')">${trip.t_subject}</a></td>
+											<td>${trip.content}</td>
+											<td><fmt:formatDate value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></td>
+										</tr>
+										<div id="myModal${trip.t_num}" class="modal">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">${trip.t_subject}</h4>
+													<div class="ml-auto">
+														<a href="${path}/trip/view.do?t_num=${trip.t_num}" class="btn btn-outline-success">글수정</a>
+														<button type="button" class="btn-close" aria-label="Close"
+																onclick="closeModal('myModal${trip.t_num}')" data-dismiss="modal"></button>
+													</div>
+												</div>
+												<div class="modal-body" style="display: flex;">
+													<div style="flex: 1;">
+														<img src="${path}/resources/images/hanook.png"
+															 alt="이미지" style="width: 100%; height: auto;">
+													</div>
+													<div style="flex: 1; padding-left: 10px;">
+														<p style="float:right;">${trip.content}</p>
+													</div>
+												</div>
+												<div class="modal-footer d-flex">
+													<div style="flex: 1;" class="d-flex justify-content-end align-items-center">
+														<small class="text-muted" style="margin-right: 10px;">작성일:<fmt:formatDate
+																value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
+														<button class="btn btn-outline-success" onclick="redirectToPage()">플래너
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										</tr>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>

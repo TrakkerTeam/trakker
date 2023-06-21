@@ -3,10 +3,15 @@
 
 package com.example.trakker.service.faq;
 
+import java.util.HashMap;
 import java.util.List;
+
 import com.example.trakker.model.faq.dao.FaqDAO;
 import com.example.trakker.model.faq.dto.FaqDTO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +19,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class FaqService {
 
-    private final FaqDAO faqDao;
+    @Autowired
+    private FaqDAO faqDao;
 
     public List<FaqDTO> list() throws Exception {
         return faqDao.list();
@@ -33,12 +39,25 @@ public class FaqService {
     }
 
     public void increaseViewcnt(int faq_num, HttpSession session) throws Exception {
-        faqDao.increaseViewcnt(faq_num);
+        faqDao.increaseViewcnt(faq_num, session);
+        long update_time=0;
+        if(session.getAttribute("update_time_"+faq_num)!=null) {
+            update_time=(long)session.getAttribute("update_time_"+faq_num);
+        }
+        long current_time=System.currentTimeMillis();
+        if(current_time - update_time > 5*1000) {
+            faqDao.increaseViewcnt(faq_num, session);
+            session.setAttribute("update_time_"+faq_num, current_time);
+        }
     }
 
 
     public FaqDTO view(int faq_num) throws Exception {
         return faqDao.view(faq_num);
+    }
+
+    public ResponseResultList listPage(PagingInfoVO vo){
+        return faqDao.listPage(vo);
     }
 
 }

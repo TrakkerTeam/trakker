@@ -33,7 +33,7 @@
                     <a class="nav-link" href="#"><i class="bi bi-calendar-range"></i>플래너</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${path}/review/list"><i class="bi bi-file-earmark-richtext"></i>리뷰게시판</a>
+                    <a class="nav-link" href="${path}/review/list?num=1"><i class="bi bi-file-earmark-richtext"></i>리뷰게시판</a>
                 </li>
             </ul>
             <div class="navbar-nav">

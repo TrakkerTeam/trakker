@@ -1,10 +1,10 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.model.member.dto.MemberDTO;
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 
 import com.example.trakker.service.review.ReviewService;
-import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class ReviewController {
@@ -25,7 +24,7 @@ public class ReviewController {
     public void list(Model model, @RequestParam("num") Integer num,
                      @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
                      @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
-        ItemSearchVO vo = new ItemSearchVO();
+        PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(num);
         vo.setStype(searchType);
         vo.setSdata(keyword);
@@ -80,6 +79,17 @@ public class ReviewController {
         reviewService.delete(review_num);
         return "redirect:/review/list?num=1";
     }
+
+
+    //별점
+    @PostMapping("/review/rating")
+    public void ratingPost(RatingDTO dto){
+
+        reviewService.ratingPost(dto);
+
+    }
+
+
 
 
 

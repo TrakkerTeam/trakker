@@ -40,17 +40,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                  mem_address1,
                                  mem_join_date
                           FROM member
-                      )
-        <if test='searchType.equals("mem_name")'>
-            WHERE mem_name LIKE '%' || #{keyword} || '%'
+        <if test='keyword != "" and searchType != ""'>
+            <choose>
+                <when test='searchType.equals("mem_name")'>
+                    WHERE mem_name LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test='searchType.equals("mem_email")'>
+                    WHERE mem_email LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test='searchType.equals("all")'>
+                    WHERE mem_name LIKE '%' || #{keyword} || '%'
+                    or mem_email LIKE '%' || #{keyword} || '%'
+                </when>
+            </choose>
         </if>
-        <if test='searchType.equals("mem_email")'>
-            WHERE mem_email LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("all")'>
-            WHERE mem_name LIKE '%' || #{keyword} || '%'
-            or mem_email LIKE '%' || #{keyword} || '%'
-        </if>
+        )
         )
         WHERE rn between ${(pageNum -1) * pageRowCount} +1  and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
     </select>
@@ -58,18 +62,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="listPageCount" parameterType="hashMap" resultType="Integer">
         SELECT count(*)
         FROM member
-        WHERE 1=1
-        <if test='searchType.equals("mem_name")'>
-            AND mem_name LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("mem_email")'>
-            AND mem_email LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("all")'>
-            AND mem_name LIKE '%' || #{keyword} || '%'
-            or mem_email LIKE '%' || #{keyword} || '%'
-        </if>
-
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='keyword != "" and searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("mem_name")'>
+                        AND mem_name LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("mem_email")'>
+                        AND mem_email LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("all")'>
+                        AND mem_name LIKE '%' || #{keyword} || '%'
+                        or mem_email LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        </trim>
     </select>
 
 </mapper>

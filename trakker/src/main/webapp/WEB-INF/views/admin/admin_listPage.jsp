@@ -39,6 +39,10 @@
             padding: 25px 25px 25px 25px;
             font-weight: bold;
         }
+        .menu > a:hover {
+            background-color: #333;
+            color: #fff;
+        }
         #container {
             display: flex;
             height: 100%;
@@ -68,9 +72,9 @@
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
             <a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-            <a class="menubar" href="${path}/trip/list_admin.do">관광명소 관리</a>
-            <a class="menubar" href="${path}/review/list.do" >리뷰리스트 관리</a>
-            <a class="menubar" href="${path}/faq/list.do">FAQ</a>
+            <a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
+            <a class="menubar" href="${path}/review/list?num=1" >리뷰리스트 관리</a>
+            <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
         </div>
 
         <div class="container" >

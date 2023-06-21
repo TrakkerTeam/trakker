@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.service.faq.FaqService;
-import com.example.trakker.utils.ItemSearchVO;
+import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.trakker.service.admin.AdminService;
+import com.example.trakker.service.admin.AdminServiceImpl;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,7 +25,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
-	private AdminService adminService;
+	private AdminServiceImpl adminService;
 	@Autowired
 	private FaqService faqService;
 
@@ -72,7 +72,7 @@ public class AdminController {
 	public void getListPage(Model model, @RequestParam("num") Integer num,
 							@RequestParam(value = "searchType",required = false, defaultValue = "mem_name") String searchType,
 							@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
-		ItemSearchVO vo = new ItemSearchVO();
+		PagingInfoVO vo = new PagingInfoVO();
 		vo.setPageNum(num);
 		vo.setStype(searchType);
 		vo.setSdata(keyword);

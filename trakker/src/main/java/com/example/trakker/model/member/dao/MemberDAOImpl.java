@@ -1,7 +1,7 @@
 package com.example.trakker.model.member.dao;
 
 
-import com.example.trakker.utils.ItemSearchVO;
+
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
@@ -108,7 +108,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public ResponseResultList listPage(ItemSearchVO vo) {
+	public ResponseResultList listPage(PagingInfoVO vo) {
 		HashMap<String, Object> data = new HashMap<>();
 
 		data.put("pageNum", vo.getPageNum());

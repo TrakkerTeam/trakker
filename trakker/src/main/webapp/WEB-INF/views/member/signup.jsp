@@ -98,7 +98,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 <style>
         body {
             font-family: Arial, sans-serif;
-            padding-top:80px;
+
         }
 
         h2 {

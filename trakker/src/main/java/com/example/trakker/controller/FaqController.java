@@ -4,15 +4,19 @@
 package com.example.trakker.controller;
 
 import java.util.List;
+
+
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.service.faq.FaqService;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -23,11 +27,10 @@ public class FaqController {
     FaqService faqService;
 
     @GetMapping("/faq/list.do")
-    public ModelAndView list(ModelAndView mav) throws Exception {
-        List<FaqDTO> items=faqService.list();
-        mav.setViewName("faq/faq_list");
-        mav.addObject("list", items);
-        return mav;
+    public String list(Model model) throws Exception {
+        List<FaqDTO> items = faqService.list();
+        model.addAttribute("list", items);
+        return "faq/faq_list";
     }
 
     @GetMapping("/faq/write.do")
@@ -38,23 +41,47 @@ public class FaqController {
 
     @PostMapping("/faq/insert.do")
     public String insert(@ModelAttribute FaqDTO dto)
-            throws Exception{
+            throws Exception {
         faqService.insert(dto);
-        return "redirect:/admin/adminPage.do";
+        return "redirect:/faq/listPage?num=1";
     }
-    @GetMapping("/faq/view.do")
+
+    @RequestMapping("/faq/view.do")
     public ModelAndView view(int faq_num, HttpSession session) throws Exception {
         faqService.increaseViewcnt(faq_num, session);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("faq/faq_modify");
-        mav.addObject("dto", faqService.view(faq_num));
+        mav.addObject("faq", faqService.view(faq_num));
         return mav;
     }
 
-    @PostMapping("/faq/update.do")
-    public String update(@ModelAttribute FaqDTO dto)
-            throws Exception{
-        faqService.update(dto);
-        return "redirect:/admin/adminPage.do";
+    @RequestMapping("/faq/update.do")
+    public String update(FaqDTO dto) throws Exception {
+        if (dto != null) {
+            faqService.update(dto);
+        }
+        return "redirect:/faq/listPage?num=1";
+    }
+
+    @RequestMapping("/faq/delete.do")
+    public String delete(int faq_num) throws Exception {
+        faqService.delete(faq_num);
+        return "redirect:/faq/listPage?num=1";
+    }
+
+    @RequestMapping(value = "/faq/listPage", method = RequestMethod.GET)
+    public void getListPage(Model model, @RequestParam("num") Integer num,
+                            @RequestParam(value = "searchType",required = false, defaultValue = "faq_subject") String searchType,
+                            @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {
+        PagingInfoVO vo = new PagingInfoVO();
+        vo.setPageNum(num);
+        vo.setStype(searchType);
+        vo.setSdata(keyword);
+        ResponseResultList responseResultList = faqService.listPage(vo);
+        model.addAttribute("list", responseResultList.getBody());
+        model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
+        model.addAttribute("select", num);
+        model.addAttribute("search", searchType);
+        model.addAttribute("keyword",keyword);
     }
 }
