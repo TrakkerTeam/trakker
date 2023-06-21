@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planner">
+    <!--insert-->
+    <insert id="insert" parameterType="java.util.List">
+        INSERT INTO PLANNER (
+            MEM_NUM,L_NUM,TITLE,MEMO,DAYS
+        ) VALUES ( #{memNum},#{lNum},#{title},#{memo},#{days} );
+    </insert>
+
+    <!--list-->
+<!--게시글 총 수 : 작성중, sql 파일 체크할 것 -->
+    <select id="count" resultMap="planner">
+        SELECT COUNT(PLAN_NUM)
+        FROM (
+            SELECT P.PLAN_NUM,
+                P.L_NUM,
+                P.MEM_NUM, M.MEM_NICKNAME,
+                P.TITLE, P.MEMO
+            FROM PLANNER P
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+        )
+        <if test='searchType.equals("writer")'>
+            WHERE mem_nickname LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("content")'>
+            WHERE TITLE LIKE '%' || #{keyword} || '%'
+            OR MEMO LIKE '%' || #{keyword} || '%'
+        </if>
+    </select>
+<!--게시글 리스트 : 작성중, sql 파일 체크할 것 -->
+    <select id="list" resultMap="planner">
+        SELECT *
+        FROM (
+            SELECT P.PLAN_NUM,
+                P.L_NUM, L.K_NAME,
+                P.MEM_NUM, M.MEM_NICKNAME,
+                P.TITLE, P.MEMO
+            FROM PLANNER P
+                LEFT JOIN LOCAL L
+                    ON P.L_NUM = L.L_NUM
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+            <if test='area != null'>
+
+            </if>
+            <if test='keyword != null'>
+                <choose>
+                    <when test='searchType.equals("writer")'>
+                        MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        TITLE LIKE '%' || #{keyword} || '%'
+                        OR MEMO LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        )
+        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}
+    </select>
+
+    <!--detail-->
+    <update id="updateHit">
+        UPDATE PLANNER
+        SET HIT = HIT + 1
+        WHERE PLAN_NUM = #{planNum}
+    </update>
+    <select id="detail" resultMap="planner">
+        SELECT P.PLAN_NUM,
+            P.L_NUM, L.K_NAME,
+            P.MEM_NUM, M.MEM_NICKNAME,
+            P.TITLE, P.MEMO, P.DAYS, P.REGDATE, P.HIT
+        FROM PLANNER P
+            LEFT JOIN LOCAL L
+                ON P.L_NUM = L.L_NUM
+            LEFT JOIN MEMBER M
+                ON P.MEM_NUM = M.MEM_NUM
+        WHERE P.PLAN_NUM = #{planNum}
+    </select>
+
+    <!--update-->
+    <update id="update">
+        UPDATE PLANNER
+        SET L_NUM = #{lNum}, TITLE = #{title}, MEMO = #{memo}, DAYS = #{days}
+        WHERE PLAN_NUM = #{planNum}
+    </update>
+
+    <!--delete-->
+    <delete id="delete">
+        DELETE FROM PLANNER
+        WHERE PLAN_NUM = #{planNum}
+    </delete>
+
+    <resultMap id="planner" type="planner">
+        <id column="PLAN_NUM" property="planNum" />
+        <id column="MEM_NUM" property="memNum" />
+        <id column="L_NUM" property="lNum" />
+        <result column="TITLE" property="title" />
+        <result column="MEMO" property="memo" />
+        <result column="DAYS" property="days" />
+        <result column="REGDATE" property="regdate" />
+        <result column="HIT" property="hit" />
+        <collection property="member" ofType="member">
+            <result column="MEM_NICKNAME" property="mem_nickname" />
+        </collection>
+        <collection property="local" ofType="local" >
+            <result column="K_NAME" property="K_NAME" />
+        </collection>
+    </resultMap>
+</mapper>

@@ -22,6 +22,7 @@
             align-items: flex-start;
         }
 
+
         table {
             width: 700px;
             border-collapse: collapse;
@@ -75,6 +76,9 @@
         <div class="container" >
             <h2>유저 목록</h2>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+            <%-- 검색 기능 추가--%>
             <div class="col-xl-3">
                 <form class="d-flex" role="search">
                     <input type="hidden" name="num" value="${page.pageNum}">
@@ -147,6 +151,7 @@
 
 
             </table>
+            <%--페이지 네이션 추가--%>
             <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5" style="padding-left: 35%">
 
 

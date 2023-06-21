@@ -35,6 +35,15 @@
 	</beans:bean>
 	<beans:bean id="kakaoLoginBO" class="com.example.trakker.oauth.bo.KakaoLoginBO">
 	</beans:bean>
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<beans:bean id="loginInterceptor" class="com.example.trakker.interceptor.Logininterceptor">	</beans:bean>
 
 
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/adminPage.do"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 </beans:beans>

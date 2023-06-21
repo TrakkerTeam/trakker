@@ -42,6 +42,10 @@
         if (area || sort) $('#d-search').addClass('show')
         else $('#d-search').removeClass('show')
     });
+    function detail(num) {
+        console.log('click')
+        location.href = '/trakker/planner/'+num;
+    }
 </script>
 <body>
 <div class="container pt-5">
@@ -112,7 +116,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail(1);" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -137,7 +141,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -164,7 +168,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -191,7 +195,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -218,7 +222,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -245,7 +249,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -272,7 +276,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -299,7 +303,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -326,7 +330,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="${path}/planner/detail" style="text-decoration-line:none;">
+                            <a href="javascript:void(0);" onclick="detail();" style="text-decoration-line:none;">
                                 <div class="w-100" style="height:85%;"></div>
                             </a>
                         </div>
@@ -353,12 +357,6 @@
     </div>
     <%@ include file="../footer.jspf" %>
 </div>
-<script>
-    console.log('$(document).높이 '+$(document).height())
-    console.log('$(window).높이 '+window.innerHeight)
-    console.log('footer의 outerHeight '+$('footer').outerHeight())
-    console.log('스크롤 현재위치 '+$(window).scrollTop())
-</script>
 </body>
 
 </html>

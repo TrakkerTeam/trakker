@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="r_comment">
+
+    <insert id="c_insert">
+        insert into r_comment(comment_num,review_num,mem_num,l_num,comment_p,content)
+        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{l_num},r_comment_seq.nextval,#{commentContent})
+    </insert>
+
+    <select id="commentList" resultMap="commentResultMap">
+        SELECT * FROM r_comment WHERE review_num = #{review_num}
+    </select>
+
+    <resultMap type="r_comment" id="commentResultMap">
+        <id property="comment_num" column="comment_num"/>
+        <result property="review_num" column="review_num"/>
+        <result property="mem_num" column="mem_num"/>
+        <result property="l_num" column="l_num"/>
+        <result property="comment_p" column="comment_p"/>
+        <result property="content" column="content"/>
+        <result property="com_date" column="com_date"/>
+        <result property="com_delete" column="com_delete"/>
+        <result property="com_update" column="com_update"/>
+    </resultMap>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

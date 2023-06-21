@@ -39,10 +39,10 @@
             <div class="navbar-nav">
                 <span class="navbar-text">이학동</span>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-person-add"></i>회원가입</a>
+                    <a class="nav-link" href="${path}/member/signup.do"><i class="bi bi-person-add"></i>회원가입</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-door-closed"></i>로그인</a>
+                    <a class="nav-link" href="${path}/member/login.do"><i class="bi bi-door-closed"></i>로그인</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${path}/admin/adminPage.do"><i class="bi bi-person-gear"></i>관리자페이지</a>
@@ -53,8 +53,8 @@
                         <i class="bi bi-person-circle"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end">
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person-video2"></i> 마이페이지</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> 로그아웃</a></li>
+                        <li><a class="dropdown-item" href="${path}/member/mypage.do"><i class="bi bi-person-video2"></i> 마이페이지</a></li>
+                        <li><a class="dropdown-item" href="${path}/member/logout.do"><i class="bi bi-door-open"></i> 로그아웃</a></li>
                     </ul>
                 </div>
                 </ul>

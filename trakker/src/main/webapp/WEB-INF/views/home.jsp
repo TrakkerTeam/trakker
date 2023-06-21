@@ -107,6 +107,18 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         </div>
     </div>
 </header>
+<br>
+<a href="${path}/planner/new">플래너 작성</a> /
+<a href="${path}/planner/1">플래너 상세(planNum=1)</a> /
+<a href="${path}/planner">플래너 목록</a> /
+<a href="${path}/planner/modal">모달</a>
+
+<br> <br>
+
+<a href="${path}/planner/test/mapTest">상세 테스트</a> /
+<a href="${path}/planner/test/mapSearchTest">검색 테스트</a> /
+<a href="${path}/planner/test/simpleTest">심플</a>
+
 
 </body>
 </html>
