@@ -12,7 +12,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-    /*  DAY 각 날짜 onclick속성으로 배경색&글자색 반전 주기 -> ajax구현  */
+        .place-title , .road , .jibun , .tel {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #pagination {margin:10px auto;text-align: center;}
+        #pagination a {display:inline-block;margin-right:10px;color:#5c636a;}
+        #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-white p-0" style="z-index:1;">
@@ -50,51 +58,47 @@
 <%--날짜 사이드바--%>
 <div class="d-flex flex-column flex-shrink-0 bg-light h-100" style="width:60px; position: fixed;z-index:5;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-        <li class="nav-item">
-            <strong class="nav-link active py-3 border-bottom rounded-0" style="background-color: #dff0d8; color: #198754;">DAY</strong>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">1일</a>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">2일</a>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">3일</a>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">4일</a>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" style="color: #198754;">5일</a>
-        </li>
+<%--        <c:forEach var="day" begin="1" end="${days}">--%>
+        <li class="day-list"><a href="javascript:void(0)" onclick="plansChange(${day}+1)" class="day-text nav-link py-3 border-bottom rounded-0 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right"><strong>${day}1일</strong></a></li>
+        <li class="day-list"><a href="javascript:void(0)" onclick="plansChange(${day}+2)" class="day-text nav-link py-3 border-bottom rounded-0 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right"><strong>${day}2일</strong></a></li>
+<%--        </c:forEach>--%>
     </ul>
 </div>
 <%--세부일정 사이드바--%>
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white overflow-auto" style="padding-left:60px;width:330px;height:90%;position:fixed;z-index:4;">
     <form>
-    <div class="list-group list-group-flush border-bottom scrollarea">
+<%--        <c:forEach var="day" begin="1" end="${days}">--%>
+        <%--    data-date 값을 세부 일정 날짜로 받아와야 함    --%>
+    <div class="list-group list-group-flush border-bottom day-plans" data-date="1">
         <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
             <div class="d-flex w-100 align-items-center">
-                <strong class="mb-1">세부 일정</strong>
+                <strong class="mb-1">DAY 1 세부일정</strong>
             </div>
         </div>
     </div>
+    <div class="list-group list-group-flush border-bottom day-plans" data-date="2">
+        <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
+            <div class="d-flex w-100 align-items-center">
+                <strong class="mb-1">DAY 2 세부일정</strong>
+            </div>
+        </div>
+    </div>
+<%--        </c:forEach>--%>
     </form>
 </div>
 <%--검색 영역--%>
 <div class="d-flex flex-column flex-shrink-0" id="menu_wrap" style="padding-left:330px;width:550px;height:90%;position:fixed;z-index:3;">
     <div class="option">
         <form onsubmit="searchPlaces(); return false;" class="m-0">
-            <input type="text" value="이태원 맛집" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
+            <input type="text" value="${local.k_name}서울" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
             <button type="submit" class="rounded-3 border-1">검색</button>
         </form>
     </div>
-    <ul class="list-unstyled p-2" id="placesList"></ul>
+    <ul class="list-unstyled p-2" id="placesList" style="height:80%!important;"></ul>
     <div id="pagination"></div>
 </div>
 <%--맵 영역--%>
-<div class="d-flex flex-column" id="map" style="margin-left:550px;width:65%!important;height:90%!important;position:fixed;z-index:2;"></div>
+<div class="d-flex flex-column" id="map" style="margin-left:550px;width:65%!important;height:90%!important;position:fixed;"></div>
 
 
 <div class="alert fade alert-info" role="alert" tabindex="-1" aria-hidden="false">
@@ -127,7 +131,7 @@
             return false;
         }
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-        ps.keywordSearch( keyword, placesSearchCB);
+        ps.keywordSearch( keyword, placesSearchCB,  { size: 5 });
     }
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
@@ -191,67 +195,20 @@
     function getListItem(index, places) {
         var el = document.createElement('li'),
             itemStr = '<div class="d-flex w-100">' + '<div class="markerbg marker_' + (index+1) + '">'+(index+1)+'</div>' +
-                '<small class="m-0">' + places.place_name + '</small>';
+                '<small class="m-0 mx-2 place-title w-75"><strong>' + places.place_name + '</strong></small>';
             itemStr += '<button class="rounded-3 bg-white border-1" onclick="scheduleInsert(\'' + places.place_name + '\',\'' + places.y + '\',\'' + places.x +  '\')">+</button></div>';
         if (places.road_address_name) {
-            itemStr += '<small class="text-muted ms-2">' + places.road_address_name + '</small>' +
-                '<br><small class="jibun gray text-muted ms-2">' +  places.address_name  + '</small>';
+            itemStr += '<small class="road text-muted ms-2">' + places.road_address_name + '</small>' +
+                '<small class="jibun gray text-muted ms-2">' +  places.address_name  + '</small>';
         } else {
             itemStr += '<small class="text-muted ms-2">' +  places.address_name  + '</small>';
         }
-        itemStr += '<br><small class="tel text-muted ms-2">' + 'tel: '+ places.phone  + '</small>';
+        if(places.phone) itemStr += '<small class="tel text-muted ms-2">' + 'tel: ' + places.phone + '</small>';
 
-        // console.log('y= '+places.y)
-        // console.log('x= '+places.x)
         el.innerHTML = itemStr;
-        el.className = 'item';
+        el.className = 'item mb-3';
         return el;
     }
-
-//세부 일정에 장소 추가 구현 코드
-    function scheduleInsert(place_name, place_y, place_x){
-        var parent =  $('.scrollarea');
-        var num = parent.children().length; // 하위 엘리먼트이므로 "세부 일정" 영역도 포함
-        if(num<6){ // 일정은 5개까지만 추가 가능
-            parent.append(getHtml(place_name,place_y,place_x,num));
-        }else{
-            alert("일정은 최대 5개로 제한됩니다.");
-        }
-    }
-    function getHtml(place_name,place_y,place_x,num){
-        var div = "<div class='list-group-item list-group-item-action py-3 lh-sm'>" +
-            "<div class='d-flex w-100 align-items-center justify-content-between'>" +
-            "<a href='#' class='text-decoration-none text-black'>" +
-            "<i class='me-2 text-muted'>"+num+"</i>" +
-            "<strong class='mb-1'>"+place_name+"</strong>" +
-            "<input type='hidden' name='sPoint' value='"+place_name+"'>" +
-            "<input type='hidden' name='y' value='"+place_y+"'>" +
-            "<input type='hidden' name='x' value='"+place_x+"'>" +
-            "</a>" +
-            "<small><button class='btn-outline-success rounded-3 border-1' onclick=\"planDelete(\'" + num + "\')\">삭제</button></small>" +
-            "</div>" +
-            "<input class='col-10 w-100 m-0 mt-2 small' name='sMemo' style='resize:none;' placeholder='메모 작성 공간입니다.'/>" +
-            "</div>";
-        return div;
-    }
-    function planDelete(num){
-        var parent =  $('.scrollarea');
-        var kid = parent.children().eq(num); // 일정 부분에 세부일정 영역도 자식에 포함되기에 index +1
-        var next_kids = kid.nextAll();
-
-        kid.remove(); //선택한 문서를 제거합니다.
-
-        next_kids.each(function (index, element){
-            console.log(num)
-            $(this).find('i').text(num); //세부 일정 넘버링 변경
-
-            //세부 일정 삭제 js코드 num 변경
-            var btn = "planDelete(" + num + ")";
-            $(this).find('button').attr("onclick", btn);
-            ++ num;
-        });
-    }
-//--세부 일정에 장소 추가 구현 코드
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
@@ -289,7 +246,7 @@
         }
         for (i=1; i<=pagination.last; i++) {
             var el = document.createElement('a');
-            el.href = "#";
+            el.href = "javascript:void(0)";
             el.innerHTML = i;
             if (i===pagination.current) {
                 el.className = 'on';
@@ -307,7 +264,7 @@
     // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
     // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title) {
-        var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+        var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
         infowindow.setContent(content);
         infowindow.open(map, marker);
     }
@@ -318,14 +275,87 @@
         }
     }
 
+
+//세부 일정 날짜 변경 코드
+    var planslide = document.querySelectorAll('.day-plans');
+    function plansChange(day) {
+        day -=1;
+        var background = document.querySelectorAll('.day-list');
+        var color = document.querySelectorAll('.day-text ');
+        for(var i=0;i<planslide.length;i++){
+            planslide[i].style.display = "none";
+            background[i].style.background = "#dff0d8";
+            color[i].style.color = '#198754';
+        }
+        planslide[day].style.display = "block";
+        background[day].style.background = "#198754";
+        color[day].style.color = '#ffffff';
+    }
+    //페이지 첫 로드 시 DAY 1의 세부일정 띄우는 함수
+    plansChange(1);
+//--세부 일정 날짜 변경 코드
+
+
+//세부 일정에 장소 추가 구현 코드
+    function scheduleInsert(place_name, place_y, place_x){
+        var parent =  $('.day-plans[style*="display: block"]');
+        var num = parent.children().length; // 하위 엘리먼트이므로 "세부 일정" 영역도 포함
+        if(num<6){ // 일정은 5개까지만 추가 가능
+            parent.append(getHtml(place_name,place_y,place_x,num));
+        }else{
+            alert("일정은 최대 5개로 제한됩니다.");
+        }
+    }
+    function getHtml(place_name,place_y,place_x,num){
+        var div = "<div class='list-group-item list-group-item-action py-3 lh-sm' " +
+            "onclick=\"planClick("+ place_y + "," + place_x + ",\'" + place_name + "\')\">" +
+            "<div class='d-flex w-100 align-items-center justify-content-between'>" +
+            "<i class='me-2 text-muted'>"+num+"</i>" +
+            "<div class='text-decoration-none text-black w-75'>" +
+            "<strong class='mb-1 place-title'>"+place_name+"</strong>" +
+            "<input type='hidden' name='sPoint' value='"+place_name+"'>" +
+            "<input type='hidden' name='y' value='"+place_y+"'>" +
+            "<input type='hidden' name='x' value='"+place_x+"'>" +
+            "</div>" +
+            "<small><button class='btn-outline-success rounded-3 border-1' onclick=\"planDelete(\'" + num + "\')\">삭제</button></small>" +
+            "</div>" +
+            "<input class='col-10 w-100 m-0 mt-2 small' name='sMemo' style='resize:none;' placeholder='일정 메모'/>" +
+            "</div>";
+        return div;
+    }
+    function planClick(y,x, title) {
+        console.log(y)
+        console.log(x)
+        console.log(title)
+        map.setCenter(new kakao.maps.LatLng(y, x));
+        var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(y, x)
+        });
+        marker.setMap(map)
+
+        var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+
+        //map.set마커
+    }
+    function planDelete(num){
+        var parent =  $('.day-plans[style*="display: block"]');
+        var kid = parent.children().eq(num); // 일정 부분에 세부일정 영역도 자식에 포함되기에 index +1
+        var next_kids = kid.nextAll();
+
+        kid.remove(); //선택한 문서를 제거합니다.
+
+        next_kids.each(function (index, element){
+            $(this).find('i').text(num); //세부 일정 넘버링 변경
+
+            //세부 일정 삭제 js코드 num 변경
+            var btn = "planDelete(" + num + ")";
+            $(this).find('button').attr("onclick", btn);
+            ++ num;
+        });
+    }
+//--세부 일정에 장소 추가 구현 코드
 </script>
-<%--<script>--%>
-<%--    const mapContainer= document.getElementById('map');--%>
-<%--    const mapOptions = {--%>
-<%--        center: new kakao.maps.LatLng(37.565715842361456, 126.97791684733436),--%>
-<%--        level: 6--%>
-<%--    };--%>
-<%--    const map = new kakao.maps.Map(mapContainer, mapOptions);--%>
-<%--</script>--%>
 </body>
 </html>
