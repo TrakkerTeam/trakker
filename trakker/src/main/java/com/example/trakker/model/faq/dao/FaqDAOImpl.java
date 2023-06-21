@@ -1,16 +1,10 @@
 package com.example.trakker.model.faq.dao;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
-import com.example.trakker.utils.ItemSearchVO;
-import com.example.trakker.utils.PagingInfoVO;
-import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,17 +30,17 @@ public class FaqDAOImpl implements FaqDAO {
     }
 
     @Override
-    public void delete(int faq_num) throws Exception {
+    public void delete(long faq_num) throws Exception {
         sqlSession.delete("faq.delete", faq_num);
     }
 
     @Override
-    public void increaseViewcnt(int faq_num, HttpSession session) throws Exception {
+    public void increaseViewcnt(long faq_num, HttpSession session) throws Exception {
         sqlSession.update("faq.increaseViewcnt", faq_num);
     }
 
     @Override
-    public FaqDTO view(int faq_num) throws Exception {
+    public FaqDTO view(long faq_num) throws Exception {
         return sqlSession.selectOne("faq.view", faq_num);
     }
 

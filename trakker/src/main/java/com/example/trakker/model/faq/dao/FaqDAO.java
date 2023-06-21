@@ -6,19 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
-import com.example.trakker.utils.PagingInfoVO;
-import com.example.trakker.utils.ResponseResultList;
-
 import javax.servlet.http.HttpSession;
 
+
 public interface FaqDAO {
-	List<FaqDTO> list() throws Exception;
-	void insert(FaqDTO dto) throws Exception;
-	void update(FaqDTO dto) throws Exception;
-	void delete(int faq_num) throws Exception;
-	void increaseViewcnt(int faq_num, HttpSession session) throws Exception;
-	FaqDTO view(int faq_num) throws Exception;
-	Integer count(Map data);
-	List<FaqDTO> listPage(Map data);
+    List<FaqDTO> list() throws Exception;
+    void insert(FaqDTO dto) throws Exception;
+    void update(FaqDTO dto) throws Exception;
+    void delete(long faq_num) throws Exception;
+    void increaseViewcnt(long faq_num, HttpSession session) throws Exception;
+    FaqDTO view(long faq_num) throws Exception;
+    Integer count(Map data);
+    List<FaqDTO> listPage(Map data);
 
 }
