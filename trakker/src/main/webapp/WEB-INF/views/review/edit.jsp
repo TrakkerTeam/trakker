@@ -78,7 +78,6 @@
                 ['height', ['height']],
                 ['insert', ['picture', 'link', 'video']],
                 ['view', ['fullscreen', 'help']]
-
             ],
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋음체', '바탕체'],
             fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
@@ -96,9 +95,6 @@
             <button type="button" id="Update" class="btn btn-success btn-lg">수정</button>
         </div>
     </div>
-        <script>
-            console.log(${review.l_num})
-        </script>
     <br>
     <%@ include file="../footer.jspf" %>
 </div>
