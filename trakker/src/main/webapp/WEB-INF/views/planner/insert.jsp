@@ -25,11 +25,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-white p-0" style="z-index:1;">
         <div class="container-fluid p-3">
-            <a class="navbar-brand" href="${path}"><img src="${pageContext.request.contextPath}/resources/images/logo.png" style="width: 60px;" height="30px;"></a>
+            <a class="navbar-brand" href="${path}"><img src="${path}/resources/images/logo.png" style="width: 60px;" height="30px;"></a>
             <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        플래너 제목 출력 공간입니다.
+                        ${title} <c:if test="${memo}!=null"> - <i>"${memo}"</i></c:if>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -47,7 +47,7 @@
                         </ul>
                     </li>
                     <li class="btn-group px-3">
-                        <button type="button" class="btn btn-success">플래너 작성</button>
+                        <button type="button" class="btn btn-success" id="submit">플래너 작성</button>
                     </li>
                 </ul>
             </div>
@@ -58,45 +58,40 @@
 <%--날짜 사이드바--%>
 <div class="d-flex flex-column flex-shrink-0 bg-light h-100" style="width:60px; position: fixed;z-index:5;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-<%--        <c:forEach var="day" begin="1" end="${days}">--%>
-        <li class="day-list"><a href="javascript:void(0)" onclick="plansChange(${day}+1)" class="day-text nav-link py-3 border-bottom rounded-0 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right"><strong>${day}1일</strong></a></li>
-        <li class="day-list"><a href="javascript:void(0)" onclick="plansChange(${day}+2)" class="day-text nav-link py-3 border-bottom rounded-0 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right"><strong>${day}2일</strong></a></li>
-<%--        </c:forEach>--%>
+        <c:forEach var="day" begin="1" end="${days}">
+            <li class="day-list"><a href="javascript:void(0)" onclick="plansChange(${day})" class="day-text nav-link py-3 border-bottom rounded-0 text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right"><strong>${day}</strong></a></li>
+        </c:forEach>
     </ul>
 </div>
 <%--세부일정 사이드바--%>
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white overflow-auto" style="padding-left:60px;width:330px;height:90%;position:fixed;z-index:4;">
-    <form>
-<%--        <c:forEach var="day" begin="1" end="${days}">--%>
-        <%--    data-date 값을 세부 일정 날짜로 받아와야 함    --%>
-    <div class="list-group list-group-flush border-bottom day-plans" data-date="1">
-        <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
-            <div class="d-flex w-100 align-items-center">
-                <strong class="mb-1">DAY 1 세부일정</strong>
-            </div>
+        <c:forEach var="day" begin="1" end="${days}">
+        <div class="list-group list-group-flush border-bottom day-plans" data-date="${day}">
+            <form>
+<%--form 안에 세부일정 추가되도록 코드 수정할 것!!--%>
+                <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
+                    <div class="d-flex w-100 align-items-center">
+                        <strong class="mb-1">DAY ${day} 세부일정</strong>
+                        <input hidden name="sDay" value="${day}">
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
-    <div class="list-group list-group-flush border-bottom day-plans" data-date="2">
-        <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
-            <div class="d-flex w-100 align-items-center">
-                <strong class="mb-1">DAY 2 세부일정</strong>
-            </div>
-        </div>
-    </div>
-<%--        </c:forEach>--%>
-    </form>
+        </c:forEach>
 </div>
+
 <%--검색 영역--%>
 <div class="d-flex flex-column flex-shrink-0" id="menu_wrap" style="padding-left:330px;width:550px;height:90%;position:fixed;z-index:3;">
     <div class="option">
         <form onsubmit="searchPlaces(); return false;" class="m-0">
-            <input type="text" value="${local.k_name}서울" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
+            <input type="text" value="${kName} 여행" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
             <button type="submit" class="rounded-3 border-1">검색</button>
         </form>
     </div>
     <ul class="list-unstyled p-2" id="placesList" style="height:80%!important;"></ul>
     <div id="pagination"></div>
 </div>
+
 <%--맵 영역--%>
 <div class="d-flex flex-column" id="map" style="margin-left:550px;width:65%!important;height:90%!important;position:fixed;"></div>
 
@@ -276,7 +271,7 @@
     }
 
 
-//세부 일정 날짜 변경 코드
+//세부일정 날짜 변경
     var planslide = document.querySelectorAll('.day-plans');
     function plansChange(day) {
         day -=1;
@@ -293,10 +288,10 @@
     }
     //페이지 첫 로드 시 DAY 1의 세부일정 띄우는 함수
     plansChange(1);
-//--세부 일정 날짜 변경 코드
+//--세부일정 날짜 변경
 
 
-//세부 일정에 장소 추가 구현 코드
+//세부일정 장소 추가
     function scheduleInsert(place_name, place_y, place_x){
         var parent =  $('.day-plans[style*="display: block"]');
         var num = parent.children().length; // 하위 엘리먼트이므로 "세부 일정" 영역도 포함
@@ -306,6 +301,8 @@
             alert("일정은 최대 5개로 제한됩니다.");
         }
     }
+    //planNum
+    //sDay -
     function getHtml(place_name,place_y,place_x,num){
         var div = "<div class='list-group-item list-group-item-action py-3 lh-sm' " +
             "onclick=\"planClick("+ place_y + "," + place_x + ",\'" + place_name + "\')\">" +
@@ -313,6 +310,7 @@
             "<i class='me-2 text-muted'>"+num+"</i>" +
             "<div class='text-decoration-none text-black w-75'>" +
             "<strong class='mb-1 place-title'>"+place_name+"</strong>" +
+            "<input type='hidden' name='sNum' value='"+num+"'>" +
             "<input type='hidden' name='sPoint' value='"+place_name+"'>" +
             "<input type='hidden' name='y' value='"+place_y+"'>" +
             "<input type='hidden' name='x' value='"+place_x+"'>" +
@@ -324,9 +322,6 @@
         return div;
     }
     function planClick(y,x, title) {
-        console.log(y)
-        console.log(x)
-        console.log(title)
         map.setCenter(new kakao.maps.LatLng(y, x));
         var marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(y, x)
@@ -336,8 +331,6 @@
         var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
         infowindow.setContent(content);
         infowindow.open(map, marker);
-
-        //map.set마커
     }
     function planDelete(num){
         var parent =  $('.day-plans[style*="display: block"]');
@@ -355,7 +348,14 @@
             ++ num;
         });
     }
-//--세부 일정에 장소 추가 구현 코드
+//--세부일정 장소 추가
+
+
+//작성완료 버튼
+    function planSubmit(){
+
+    }
+//--작성완료 버튼
 </script>
 </body>
 </html>

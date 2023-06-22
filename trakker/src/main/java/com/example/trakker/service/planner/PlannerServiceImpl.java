@@ -1,6 +1,7 @@
 package com.example.trakker.service.planner;
 
 import com.example.trakker.item.HeartDAO;
+import com.example.trakker.item.LocalDAO;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import com.example.trakker.model.planner.dao.PlannerDAO;
@@ -24,8 +25,14 @@ public class PlannerServiceImpl implements PlannerService {
     private ScheduleDAO scheduleDAO;
     @Autowired
     private HeartDAO heartDAO;
+    @Autowired
+    private LocalDAO localDAO;
 
     //플래너 작성
+    @Override
+    public String selectLocal(Integer lNum) {
+        return localDAO.getName(lNum);
+    }
     @Transactional
     @Override
     public void insert(PlannerDTO planner, List<ScheduleDTO> schedules) {
@@ -43,11 +50,11 @@ public class PlannerServiceImpl implements PlannerService {
         data.put("keyword", vo.getSdata());
 
         Integer count = plannerDAO.count(data);
-        List<PlannerDTO> list = plannerDAO.list(data);
+        List<PlannerDTO> planner = plannerDAO.list(data);
 
         PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), count, vo.getPageRowCount());
         ResponseResultList resultList = new ResponseResultList();
-        resultList.setBody(list);
+        resultList.setBody(planner);
         resultList.setPagingInfo(pagingInfoVO);
 
         return resultList;

@@ -1,5 +1,7 @@
 package com.example.trakker.controller;
 
+import com.example.trakker.model.planner.dto.PlannerDTO;
+import com.example.trakker.model.planner.dto.ScheduleDTO;
 import com.example.trakker.service.planner.PlannerService;
 
 import com.example.trakker.utils.PagingInfoVO;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -23,13 +24,23 @@ public class PlannerController {
 	private PlannerService planerService;
 
 	//플래너 작성
-	@GetMapping("planner/new")
-	public String write(Model model) {
+	@PostMapping("planner/new")
+	public String write(Model model,
+						@RequestParam Map<String, Object> map) {
+
+		String kName = planerService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
+
+		model.addAttribute("days", map.get("planner-days"));
+		model.addAttribute("lNum", map.get("planner-local"));
+		model.addAttribute("kName", kName);
+		model.addAttribute("title", map.get("planner-title"));
+		model.addAttribute("memo", map.get("planner-memo"));
+
 		logger.info("작성 페이지 이동");
 		return "planner/insert";
 	}
-	@PostMapping("planner/new")
-	public String insert(@PathVariable("planNum") int planNum) {
+	@PostMapping("planner/insert")
+	public String insert(PlannerDTO planner, ScheduleDTO schedule) {
 		logger.info("작성완료 버튼");
 //		model.addAttribute(PlannerDTO planner)
 		//planerService.insert(planner, schedules);
@@ -40,7 +51,7 @@ public class PlannerController {
 	//플래너 목록
 	@GetMapping("planner")
 	public String list(Model model,
-					   @RequestParam("page") int page,
+					   @RequestParam(value = "page") int page,
 					   @RequestParam(value = "area",required = false, defaultValue = "0") int area,
 					   @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
 					   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
@@ -52,6 +63,8 @@ public class PlannerController {
 		vo.setSdata(keyword);
 
 		ResponseResultList responseResultList = planerService.list(vo);
+		model.addAttribute(responseResultList);
+
 		logger.info("목록 페이지 이동");
 
 		return "planner/list";
@@ -59,7 +72,9 @@ public class PlannerController {
 
 	//플래너 상세
 	@GetMapping("planner/{planNum}")
-	public String detail(@PathVariable("planNum") int planNum, Model model) {
+	public String detail(@PathVariable("planNum") Integer planNum, Model model) {
+		ResponseResultList responseResultList = planerService.detail(planNum);
+		model.addAttribute(responseResultList);
 		logger.info("상세 페이지 이동");
 
 		return "planner/detail";
@@ -84,7 +99,9 @@ public class PlannerController {
 
 	//플래너 삭제
 	@PostMapping("planner/delete/{planNum}")
-	public String delete(Model model) {
+	public String delete(Model model, Integer planNum) {
+		planerService.delete(planNum);
+
 		logger.info("삭제 버튼");
 		return "redirect:planner/list";
 	}

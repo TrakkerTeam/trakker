@@ -11,7 +11,7 @@
     </insert>
 
     <!--list-->
-<!--게시글 총 수 : 작성중, sql 파일 체크할 것 -->
+<!--게시글 총 수 -->
     <select id="count" resultType="Integer">
         SELECT COUNT(*)
         FROM (
@@ -42,7 +42,7 @@
             </trim>
             )
     </select>
-<!--게시글 리스트 : 페이지네이션 쿼리 -> 오라클 파일 // 하단 쿼리는 검색까지 구현 완료 -->
+<!--게시글 리스트 -->
     <select id="list" resultMap="planner">
     SELECT X.RN, X.PLAN_NUM, X.L_NUM, X.MEM_NUM, X.MEM_NICKNAME, X.TITLE, X.MEMO
     FROM (
@@ -74,8 +74,8 @@
                 </if>
             </trim>
                ) A
-        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} +1 ) ) X
-    WHERE X.RN &gt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} )
+        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} ) ) X
+    WHERE X.RN &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
 
     <!--detail-->

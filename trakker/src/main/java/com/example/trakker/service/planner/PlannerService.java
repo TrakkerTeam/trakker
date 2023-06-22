@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface PlannerService {
 
+    String selectLocal(Integer lNum);
     void insert(PlannerDTO planner, List<ScheduleDTO> schedules);
 
     ResponseResultList list(PagingInfoVO vo);
