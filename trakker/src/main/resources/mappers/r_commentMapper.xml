@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="r_comment">
+
+    <insert id="c_insert">
+        insert into r_comment(comment_num,review_num,mem_num,l_num,comment_p,content)
+        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{l_num},0,#{content})
+    </insert>
+
+    <select id="commentList" resultMap="commentResultMap">
+        SELECT comment_num, review_num, mem_num, l_num, comment_p, content, mem_nickname, com_date, com_update, com_delete
+        FROM (
+                 SELECT rc.comment_num, rc.review_num, m.mem_num, rc.l_num, rc.comment_p, content, m.mem_nickname,com_date,com_update,com_delete
+                 FROM r_comment rc join member m
+                                        on rc.mem_num = m.mem_num
+                 WHERE com_delete='0'
+                   AND review_num = #{review_num}
+             )
+        START WITH comment_p = 0
+        CONNECT BY PRIOR comment_num = comment_p
+        ORDER SIBLINGS BY comment_num desc
+    </select>
+
+    <update id="c_update">
+        update r_comment
+        set content = #{editContent},
+            com_update = 1
+        where comment_num = #{comment_num}
+    </update>
+
+    <update id="c_delete">
+        update r_comment
+        set com_delete='1'
+        where comment_num = #{comment_num}
+    </update>
+
+
+    <insert id="c_addInsert">
+        insert into r_comment(comment_num,review_num,mem_num,l_num,comment_p,content)
+        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{l_num},#{comment_num},#{addContent})
+    </insert>
+
+    <resultMap type="r_comment" id="commentResultMap">
+        <id property="comment_num" column="comment_num"/>
+        <result property="review_num" column="review_num"/>
+        <result property="mem_num" column="mem_num"/>
+        <result property="l_num" column="l_num"/>
+        <result property="comment_p" column="comment_p"/>
+        <result property="content" column="content"/>
+        <result property="com_date" column="com_date"/>
+        <result property="com_delete" column="com_delete"/>
+        <result property="com_update" column="com_update"/>
+        <collection property="member" ofType="member">
+            <result property="mem_nickname" column="mem_nickname"/>
+        </collection>
+    </resultMap>
+
+</mapper>

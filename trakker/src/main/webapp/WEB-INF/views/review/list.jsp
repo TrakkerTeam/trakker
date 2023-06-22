@@ -49,6 +49,7 @@
             location.href = "${path}/review/write";
         });
     });
+
 </script>
 <body>
 <div class="album py-5 bg-light">
@@ -56,15 +57,18 @@
         <div class="row">
             <div class="col-sm-8"><h2 class="ps-5 mt-5">리뷰게시판</h2></div>
             <div class="col-sm-4">
-                <form class="d-flex pe-5 mt-5" role="search">
+                <div class="d-flex pe-5 mt-5">
+                    <form class="d-flex" role="search">
+                    <input type="hidden" name="num" value="${page.pageNum}">
                     <select class="border-success rounded-3" name="searchType">
-                        <option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
-                        <option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
-                        <option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+                        <option value="title" <c:if test="${search == 'title'}">selected</c:if>>제목</option>
+                        <option value="content" <c:if test="${search == 'content'}">selected</c:if>>내용</option>
+                        <option value="mem_nickname" <c:if test="${search == 'mem_nickname'}">selected</c:if>>작성자</option>
                     </select>
-                    <input class="form-control ms-2 me-2" type="text" name="keyword" />
-                    <input class="btn btn-outline-success" type="button" valign="bottom" value="검색" id="searchBtn">
-                </form>
+                    <input class="form-control ms-2 me-2" type="text" name="keyword" placeholder="Search" aria-label="Search" value="${keyword}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="pe-5 text-end">
@@ -106,7 +110,7 @@
                             <c:set var="region" value="${review.l_num}" />
                             <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" class="card-img-top w-100" style="height: 242px;">
                             <div class="card-body rounded-3 p-0 w-100">
-                                <h6 class="text-muted ms-3 mt-3">닉네임</h6>
+                                <h6 class="text-muted ms-3 mt-3">${review.member.mem_nickname}</h6>
                                 <p class="card-text m-3">${review.title}</p>
                             </div>
                             <div class="card-img-overlay rounded-3 p-0">
@@ -125,43 +129,36 @@
                 </div>
             </c:forEach>
         </div>
-
         <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
-            <c:if test="${page.prev}">
-                <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.startPageNum - 1}${page.searchTypeKeyword}"><i
-                        class="bi bi-chevron-left"></i></a></span>
-            </c:if>
-
-            <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+            <span>
+                <c:if test="${page.pageNum  > 1}">
+                <a class="ms-3 text-muted" href="${path}/review/list?num=${page.pageNum - 1}">
+                <i class="bi bi-chevron-left"></i></a>
+                </c:if>
+            </span>
+        <c:forEach begin="1" end="${page.lastPageNum}" var="num">
                 <span class="ms-3 text-muted">
-                    <c:if test="${select != num}">
-                        <a class="ms-3 text-muted" href="${path}/review/list?num=${num}${page.searchTypeKeyword}">${num}</a></c:if>
+                    <c:if test="${select != num}"> <a class="ms-3 text-muted" href="${path}/review/list?num=${num}">${num}</a></c:if>
                     <c:if test="${select == num}"><b class="ms-3 text-muted">${num}</b></c:if>
                 </span>
-            </c:forEach>
-
-            <c:if test="${page.next}">
-                <span><a class="ms-3 text-muted" href="${path}/review/list?num=${page.endPageNum + 1}${page.searchTypeKeyword}"><i
-                        class="bi bi-chevron-right"></i></a></span>
-            </c:if>
+        </c:forEach>
+            <span>
+                <c:if test="${page.pageNum != page.lastPageNum }">
+                <a class="ms-3 text-muted" href="${path}/review/list?num=${page.pageNum + 1}">
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                </c:if>
+            </span>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <div class="btn-group m-3" role="group" aria-label="First group">
-                <button type="button" class="btn btn-success" id="Write">글쓰기</button>
+        <c:if test="${mem_email != null}">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="btn-group m-3" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-success" id="Write">글쓰기</button>
+                </div>
             </div>
-        </div>
+        </c:if>
         <%@ include file="../footer.jspf" %>
     </div>
 </div>
-<script>
-
-    document.getElementById("searchBtn").onclick = function () {
-
-        let searchType = document.getElementsByName("searchType")[0].value;
-        let keyword =  document.getElementsByName("keyword")[0].value;
-
-        location.href = "/trakker/review/list?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-    };
-</script>
 </body>
 </html>
