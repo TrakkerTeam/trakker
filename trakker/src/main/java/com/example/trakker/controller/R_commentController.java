@@ -30,8 +30,8 @@ public class R_commentController {
     }
 
     @GetMapping("/comment/list")
-    public ModelAndView list(long review_num, ModelAndView mav) {
-        List<R_commentDTO> list=rcommentService.commentList(review_num);
+    public ModelAndView list(R_commentDTO dto, ModelAndView mav) {
+        List<R_commentDTO> list=rcommentService.commentList(dto);
         mav.setViewName("/review/commentList"); //포워딩 뷰
         mav.addObject("list", list); //뷰에 전달할 데이터
         return mav;

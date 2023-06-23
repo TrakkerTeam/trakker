@@ -11,11 +11,12 @@ public class R_commentDTO {
     private long review_num;
     private long mem_num;
     private Integer l_num;
-    private Integer comment_p;
+    private long comment_p;
     private String content;
     private Date com_date;
     private String com_delete;
     private String com_update;
+    private String parent_comment_nickname;
 
     private MemberDTO member;
 }

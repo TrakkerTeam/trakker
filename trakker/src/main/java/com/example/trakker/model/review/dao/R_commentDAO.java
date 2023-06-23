@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface R_commentDAO {
-    List<R_commentDTO> commentList(long review_num);
+    List<R_commentDTO> commentList(R_commentDTO dto);
     void insert(R_commentDTO dto);
     void update(long comment_num, String editContent);
     long delete(long comment_num);

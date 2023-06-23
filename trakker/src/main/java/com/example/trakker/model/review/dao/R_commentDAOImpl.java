@@ -16,8 +16,8 @@ public class R_commentDAOImpl implements R_commentDAO {
     private SqlSession sqlSession;
 
     @Override
-    public List<R_commentDTO> commentList(long review_num) {
-        return sqlSession.selectList("r_comment.commentList", review_num);
+    public List<R_commentDTO> commentList(R_commentDTO dto) {
+        return sqlSession.selectList("r_comment.commentList", dto);
     }
 
     @Override
