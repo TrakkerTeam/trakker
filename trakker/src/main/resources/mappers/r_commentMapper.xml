@@ -12,17 +12,32 @@
     </insert>
 
     <select id="commentList" resultMap="commentResultMap">
-        SELECT comment_num, review_num, mem_num, l_num, comment_p, content, mem_nickname, com_date, com_update, com_delete
-        FROM (
-                 SELECT rc.comment_num, rc.review_num, m.mem_num, rc.l_num, rc.comment_p, content, m.mem_nickname,com_date,com_update,com_delete
-                 FROM r_comment rc join member m
-                                        on rc.mem_num = m.mem_num
-                 WHERE com_delete='0'
-                   AND review_num = #{review_num}
-             )
-        START WITH comment_p = 0
+        select  *
+        from
+            (  SELECT comment_num, review_num, mem_num, l_num, comment_p, content, mem_nickname, com_date, com_update, com_delete,parent_comment_nickname
+               FROM (
+
+                        SELECT
+                            rc.comment_num, rc.review_num, rc.mem_num, rc.l_num, rc.comment_p, rc.content, m.mem_nickname, rc.com_date, rc.com_delete, rc.com_update,
+                            parent_member.mem_nickname AS parent_comment_nickname
+                        FROM
+                            r_comment rc
+                                JOIN
+                            member m ON rc.mem_num = m.mem_num
+                                LEFT JOIN
+                            r_comment parent_comment ON rc.comment_p = parent_comment.comment_num
+                                LEFT JOIN
+                            member parent_member ON parent_comment.mem_num = parent_member.mem_num
+                        WHERE rc.review_num = #{review_num}
+
+
+                    )
+               WHERE
+                   comment_p = comment_p
+            )
+                START WITH comment_p = 0
         CONNECT BY PRIOR comment_num = comment_p
-        ORDER SIBLINGS BY comment_num desc
+        ORDER SIBLINGS BY comment_num asc
     </select>
 
     <update id="c_update">
@@ -54,6 +69,7 @@
         <result property="com_date" column="com_date"/>
         <result property="com_delete" column="com_delete"/>
         <result property="com_update" column="com_update"/>
+        <result property="parent_comment_nickname" column="parent_comment_nickname"/>
         <collection property="member" ofType="member">
             <result property="mem_nickname" column="mem_nickname"/>
         </collection>

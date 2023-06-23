@@ -15,8 +15,8 @@ public class R_commentServiceImpl implements R_commentService {
     private R_commentDAO commentDAO;
 
     @Override
-    public List<R_commentDTO> commentList(long review_num) {
-        return commentDAO.commentList(review_num);
+    public List<R_commentDTO> commentList(R_commentDTO dto) {
+        return commentDAO.commentList(dto);
     }
 
     @Override

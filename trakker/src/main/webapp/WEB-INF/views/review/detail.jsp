@@ -92,7 +92,7 @@
             var addContent = $("#addContent").val();
             var review_num = "${review.review_num}";
             var l_num = "${review.l_num}";
-            var mem_num = "${review.mem_num}";
+            var mem_num = "${sessionScope.mem_num}";
             var comment_num = $(this).closest('.commentbox3').find("input[name='comment_num']").val();
             var param = { "addContent" : addContent, "comment_num" : comment_num, "review_num" : review_num, "l_num" : l_num, "mem_num" : mem_num};
             $.ajax({
@@ -217,14 +217,8 @@
             <p class="mb-0 h6"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
             <div>
                 <small class="opacity-50 mb-0 text-nowrap">
-                    <c:choose>
-                        <c:when test="${review.edit_date == null}">
-                            <fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                        </c:when>
-                        <c:otherwise>
-                            <fmt:formatDate value="${review.edit_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                        </c:otherwise>
-                    </c:choose>
+
+
                 </small>
                 <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
             </div>
