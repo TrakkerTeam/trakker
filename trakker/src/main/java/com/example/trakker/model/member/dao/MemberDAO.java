@@ -30,4 +30,6 @@ public interface MemberDAO {
 	void adminupdateMember(MemberDTO dto);
     int memberCount() throws Exception;
     ResponseResultList listPage(PagingInfoVO vo);
+
+
 }

@@ -6,13 +6,18 @@ import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
+import com.nimbusds.oauth2.sdk.http.HTTPResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class ReviewController {
@@ -49,18 +54,30 @@ public class ReviewController {
     }
 
     @GetMapping("/review/detail")
-    public ModelAndView detail(Integer review_num, HttpSession session) {
-        reviewService.count(review_num, session);
+    public ModelAndView detail(Integer review_num,
+                               HttpServletRequest request,
+                               HttpServletResponse response) {
+
+        //조회수 기능 추가
+        reviewService.count(review_num, request,response);
+
         ReviewDTO review = reviewService.detail(review_num);
+        /*평점 total 값 추가 */
+        Double ratingavg = reviewService.ratingAvg(review_num);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/detail");
         mav.addObject("review", review);
+        /* 뷰단에 보내주기 */
+        mav.addObject("ratingAvg", ratingavg);
         return mav;
     }
 
     @GetMapping("/review/edit")
-    public ModelAndView edit(Integer review_num, HttpSession session) {
-        reviewService.count(review_num, session);
+    public ModelAndView edit(Integer review_num,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
+
+        reviewService.count(review_num, request,response);
         ReviewDTO review = reviewService.detail(review_num);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/edit");
@@ -80,14 +97,20 @@ public class ReviewController {
         return "redirect:/review/list?num=1";
     }
 
+    @RequestMapping("/review/ratinginsert")
+    public String ratingInsert( Integer review_num,  Double rating , Model model){
+        RatingDTO dto = new RatingDTO();
+        dto.setReview_num(review_num);
+        dto.setRating(rating);
+        reviewService.ratingInsert(dto);
 
-    //별점
-    @PostMapping("/review/rating")
-    public void ratingPost(RatingDTO dto){
+        Double ratingavg = reviewService.ratingAvg(review_num);
 
-        reviewService.ratingPost(dto);
+        model.addAttribute("dto", ratingavg);
 
+        return "/review/rating";
     }
+
 
 
 

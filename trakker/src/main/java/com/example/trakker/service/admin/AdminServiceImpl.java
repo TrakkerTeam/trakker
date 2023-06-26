@@ -45,4 +45,6 @@ public class AdminServiceImpl implements AdminService{
 
         return memberDao.listPage(vo);
     }
+
+
 }

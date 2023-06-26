@@ -42,7 +42,7 @@
                 <div style="background-color: rgb(129,129,145); height: 100vh;">
                         <div>
                             <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
-                                <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
+                                <source type="video/mp4" src="">
                             </video>
                         </div>
                 </div>
@@ -119,6 +119,22 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
 <a href="${path}/planner/test/mapSearchTest">검색 테스트</a> /
 <a href="${path}/planner/test/simpleTest">심플</a>
 
+<script>
+    const videoFiles = [
+        '${path}/include/trakker_video/trakkerMainVideo.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo2.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo3.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo4.mp4'
 
+
+    ];
+
+    const randomVideo = Math.floor(Math.random() * videoFiles.length);
+    const randomVideoFile = videoFiles[randomVideo];
+
+    const videoPlayer = document.getElementById('mainVideo');
+
+    videoPlayer.src = randomVideoFile;
+</script>
 </body>
 </html>

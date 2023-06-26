@@ -9,6 +9,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.example.trakker.model.review.dto.ReviewDTO" alias="review"/>
+		<typeAlias type="com.example.trakker.item.RatingDTO" alias="rating"/>
 		<typeAlias type="com.example.trakker.model.review.dto.R_commentDTO" alias="r_comment"/>
 		<typeAlias type="com.example.trakker.item.HeartDTO" alias="heart"/>
 		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faq"/>

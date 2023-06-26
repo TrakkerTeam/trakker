@@ -58,6 +58,7 @@
         values (review_seq.nextval, #{mem_num}, #{l_num}, #{title}, #{content})
     </insert>
 
+    <!--조회수 증가-->
     <update id="count">
         update review
         set readcount = readcount + 1
@@ -149,21 +150,5 @@
     <!--        <result property="com_delete" column="com_delete"/>-->
     <!--        <result property="com_delete" column="com_delete"/>-->
     <!--    </resultMap>-->
-
-    <select id="getRatingAverage" resultType="double">
-        select avg(rating)
-        from rating g, review w
-        where g.review_num =w.review_num and g.review_num=#{review_num}
-    </select>
-
-    <update id="insertRating">
-        update rating
-        set rating = #{rating}
-        where review_num = #{review_num}
-    </update>
-
-    <insert id="ratingPost">
-       insert into rating(review_num,rating) values(#{review_num},#{rating})
-    </insert>
 
 </mapper>

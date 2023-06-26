@@ -28,8 +28,6 @@
 	</beans:bean>
 	<!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
 	<context:component-scan base-package="com.example.trakker" />
-	<!-- aop의 설정으로 Proxy 객체를 자동으로 생성 -->
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<beans:bean id="naverLoginBO" class="com.example.trakker.oauth.bo.NaverLoginBO">
 	</beans:bean>
@@ -37,13 +35,22 @@
 	</beans:bean>
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-	<beans:bean id="loginInterceptor" class="com.example.trakker.interceptor.Logininterceptor">	</beans:bean>
+	<beans:bean id="loginInterceptor" class="com.example.trakker.config.interceptor.Logininterceptor">	</beans:bean>
+	<beans:bean id="AdminInterceptor" class="com.example.trakker.config.interceptor.Admininterceptor">	</beans:bean>
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/review/list"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 
 
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/adminPage.do"/>
-			<beans:ref bean="loginInterceptor"/>
+			<beans:ref bean="AdminInterceptor"/>
 		</interceptor>
 	</interceptors>
 </beans:beans>
+

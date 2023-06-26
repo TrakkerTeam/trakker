@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="oauth">
+    <insert id="naverInsert">
+        insert into MEMBER(MEM_NUM,MEM_ID,MEM_NAME,MEM_EMAIL,MEM_NICKNAME)
+        values (member_seq.nextval,#{mem_id}, #{mem_name}, #{mem_email},#{mem_nickname})
+    </insert>
+
+    <insert id="kakaoInsert">
+    insert into MEMBER(MEM_NUM,MEM_EMAIL,MEM_NICKNAME)
+    values (member_seq.nextval,#{mem_email},#{mem_nickname})
+
+    </insert>
+
+    <select id="userCehck" resultType="member">
+        select MEM_NAME, MEM_EMAIL,MEM_NICKNAME
+        from MEMBER
+        where MEM_NICKNAME = #{nickname}
+    </select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

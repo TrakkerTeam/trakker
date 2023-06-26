@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
+import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.trakker.service.admin.AdminServiceImpl;
+
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,7 +26,8 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
-	private AdminServiceImpl adminService;
+	private AdminService adminService;
+
 	@Autowired
 	private FaqService faqService;
 
@@ -40,18 +42,22 @@ public class AdminController {
 	}
 	@RequestMapping("/adminPage.do")
 	public ModelAndView adminPage(ModelAndView mav) throws Exception{
-		List<FaqDTO> items = faqService.list();
-		List<MemberDTO> memberList = adminService.memberList();
 
-		//레코드 개수
-		int memberCount = adminService.memberCount();
 
-		mav.setViewName("admin/admin_main");
-		mav.addObject("memberList", memberList);
-		mav.addObject("list", items);
-		// View 단에 전송
-		mav.addObject("memberCount", memberCount);
-		return mav;
+
+
+			List<FaqDTO> items = faqService.list();
+			List<MemberDTO> memberList = adminService.memberList();
+
+			//레코드 개수
+			int memberCount = adminService.memberCount();
+
+			mav.setViewName("admin/admin_main");
+			mav.addObject("memberList", memberList);
+			mav.addObject("list", items);
+			// View 단에 전송
+			mav.addObject("memberCount", memberCount);
+			return mav;
 	}
 	@RequestMapping("/view.do")
 	public String view(Model model, @RequestParam int mem_num) {

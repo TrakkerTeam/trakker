@@ -11,8 +11,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO {
-	private Integer mem_num; //MEM_NUM
+	private Long mem_num; //MEM_NUM
 	private String mem_email;  //MEM_EMAIL
+	private String mem_id; // OAuth id
 	private String mem_pass;//MEM_PASS	varchar2(40)	not null,
 	private String mem_name;//MEM_NAME	varchar2(40)	not null,
 	private int mem_birth;//MEM_BIRTH	number	NOT NULL,

@@ -174,6 +174,7 @@
                         </c:otherwise>
                     </c:choose>
                 </small>
+                <%----%>
                 <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
             </div>
         </div>
@@ -185,6 +186,7 @@
         <div class="text-center border-bottom mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
+
                 <fieldset class="rate">
                     <input type="radio" id="rating10" name="rating" value="10.0" class="rating"><label for="rating10" title="5점"></label>
                     <input type="radio" id="rating9" name="rating" value="9.0"  class="rating"><label class="half" for="rating9" title="4.5점"></label>
@@ -202,7 +204,11 @@
 <%--                </c:if>--%>
                 <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
                 <i class="bi bi-star-fill me-1"></i>
-                <h3 class="mt-2"> 8.1</h3> <%-- total--%>
+                <div id="result"><%--total--%>
+                <h3 class="mt-2">
+                    <fmt:formatNumber value="${ratingAvg}" pattern="0.0"/>
+                  </h3> <%-- total--%>
+                </div>
             </div>
         </div>
         <div>
@@ -244,37 +250,30 @@
     <input type="hidden" name="review_num" value="${review.review_num}">
 </form>
 <script>
-    $("#rating_btn").on("click",function (){
-    const review_num = '${review.review_num}';
+    $("#rating_btn").on("click", function () {
+        const review_num = ${review.review_num};
         const rating = $(".rating:checked").val();
 
-    console.log("rate = " + rating);
-    console.log("review_num = " + review_num);
+        console.log("rate = " + rating);
+        console.log("review_num = " + review_num);
 
-    const data ={
+        const data = {
+            review_num: review_num,
+            rating: rating
+        };
 
-        review_num : review_num,
-        rating : rating
-    }
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: "${path}/review/ratinginsert",
+            success: function(result){
+                if(confirm("별점 등록 완료")){
 
-    $.ajax({
-        data : data,
-        type : 'POST',
-        url : '${path}/review/rating',
-        success : function(result){
-
-            /* 댓글 초기화 */
-            $(opener.location).attr("href", "${path}/review/detail");
-
-            window.close();
-
-    }
-
+                    $("#result").html(result);
+                }
+            }
+        });
     });
-
-    });
-
-
 </script>
 </body>
 </html>
