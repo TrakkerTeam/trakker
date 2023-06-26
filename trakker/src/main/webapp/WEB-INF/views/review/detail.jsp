@@ -173,7 +173,6 @@
     }
 
     function commentDelete(comment_num) {
-        console.log(comment_num);
         $.ajax({
             url: "${path}/comment/delete",
             data: {"comment_num": comment_num},
@@ -217,10 +216,16 @@
             <p class="mb-0 h6"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
             <div>
                 <small class="opacity-50 mb-0 text-nowrap">
-
-
+                    <c:choose>
+                        <c:when test="${review.edit_date == null}">
+                            <fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:formatDate value="${review.edit_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </c:otherwise>
+                    </c:choose>
                 </small>
-                <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
+                <small class="opacity-50 mb-0 ms-2 text-nowrap">조회수 ${review.readcount}</small>
             </div>
         </div>
         <hr>
@@ -228,27 +233,32 @@
             <p class="mb-1">${review.content}</p>
         </div>
         <hr>
-        <div class="text-center mt-3">
+        <div class="text-center border-bottom mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
+
                 <fieldset class="rate">
-                    <input type="radio" id="rating10" name="rating" value="10"><label for="rating10" title="5점"></label>
-                    <input type="radio" id="rating9" name="rating" value="9"><label class="half" for="rating9" title="4.5점"></label>
-                    <input type="radio" id="rating8" name="rating" value="8"><label for="rating8" title="4점"></label>
-                    <input type="radio" id="rating7" name="rating" value="7"><label class="half" for="rating7" title="3.5점"></label>
-                    <input type="radio" id="rating6" name="rating" value="6"><label for="rating6" title="3점"></label>
-                    <input type="radio" id="rating5" name="rating" value="5"><label class="half" for="rating5" title="2.5점"></label>
-                    <input type="radio" id="rating4" name="rating" value="4"><label for="rating4" title="2점"></label>
-                    <input type="radio" id="rating3" name="rating" value="3"><label class="half" for="rating3" title="1.5점"></label>
-                    <input type="radio" id="rating2" name="rating" value="2"><label for="rating2" title="1점"></label>
-                    <input type="radio" id="rating1" name="rating" value="1"><label class="half" for="rating1" title="0.5점"></label>
+                    <input type="radio" id="rating10" name="rating" value="10.0" class="rating"><label for="rating10" title="5점"></label>
+                    <input type="radio" id="rating9" name="rating" value="9.0"  class="rating"><label class="half" for="rating9" title="4.5점"></label>
+                    <input type="radio" id="rating8" name="rating" value="8.0"  class="rating"><label for="rating8" title="4점"></label>
+                    <input type="radio" id="rating7" name="rating" value="7.0"  class="rating"><label class="half" for="rating7" title="3.5점"></label>
+                    <input type="radio" id="rating6" name="rating" value="6.0"  class="rating"><label for="rating6" title="3점"></label>
+                    <input type="radio" id="rating5" name="rating" value="5.0"  class="rating"><label class="half" for="rating5" title="2.5점"></label>
+                    <input type="radio" id="rating4" name="rating" value="4.0"  class="rating"><label for="rating4" title="2점"></label>
+                    <input type="radio" id="rating3" name="rating" value="3.0"  class="rating"><label class="half" for="rating3" title="1.5점"></label>
+                    <input type="radio" id="rating2" name="rating" value="2.0"  class="rating"><label for="rating2" title="1점"></label>
+                    <input type="radio" id="rating1" name="rating" value="1.0"  class="rating"><label class="half" for="rating1" title="0.5점"></label>
                 </fieldset>
                 <%--                <c:if test="${mem_num != null}">--%>
-                <button class="btn rating btn-outline-success" type="button">등록</button>
+                <button class="btn rating btn-outline-success" type="button" id="rating_btn">등록</button>
                 <%--                </c:if>--%>
                 <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
                 <i class="bi bi-star-fill me-1"></i>
-                <h3 class="mt-2"> 8.1</h3>
+                <div id="result"><%--total--%>
+                    <h3 class="mt-2">
+                        <fmt:formatNumber value="${ratingAvg}" pattern="0.0"/>
+                    </h3> <%-- total--%>
+                </div>
             </div>
         </div>
         <hr>
@@ -287,5 +297,30 @@
     <input type="hidden" name="l_num" value="${review.l_num}">
     <input type="hidden" name="review_num" value="${review.review_num}">
 </form>
+<script>
+    $("#rating_btn").on("click", function () {
+        var review_num = ${review.review_num};
+        var rating = $(".rating:checked").val();
+
+        console.log("rate = " + rating);
+        console.log("review_num = " + review_num);
+
+        var data = {
+            review_num: review_num,
+            rating: rating
+        };
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: "${path}/review/ratinginsert",
+            success: function(result){
+                if(confirm("별점 등록 완료")){
+
+                    $("#result").html(result);
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

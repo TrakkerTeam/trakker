@@ -85,8 +85,33 @@
                 enabled: true,
                 offset: 0,
                 zIndex: 9999
+            },
+            callbacks : {
+                onImageUpload : function(files, editor, welEditable) {
+                    // 파일 업로드(다중업로드를 위해 반복문 사용)
+                    for (var i = files.length - 1; i >= 0; i--) {
+                        uploadSummernoteImageFile(files[i],
+                            this);
+                    }
+                }
             }
         });
+
+        function uploadSummernoteImageFile(file, el) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data : data,
+                type : "POST",
+                url : "${path}/uploadSummernoteImageFile",
+                contentType : false,
+                enctype : 'multipart/form-data',
+                processData : false,
+                success : function(data) {
+                    $(el).summernote('editor.insertImage', data.url);
+                }
+            });
+        }
     </script>
     <hr>
     <div name="filename" value="이미지 이름">asdasd.jpg</div><br><br>

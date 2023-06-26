@@ -61,9 +61,9 @@
         <input class="form-control" type="text" placeholder="제목을 입력하세요" aria-label="default input example" id="title"
                name="title">
         <hr>
-        <textarea class="summernote" id="content" name="content"></textarea>
+        <textarea class="summernote" id="summernote" name="content"></textarea>
         <script>
-                // summernote 부분
+               //summernote 부분
                 $('.summernote').summernote({
                     height: 750,
                     lang: "ko-KR",
@@ -87,13 +87,36 @@
                         enabled: true,
                         offset: 0,
                         zIndex: 9999
+                    },
+                    callbacks : {
+                        onImageUpload : function(files, editor, welEditable) {
+                            // 파일 업로드(다중업로드를 위해 반복문 사용)
+                            for (var i = files.length - 1; i >= 0; i--) {
+                                uploadSummernoteImageFile(files[i],  this);
+                            }
+                        }
                     }
                 });
+
+                function uploadSummernoteImageFile(file, el) {
+                    data = new FormData();
+                    data.append("file", file);
+                    $.ajax({
+                        data : data,
+                        type : "POST",
+                        url : "${path}/uploadSummernoteImageFile",
+                        contentType : false,
+                        enctype : 'multipart/form-data',
+                        processData : false,
+                        success : function(data) {
+                            $(el).summernote('editor.insertImage', data.url);
+                        }
+                    });
+                }
 
         </script>
         <hr>
         <input type="hidden" name="mem_num" value="${sessionScope.mem_num}">
-        <div name="filename" value="이미지 이름">asdasd.jpg</div>
         <br><br>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <div class="btn-group m-3" role="group" aria-label="First group">
