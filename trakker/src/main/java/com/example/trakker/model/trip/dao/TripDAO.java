@@ -22,6 +22,5 @@ public interface TripDAO {
     List<String> getAttach(long t_num);
     void updateAttach(String fullName, long t_num);
     Double ratingAvg(long t_num);
-
     void ratingInsert(RatingDTO dto);
 }
