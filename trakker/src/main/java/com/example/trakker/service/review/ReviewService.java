@@ -1,24 +1,34 @@
 package com.example.trakker.service.review;
 
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
 public interface ReviewService {
 
-    List<ReviewDTO> list(int displayPost, int postNum, String searchType, String keyword);
+    ResponseResultList list(PagingInfoVO vo);
 
     void insert(ReviewDTO review);
 
-    void count(Integer review_num, HttpSession session);
+    void count(long review_num, HttpServletRequest request, HttpServletResponse response);
 
-    ReviewDTO detail(Integer review_num);
+    ReviewDTO detail(long review_num);
 
     void update(ReviewDTO review);
 
-    void delete(Integer review_num);
+    void delete(long review_num);
 
-    int total(String searchType, String keyword);
+    //리뷰 총점
+    Double ratingAvg(long review_num);
 
+    void ratingInsert(RatingDTO dto);
+
+    List<ReviewDTO> main_list();
 }

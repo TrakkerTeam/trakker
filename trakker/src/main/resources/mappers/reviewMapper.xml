@@ -7,49 +7,77 @@
 <mapper namespace="review">
 
     <select id="list" parameterType="hashMap" resultMap="reviewResultMap">
-        SELECT *
+        SELECT X.rn, X.review_num, X.title, X.K_NAME, X.content, X.review_date, X.k_name, X.l_num, X.mem_num,
+        X.mem_nickname, X.ratingAvg
         FROM (
-                 SELECT rn, review_num, title, content, review_date, k_name, l_num
-                 FROM (
-                          SELECT ROW_NUMBER() OVER (ORDER BY r.review_num DESC) AS rn,
-                                 r.review_num,
-                                 r.title,
-                                 r.content,
-                                 r.review_date,
-                                 l.k_name,
-                                 l.l_num
-                          FROM review r
-                                   JOIN local l ON r.l_num = l.l_num
-                      )
-        <if test='searchType.equals("title")'>
-            WHERE title LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("content")'>
-            WHERE content LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("writer")'>
-            WHERE writer LIKE '%' || #{keyword} || '%'
-        </if>
-             )
-        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}
+        SELECT ROWNUM AS RN, A.review_num, A.title, A.content, A.review_date, A.k_name, A.l_num, A.mem_num,
+        A.mem_nickname, A.ratingAvg
+        FROM (
+        SELECT r.review_num, r.title, r.content, r.review_date,
+        l.k_name, l.l_num,
+        m.mem_num, m.mem_nickname,
+        (SELECT AVG(rt.rating) FROM rating rt WHERE rt.review_num = r.review_num) AS ratingAvg
+        FROM review r
+        JOIN local l ON r.l_num = l.l_num
+        JOIN member m ON r.mem_num = m.mem_num
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='area != 0 and area != null'>
+                AND l.l_num = #{area}
+            </if>
+            <if test='keyword != "" and searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("title")'>
+                        AND title LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        AND content LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("mem_nickname")'>
+                        AND mem_nickname LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        </trim>
+        <choose>
+            <when test='sort.equals("add")'>
+                ORDER BY review_num DESC
+            </when>
+            <when test='sort.equals("ratingAvg")'>
+                ORDER BY ratingAvg DESC , review_num DESC
+            </when>
+        </choose>
+        ) A
+        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} ) ) X
+        WHERE X.rn &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
 
     <select id="total" parameterType="hashMap" resultType="int">
-        select count(review_num) from review
-        <if test='searchType.equals("title")'>
-            WHERE title LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("content")'>
-            WHERE content LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("writer")'>
-            WHERE writer LIKE '%' || #{keyword} || '%'
-        </if>
+        select count(*)
+        from(SELECT r.review_num, r.title, r.content, m.mem_num, m.mem_nickname
+             FROM review r
+        join member m
+        on r.mem_num = m.mem_num)
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='keyword != "" and searchType != ""'>
+        <choose>
+            <when test='searchType.equals("title")'>
+                AND title LIKE '%' || #{keyword} || '%'
+            </when>
+            <when test='searchType.equals("content")'>
+                AND content LIKE '%' || #{keyword} || '%'
+            </when>
+            <when test='searchType.equals("mem_nickname")'>
+                AND mem_nickname LIKE '%' || #{keyword} || '%'
+            </when>
+        </choose>
+            </if>
+        </trim>
     </select>
 
+
     <insert id="insert">
-        insert into review (review_num, l_num, title, content)
-        values (review_seq.nextval, #{l_num}, #{title}, #{content})
+        insert into review (review_num, mem_num, l_num, title, content)
+        values (review_seq.nextval, #{mem_num}, #{l_num}, #{title}, #{content})
     </insert>
 
     <update id="count">
@@ -59,75 +87,90 @@
     </update>
 
     <select id="detail" resultMap="reviewResultMap">
-        select r.review_num, r.title, r.content, r.review_date, l.k_name, r.readcount, l.l_num, r.edit_date
-        from review r join local l
-        on r.l_num = l.l_num
+        select r.review_num,
+               r.title,
+               r.content,
+               r.review_date,
+               r.readcount,
+               r.edit_date,
+               l.l_num,
+               l.k_name,
+               m.mem_num,
+               m.mem_nickname
+        from review r
+                 join local l
+                      on r.l_num = l.l_num
+                 join member m
+                      on r.mem_num = m.mem_num
         where review_num = #{review_num}
     </select>
 
     <select id="edit" resultMap="reviewResultMap">
         select r.review_num, r.title, r.content, r.review_date, l.k_name, l.l_num
-        from review r join local l
-        on r.l_num = l.l_num
+        from review r
+                 join local l
+                      on r.l_num = l.l_num
         where review_num = #{review_num}
     </select>
 
     <update id="update">
         update review
-        set l_num = #{l_num}, title = #{title}, content = #{content}, edit_date = sysdate
+        set l_num     = #{l_num},
+            title     = #{title},
+            content   = #{content},
+            edit_date = sysdate
         where review_num = #{review_num}
     </update>
 
     <delete id="delete">
-        delete from review
+        delete
+        from review
         where review_num = #{review_num}
     </delete>
 
+    <select id="main_list" resultMap="reviewResultMap">
+        SELECT *
+        FROM (
+        SELECT rn, review_num, title, content, review_date, k_name, l_num, mem_num, mem_nickname, ratingAvg
+        FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY ratingAvg deSC) AS rn,
+        review_num, title, content, review_date, k_name, l_num, mem_num, mem_nickname, ratingAvg
+        FROM (
+        SELECT r.review_num, r.title, r.content, r.review_date,
+        l.k_name, l.l_num,
+        m.mem_num, m.mem_nickname,
+        (SELECT AVG(rt.rating) FROM rating rt WHERE rt.review_num = r.review_num) AS ratingAvg
+        FROM review r
+        JOIN local l ON r.l_num = l.l_num
+        JOIN member m ON r.mem_num = m.mem_num
+        )
+        )
+        )
+        WHERE rn &lt;= 9
+    </select>
 
 
 
     <resultMap id="reviewResultMap" type="review">
         <id property="review_num" column="review_num"/>
-        <id property="mem_num" column="MEM_NUM"/>
-        <id property="l_num" column="L_NUM"/>
+        <result property="mem_num" column="MEM_NUM"/>
+        <result property="l_num" column="L_NUM"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="review_date" column="review_date"/>
         <result property="review_date" column="review_date"/>
         <result property="readcount" column="readcount"/>
         <result property="edit_date" column="edit_date"/>
-        <association property="local" resultMap="localResultMap"/>
+        <collection property="member" ofType="member">
+            <result property="mem_nickname" column="mem_nickname"/>
+        </collection>
+        <collection property="local" ofType="local">
+            <result property="k_name" column="K_NAME"/>
+        </collection>
+        <collection property="rating" ofType="rating">
+            <result property="rating" column="rating"/>
+            <result property="ratingAvg" column="ratingAvg"/>
+        </collection>
     </resultMap>
-
-    <resultMap id="localResultMap" type="local">
-        <id property="l_num" column="L_NUM"/>
-        <result property="k_name" column="K_NAME"/>
-        <result property="Ee_name" column="E_NAM"/>
-    </resultMap>
-
-<!--    <resultMap id="imgResultMap" type="img">-->
-<!--        <id property="ref_num" column="REF_NUM"/>-->
-<!--        <result property="ref_img" column="REF_IMG"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="ratingResultMap" type="rating">-->
-<!--        <id property="mem_num" column="MEM_NUM"/>-->
-<!--        <result property="t_num" column="T_NUM"/>-->
-<!--        <result property="review_num" column="review_num"/>-->
-<!--        <result property="star" column="star"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="commentResultMap" type="comment">-->
-<!--        <id property="comment_num" column="comment_num"/>-->
-<!--        <id property="review_num" column="review_num"/>-->
-<!--        <id property="mem_num" column="MEM_NUM"/>-->
-<!--        <id property="l_num" column="L_NUM"/>-->
-<!--        <id property="comment_p" column="comment_p"/>-->
-<!--        <id property="content" column="content"/>-->
-<!--        <result property="com_date" column="com_date"/>-->
-<!--        <result property="com_delete" column="com_delete"/>-->
-<!--        <result property="com_delete" column="com_delete"/>-->
-<!--    </resultMap>-->
-
 
 </mapper>

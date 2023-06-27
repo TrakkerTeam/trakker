@@ -1,6 +1,9 @@
 package com.example.trakker.model.review.dao;
 
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,16 +19,24 @@ public class ReviewDAOImpl implements ReviewDAO {
     SqlSession sqlSession;
 
     @Override
-    public List<ReviewDTO> list(int displayPost, int postNum, String searchType, String keyword) {
+    public ResponseResultList list(PagingInfoVO vo) {
         HashMap<String, Object> data = new HashMap<String, Object>();
 
-        data.put("displayPost", displayPost);
-        data.put("postNum", postNum);
+        data.put("pageNum", vo.getPageNum());
+        data.put("pageRowCount", vo.getPageRowCount());
+        data.put("area", vo.getArea());
+        data.put("sort", vo.getSort());
+        data.put("searchType", vo.getStype());
+        data.put("keyword", vo.getSdata());
 
-        data.put("searchType", searchType);
-        data.put("keyword", keyword);
+        List<ReviewDTO> resultdata = sqlSession.selectList("review.list", data);
+        Integer cnt = (Integer) sqlSession.selectOne("review.total", data);
+        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), cnt, vo.getPageRowCount());
+        ResponseResultList responseResultList = new ResponseResultList();
+        responseResultList.setPagingInfo(pagingInfoVO);
+        responseResultList.setBody(resultdata);
 
-        return sqlSession.selectList("review.list", data);
+        return responseResultList;
     }
 
     @Override
@@ -35,12 +46,12 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
-    public void count(Integer review_num, HttpSession session) {
+    public void count(long review_num) {
         sqlSession.update("review.count", review_num);
     }
 
     @Override
-    public ReviewDTO detail(Integer review_num) {
+    public ReviewDTO detail(long review_num) {
         return sqlSession.selectOne("review.detail", review_num);
     }
 
@@ -50,18 +61,24 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
-    public void delete(Integer review_num) {
+    public void delete(long review_num) {
         sqlSession.delete("review.delete", review_num);
     }
 
     @Override
-    public int total(String searchType, String keyword) {
-        HashMap data = new HashMap();
+    public Double ratingAvg(long review_num) {
+        return sqlSession.selectOne("rating.ratingAvg",review_num);
+    }
 
-        data.put("searchType", searchType);
-        data.put("keyword", keyword);
+    @Override
+    public void ratingInsert(RatingDTO dto) {
 
-        return sqlSession.selectOne("review.total",data);
+        sqlSession.insert("rating.ratingInsert",dto);
+    }
+
+    @Override
+    public List<ReviewDTO> main_list() {
+        return sqlSession.selectList("review.main_list");
     }
 
 }
