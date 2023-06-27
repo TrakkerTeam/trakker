@@ -1,25 +1,28 @@
 package com.example.trakker.service.trip;
 
-import com.example.trakker.model.trip.dao.TripDAO;
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
-import com.example.trakker.utils.ItemSearchVO;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 
 public interface TripService {
 
-    public List<TripDTO> list() throws Exception;
-    public void insert(TripDTO dto) throws Exception;
-    public void update(TripDTO dto) throws Exception;
-    public void delete(int t_num) throws Exception;
-    public TripDTO view(int t_num) throws Exception;
-    public ResponseResultList listPage(PagingInfoVO vo);
+    List<TripDTO> list() throws Exception;
+    void insert(TripDTO dto) throws Exception;
+    void update(TripDTO dto) throws Exception;
+    void delete(long t_num) throws Exception;
+    TripDTO view(long t_num) throws Exception;
+    ResponseResultList listPage(PagingInfoVO vo);
+    void deleteFile(String fullName); //첨부파일 삭제
+    List<String> getAttach(long t_num); //첨부파일 정보
+    void addAttach(String fullName); //첨부파일 저장
+    void updateAttach(String fullName, long t_num);//첨부파일 수정
+
+    //리뷰 총점
+    Double ratingAvg(long t_num);
+
+    void ratingInsert(RatingDTO dto);
 }

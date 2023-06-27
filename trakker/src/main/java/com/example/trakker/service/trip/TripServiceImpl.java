@@ -1,49 +1,61 @@
 package com.example.trakker.service.trip;
 
-import com.example.trakker.model.faq.dto.FaqDTO;
+
+;
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.trip.dao.TripDAO;
 import com.example.trakker.model.trip.dto.TripDTO;
-import com.example.trakker.utils.ItemSearchVO;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
-@RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
 
     @Autowired
     private TripDAO tripDao;
 
-
+    @Override
     public List<TripDTO> list() throws Exception{
         return tripDao.list();
     }
 
-
+    @Transactional
+    @Override
     public void insert(TripDTO dto) throws Exception {
         tripDao.insert(dto);
+        String[] files=dto.getFiles();//첨부파일 이름 배열
+        if(files==null) return; //첨부파일이 없으면 skip
+        for(String name : files) {
+            tripDao.addAttach(name);//attach테이블에 insert
+        }
     }
-
+    @Override
     public void update(TripDTO dto) throws Exception {
         tripDao.update(dto);
+        String[] files=dto.getFiles();
+        if(files==null) return;
+        for(String name : files) {
+            System.out.println("첨부파일 이름 : "+name);
+            tripDao.updateAttach(name, dto.getT_num());
+        }
     }
-
-    public void delete(int t_num) throws Exception {
+    @Override
+    public void delete(long t_num) throws Exception {
         tripDao.delete(t_num);
     }
-
-    public TripDTO view(int t_num) throws Exception {
+    @Override
+    public TripDTO view(long t_num) throws Exception {
         return tripDao.view(t_num);
     }
-
+    @Override
     public ResponseResultList listPage(PagingInfoVO vo){
         HashMap<String, Object> data = new HashMap<>();
         data.put("pageNum", vo.getPageNum());
@@ -58,5 +70,35 @@ public class TripServiceImpl implements TripService {
         resultList.setBody(list);
         resultList.setPagingInfo(pagingInfoVO);
         return resultList;
+    }
+
+    @Override
+    public void addAttach(String fullName) {
+
+    }
+    @Override
+    public void deleteFile(String fullName) {
+        tripDao.deleteFile(fullName);
+    }
+    @Override
+    public List<String> getAttach(long t_num) {
+        return tripDao.getAttach(t_num);
+    }
+
+    @Override
+    public void updateAttach(String fullName, long t_num) {
+       
+    }
+
+    @Override
+    public Double ratingAvg(long t_num) {
+
+        return tripDao.ratingAvg(t_num);
+    }
+
+    @Override
+    public void ratingInsert(RatingDTO dto) {
+        tripDao.ratingInsert(dto);
+
     }
 }
