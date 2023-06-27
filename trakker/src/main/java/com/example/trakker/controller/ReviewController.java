@@ -41,12 +41,6 @@ public class ReviewController {
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword",keyword);
-        System.out.println("num"+num);
-        System.out.println("area"+area);
-        System.out.println("sort"+sort);
-        System.out.println("num"+num);
-        System.out.println("area"+area);
-        System.out.println("sort"+sort);
     }
 
     @GetMapping("/review/write")
@@ -62,9 +56,8 @@ public class ReviewController {
     }
 
     @GetMapping("/review/detail")
-    public ModelAndView detail(long review_num,
-                               HttpServletRequest request,
-                               HttpServletResponse response) {
+    public ModelAndView detail(long review_num, HttpServletRequest request, HttpServletResponse response) {
+
         reviewService.count(review_num, request,response);
         ReviewDTO review = reviewService.detail(review_num);
         /*평점 total 값 추가 */
@@ -78,9 +71,7 @@ public class ReviewController {
     }
 
     @GetMapping("/review/edit")
-    public ModelAndView edit(long review_num,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
+    public ModelAndView edit(long review_num, HttpServletRequest request, HttpServletResponse response) {
 
         reviewService.count(review_num, request,response);
         ReviewDTO review = reviewService.detail(review_num);
