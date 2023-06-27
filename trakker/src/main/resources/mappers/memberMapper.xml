@@ -33,14 +33,14 @@
         select count(mem_email) from member where mem_email=#{mem_email}
     </select>
 
-    <update id="updateMember">
+    <update id="updateMember" parameterType="member">
         UPDATE member
         SET mem_pass = CASE
         WHEN #{mem_pass} IS NULL THEN mem_pass
         ELSE #{mem_pass}
         END , mem_name=#{mem_name}, mem_nickname=#{mem_nickname}, mem_zipcode=#{mem_zipcode},
         mem_phone=#{mem_phone}, mem_address1=#{mem_address1}, mem_address2=#{mem_address2},
-        mem_edit_date=SYSDATE
+        picture_url = #{picture_url, jdbcType=VARCHAR}, mem_edit_date=SYSDATE
         WHERE mem_email=#{mem_email}
     </update>
 
@@ -75,6 +75,12 @@
 <!--        from member-->
 <!--        where mem_email=#{mem_email}-->
 <!--    </select>-->
+
+    <update id="updateProfile">
+        update member
+        set picture_url = #{profileImage}
+        where mem_num = #{mem_num}
+    </update>
 
 </mapper>
 
