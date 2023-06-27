@@ -1,6 +1,7 @@
 package com.example.trakker.model.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 
@@ -21,4 +22,6 @@ public interface MemberDAO {
 	public void pwUpdate(String mem_email, String new_pass);
 
 	public MemberDTO getupdateMember(String mem_email); //안되면 지우기
+
+	public int updateProfile(Map<String,Object> map);
 }

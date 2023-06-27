@@ -84,5 +84,7 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("new_pass", new_pass);
 		sqlSession.update("member.pwUpdate", map);
 	}
-
+	public int updateProfile(Map<String,Object> map){
+		return sqlSession.update("member.updateProfile",map);
+	}
 }
