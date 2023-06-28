@@ -121,7 +121,6 @@
                     alert("댓글이 등록되었습니다.");
                     $('#content').val('');
                     commentList(); //댓글 목록 출력
-                    // window.location.reload();
                 }
             });
         });
@@ -139,10 +138,6 @@
                 document.form1.action="${path}/review/delete";
                 document.form1.submit();
             }
-        });
-
-        $(".rating").click(function() {
-            document.form1.submit();
         });
 
         $(document).on("click", "#commentEdit", function(){
@@ -190,10 +185,10 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5">
         <div class="justify-content-md-start">
-            <%--            <c:if test="${mem_num == review.member.mem_num}">--%>
+                        <c:if test="${sessionScope.mem_nickname == review.member.mem_nickname}">
             <button type="button" class="btn Edit btn-light start-0">수정</button>
             <button type="button" class="btn Delete btn-light start-0">삭제</button>
-            <%--            </c:if>--%>
+                        </c:if>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0">이전글</button>
@@ -213,7 +208,7 @@
             </div>
         </div>
         <div>
-            <p class="mb-0 h6"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
+            <p class="mb-0 h6"><img src="${picture_url}" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
             <div>
                 <small class="opacity-50 mb-0 text-nowrap">
                     <c:choose>
@@ -236,7 +231,6 @@
         <div class="text-center border-bottom mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
-
                 <fieldset class="rate">
                     <input type="radio" id="rating10" name="rating" value="10.0" class="rating"><label for="rating10" title="5점"></label>
                     <input type="radio" id="rating9" name="rating" value="9.0"  class="rating"><label class="half" for="rating9" title="4.5점"></label>
@@ -249,9 +243,9 @@
                     <input type="radio" id="rating2" name="rating" value="2.0"  class="rating"><label for="rating2" title="1점"></label>
                     <input type="radio" id="rating1" name="rating" value="1.0"  class="rating"><label class="half" for="rating1" title="0.5점"></label>
                 </fieldset>
-                <%--                <c:if test="${mem_num != null}">--%>
+<c:if test="${sessionScope.mem_nickname != null}">
                 <button class="btn rating btn-outline-success" type="button" id="rating_btn">등록</button>
-                <%--                </c:if>--%>
+</c:if>
                 <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
                 <i class="bi bi-star-fill me-1"></i>
                 <div id="result"><%--total--%>
@@ -273,7 +267,9 @@
                         <textarea id="content" name="content" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="2"></textarea>
                     </div>
                     <div class="col-sm-1 align-self-end">
+                        <c:if test="${sessionScope.mem_nickname != null}">
                         <button class="btn btn-outline-success" type="button" id="btnComment">등록</button>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -281,10 +277,10 @@
     </div>
     <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
         <div class="justify-content-md-start">
-            <%--            <c:if test="${review.mem_num == member.mem_num}">--%>
-            <button type="button" class="btn Edit btn-light start-0">수정</button>
-            <button type="button" class="btn Delete btn-light start-0">삭제</button>
-            <%--            </c:if>--%>
+            <c:if test="${sessionScope.mem_nickname == review.member.mem_nickname}">
+                <button type="button" class="btn Edit btn-light start-0">수정</button>
+                <button type="button" class="btn Delete btn-light start-0">삭제</button>
+            </c:if>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0"><i class="bi bi-caret-up-fill"></i>TOP</button>
