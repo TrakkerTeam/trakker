@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
     // 수정 기능 추가
 
     public void updateMember(MemberDTO dto) {
-        memberDao.updateMember(dto);
+        memberDao.adminupdateMember(dto);
     }
     // 관리자 메인 페이지 ajax 박스 데이터 개수 정하는 메서드
 
@@ -44,6 +44,11 @@ public class AdminServiceImpl implements AdminService{
     public ResponseResultList listPage(PagingInfoVO vo){
 
         return memberDao.listPage(vo);
+    }
+
+    @Override
+    public MemberDTO getupdateMember(String mem_email) {
+        return memberDao.viewMember(mem_email);
     }
 
 

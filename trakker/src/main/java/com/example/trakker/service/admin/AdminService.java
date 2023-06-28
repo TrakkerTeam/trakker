@@ -14,6 +14,5 @@ public interface AdminService {
      void updateMember(MemberDTO dto);
      int memberCount() throws Exception;
      ResponseResultList listPage(PagingInfoVO vo);
-
-
+     MemberDTO getupdateMember(String mem_email);
 }

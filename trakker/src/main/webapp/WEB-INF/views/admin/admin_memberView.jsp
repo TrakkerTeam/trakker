@@ -142,14 +142,14 @@
   </div>
 
 <h2 style="font-size: 20px; margin-left: 100px;">프로필 수정</h2>
-<form name="form1" id="form1" method="post" style="text-align: left; padding-left: 100px; margin-top: 80px; ">
+<form name="form1" id="form1" method="post" style="text-align: left; padding-left: 100px; margin-top: 80px; " enctype="multipart/form-data">
  <table  width="600px" >
-  <tr>
-   <td colspan="2" id="profileimg">
-    <img  style="width:200px; height:200px;"  src="../resources/images/car.gif" class="img-thumbnail rounded-circle">
-   </td>
-  </tr>
-
+  <div style="text-align: center;">
+      <label for="file-input">
+          <img id="previewImage" style="width: 200px; height: 200px; cursor: pointer;" src="${picture_url}" class="img-thumbnail rounded-circle">
+      </label>
+          <input id="file-input" type="file" name="file" style="display: none;">
+  </div>
   <tr>
    <td>이메일</td>
    <td>이름</td>
@@ -172,7 +172,7 @@
    <td>전화번호</td>
   </tr>
   <tr>
-   <td><input type="text" id="mem_nickname" name="mem_nickname" value="${dto.mem_nickname}"></td>
+   <td><input type="text" id="mem_nickname" name="mem_nickname" value="${dto.mem_nickname}" readonly></td>
    <td><input type="text" id="mem_phone" name="mem_phone" value="${dto.mem_phone}"></td>
   </tr>
   <tr>
@@ -199,6 +199,7 @@
  </table>
 </form>
  </div>
+ <%@include file="../footer.jspf" %>
 <script>
  $("#logback").click(function (){
   location.href="${path}/admin/memberList";
@@ -249,7 +250,28 @@
   }
 
  });
+
+ const fileInput = document.getElementById('file-input');
+ const previewImage = document.getElementById('previewImage');
+
+ fileInput.addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+   previewImage.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+ });
+
+
+ function back() {
+  history.back();
+ }
+
 </script>
+
 </div>
 </body>
 </html>

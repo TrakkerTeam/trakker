@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class OauthUserDAOImpl implements OauthUserDAO{
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OauthUserDAOImpl.class);
 
     @Autowired
     SqlSession session;

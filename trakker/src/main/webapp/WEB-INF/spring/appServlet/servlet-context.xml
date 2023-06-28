@@ -38,6 +38,22 @@
 	<beans:bean id="loginInterceptor" class="com.example.trakker.config.interceptor.Logininterceptor">	</beans:bean>
 	<beans:bean id="AdminInterceptor" class="com.example.trakker.config.interceptor.Admininterceptor">	</beans:bean>
 
+
+	<!-- 파일업로드를 위한 디렉토리 설정 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="classpath:upload.properties" />
+	</beans:bean>
+
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="100000000"/>
+	</beans:bean>
+	<beans:bean id="uploadProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<beans:property name="location" value="classpath:upload.properties"/>
+	</beans:bean>
+
+
+
+
 	<interceptors>
 		<interceptor>
 			<mapping path="/review/list"/>

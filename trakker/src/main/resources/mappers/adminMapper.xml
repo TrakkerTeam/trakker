@@ -18,8 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <update id="updateMember">
     update member
-    set mem_name=#{mem_name},mem_nickname=#{mem_nickname},mem_zipcode=#{mem_zipcode}
-    ,mem_address1=#{mem_address1},mem_address2=#{mem_address2}
+    set mem_name=#{mem_name},
+        mem_nickname=#{mem_nickname},
+        mem_zipcode=#{mem_zipcode}
+    ,mem_address1=#{mem_address1},
+        mem_address2=#{mem_address2},
+        picture_url = #{picture_url, jdbcType=VARCHAR}, mem_edit_date=SYSDATE
     where mem_num=#{mem_num}
     </update>
     <select id="memberCount" resultType="int">

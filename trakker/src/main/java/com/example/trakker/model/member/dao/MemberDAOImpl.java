@@ -70,6 +70,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("member.getupdateMember", mem_email);
 	}
 
+
 	@Override
 	public String pwCheck(String mem_email){
 		return sqlSession.selectOne("member.pwCheck", mem_email);

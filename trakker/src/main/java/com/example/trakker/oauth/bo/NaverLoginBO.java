@@ -23,8 +23,6 @@ public class NaverLoginBO {
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 
-    //https://openapi.naver.com/v1/nid/me
-
 
     /* 네아로 인증  URL 생성  Method */
     public String getAuthorizationUrl(HttpSession session) {

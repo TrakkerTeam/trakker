@@ -19,6 +19,7 @@ version : 1.0 202306071500
 202306241248 - Kakao 소셜 로그인 데이터 DB 연동
 202306262013 - AdminInterceptor 보안 기능 구현
 202306262128 - MAIN 페이지 Video Random autoplay 자바 스크립트 구현
+202306280640 - MAIN 페이지 총 이용자수 MEMBER TABLE TOTAL COUNT 기능 구현
 
 
 결함
@@ -43,5 +44,8 @@ version : 1.0 202306071500
 202306261810 - Kakao/Naver DTO 삭제
 202306261810 - OAuth 소셜 로그인 UserCheck 후 Member 테이블 DB 연동 / 코드 리팩토링
 202306262014 - header Session Check 코드 리팩토링
+202306272114 - OAuth 소셜 로그인 member login page 코드 리팩토링
+202306280145 - 총 이용자수 HttpSessionListener 코드 리팩토링
+202306281620 - 총 이용자수 HttpSessionListener 코드 삭제 / MEMBER TABLE COUNT DB 연동 코드 리팩토링
 
 

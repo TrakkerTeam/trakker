@@ -26,4 +26,5 @@ public class MemberDTO {
 	private Date mem_edit_date;//MEM_EDIT_DATE	date,
 	private String mem_nickname;//MEM_NICKNAME	varchar2(40)	not null,
 	private String admin_ck;//ADMIN_CK varchar2(1) DEFAULT'0'
+	private String picture_url;//PICTURE_URL 프로필 이미지
 }

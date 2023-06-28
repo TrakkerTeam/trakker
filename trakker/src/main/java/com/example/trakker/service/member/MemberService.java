@@ -21,7 +21,7 @@ public interface MemberService {
 
     public boolean checkPass(String mem_email, String mem_pass);
 
-    public MemberDTO getupdateMember(String mem_email); //안되면 지우기
+    public MemberDTO getupdateMember(String mem_email);
 
     public String pwCheck(String mem_email);
 

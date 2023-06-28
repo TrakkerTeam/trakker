@@ -1,5 +1,6 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- 세션 사용 옵션 -->
 <%@ page session="true" %>
@@ -95,7 +96,7 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
             <div class="countboxDiv">
                 <h7>이용자수</h7>
                 <h3>
-                    <span class="counter" id="routeCnt">146,654</span>
+                    <span class="counter" id="routeCnt">${memberTotalCount}</span>
                 </h3>
             </div>
             <div class="countboxDiv">

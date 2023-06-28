@@ -33,6 +33,7 @@ public class MemberServiceImpl implements MemberService{
             session.setAttribute("mem_address2",dto2.getMem_address2());
             session.setAttribute("admin_ck",dto2.getAdmin_ck());
             session.setAttribute("mem_pass", dto2.getMem_pass());
+            session.setAttribute("picture_url", dto2.getPicture_url());
         }
         return result;
     }

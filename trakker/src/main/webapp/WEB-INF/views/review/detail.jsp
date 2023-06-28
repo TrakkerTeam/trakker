@@ -8,14 +8,15 @@
 <style>
     @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-    .commentbox1 {
+    .commentbox1, .commentbox2, .commentbox3 {
         margin: 12px 0 29px;
         padding: 16px 10px 10px 18px;
         border: 1px solid #999999;
         border-radius: 6px;
         box-sizing: border-box;
     }
-    #commentContent {
+
+    #content, #editContent, #addContent {
         border: none;
         resize: none;
         outline: none;
@@ -87,21 +88,40 @@
     $(function() {
         commentList();
 
+        $(document).on("click", "#addInsert", function(){
+            var addContent = $("#addContent").val();
+            var review_num = "${review.review_num}";
+            var l_num = "${review.l_num}";
+            var mem_num = "${sessionScope.mem_num}";
+            var comment_num = $(this).closest('.commentbox3').find("input[name='comment_num']").val();
+            var param = { "addContent" : addContent, "comment_num" : comment_num, "review_num" : review_num, "l_num" : l_num, "mem_num" : mem_num};
+            $.ajax({
+                url: "${path}/comment/addInsert",
+                data: param,
+                type: "post",
+                success: function (){
+                    alert("답글이 추가되었습니다.");
+                    commentList();
+                }
+            });
+        });
+
         //댓글 쓰기
         $("#btnComment").click(function(){
-            var commentContent = $(".commentContent").val();
-            var review_num = $(".review_num").val();
-            var mem_num = $(".mem_num").val();
-            var param =  { "commentContent" : commentContent, "review_num" : review_num, "mem_num" : mem_num};
+            var content = $("#content").val();
+            var review_num = "${review.review_num}";
+            var l_num = "${review.l_num}";
+            var param = { "content" : content, "review_num" : review_num, "l_num" : l_num};
+            console.log(param);
             $.ajax({
                 url: "${path}/comment/insert",
                 data: param,
                 type: "post",
-                success: function(data){
-                    var result = data;
-                    return result;
-                    console.log("data:", data);
+                success: function(){
+                    alert("댓글이 등록되었습니다.");
+                    $('#content').val('');
                     commentList(); //댓글 목록 출력
+                    // window.location.reload();
                 }
             });
         });
@@ -121,6 +141,21 @@
             }
         });
 
+        $(document).on("click", "#commentEdit", function(){
+            var editContent = $("#editContent").val();
+            var comment_num = $(this).closest('.commentbox2').find("input[name='comment_num']").val();
+            var param = { "editContent" : editContent, "comment_num" : comment_num};
+            $.ajax({
+                url: "${path}/comment/edit",
+                data: param,
+                type: "post",
+                success: function (){
+                    alert("댓글이 수정되었습니다.");
+                    commentList();
+                }
+            });
+        });
+
     });
 
     function commentList(){
@@ -133,16 +168,28 @@
         });
     }
 
+    function commentDelete(comment_num) {
+        $.ajax({
+            url: "${path}/comment/delete",
+            data: {"comment_num": comment_num},
+            type: "post",
+            success: function (){
+                alert("댓글이 삭제되었습니다.");
+                commentList();
+            }
+        });
+    }
+
 
 </script>
 <body>
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5">
         <div class="justify-content-md-start">
-<%--            <c:if test="${mem_num == review.member.mem_num}">--%>
+            <%--            <c:if test="${mem_num == review.member.mem_num}">--%>
             <button type="button" class="btn Edit btn-light start-0">수정</button>
             <button type="button" class="btn Delete btn-light start-0">삭제</button>
-<%--            </c:if>--%>
+            <%--            </c:if>--%>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0">이전글</button>
@@ -174,8 +221,7 @@
                         </c:otherwise>
                     </c:choose>
                 </small>
-                <%----%>
-                <small class="opacity-50 mb-0 ms-2 text-nowrap">${review.readcount}</small>
+                <small class="opacity-50 mb-0 ms-2 text-nowrap">조회수 ${review.readcount}</small>
             </div>
         </div>
         <hr>
@@ -186,7 +232,6 @@
         <div class="text-center border-bottom mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
-
                 <fieldset class="rate">
                     <input type="radio" id="rating10" name="rating" value="10.0" class="rating"><label for="rating10" title="5점"></label>
                     <input type="radio" id="rating9" name="rating" value="9.0"  class="rating"><label class="half" for="rating9" title="4.5점"></label>
@@ -199,44 +244,42 @@
                     <input type="radio" id="rating2" name="rating" value="2.0"  class="rating"><label for="rating2" title="1점"></label>
                     <input type="radio" id="rating1" name="rating" value="1.0"  class="rating"><label class="half" for="rating1" title="0.5점"></label>
                 </fieldset>
-<%--                <c:if test="${mem_num != null}">--%>
+                <%--                <c:if test="${mem_num != null}">--%>
                 <button class="btn rating btn-outline-success" type="button" id="rating_btn">등록</button>
-<%--                </c:if>--%>
+                <%--                </c:if>--%>
                 <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
                 <i class="bi bi-star-fill me-1"></i>
                 <div id="result"><%--total--%>
-                <h3 class="mt-2">
-                    <fmt:formatNumber value="${ratingAvg}" pattern="0.0"/>
-                  </h3> <%-- total--%>
+                    <h3 class="mt-2">
+                        <fmt:formatNumber value="${ratingAvg}" pattern="0.0"/>
+                    </h3> <%-- total--%>
                 </div>
             </div>
         </div>
+        <hr>
         <div>
             <div>
                 <div id="commentList"></div>
             </div>
-            <hr>
-                <div class="commentbox1">
-                    <div class="d-flex row">
-                        <input type="hidden" name="review_num" value="${review.review_num}">
-                        <input type="hidden" name=mem_num value="${review.mem_num}">
-                        <input type="hidden" name="l_num" value="${review.l_num}">
-                        <div class="col-sm-11">
-                            <textarea id="commentContent" name="commentContent" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="2"></textarea>
-                        </div>
-                        <div class="col-sm-1 align-self-end">
-                            <button class="btn btn-outline-success" type="button" id="btnComment">등록</button>
-                        </div>
+            <div class="commentbox1">
+                <div class="d-flex row">
+                    <input type="hidden" name="l_num" value="${review.l_num}">
+                    <div class="col-sm-11">
+                        <textarea id="content" name="content" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="2"></textarea>
+                    </div>
+                    <div class="col-sm-1 align-self-end">
+                        <button class="btn btn-outline-success" type="button" id="btnComment">등록</button>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
         <div class="justify-content-md-start">
-<%--            <c:if test="${mem_num == mem_num}">--%>
+            <%--            <c:if test="${review.mem_num == member.mem_num}">--%>
             <button type="button" class="btn Edit btn-light start-0">수정</button>
             <button type="button" class="btn Delete btn-light start-0">삭제</button>
-<%--            </c:if>--%>
+            <%--            </c:if>--%>
         </div>
         <div class="justify-content-md-end">
             <button type="button" class="btn btn-light end-0"><i class="bi bi-caret-up-fill"></i>TOP</button>
@@ -251,17 +294,16 @@
 </form>
 <script>
     $("#rating_btn").on("click", function () {
-        const review_num = ${review.review_num};
-        const rating = $(".rating:checked").val();
+        var review_num = ${review.review_num};
+        var rating = $(".rating:checked").val();
 
         console.log("rate = " + rating);
         console.log("review_num = " + review_num);
 
-        const data = {
+        var data = {
             review_num: review_num,
             rating: rating
         };
-
         $.ajax({
             data: data,
             type: 'POST',

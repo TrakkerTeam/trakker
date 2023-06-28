@@ -1,25 +1,15 @@
 package com.example.trakker.utils;
 
+import lombok.Data;
+
+@Data
 public class BaseVO {
 
     private String stype = "";
     private String sdata = "";
+    private Integer area = 0;
+    private String sort = "";
 
 
-    public String getStype() {
-        return stype;
-    }
-
-    public void setStype(String stype) {
-        this.stype = stype;
-    }
-
-    public String getSdata() {
-        return sdata;
-    }
-
-    public void setSdata(String sdata) {
-        this.sdata = sdata;
-    }
 
 }

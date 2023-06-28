@@ -5,27 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="rating">
+
     <select id="ratingAvg" resultType="double">
         select avg(rating)
-        from rating g, review w
-        where g.review_num =w.review_num and g.review_num=#{review_num}
+        from rating
+        where review_num = #{review_num}
     </select>
+
     <insert id="ratingInsert">
     insert into rating
-    (review_num,rating) values (#{review_num},#{rating})
+    (review_num,rating,mem_num) values (#{review_num},#{rating},#{mem_num})
     </insert>
+
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
