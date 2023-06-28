@@ -47,7 +47,7 @@ public class TripDAOImpl implements TripDAO {
     }
 
     @Override
-    public Integer count(Map data) {
+    public int count(Map data) {
         return sqlSession.selectOne("trip.listPageCount", data);
     }
 

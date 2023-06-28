@@ -62,7 +62,7 @@ public class TripServiceImpl implements TripService {
         data.put("pageRowCount", vo.getPageRowCount());
         data.put("searchType", vo.getStype());
         data.put("keyword", vo.getSdata());
-        Integer count = tripDao.count(data);
+        int count = tripDao.count(data);
         List<TripDTO>  list = tripDao.listPage(data);
 
         PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), count, vo.getPageRowCount());
@@ -92,7 +92,6 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Double ratingAvg(long t_num) {
-
         return tripDao.ratingAvg(t_num);
     }
 
