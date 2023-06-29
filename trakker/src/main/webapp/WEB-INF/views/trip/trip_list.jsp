@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
 
     <title>Home</title>
-    <%@ include file="../header.jsp" %>
+    <%@ include file="../header.jspf" %>
     <style>
         @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -110,7 +110,7 @@
     <div class="container">
         <div class="col-sm-3">
             <form class="d-flex" role="search">
-                <select>
+                <select class="border-success rounded-3" name="searchType">
                     <option>관광명소</option>
                     <option>내용</option>
                     <option>관광명소+내용</option>
@@ -278,7 +278,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/gyeongboggung.png"
+                    <img src="${pageContext.request.contextPath}/resources/images/gyengboggungung.png"
                          class="card-img-top" style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">경복궁</small>
@@ -299,7 +299,7 @@
                                         </div>
                                         <div class="modal-body" style="display: flex;">
                                             <div style="flex: 1;">
-                                                <img src="${pageContext.request.contextPath}/resources/images/gyeongboggung.png"
+                                                <img src="${pageContext.request.contextPath}/resources/images/gyengboggungung.png"
                                                      alt="이미지" style="width: 100%; height: auto;">
                                             </div>
                                             <div style="flex: 1; padding-left: 10px;">
@@ -437,7 +437,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
+                    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="card-img-top"
                          style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
@@ -452,7 +452,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
+                    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="card-img-top"
                          style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
@@ -467,7 +467,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
+                    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="card-img-top"
                          style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
@@ -482,7 +482,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
+                    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="card-img-top"
                          style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
@@ -497,7 +497,7 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="${pageContext.request.contextPath}/resources/images/trakker1.png" class="card-img-top"
+                    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="card-img-top"
                          style="width: 100%; height: 225px;">
                     <div class="card-body">
                         <small class="text-muted">관광지</small>
@@ -514,6 +514,6 @@
         <button class="btn btn-outline-success" type="submit" id="btnWrite" style="float:right;">글쓰기</button>
     </div>
 </div>
-<%@ include file="../footer.jsp" %>
+<%@ include file="../footer.jspf" %>
 </body>
 </html>

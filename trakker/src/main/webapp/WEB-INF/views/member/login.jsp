@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 <style>
         body {
             font-family: Arial, sans-serif;
-            padding-top:80px;
+
         }
 
         h2 {
@@ -96,11 +96,12 @@
     <div>
     <button class="w-100 btn btn-lg" style="background-color: #4CAF50; color: #fff;" id="btnLogin">Login</button>
      <c:if
-    						test="${message == 'error'}">
-    						<div style="color: red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
-    					</c:if> <c:if test="${message == 'logout'}">
-    						<div style="color: red;">로그아웃되었습니다.</div>
-    					</c:if>
+    		test="${message == 'error'}">
+    		<div style="color: red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+     </c:if>
+     <c:if test="${message == 'logout'}">
+    		<div style="color: red;">로그아웃되었습니다.</div>
+     </c:if>
     </div>
    <div> <p>회원이 아니세요? <a href="${path}/member/signup.do">회원가입하기</a></p></div>
     </table>
@@ -108,6 +109,6 @@
 </div>
 
 
-	<%@ include file="../footer.jsp" %>
+	<%@ include file="../footer.jspf" %>
 </body>
 </html>

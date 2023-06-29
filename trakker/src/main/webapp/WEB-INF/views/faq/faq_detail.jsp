@@ -45,6 +45,7 @@
 </script>
 <body>
 <div class="container">
+
     <input type="hidden" name="faq_num" value="${faq.faq_num}">
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5 justify-content-md-end text-end">
         <div>
@@ -72,7 +73,7 @@
             <button type="button" class="btn List btn-success end-0">목록</button>
         </div>
     </div>
-    <%@ include file="../footer.jspf" %>
+    <%@include file="../footer.jspf" %>
 </div>
 </body>
 </html>

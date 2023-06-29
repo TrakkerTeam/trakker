@@ -50,12 +50,12 @@
             </div>
             <div class="justify-content-md-end">
 <%--                <c:when test="${not empty p.prev_planner}">--%>
-                        <button type="button" class="btn btn-light end-0" onclick="location.href='${path}/planner/detail?no=${p.plan_num-1}'">이전글</button>
+                        <button type="button" class="btn btn-light end-0" onclick="location.href='${path}/planner/${p.plan_num-1}'">이전글</button>
 <%--                </c:when>--%>
 <%--                <c:when test="${not empty p.next_planner}">--%>
-                        <button type="button" class="btn btn-light end-0" onclick="location.href='${path}/planner/detail?no=${p.plan_num+1}'">다음글</button>
+                        <button type="button" class="btn btn-light end-0" onclick="location.href='${path}/planner/${p.plan_num+1}'">다음글</button>
 <%--                </c:when>--%>
-                <button type="button" class="btn btn-success end-0" onclick="location.href='${path}/planner/list'">목록</button>
+                <button type="button" class="btn btn-success end-0" onclick="location.href='${path}/planner'">목록</button>
             </div>
         </div>
 
@@ -207,14 +207,14 @@
         });
 
         //세부 일정 클릭 시 지도 좌표 변경
-        function setLatlng(x,y) {
-            map.setCenter(new kakao.maps.LatLng(x, y));
+        function setLatlng(y,x) {
+            map.setCenter(new kakao.maps.LatLng(y, x));
             map.setLevel(5);
         };
 
         //일정 title 클릭 시 지도 경로 표시 - 작성중
-        function setRoute(x,y) {
-            map.setCenter(new kakao.maps.LatLng(x, y));
+        function setRoute(y,x) {
+            map.setCenter(new kakao.maps.LatLng(y, x));
             map.setLevel(7);
         };
 

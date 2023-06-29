@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 <style>
 
 #div1{
@@ -111,7 +111,7 @@ function setActiveTag(tagId) {
     <div id="contentContainer"></div>
 </div>
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="../footer.jspf" %>
 
 </body>
 </html>

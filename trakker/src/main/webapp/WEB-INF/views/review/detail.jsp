@@ -141,10 +141,6 @@
             }
         });
 
-        $(".rating").click(function() {
-            document.form1.submit();
-        });
-
         $(document).on("click", "#commentEdit", function(){
             var editContent = $("#editContent").val();
             var comment_num = $(this).closest('.commentbox2').find("input[name='comment_num']").val();
@@ -236,7 +232,6 @@
         <div class="text-center border-bottom mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
-
                 <fieldset class="rate">
                     <input type="radio" id="rating10" name="rating" value="10.0" class="rating"><label for="rating10" title="5점"></label>
                     <input type="radio" id="rating9" name="rating" value="9.0"  class="rating"><label class="half" for="rating9" title="4.5점"></label>

@@ -1,17 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- 세션 사용 옵션 -->
 <%@ page session="true" %>
 
+
 <html>
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 	<title>Home</title>
-	<%@ include file="header.jsp" %>
+
 </head>
 <body>
-
-<%@include file="header.jsp"%>
+<%@include file="header.jspf"%>
 <header class="wide-spacing" id="home">
 
     <div class="main-top-container">
@@ -39,10 +41,9 @@
             </div>
             <div style="margin: 0; padding: 0;" class="uk-width-3-5@m uk-grid-margin uk-first-column">
                 <div style="background-color: rgb(129,129,145); height: 100vh;">
-
                         <div>
                             <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
-                                <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
+                                <source type="video/mp4" src="">
                             </video>
                         </div>
                 </div>
@@ -95,7 +96,7 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
             <div class="countboxDiv">
                 <h7>이용자수</h7>
                 <h3>
-                    <span class="counter" id="routeCnt">146,654</span>
+                    <span class="counter" id="routeCnt">${memberTotalCount}</span>
                 </h3>
             </div>
             <div class="countboxDiv">
@@ -107,6 +108,34 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         </div>
     </div>
 </header>
+<br>
+<a href="${path}/planner/new">플래너 작성</a> /
+<a href="${path}/planner/1">플래너 상세(planNum=1)</a> /
+<a href="${path}/planner">플래너 목록</a> /
+<a href="${path}/planner/modal">모달</a>
 
+<br> <br>
+
+<a href="${path}/planner/test/mapTest">상세 테스트</a> /
+<a href="${path}/planner/test/mapSearchTest">검색 테스트</a> /
+<a href="${path}/planner/test/simpleTest">심플</a>
+
+<script>
+    const videoFiles = [
+        '${path}/include/trakker_video/trakkerMainVideo.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo2.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo3.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo4.mp4'
+
+
+    ];
+
+    const randomVideo = Math.floor(Math.random() * videoFiles.length);
+    const randomVideoFile = videoFiles[randomVideo];
+
+    const videoPlayer = document.getElementById('mainVideo');
+
+    videoPlayer.src = randomVideoFile;
+</script>
 </body>
 </html>

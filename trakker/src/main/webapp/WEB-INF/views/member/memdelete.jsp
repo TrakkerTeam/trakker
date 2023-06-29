@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 
 <style>
 
         body {
             font-family: Arial, sans-serif;
-            padding-top:80px;
+
         }
 
         h2 {
@@ -131,6 +131,6 @@
     }
 </script>
 
-	<%@ include file="../footer.jsp" %>
+	<%@ include file="../footer.jspf" %>
 </body>
 </html>

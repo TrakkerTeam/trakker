@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 <script>
 	$(function(){
         $("#findpassbtn").click(function(){
@@ -50,7 +50,7 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  padding-top:80px;
+
 }
 h2 {
         padding:20px;
@@ -106,7 +106,7 @@ small {
 			<tr>
             	<td>
             	<div class="form-floating mb-1">
-                                      <input type="email" class="form-control" id="mem_email" name="mem_email" placeholder="name@example.com">
+                                      <%--@declare id="floatinginput"--%><input type="email" class="form-control" id="mem_email" name="mem_email" placeholder="name@example.com">
                                       <label for="floatingInput">Email address</label>
                             </div></td>
             </tr>
@@ -132,6 +132,6 @@ small {
             </tr>
 		</table>
 	</form>
-<%@ include file="../footer.jsp" %>
+<%@ include file="../footer.jspf" %>
 </body>
 </html>

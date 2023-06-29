@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 function daumZipCode() {
@@ -43,12 +43,14 @@ function daumZipCode() {
     window.location.href = "${path}/member/mem_update.do";
     document.form1.submit();
   }
-
+  function edit_passPage(){
+  window.location.href = "${path}/member/editpass.do";
+  }
 </script>
 <style>
         body {
             font-family: Arial, sans-serif;
-            padding-top:80px;
+
         }
 
 
@@ -97,22 +99,34 @@ function daumZipCode() {
             margin-top: 16px;
         }
 
-        .button-container button {
+   .button-container button {
             width: 48%;
         }
+    .profile-btn-area{
+             text-align: center;
+    }
 
     </style>
 </head>
 <body>
 
     <h2>프로필 수정</h2>
-    	<form name="form1" method="post" style="text-align: left;" action="${path}/member/mem_update.do">
+    	<form name="form1" method="post" style="text-align: left;" action="${path}/member/mem_update.do" enctype="multipart/form-data">
         		<table  width="600px" >
-        		    <tr>
+
+        		<div class="profile-btn-area" >
+                  <input type="file" name="uploadImage" id="input-image" accept="image/*" style="display: none;">
+                  <label for="input-image" class="btn-select-image">
+                    <img id="previewImage" style="width:200px; height:200px; cursor: pointer;" src="../resources/images/hanook.png" class="img-thumbnail rounded-circle">
+                  </label>
+                </div>
+
+
+                <!--     <tr>
                          <td colspan="2" id="profileimg">
-                            <a> <img  style="width:200px; height:200px;"  src="../resources/images/hanook.png" class="img-thumbnail rounded-circle"></a>
+                            <a href=""> <img  style="width:200px; height:200px;"  src="../resources/images/hanook.png" class="img-thumbnail rounded-circle"></a>
                          </td>
-        		    </tr>
+        		    </tr> -->
 
         			<tr>
         				<td>이메일</td>
@@ -125,11 +139,11 @@ function daumZipCode() {
 
         			<tr>
         				<td>비밀번호</td>
-        				<td >비밀번호 확인</td>
+        				<td>비밀번호 변경</td>
         			</tr>
         			<tr>
-        				<td><input type="password" id="mem_pass" name="mem_pass" ></td>
-        				<td><input type="password" id="mem_pass_ck" name="mem_pass_ck"></td>
+        				<td><input type="password" id="mem_pass" name="mem_pass" value="${sessionScope.mem_pass}"></td>
+        				<td><button type="button" id="edit_pass" name="edit_pass" onclick="edit_passPage()">비밀번호 변경</button></td>
 
                     <tr>
                         <td>닉네임</td>
@@ -159,7 +173,15 @@ function daumZipCode() {
                          </tr>
         		</table>
         	</form>
-
-	<%@ include file="../footer.jsp" %>
+<script>
+  document.getElementById("input-image").addEventListener("change", function(e) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      document.getElementById("previewImage").src = event.target.result;
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  });
+</script>
+	<%@ include file="../footer.jspf" %>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jspf"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 function daumZipCode() {
@@ -51,6 +51,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
     		alert("이메일을 필수 입력해주세요");
     		$("#mem_email").focus();
     		return;
+
     	}
 
 	//비밀번호 체크
@@ -97,7 +98,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 <style>
         body {
             font-family: Arial, sans-serif;
-            padding-top:80px;
+
         }
 
         h2 {
@@ -202,7 +203,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
             </tr>
 
             <tr>
-                 <td colspan="2"><input type="text" class="mail-check-input" id="email_check" name="email_check" placeholder="인증번호 6자리를 입력해주세요." maxlength="6"></td>
+                 <td colspan="2"><input type="text" class="mail-check-input" id="email_check" name="email_check" placeholder="인증번호를 입력해주세요." maxlength="16"></td>
             </tr>
 
             <tr>
@@ -279,7 +280,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 		</table>
 		</div>
 	</form>
-	<%@ include file="../footer.jsp" %>
+	<%@ include file="../footer.jspf" %>
 
 	<script type="text/javascript">
       $(document).ready(function() {
@@ -320,7 +321,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
             $('#mailCheckBtn').attr('disabled', true);
             $('#mem_email').attr('readonly', true);
           } else {
-            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');
             $resultMsg.css('color', 'red');
           }
         });
