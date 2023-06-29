@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../:\Users\drg25\git\trakker\.idea/dataSources/
+/../../../../../../../:\Users\drg25\git\trakker\trakker\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
