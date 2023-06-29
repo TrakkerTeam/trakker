@@ -10,20 +10,20 @@ import com.example.trakker.model.member.dto.MemberDTO;
 
 //해당 인터페이스는 회원 관련 기능을 처리하는 메서드를 선언하고 있습니다.
 public interface MemberService {
-	public MemberDTO logincheck(MemberDTO dto, HttpSession session);
-	public void logout(HttpSession session);
-	public MemberDTO viewMember(String mem_email);
-	public void insertMember(MemberDTO dto);
-	public int emailCheck(String mem_email); //mem_email 중복체크
-	public void updateMember(MemberDTO dto);
+    public MemberDTO logincheck(MemberDTO dto, HttpSession session);
+    public void logout(HttpSession session);
+    public MemberDTO viewMember(String mem_email);
+    public void insertMember(MemberDTO dto);
+    public int emailCheck(String mem_email); //mem_email 중복체크
+    public void updateMember(MemberDTO dto);
 
-	public void memberDelete(String mem_email);
+    public void memberDelete(String mem_email);
 
-	public boolean checkPass(String mem_email, String mem_pass);
+    public boolean checkPass(String mem_email, String mem_pass);
 
-	public MemberDTO getupdateMember(String mem_email); //안되면 지우기
+    public MemberDTO getupdateMember(String mem_email);
 
-	public String pwCheck(String mem_email);
+    public String pwCheck(String mem_email);
 
-	public void pwUpdate(String mem_email, String new_pass);
+    public void pwUpdate(String mem_email, String new_pass);
 }

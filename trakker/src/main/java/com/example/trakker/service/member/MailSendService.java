@@ -12,10 +12,10 @@ import java.util.Random;
 @Component
 public class MailSendService {
     @Autowired
-     JavaMailSenderImpl mailSender;
+    JavaMailSenderImpl mailSender;
     private String authNumber;
 
-//    public void makeRandomNumber() {
+    //    public void makeRandomNumber() {
 //        // 난수의 범위 111111 ~ 999999 (6자리 난수)
 //        Random r = new Random();
 //        int checkNum = r.nextInt(888888) + 111111;
