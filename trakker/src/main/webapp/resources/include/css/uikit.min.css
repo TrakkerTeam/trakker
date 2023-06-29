@@ -228,7 +228,7 @@ hr {
     text-align: inherit;
     margin: 0 0 20px 0;
     border: 0;
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #3d3d3d;
 }
 * + .uk-hr,
 * + hr {

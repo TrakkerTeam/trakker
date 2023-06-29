@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+    <select id="logincheck" resultType="member"
+            parameterType="member">
+        select mem_email,mem_pass,mem_name,mem_num
+        from member
+        where mem_email=#{mem_email}
+        <!--and mem_pass=#{mem_pass} -->
+    </select>
+
+    <select id="memberView" resultType="member">
+        SELECT *
+        FROM member
+        WHERE mem_email = #{mem_email}
+    </select>
+
+    <select id="memberList"
+            resultType="member">
+        select*from member
+        order by mem_num desc
+    </select>
+
+    <insert id="insertMember">
+        insert into member (mem_num,mem_email,mem_pass,mem_name,mem_birth,mem_gender,mem_phone,mem_zipcode,mem_address1,mem_address2,mem_nickname)
+        values (member_seq.NEXTVAL,#{mem_email},#{mem_pass},#{mem_name},#{mem_birth},#{mem_gender},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},#{mem_nickname})
+    </insert>
+
+    <select id="emailCheck" parameterType="String" resultType="int">
+        select count(mem_email) from member where mem_email=#{mem_email}
+    </select>
+
+    <update id="updateMember" parameterType="member">
+        UPDATE member
+        SET mem_pass = CASE
+        WHEN #{mem_pass} IS NULL THEN mem_pass
+        ELSE #{mem_pass}
+        END , mem_name=#{mem_name}, mem_nickname=#{mem_nickname}, mem_zipcode=#{mem_zipcode},
+        mem_phone=#{mem_phone}, mem_address1=#{mem_address1}, mem_address2=#{mem_address2},
+        picture_url = #{picture_url, jdbcType=VARCHAR}, mem_edit_date=SYSDATE
+        WHERE mem_email=#{mem_email}
+    </update>
+
+    <select id="getupdateMember" resultType="member">
+        select mem_name
+        from member
+        order by mem_num desc
+    </select>
+
+    <delete id="deleteMember">
+        delete from member
+        where mem_email = #{mem_email}
+    </delete>
+
+    <select id="checkPw" resultType="int">
+        select count(*) from member
+        where mem_email=#{mem_email} and mem_pass=#{mem_pass}
+    </select>
+
+
+    <select id="pwCheck" resultType="String">
+        SELECT mem_pass FROM member WHERE mem_email = #{mem_email}
+    </select>
+
+    <update id="pwUpdate">
+        UPDATE member SET mem_pass = #{new_pass} WHERE mem_email = #{mem_email}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

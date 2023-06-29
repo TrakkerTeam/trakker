@@ -4,8 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<typeAliases>
+		<typeAlias type="com.example.trakker.model.review.dto.ReviewDTO" alias="review"/>
+		<typeAlias type="com.example.trakker.item.RatingDTO" alias="rating"/>
+		<typeAlias type="com.example.trakker.model.review.dto.R_commentDTO" alias="r_comment"/>
+		<typeAlias type="com.example.trakker.item.HeartDTO" alias="heart"/>
+		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faq"/>
+		<typeAlias type="com.example.trakker.model.trip.dto.TripDTO" alias="trip"/>
+		<typeAlias type="com.example.trakker.model.member.dto.MemberDTO" alias="member"/>
+		<typeAlias type="com.example.trakker.item.LocalDTO" alias="local"/>
+		<typeAlias type="com.example.trakker.model.planner.dto.PlannerDTO" alias="planner"/>
+		<typeAlias type="com.example.trakker.model.planner.dto.ScheduleDTO" alias="schedule"/>
 	</typeAliases>
-
 </configuration>
 
