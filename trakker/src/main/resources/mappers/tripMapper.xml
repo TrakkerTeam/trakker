@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="trip">
+    <select id="list" resultType="trip">
+        select t_num, t_subject, content, readcount, t_regdate
+        from trip
+        order by t_num desc
+    </select>
+
+    <insert id="insert">
+        insert into trip(t_num, t_subject, content)
+        values (trip_seq.nextval, #{t_subject}, #{content})
+    </insert>
+
+<!--    <update id="increaseViewcnt">-->
+<!--        update trip-->
+<!--        set readcount=readcount + 1-->
+<!--        where t_num = #{t_num}-->
+<!--    </update>-->
+
+    <select id="view" resultType="trip">
+        select t_num, t_subject, content, readcount, t_regdate
+        from trip
+        where t_num = #{t_num}
+    </select>
+
+    <update id="update">
+        update trip
+        set t_subject=#{t_subject},
+            content=#{content}
+        where t_num = #{t_num}
+    </update>
+
+    <delete id="delete">ㅋ
+        delete
+        from trip
+        where t_num = #{t_num}
+    </delete>
+
+    <!--    <select id="listPage" parameterType="hashMap" resultType="trip">-->
+    <!--        SELECT *-->
+    <!--        FROM (-->
+    <!--                 SELECT rn, t_num, t_subject, content, readcount, t_regdate-->
+    <!--                 FROM (-->
+    <!--                          SELECT ROW_NUMBER() OVER (ORDER BY t_num DESC) AS rn,-->
+    <!--                                 t_num,-->
+    <!--                                 t_subject,-->
+    <!--                                 content,-->
+    <!--                                 readcount,-->
+    <!--                                 t_regdate-->
+    <!--                          FROM trip-->
+    <!--                      )-->
+    <!--             )-->
+    <!--        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}-->
+    <!--    </select>-->
+
+    <select id="listPage" parameterType="hashMap" resultType="trip">
+        SELECT *
+        FROM (
+             SELECT rn, t_num, t_subject, content, readcount, t_regdate
+              FROM (
+                      SELECT ROW_NUMBER() OVER (ORDER BY t_num DESC) AS rn,
+                              t_num,
+                              t_subject,
+                              content,
+                              readcount,
+                              t_regdate
+                        FROM trip
+                           <if test='searchType.equals("t_subject")'>
+                             WHERE t_subject LIKE '%' || #{keyword} || '%'
+                           </if>
+                           <if test='searchType.equals("content")'>
+                              WHERE content LIKE '%' || #{keyword} || '%'
+                           </if>
+                           <if test='searchType.equals("all")'>
+                             WHERE t_subject LIKE '%' || #{keyword} || '%'
+                             or content LIKE '%' || #{keyword} || '%'
+                          </if>
+                      )
+        )
+        WHERE rn between ${(pageNum -1) * pageRowCount} +1 and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
+    </select>
+
+    <select id="listPageCount" parameterType="hashMap" resultType="Integer">
+        SELECT count(*)
+        FROM trip
+        WHERE 1=1
+        <if test='searchType.equals("t_subject")'>
+            AND t_subject LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("content")'>
+            AND content LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test='searchType.equals("all")'>
+            AND t_subject LIKE '%' || #{keyword} || '%'
+            or content LIKE '%' || #{keyword} || '%'
+        </if>
+
+    </select>
+</mapper>

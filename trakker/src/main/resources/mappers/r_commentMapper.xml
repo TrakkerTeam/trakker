@@ -29,8 +29,6 @@
                                 LEFT JOIN
                             member parent_member ON parent_comment.mem_num = parent_member.mem_num
                         WHERE rc.review_num = #{review_num}
-
-
                     )
                WHERE
                    comment_p = comment_p

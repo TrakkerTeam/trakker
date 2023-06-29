@@ -69,19 +69,6 @@
         UPDATE member SET mem_pass = #{new_pass} WHERE mem_email = #{mem_email}
     </update>
 
-
-    <!--    <select id="getremoveMember" resultType="member">-->
-<!--        select mem_email-->
-<!--        from member-->
-<!--        where mem_email=#{mem_email}-->
-<!--    </select>-->
-
-    <update id="updateProfile">
-        update member
-        set picture_url = #{profileImage}
-        where mem_num = #{mem_num}
-    </update>
-
 </mapper>
 
 
