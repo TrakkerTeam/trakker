@@ -208,7 +208,9 @@
             </div>
         </div>
         <div>
-            <p class="mb-0 h6"><img src="${picture_url}" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
+
+            <p class="mb-0 h6"><img src="${review.member.picture_url}" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
+
             <div>
                 <small class="opacity-50 mb-0 text-nowrap">
                     <c:choose>
