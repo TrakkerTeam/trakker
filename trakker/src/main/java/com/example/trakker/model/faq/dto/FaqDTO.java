@@ -12,9 +12,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class FaqDTO {
 
-	private int faq_num;
-	private String faq_subject;
-	private String content;
-	private int readcount;
-	private Date faq_reg_date;
+    private int faq_num;
+    private String faq_subject;
+    private String content;
+    private int readcount;
+    private Date faq_reg_date;
 }
