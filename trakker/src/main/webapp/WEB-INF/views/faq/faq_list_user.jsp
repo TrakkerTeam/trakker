@@ -12,12 +12,6 @@
     <title>FAQ</title>
     <%@ include file="../header.jspf" %>
     <style>
-        #container {
-            display: flex;
-            height: 100%;
-            width: 100%;
-            flex-direction: column;
-        }
         .container {
             padding-top: 40px;
             display: flex;
@@ -59,7 +53,7 @@
                 <c:forEach var="faq" items="${faq}">
                     <tr>
                         <td>${faq.faq_num}</td>
-                        <td><a href="${path}/faq/view.do?faq_num=${faq.faq_num}">${faq.faq_subject}</a></td>
+                        <td><a href="${path}/faq/user_view.do?faq_num=${faq.faq_num}">${faq.faq_subject}</a></td>
                         <td><fmt:formatDate value="${faq.faq_reg_date}" pattern="yyyy-MM-dd"/></td>
                         <td>${faq.readcount}</td>
                     </tr>

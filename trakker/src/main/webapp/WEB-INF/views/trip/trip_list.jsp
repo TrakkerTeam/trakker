@@ -111,15 +111,14 @@
 
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
+        document.body.style.overflow = "hidden";
     }
 
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
-    function redirectToPage() {
-        location.href = "${path}/plan/list.jsp";
-    }
 
 </script>
 <body>
@@ -140,14 +139,13 @@
             </form>
             &nbsp;
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="div1">
-
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
             <c:forEach var="trip" items="${triplist}">
                 <div class="card shadow-sm">
                     <input type="hidden" name="num" id="num" value="${trip.t_num}">
-                    <img src="${path}/${imgpath}${trip.fullName}" class="card-img-top"
-                         style="width: 100%; height: 225px;">
+                    <img src="${path}/${imgpath}${trip.attach.fullName}" class="card-img-top"
+                         style="width: 100%; height: 200px;">
                     <div class="card-body">
                         <small class="text-muted">${trip.t_subject}</small>
                         <div class="d-flex justify-content-between align-items-center">
@@ -167,7 +165,7 @@
                                         </div>
                                         <div class="modal-body" style="display: flex;">
                                             <div style="flex: 1;">
-                                                <img src="${path}/${imgpath}${trip.fullName}" class="card-img-top"
+                                                <img src="${path}/${imgpath}${trip.attach.fullName}" class="card-img-top"
                                                      style="width: 100%; height: 200px;">
                                             </div>
                                             <div style="flex: 1; padding-left: 10px;">
@@ -214,16 +212,16 @@
 
                                                                 <%--                <c:if test="${mem_num != null}">--%>
                                                             <button class="btn rating btn-outline-success" type="button"
-                                                            name="rating_btn">등록
+                                                                    name="rating_btn">등록
                                                             </button>
                                                                 <%--                </c:if>--%>
                                                             <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
                                                             <i class="bi bi-star-fill me-1"></i>
                                                             <div id="result">
-                                                                <h3 class="mt-2">
-                                                                    <fmt:formatNumber value="${ratingAvg}"
-                                                                                      pattern="0.0"/>
-                                                                </h3> <%-- total--%>
+                                                                    <%--                                                                <h3 class="mt-2">--%>
+                                                                    <%--                                                                    <fmt:formatNumber value="${trip.rating.ratingAvg}"--%>
+                                                                    <%--                                                                                      pattern="0.0"/>--%>
+                                                                    <%--                                                                </h3> &lt;%&ndash; total&ndash;%&gt;--%>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -233,8 +231,6 @@
                                                 <small class="text-muted"
                                                        style="margin-right: 15px;">작성일:<fmt:formatDate
                                                         value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
-                                                <button class="btn btn-outline-success" onclick="redirectToPage()">플래너
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -242,12 +238,16 @@
                             </div>
                             <div class="d-flex justify-content align-items-center">
                                 <i class="bi bi-star-fill me-1 pb-1"></i>
+                                <h3 class="mt-2">
+                                    <fmt:formatNumber value="${trip.rating.ratingAvg}"
+                                                      pattern="0.0"/>
+                                </h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-            </div>
+        </div>
         <%--페이지 네이션 추가--%>
         <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5">
             <span>
@@ -283,8 +283,8 @@
                     </c:if>
             </span>
         </div>
+        <%@ include file="../footer.jspf" %>
     </div>
-    <%@ include file="../footer.jspf" %>
 </div>
 <script>
     $('[name="rating_btn"]').on("click", function () {

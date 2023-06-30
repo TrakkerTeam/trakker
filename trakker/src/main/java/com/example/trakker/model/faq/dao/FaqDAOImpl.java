@@ -35,7 +35,7 @@ public class FaqDAOImpl implements FaqDAO {
     }
 
     @Override
-    public void increaseViewcnt(long faq_num, HttpSession session) throws Exception {
+    public void increaseViewcnt(long faq_num) throws Exception {
         sqlSession.update("faq.increaseViewcnt", faq_num);
     }
 
@@ -45,7 +45,7 @@ public class FaqDAOImpl implements FaqDAO {
     }
 
     @Override
-    public Integer count(Map data) {
+    public int count(Map data) {
         return sqlSession.selectOne("faq.listPageCount", data);
     }
 
