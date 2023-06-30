@@ -146,13 +146,13 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
                         <div class="uk-cover-container" style="cursor: pointer">
                             <a href="${path}/review/detail?review_num=${review.review_num}">
                                     <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
-                                    <c:set var="region" value="${review.l_num}" />
+                                    <c:set var="region" value="${review.lnum}" />
                                         <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" loading="lazy">
                             <div class="uk-overlay-primary uk-position-cover" style="background: rgba(34, 34, 34, 0.3)"></div>
                                 <div class="card-img-overlay rounded-3 p-0">
                                     <div class="card-body align-text-top text-end p-3">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h3>${review.local.k_name}</h3>
+                                            <h3>${review.local.kname}</h3>
                                             <div class="d-flex justify-content-center align-items-center">
                                                 <i class="bi bi-star-fill me-1 pb-1"></i>
                                                 <h3 class="mt-3"><fmt:formatNumber value="${review.rating.ratingAvg}" pattern="0.0"/></h3>

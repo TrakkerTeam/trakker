@@ -128,7 +128,7 @@
                         <a href="${path}/review/detail?review_num=${review.review_num}"
                            style="text-decoration-line:none;">
                             <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
-                            <c:set var="region" value="${review.l_num}" />
+                            <c:set var="region" value="${review.lnum}" />
                             <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" class="card-img-top w-100" style="height: 242px;">
                             <div class="card-body rounded-3 p-0 w-100">
                                 <h6 class="text-muted ms-3 mt-3">${review.member.mem_nickname}</h6>
@@ -137,7 +137,7 @@
                             <div class="card-img-overlay rounded-3 p-0">
                                 <div class="card-body align-text-top text-end p-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h6 class="text-muted">${review.local.k_name}</h6>
+                                        <h6 class="text-muted">${review.local.kname}</h6>
                                         <div class="d-flex justify-content-center align-items-center">
                                             <i class="bi bi-star-fill me-1 pb-1"></i>
                                             <h5 class="mt-3" style="color: #1B756C"><fmt:formatNumber value="${review.rating.ratingAvg}" pattern="0.0"/></h5>
@@ -180,7 +180,7 @@
                  </c:if>
             </span>
         </div>
-        <c:if test="${mem_email != null}">
+        <c:if test="${sessionScope.mem_nickname != null}">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <div class="btn-group" role="group" aria-label="First group">
                     <button type="button" class="btn btn-success" id="Write">글쓰기</button>

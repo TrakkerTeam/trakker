@@ -10,5 +10,5 @@ public interface R_commentService {
     void insert(R_commentDTO dto);
     void update(long comment_num, String editContent);
     long delete(long comment_num);
-    void addInsert(long mem_num, long review_num, long comment_num, Integer l_num, String addContent);
+    void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent);
 }

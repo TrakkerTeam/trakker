@@ -7,18 +7,18 @@
 <mapper namespace="r_comment">
 
     <insert id="c_insert">
-        insert into r_comment(comment_num,review_num,mem_num,l_num,comment_p,content)
-        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{l_num},0,#{content})
+        insert into r_comment(comment_num,review_num,mem_num,L_NUM,comment_p,content)
+        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{lnum},0,#{content})
     </insert>
 
     <select id="commentList" resultMap="commentResultMap">
         select  *
         from
-            (  SELECT comment_num, review_num, mem_num, l_num, comment_p, content, mem_nickname, com_date, com_update, com_delete,parent_comment_nickname
+            (  SELECT comment_num, review_num, mem_num, L_NUM, comment_p, content, mem_nickname, com_date, com_update, com_delete,parent_comment_nickname
                FROM (
 
                         SELECT
-                            rc.comment_num, rc.review_num, rc.mem_num, rc.l_num, rc.comment_p, rc.content, m.mem_nickname, rc.com_date, rc.com_delete, rc.com_update,
+                            rc.comment_num, rc.review_num, rc.mem_num, rc.L_NUM, rc.comment_p, rc.content, m.mem_nickname, rc.com_date, rc.com_delete, rc.com_update,
                             parent_member.mem_nickname AS parent_comment_nickname
                         FROM
                             r_comment rc
@@ -29,8 +29,6 @@
                                 LEFT JOIN
                             member parent_member ON parent_comment.mem_num = parent_member.mem_num
                         WHERE rc.review_num = #{review_num}
-
-
                     )
                WHERE
                    comment_p = comment_p
@@ -55,15 +53,15 @@
 
 
     <insert id="c_addInsert">
-        insert into r_comment(comment_num,review_num,mem_num,l_num,comment_p,content)
-        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{l_num},#{comment_num},#{addContent})
+        insert into r_comment(comment_num,review_num,mem_num,L_NUM,comment_p,content)
+        values(r_comment_seq.nextval,#{review_num},#{mem_num},#{lnum},#{comment_num},#{addContent})
     </insert>
 
     <resultMap type="r_comment" id="commentResultMap">
         <id property="comment_num" column="comment_num"/>
         <result property="review_num" column="review_num"/>
         <result property="mem_num" column="mem_num"/>
-        <result property="l_num" column="l_num"/>
+        <result property="lnum" column="L_NUM"/>
         <result property="comment_p" column="comment_p"/>
         <result property="content" column="content"/>
         <result property="com_date" column="com_date"/>

@@ -88,19 +88,43 @@
     $(function() {
         commentList();
 
+        $("#top").click(function() {
+            // 스크롤을 제일 위로 즉시 이동시키는 코드
+            window.scrollTo(0, 0);
+        });
+
+        $(".prev").click(function() {
+            var prev = "${review.prev}";
+
+            if (prev == -1) {
+                alert("이전글이 존재하지 않습니다.");
+            } else {
+                location.href = "${path}/review/detail?review_num=" + prev;
+            }
+        });
+
+        $(".next").click(function() {
+        var next = "${review.next}";
+
+        if (next == -1) {
+            alert("다음글이 존재하지 않습니다.");
+        } else {
+            location.href = "${path}/review/detail?review_num=" + next;
+        }
+        });
+
         $(document).on("click", "#addInsert", function(){
             var addContent = $("#addContent").val();
             var review_num = "${review.review_num}";
-            var l_num = "${review.l_num}";
+            var lnum = "${review.lnum}";
             var mem_num = "${sessionScope.mem_num}";
             var comment_num = $(this).closest('.commentbox3').find("input[name='comment_num']").val();
-            var param = { "addContent" : addContent, "comment_num" : comment_num, "review_num" : review_num, "l_num" : l_num, "mem_num" : mem_num};
+            var param = { "addContent" : addContent, "comment_num" : comment_num, "review_num" : review_num, "lnum" : lnum, "mem_num" : mem_num};
             $.ajax({
                 url: "${path}/comment/addInsert",
                 data: param,
                 type: "post",
                 success: function (){
-                    alert("답글이 추가되었습니다.");
                     commentList();
                 }
             });
@@ -110,15 +134,14 @@
         $("#btnComment").click(function(){
             var content = $("#content").val();
             var review_num = "${review.review_num}";
-            var l_num = "${review.l_num}";
-            var param = { "content" : content, "review_num" : review_num, "l_num" : l_num};
+            var lnum = "${review.lnum}";
+            var param = { "content" : content, "review_num" : review_num, "lnum" : lnum};
             console.log(param);
             $.ajax({
                 url: "${path}/comment/insert",
                 data: param,
                 type: "post",
                 success: function(){
-                    alert("댓글이 등록되었습니다.");
                     $('#content').val('');
                     commentList(); //댓글 목록 출력
                 }
@@ -149,7 +172,6 @@
                 data: param,
                 type: "post",
                 success: function (){
-                    alert("댓글이 수정되었습니다.");
                     commentList();
                 }
             });
@@ -173,11 +195,12 @@
             data: {"comment_num": comment_num},
             type: "post",
             success: function (){
-                alert("댓글이 삭제되었습니다.");
                 commentList();
             }
         });
     }
+
+
 
 
 </script>
@@ -191,15 +214,15 @@
                         </c:if>
         </div>
         <div class="justify-content-md-end">
-            <button type="button" class="btn btn-light end-0">이전글</button>
-            <button type="button" class="btn btn-light end-0">다음글</button>
+            <button type="button" class="btn btn-light end-0 prev">이전글</button>
+            <button type="button" class="btn btn-light end-0 next">다음글</button>
             <button type="button" class="btn List btn-success end-0">목록</button>
         </div>
     </div>
     <div class="mx-5">
         <div class="d-flex justify-content-between align-items-center ">
             <div>
-                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>${review.local.k_name}</small></p></a>
+                <a href="${path}/review/list?area=지역"><p class="mb-0 mt-4 text-success"><small>${review.local.kname}</small></p></a>
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center">
@@ -209,8 +232,7 @@
         </div>
         <div>
 
-            <p class="mb-0 h6"><img src="${review.member.picture_url}" alt="mdo" width="32" height="32" class="rounded-circle">${review.member.mem_nickname}</p>
-
+            <p class="mb-0 h6"><img src="${review.member.picture_url}" alt="mdo" width="50" height="50" class="rounded-circle">${review.member.mem_nickname}</p>
             <div>
                 <small class="opacity-50 mb-0 text-nowrap">
                     <c:choose>
@@ -264,7 +286,7 @@
             </div>
             <div class="commentbox1">
                 <div class="d-flex row">
-                    <input type="hidden" name="l_num" value="${review.l_num}">
+                    <input type="hidden" name="lnum" value="${review.lnum}">
                     <div class="col-sm-11">
                         <textarea id="content" name="content" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="댓글을 남겨보세요" rows="2"></textarea>
                     </div>
@@ -285,14 +307,14 @@
             </c:if>
         </div>
         <div class="justify-content-md-end">
-            <button type="button" class="btn btn-light end-0"><i class="bi bi-caret-up-fill"></i>TOP</button>
+            <button type="button" class="btn btn-light btn-end-0" id="top"><i class="bi bi-caret-up-fill"></i>TOP</button>
             <button type="button" class="btn List btn-success end-0">목록</button>
         </div>
     </div>
     <%@ include file="../footer.jspf" %>
 </div>
 <form name="form1" method="post">
-    <input type="hidden" name="l_num" value="${review.l_num}">
+    <input type="hidden" name="lnum" value="${review.lnum}">
     <input type="hidden" name="review_num" value="${review.review_num}">
 </form>
 <script>

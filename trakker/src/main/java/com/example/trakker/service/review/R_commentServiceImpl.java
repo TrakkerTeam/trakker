@@ -35,8 +35,8 @@ public class R_commentServiceImpl implements R_commentService {
     }
 
     @Override
-    public void addInsert(long mem_num, long review_num, long comment_num, Integer l_num, String addContent) {
-        commentDAO.addInsert(mem_num,review_num,comment_num,l_num,addContent);
+    public void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
+        commentDAO.addInsert(mem_num,review_num,comment_num,lnum,addContent);
     }
 
 }

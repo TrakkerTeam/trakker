@@ -38,8 +38,8 @@
 <form name="form1" method="post" action="${path}/review/update">
 <div class="container"><br>
         <input type="hidden" name="review_num" value="${review.review_num}" />
-        <select class="form-select w-25" aria-label="Default select example" name="l_num">
-        <option selected value="${review.l_num}">${review.local.k_name}</option>
+        <select class="form-select w-25" aria-label="Default select example" name="lnum">
+        <option selected value="${review.lnum}">${review.local.kname}</option>
         <option value="1">서울</option>
         <option value="2">부산</option>
         <option value="3">대구</option>

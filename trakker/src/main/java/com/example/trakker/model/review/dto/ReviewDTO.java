@@ -11,7 +11,7 @@ import java.util.Date;
 public class ReviewDTO {
     private long review_num;
     private long mem_num;
-    private Integer l_num;
+    private Integer lnum;
     private String title;
     private String content;
     private Date review_date;
