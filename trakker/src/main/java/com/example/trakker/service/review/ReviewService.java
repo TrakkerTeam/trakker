@@ -31,4 +31,6 @@ public interface ReviewService {
     void ratingInsert(RatingDTO dto);
 
     List<ReviewDTO> main_list();
+
+    ResponseResultList r_list(PagingInfoVO vo , Long mem_num);
 }

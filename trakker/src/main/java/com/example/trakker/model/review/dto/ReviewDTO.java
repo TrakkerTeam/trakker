@@ -16,6 +16,8 @@ public class ReviewDTO {
     private String content;
     private Date review_date;
     private long readcount;
+    private Integer next;
+    private Integer prev;
     private Date edit_date;
 
     private LocalDTO local;

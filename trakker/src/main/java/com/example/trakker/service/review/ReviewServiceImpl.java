@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,7 +24,20 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ResponseResultList list(PagingInfoVO vo) {
-        return reviewDao.list(vo);
+        HashMap<String, Object> data = new HashMap<String, Object>();
+        data.put("pageNum", vo.getPageNum());
+        data.put("pageRowCount", vo.getPageRowCount());
+        data.put("searchType", vo.getStype());
+        data.put("keyword", vo.getSdata());
+        data.put("area", vo.getArea());
+        data.put("sort", vo.getSort());
+        int total = reviewDao.total(data);
+        List<ReviewDTO>  list = reviewDao.list(data);
+        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), total, vo.getPageRowCount());
+        ResponseResultList resultList = new ResponseResultList();
+        resultList.setBody(list);
+        resultList.setPagingInfo(pagingInfoVO);
+        return resultList;
     }
 
     @Override
@@ -95,6 +109,25 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewDTO> main_list() {
         return reviewDao.main_list();
+    }
+
+    @Override
+    public ResponseResultList r_list(PagingInfoVO vo, Long mem_num) {
+        HashMap<String, Object> data = new HashMap<String, Object>();
+        data.put("pageNum", vo.getPageNum());
+        data.put("pageRowCount", vo.getPageRowCount());
+        data.put("searchType", vo.getStype());
+        data.put("keyword", vo.getSdata());
+        data.put("area", vo.getArea());
+        data.put("sort", vo.getSort());
+        data.put("mem_num",mem_num);
+        int total = reviewDao.total(data);
+        List<ReviewDTO>  list = reviewDao.r_list(data);
+        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), total, vo.getPageRowCount());
+        ResponseResultList resultList = new ResponseResultList();
+        resultList.setBody(list);
+        resultList.setPagingInfo(pagingInfoVO);
+        return resultList;
     }
 
 
