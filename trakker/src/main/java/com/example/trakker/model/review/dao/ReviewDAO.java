@@ -1,3 +1,4 @@
+
 package com.example.trakker.model.review.dao;
 
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ReviewDAO {
+
     ResponseResultList list(PagingInfoVO vo);
 
     void insert(ReviewDTO review);
@@ -28,3 +30,4 @@ public interface ReviewDAO {
 
     List<ReviewDTO> main_list();
 }
+

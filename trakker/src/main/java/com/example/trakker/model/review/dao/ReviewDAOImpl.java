@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class ReviewDAOImpl implements ReviewDAO {
@@ -82,5 +81,5 @@ public class ReviewDAOImpl implements ReviewDAO {
         return sqlSession.selectList("review.main_list");
     }
 
-
 }
+

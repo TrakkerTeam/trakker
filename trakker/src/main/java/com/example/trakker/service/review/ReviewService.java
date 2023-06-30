@@ -4,11 +4,10 @@ import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
-import com.nimbusds.oauth2.sdk.http.HTTPResponse;
-import org.springframework.http.HttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -32,5 +31,4 @@ public interface ReviewService {
     void ratingInsert(RatingDTO dto);
 
     List<ReviewDTO> main_list();
-
 }

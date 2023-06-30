@@ -74,14 +74,14 @@
             <div class="col-sm-4">
                 <div class="d-flex pe-5 mt-5">
                     <form class="d-flex" role="search">
-                        <input type="hidden" name="num" value="${page.pageNum}">
-                        <select class="border-success rounded-3" name="searchType">
-                            <option value="title" <c:if test="${search == 'title'}">selected</c:if>>제목</option>
-                            <option value="content" <c:if test="${search == 'content'}">selected</c:if>>내용</option>
-                            <option value="mem_nickname" <c:if test="${search == 'mem_nickname'}">selected</c:if>>작성자</option>
-                        </select>
-                        <input class="form-control ms-2 me-2" type="text" name="keyword" placeholder="Search" aria-label="Search" value="${keyword}">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input type="hidden" name="num" value="${page.pageNum}">
+                    <select class="border-success rounded-3" name="searchType">
+                        <option value="title" <c:if test="${search == 'title'}">selected</c:if>>제목</option>
+                        <option value="content" <c:if test="${search == 'content'}">selected</c:if>>내용</option>
+                        <option value="mem_nickname" <c:if test="${search == 'mem_nickname'}">selected</c:if>>작성자</option>
+                    </select>
+                    <input class="form-control ms-2 me-2" type="text" name="keyword" placeholder="Search" aria-label="Search" value="${keyword}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
             </div>
@@ -162,12 +162,12 @@
                 <i class="bi bi-chevron-left"></i></a>
                 </c:if>
             </span>
-            <c:forEach begin="1" end="${page.lastPageNum}" var="num">
+        <c:forEach begin="1" end="${page.lastPageNum}" var="num">
                 <span class="ms-3 text-muted">
                     <c:if test="${select != num}"> <a class="ms-3 text-muted" href="${path}/review/list?num=${num}">${num}</a></c:if>
                     <c:if test="${select == num}"><b class="ms-3 text-muted">${num}</b></c:if>
                 </span>
-            </c:forEach>
+        </c:forEach>
             <span>
                 <c:if test="${page.pageNum != page.lastPageNum }">
                 <a class="text-muted ms-3" href="${path}/review/list?num=${page.pageNum + 1}">
@@ -180,7 +180,7 @@
                  </c:if>
             </span>
         </div>
-        <c:if test="${sessionScope.mem_nickname != null}">
+        <c:if test="${mem_email != null}">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <div class="btn-group" role="group" aria-label="First group">
                     <button type="button" class="btn btn-success" id="Write">글쓰기</button>

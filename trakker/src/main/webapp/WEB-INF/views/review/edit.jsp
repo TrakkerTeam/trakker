@@ -114,7 +114,6 @@
         }
     </script>
     <hr>
-    <div name="filename" value="이미지 이름">asdasd.jpg</div><br><br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <div class="btn-group m-3" role="group" aria-label="First group">
             <button type="button" id="Update" class="btn btn-success btn-lg">수정</button>
