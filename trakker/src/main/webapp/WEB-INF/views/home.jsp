@@ -192,5 +192,23 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
 <a href="${path}/planner/test/mapTest">상세 테스트</a> /
 <a href="${path}/planner/test/mapSearchTest">검색 테스트</a> /
 <a href="${path}/planner/test/simpleTest">심플</a>
+
+<script>
+    const videoFiles = [
+        '${path}/include/trakker_video/trakkerMainVideo.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo2.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo3.mp4',
+        '${path}/include/trakker_video/trakkerMainVideo4.mp4'
+
+
+    ];
+
+    const randomVideo = Math.floor(Math.random() * videoFiles.length);
+    const randomVideoFile = videoFiles[randomVideo];
+
+    const videoPlayer = document.getElementById('mainVideo');
+
+    videoPlayer.src = randomVideoFile;
+</script>
 </body>
 </html>

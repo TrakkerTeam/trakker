@@ -12,3 +12,4 @@ public interface R_commentService {
     long delete(long comment_num);
     void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent);
 }
+

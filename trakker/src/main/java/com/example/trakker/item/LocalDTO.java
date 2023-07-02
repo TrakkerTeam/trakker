@@ -11,4 +11,5 @@ public class LocalDTO {
     private String kname;
     private String ename;
 
+
 }
