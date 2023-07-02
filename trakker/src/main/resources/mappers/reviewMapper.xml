@@ -43,7 +43,7 @@
                 ORDER BY review_num DESC
             </when>
             <when test='sort.equals("ratingAvg")'>
-                ORDER BY ratingAvg DESC , review_num DESC
+                ORDER BY ratingAvg DESC NULLS LAST , review_num DESC
             </when>
         </choose>
         ) A
@@ -159,7 +159,7 @@
         FROM review r
         JOIN local l ON r.L_NUM = l.L_NUM
         JOIN member m ON r.mem_num = m.mem_num
-        where m.mem_num = #{mem_num}
+        AND m.mem_num = #{mem_num}
         <trim prefix="WHERE" prefixOverrides="AND">
             <if test='area != 0 and area != null'>
                 AND l.L_NUM = #{area}
@@ -172,9 +172,6 @@
                     <when test='searchType.equals("content")'>
                         AND content LIKE '%' || #{keyword} || '%'
                     </when>
-                    <when test='searchType.equals("mem_nickname")'>
-                        AND mem_nickname LIKE '%' || #{keyword} || '%'
-                    </when>
                 </choose>
             </if>
         </trim>
@@ -183,7 +180,7 @@
                 ORDER BY review_num DESC
             </when>
             <when test='sort.equals("ratingAvg")'>
-                ORDER BY ratingAvg DESC , review_num DESC
+                ORDER BY ratingAvg DESC NULLS LAST , review_num DESC
             </when>
         </choose>
         ) A

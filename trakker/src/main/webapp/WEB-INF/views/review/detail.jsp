@@ -252,7 +252,7 @@
             <p class="mb-1">${review.content}</p>
         </div>
         <hr>
-        <div class="text-center border-bottom mt-3">
+        <div class="text-center mt-3">
             <h6>별점을 등록하세요</h6>
             <div class="d-flex justify-content-center align-items-center">
                 <fieldset class="rate">
