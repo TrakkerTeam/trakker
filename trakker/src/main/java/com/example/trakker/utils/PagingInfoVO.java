@@ -4,13 +4,9 @@ import java.util.List;
 
 public class PagingInfoVO extends BaseVO {
   private int pageNum;
-  private int pageTotalCount;
+  private long pageTotalCount;
   private int pageRowCount = 9;
   private int lastPageNum = 0;
-  private boolean prev;
-  private boolean next;
-  private int startPageNum;
-
 
   public PagingInfoVO(){
     this.pageNum = 1;
@@ -20,16 +16,16 @@ public class PagingInfoVO extends BaseVO {
 
 
 
-  public PagingInfoVO(int pageNum, int pageTotalCount, int pageRowCount) {
+  public PagingInfoVO(int pageNum, long pageTotalCount, int pageRowCount) {
     this.pageNum = pageNum;
     this.pageTotalCount = pageTotalCount;
     this.pageRowCount = pageRowCount;
 
     if (pageTotalCount > 0){
       if(pageTotalCount % pageRowCount > 0){
-        this.lastPageNum = (pageTotalCount / pageRowCount) + 1;
+        this.lastPageNum = Math.toIntExact((pageTotalCount / pageRowCount) + 1);
       }else{
-        this.lastPageNum = pageTotalCount / pageRowCount;
+        this.lastPageNum = Math.toIntExact(pageTotalCount / pageRowCount);
       }
 
       this.pageRowCount = pageRowCount;
@@ -45,11 +41,11 @@ public class PagingInfoVO extends BaseVO {
     this.pageNum = pageNum;
   }
 
-  public int getPageTotalCount() {
+  public long getPageTotalCount() {
     return pageTotalCount;
   }
 
-  public void setPageTotalCount(int pageTotalCount) {
+  public void setPageTotalCount(long pageTotalCount) {
     this.pageTotalCount = pageTotalCount;
 //    dataCalc();
   }
@@ -64,14 +60,6 @@ public class PagingInfoVO extends BaseVO {
 
   public int getLastPageNum() {
     return lastPageNum;
-  }
-
-  public boolean getPrev() {
-    return prev;
-  }
-
-  public boolean getNext() {
-    return next;
   }
 
   public void setLastPageNum(int lastPageNum) {
