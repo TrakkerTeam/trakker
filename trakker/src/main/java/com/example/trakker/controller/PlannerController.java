@@ -122,8 +122,8 @@ public class PlannerController {
 		Long memNum = (Long)session.getAttribute("mem_num");
 		//MemNum 임시부여
 		if(memNum==null){
-			logger.info("memNum값이 null이므로 값을 임시로 부여합니다.");
-			memNum = 1L;
+			logger.info("로그인 값이 없습니다. 비회원 값을 부여합니다.");
+			memNum = 0L;
 		}
 		//--MemNum 임시부여
 
