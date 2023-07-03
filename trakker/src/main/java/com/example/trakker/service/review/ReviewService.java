@@ -25,12 +25,11 @@ public interface ReviewService {
 
     void delete(long review_num);
 
-    //리뷰 총점
     Double ratingAvg(long review_num);
 
     void ratingInsert(RatingDTO dto);
 
     List<ReviewDTO> main_list();
 
-    ResponseResultList r_list(PagingInfoVO vo , Long mem_num);
+    ResponseResultList r_list(PagingInfoVO vo, Long mem_num);
 }

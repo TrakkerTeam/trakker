@@ -38,17 +38,16 @@
         text-decoration-line: none;
     }
 
-    .sta , .h6 {
+    .sta, .h6 {
         color: #ffffff;
     }
 
 </style>
 <script>
-    $(window).on('load', function() {
-        //url의 query값을 따와서 tag의 value값이 있을 경우 #d-search에 클래스 show를 추가
+    $(window).on('load', function () {
         const urlParams = new URL(location.href).searchParams;
-        const area = urlParams.get('area'); // <- query에 area가 있으면 콜랩스가 펼쳐짐
-        const sort = urlParams.get('sort'); // <- query에 sort가 있으면 콜랩스가 펼쳐짐
+        const area = urlParams.get('area');
+        const sort = urlParams.get('sort');
         if (area || sort) $('#d-search').addClass('show')
         else $('#d-search').removeClass('show')
     });
@@ -76,7 +75,7 @@
                 urlParams.set("searchType", type);
                 urlParams.set("keyword", keyword);
         }
-        location.href='${path}/review/list?'+urlParams.toString();
+        location.href = '${path}/review/list?' + urlParams.toString();
     }
 
     $(function () {
@@ -94,14 +93,16 @@
             <div class="col-sm-4">
                 <div class="d-flex pe-5 mt-5">
                     <form class="d-flex" role="search">
-                    <input type="hidden" name="num" value="${page.pageNum}">
-                    <select class="border-success rounded-3" name="searchType">
-                        <option value="title" <c:if test="${search == 'title'}">selected</c:if>>제목</option>
-                        <option value="content" <c:if test="${search == 'content'}">selected</c:if>>내용</option>
-                        <option value="mem_nickname" <c:if test="${search == 'mem_nickname'}">selected</c:if>>작성자</option>
-                    </select>
-                    <input class="form-control ms-2 me-2" type="text" name="keyword" placeholder="Search" aria-label="Search" value="${keyword}">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input type="hidden" name="num" value="${page.pageNum}">
+                        <select class="border-success rounded-3" name="searchType">
+                            <option value="title" <c:if test="${search == 'title'}">selected</c:if>>제목</option>
+                            <option value="content" <c:if test="${search == 'content'}">selected</c:if>>내용</option>
+                            <option value="mem_nickname" <c:if test="${search == 'mem_nickname'}">selected</c:if>>작성자
+                            </option>
+                        </select>
+                        <input class="form-control ms-2 me-2" type="text" name="keyword" placeholder="Search"
+                               aria-label="Search" value="${keyword}">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
             </div>
@@ -110,8 +111,6 @@
             <a class="text-muted text-decoration-none" data-bs-toggle="collapse" data-bs-target="#d-search">
                 <small class="bi bi-caret-down-fill">옵션</small>
             </a>
-
-
             <div class="collapse" id="d-search">
                 <small><a href="javascript:void(0);" onclick="optionChange('resetTag', 'reset')">초기화</a></small>
                 <div class="mt-2">
@@ -142,7 +141,8 @@
                                     <strong><i>${l.kname}</i></strong>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="javascript:void(0);" onclick="optionChange('areaTag', ${l.lnum})">${l.kname}</a>
+                                    <a href="javascript:void(0);"
+                                       onclick="optionChange('areaTag', ${l.lnum})">${l.kname}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -150,14 +150,14 @@
                 </div>
             </div>
         </div>
-    <c:choose>
-     <c:when test="${list eq []}">
-        <div class="center mt-5 mb-5 pb-5">
-            <h1><i class="bi bi-search"></i></h1>
-            <h3 class="pb-3">검색조건과 일치하는 리뷰글이 없습니다.</h3>
-        </div>
-     </c:when>
-    <c:otherwise>
+        <c:choose>
+        <c:when test="${list eq []}">
+            <div class="center mt-5 mb-5 pb-5">
+                <h1><i class="bi bi-search"></i></h1>
+                <h3 class="pb-3">검색조건과 일치하는 리뷰글이 없습니다.</h3>
+            </div>
+        </c:when>
+        <c:otherwise>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <c:forEach var="review" items="${list}">
 
@@ -165,9 +165,10 @@
                     <div class="card rounded-3 shadow-sm">
                         <a href="${path}/review/detail?review_num=${review.review_num}"
                            style="text-decoration-line:none;">
-                            <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
-                            <c:set var="region" value="${review.lnum}" />
-                            <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" class="card-img-top w-100" style="height: 242px;">
+                            <c:set var="randomNumber" value="${Random().nextInt(6) + 1}"/>
+                            <c:set var="region" value="${review.lnum}"/>
+                            <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg"
+                                 class="card-img-top w-100" style="height: 242px;">
                             <div class="card-body rounded-3 p-0 w-100">
                                 <h6 class="text-muted ms-3 mt-3">${review.member.mem_nickname}</h6>
                                 <p class="card-text m-3">${review.title}</p>
@@ -178,7 +179,8 @@
                                         <h6 class="h6">${review.local.kname}</h6>
                                         <div class="d-flex justify-content-center align-items-center">
                                             <i class="bi bi-star-fill me-1 pb-1 sta"></i>
-                                            <h5 class="mt-3 sta"><fmt:formatNumber value="${review.rating.ratingAvg}" pattern="0.0"/></h5>
+                                            <h5 class="mt-3 sta"><fmt:formatNumber value="${review.rating.ratingAvg}"
+                                                                                   pattern="0.0"/></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -187,21 +189,20 @@
                     </div>
                 </div>
             </c:forEach>
-    </c:otherwise>
-    </c:choose>
+            </c:otherwise>
+            </c:choose>
         </div>
         <div class="d-flex justify-content-center align-items-center py-4 my-5 h5">
         <span>
-            <%-- << --%>
             <c:if test="${page.pageNum > 2}">
-                <a class="ms-3 text-muted" onclick="optionChange('num', 1)"><i class="bi bi-chevron-double-left"></i></a>
+                <a class="ms-3 text-muted" onclick="optionChange('num', 1)"><i
+                        class="bi bi-chevron-double-left"></i></a>
             </c:if>
-            <%-- < --%>
             <c:if test="${page.pageNum > 1}">
-                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.pageNum - 1})"><i class="bi bi-chevron-left"></i></a>
+                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.pageNum - 1})"><i
+                        class="bi bi-chevron-left"></i></a>
             </c:if>
         </span>
-            <%-- 1~max --%>
             <c:forEach begin="1" end="${page.lastPageNum}" var="num">
         <span class="ms-3 text-muted">
             <c:choose>
@@ -215,13 +216,13 @@
         </span>
             </c:forEach>
             <span>
-            <%-- > --%>
             <c:if test="${page.pageNum != page.lastPageNum and (page.lastPageNum ne 0)}">
-                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.pageNum + 1})"><i class="bi bi-chevron-right"></i></a>
+                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.pageNum + 1})"><i
+                        class="bi bi-chevron-right"></i></a>
             </c:if>
-            <%-- >> --%>
             <c:if test="${page.pageNum != page.lastPageNum and (page.lastPageNum ne 0)}">
-                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.lastPageNum})"><i class="bi bi-chevron-double-right"></i></a>
+                <a class="ms-3 text-muted" onclick="optionChange('num', ${page.lastPageNum})"><i
+                        class="bi bi-chevron-double-right"></i></a>
             </c:if>
         </span>
         </div>
