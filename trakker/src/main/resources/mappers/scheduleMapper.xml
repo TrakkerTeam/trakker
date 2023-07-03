@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="schedule">
-    <!--insert-->
+
     <insert id="insert" parameterType="schedule">
         INSERT INTO SCHEDULE
         VALUES ( #{planNum}, #{sday}, #{snum}, #{spoint}, #{smemo}, #{y}, #{x} )
     </insert>
 
-    <!--select-->
+
     <select id="select" resultMap="schedule">
         SELECT S_DAY, S_NUM, S_POINT, S_MEMO, Y, X
         FROM SCHEDULE
@@ -17,7 +17,7 @@
         ORDER BY S_DAY ASC, S_NUM ASC
     </select>
 
-    <!--delete-->
+
     <delete id="delete">
         DELETE FROM SCHEDULE
         WHERE PLAN_NUM = #{planNum}
