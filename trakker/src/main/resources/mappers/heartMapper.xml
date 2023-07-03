@@ -3,5 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="heart">
+    <select id="select" resultType="Integer">
+        SELECT COUNT(*) FROM HEART WHERE PLAN_NUM = #{planNum} AND MEM_NUM = #{memNum}
+    </select>
 
+    <insert id="insert">
+        INSERT INTO HEART VALUES ( #{planNum}, #{memNum} )
+    </insert>
+
+    <delete id="delete">
+        DELETE HEART WHERE PLAN_NUM = #{planNum} AND MEM_NUM = #{memNum}
+    </delete>
+
+    <delete id="deletePlanner">
+        DELETE HEART WHERE PLAN_NUM = #{planNum}
+    </delete>
+
+    <delete id="deleteMember">
+        DELETE HEART WHERE MEM_NUM = #{memNum}
+    </delete>
 </mapper>

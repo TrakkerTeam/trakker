@@ -4,12 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="schedule">
     <!--insert-->
-    <insert id="insert" parameterType="java.util.List">
+    <insert id="insert" parameterType="schedule">
         INSERT INTO SCHEDULE
-        VALUES
-            <foreach item="schedule" index="index" collection="list" separator=",">
-                ( #{schedule.planNum}, #{schedule.sDay}, #{schedule.sNum}, #{schedule.sPoint}, #{schedule.sMemo}, #{schedule.y}, #{schedule.x} )
-            </foreach>
+        VALUES ( #{planNum}, #{sday}, #{snum}, #{spoint}, #{smemo}, #{y}, #{x} )
     </insert>
 
     <!--select-->
@@ -17,6 +14,7 @@
         SELECT S_DAY, S_NUM, S_POINT, S_MEMO, Y, X
         FROM SCHEDULE
         WHERE PLAN_NUM = #{planNum}
+        ORDER BY S_DAY ASC, S_NUM ASC
     </select>
 
     <!--delete-->
@@ -27,11 +25,11 @@
 
     <resultMap id="schedule" type="schedule">
         <id column="PLAN_NUM" property="planNum" />
-        <result column="S_DAY" property="sDay" />
-        <result column="S_NUM" property="sNum" />
-        <result column="S_POINT" property="sPoint" />
-        <result column="S_MEMO" property="sMemo" />
-        <result column="X" property="x" />
+        <result column="S_DAY" property="sday" />
+        <result column="S_NUM" property="snum" />
+        <result column="S_POINT" property="spoint" />
+        <result column="S_MEMO" property="smemo" />
         <result column="Y" property="y" />
+        <result column="X" property="x" />
     </resultMap>
 </mapper>
