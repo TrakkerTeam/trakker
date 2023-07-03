@@ -8,11 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class HeartServiceImpl implements HeartService {
-
     @Autowired
     HeartDAO heartDAO;
 
-    //좋아요
     @Transactional
     @Override
     public void heartCheck(HeartDTO dto) {
@@ -22,11 +20,4 @@ public class HeartServiceImpl implements HeartService {
             heartDAO.delete(dto);
         }
     }
-
-    //회원 탈퇴 - memberService로 이동해야하지 않나??
-    @Override
-    public void deleteMember(Long memNum) {
-        heartDAO.deleteMember(memNum);
-    }
-
 }

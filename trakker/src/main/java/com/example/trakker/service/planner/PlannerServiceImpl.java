@@ -13,13 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class PlannerServiceImpl implements PlannerService {
-
     @Autowired
     private PlannerDAO plannerDAO;
     @Autowired
@@ -29,7 +31,6 @@ public class PlannerServiceImpl implements PlannerService {
     @Autowired
     private LocalDAO localDAO;
 
-    //플래너 작성
     @Transactional(readOnly=true)
     @Override
     public String selectLocal(Integer lNum) {
@@ -101,7 +102,6 @@ public class PlannerServiceImpl implements PlannerService {
         return schedules;
     }
 
-    //플래너 목록
     @Transactional(readOnly=true)
     @Override
     public List<LocalDTO> localList() {
@@ -139,13 +139,38 @@ public class PlannerServiceImpl implements PlannerService {
         return resultList;
     }
 
-    //플래너 상세
+    @Transactional
+    @Override
+    public void updateHit(Long planNum, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        boolean visited = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("visit_cookie")) {
+                    if (cookie.getValue().contains("_" + request.getParameter("planNum") + "_")) {
+                        visited = true;
+                        break;
+                    } else {
+                        cookie.setValue(cookie.getValue() + "_" + request.getParameter("planNum") + "_");
+                        cookie.setMaxAge(60 * 60);
+                        response.addCookie(cookie);
+                        visited = true;
+                        plannerDAO.updateHit(planNum);
+                        break;
+                    }
+                }
+            }
+        }
+        if (!visited) {
+            Cookie newCookie = new Cookie("visit_cookie", "_" + request.getParameter("planNum") + "_");
+            newCookie.setMaxAge(60 * 60);
+            response.addCookie(newCookie);
+            plannerDAO.updateHit(planNum);
+        }
+    }
     @Transactional(readOnly=true)
     @Override
     public ResponseResultList detail(Long planNum, Long memNum) {
-        //조회수 중복 방지 - 미구현
-        //plannerDAO.updateHit(planNum);
-
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("planNum", planNum);
         data.put("memNum", memNum);
@@ -176,7 +201,6 @@ public class PlannerServiceImpl implements PlannerService {
         return day;
     }
 
-    //플래너 수정
     @Transactional(readOnly=true)
     @Override
     public List<ScheduleDTO> selectEdit(Long planNum) {
@@ -199,7 +223,6 @@ public class PlannerServiceImpl implements PlannerService {
         }
     }
 
-    //플래너 삭제
     @Transactional
     @Override
     public void delete(Long planNum) {

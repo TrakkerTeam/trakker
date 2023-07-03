@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="planner">
-    <!--insert-->
+
     <insert id="insert" parameterType="java.util.List">
         INSERT INTO PLANNER (
             PLAN_NUM, MEM_NUM, L_NUM, TITLE, MEMO, DAYS
@@ -14,7 +14,7 @@
         FROM PLANNER
     </select>
 
-    <!--list-->
+
     <select id="count" resultType="Long">
         SELECT COUNT(*)
         FROM (
@@ -37,7 +37,7 @@
         WHERE X.RN &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
 
-    <!--detail-->
+
     <update id="updateHit">
         UPDATE PLANNER
         SET HIT = HIT + 1
@@ -60,18 +60,19 @@
         WHERE PLAN_NUM &gt; #{planNum}
     </select>
 
-    <!--update-->
+
     <update id="update">
         UPDATE PLANNER
         SET TITLE = #{title}, MEMO = #{memo}
         WHERE PLAN_NUM = #{planNum}
     </update>
 
-    <!--delete-->
+
     <delete id="delete">
         DELETE FROM PLANNER
         WHERE PLAN_NUM = #{planNum}
     </delete>
+
 
 
     <sql id="select">
