@@ -4,9 +4,7 @@ import com.example.trakker.item.HeartDAO;
 import com.example.trakker.item.HeartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class HeartServiceImpl implements HeartService {
@@ -14,23 +12,21 @@ public class HeartServiceImpl implements HeartService {
     @Autowired
     HeartDAO heartDAO;
 
-    //마이페이지 좋아요 목록
+    //좋아요
+    @Transactional
     @Override
-    public List<HeartDTO> selectHeartList(Map param) {
-        heartDAO.getCount(param);
-        heartDAO.getList(param);
-        return null;
+    public void heartCheck(HeartDTO dto) {
+        if(dto.getMh()==0) {
+            heartDAO.insert(dto);
+        }else if(dto.getMh()==1) {
+            heartDAO.delete(dto);
+        }
     }
 
-    //좋아요 추가
+    //회원 탈퇴 - memberService로 이동해야하지 않나??
     @Override
-    public void insertHeart(Integer memNum, Integer planNum) {
-        heartDAO.insert(memNum, planNum);
+    public void deleteMember(Long memNum) {
+        heartDAO.deleteMember(memNum);
     }
 
-    //좋아요 취소
-    @Override
-    public void deleteHeart(Integer memNum, Integer planNum) {
-        heartDAO.delete(memNum, planNum);
-    }
 }

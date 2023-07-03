@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ScheduleDAO {
 
-    void insert(List<ScheduleDTO> schedules);
+    void insert(ScheduleDTO schedule);
 
-    List<ScheduleDTO> detail(Integer planNum);
+    List<ScheduleDTO> detail(Long planNum);
 
-    void delete(Integer planNum);
+    void delete(Long planNum);
 }

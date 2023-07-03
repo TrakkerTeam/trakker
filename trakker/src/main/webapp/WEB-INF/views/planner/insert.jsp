@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        ${title} <c:if test="${memo}!=null"> - <i>"${memo}"</i></c:if>
+                        ${title} <c:if test="${empty memo ? false : true}"> - <i>"${memo}"</i></c:if>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -47,7 +47,7 @@
                         </ul>
                     </li>
                     <li class="btn-group px-3">
-                        <button type="button" class="btn btn-success" id="submit">플래너 작성</button>
+                        <button type="button" class="btn btn-success" onclick="submitTest()">플래너 작성</button>
                     </li>
                 </ul>
             </div>
@@ -67,15 +67,12 @@
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white overflow-auto" style="padding-left:60px;width:330px;height:90%;position:fixed;z-index:4;">
         <c:forEach var="day" begin="1" end="${days}">
         <div class="list-group list-group-flush border-bottom day-plans" data-date="${day}">
-            <form>
-<%--form 안에 세부일정 추가되도록 코드 수정할 것!!--%>
-                <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
-                    <div class="d-flex w-100 align-items-center">
-                        <strong class="mb-1">DAY ${day} 세부일정</strong>
-                        <input hidden name="sDay" value="${day}">
-                    </div>
+            <div class="list-group-item py-3 lh-sm" style="background-color: #dff0d8">
+                <div class="d-flex w-100 align-items-center">
+                    <strong class="mb-1">DAY ${day} 세부일정</strong>
+                    <input hidden name="sDay" value="${day}">
                 </div>
-            </form>
+            </div>
         </div>
         </c:forEach>
 </div>
@@ -103,6 +100,7 @@
 <%--div 영역에 맵 띄우는 js코드--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff578b49f92891ac0c09c13cd0555703&libraries=services"></script>
 <script>
+    "use strict";
     // 마커를 담을 배열입니다
     var markers = [];
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -204,7 +202,6 @@
         el.className = 'item mb-3';
         return el;
     }
-
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -270,7 +267,6 @@
         }
     }
 
-
 //세부일정 날짜 변경
     var planslide = document.querySelectorAll('.day-plans');
     function plansChange(day) {
@@ -290,34 +286,28 @@
     plansChange(1);
 //--세부일정 날짜 변경
 
-
 //세부일정 장소 추가
     function scheduleInsert(place_name, place_y, place_x){
         var parent =  $('.day-plans[style*="display: block"]');
+        var day = parent.attr('data-date');
         var num = parent.children().length; // 하위 엘리먼트이므로 "세부 일정" 영역도 포함
-        if(num<6){ // 일정은 5개까지만 추가 가능
-            parent.append(getHtml(place_name,place_y,place_x,num));
+        if(num<11){
+            parent.append(getHtml(place_name,place_y,place_x,num,day));
         }else{
-            alert("일정은 최대 5개로 제한됩니다.");
+            alert("일정은 최대 10개로 제한됩니다.");
         }
     }
-    //planNum
-    //sDay -
-    function getHtml(place_name,place_y,place_x,num){
-        var div = "<div class='list-group-item list-group-item-action py-3 lh-sm' " +
+    function getHtml(place_name,place_y,place_x,num,day){
+        var div = "<div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='" + day + "' data-y=\"" + place_y + "\" data-x=\"" + place_x + "\" data-snum=\""+num+"\"" +
             "onclick=\"planClick("+ place_y + "," + place_x + ",\'" + place_name + "\')\">" +
             "<div class='d-flex w-100 align-items-center justify-content-between'>" +
             "<i class='me-2 text-muted'>"+num+"</i>" +
             "<div class='text-decoration-none text-black w-75'>" +
-            "<strong class='mb-1 place-title'>"+place_name+"</strong>" +
-            "<input type='hidden' name='sNum' value='"+num+"'>" +
-            "<input type='hidden' name='sPoint' value='"+place_name+"'>" +
-            "<input type='hidden' name='y' value='"+place_y+"'>" +
-            "<input type='hidden' name='x' value='"+place_x+"'>" +
+            "<strong class='mb-1 place-title plans-title' data-splace=\"" + place_name + "\" >"+place_name+"</strong>" +
             "</div>" +
             "<small><button class='btn-outline-success rounded-3 border-1' onclick=\"planDelete(\'" + num + "\')\">삭제</button></small>" +
             "</div>" +
-            "<input class='col-10 w-100 m-0 mt-2 small' name='sMemo' style='resize:none;' placeholder='일정 메모'/>" +
+            "<input class='col-10 w-100 m-0 mt-2 small plans-memo' style='resize:none;' placeholder='일정 메모' />" +
             "</div>";
         return div;
     }
@@ -327,7 +317,6 @@
             position: new kakao.maps.LatLng(y, x)
         });
         marker.setMap(map)
-
         var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
         infowindow.setContent(content);
         infowindow.open(map, marker);
@@ -336,12 +325,9 @@
         var parent =  $('.day-plans[style*="display: block"]');
         var kid = parent.children().eq(num); // 일정 부분에 세부일정 영역도 자식에 포함되기에 index +1
         var next_kids = kid.nextAll();
-
         kid.remove(); //선택한 문서를 제거합니다.
-
         next_kids.each(function (index, element){
             $(this).find('i').text(num); //세부 일정 넘버링 변경
-
             //세부 일정 삭제 js코드 num 변경
             var btn = "planDelete(" + num + ")";
             $(this).find('button').attr("onclick", btn);
@@ -350,10 +336,68 @@
     }
 //--세부일정 장소 추가
 
-
 //작성완료 버튼
-    function planSubmit(){
+    function submitTest() {
+        const memNum = sessionStorage.getItem('mem_num');
+        const lnum = "${lNum}";
+        const title = "${title}";
+        const memo = "${memo}";
+        const days = "${days}";
 
+        const sday = [];
+        const snum = [];
+        const y = [];
+        const x = [];
+        const spoint = [];
+        const smemo = [];
+
+        let nullCheck = true;
+        $('.day-plans').each(function (){
+            if($(this).children().length < 4){
+                alert("각 여행일에는 최소 3개의 일정을 추가해주세요.");
+                nullCheck = false;
+            }
+        });
+        if(memNum == null && nullCheck== true) {
+            if(confirm("로그인 후 이용하실 수 있는 기능입니다. 로그인하시겠습니까?")){
+                location.href="${path}/login";
+            }
+        }else if(memNum != null && nullCheck== true) {
+            $('.plans-detail').each(function () {
+                sday.push($(this).attr("data-sday"));
+                snum.push($(this).attr("data-snum"));
+                y.push($(this).attr("data-y"));
+                x.push($(this).attr("data-x"));
+            });
+            $('.plans-title').each(function () {
+                spoint.push($(this).attr("data-splace"));
+            });
+            $('.plans-memo').each(function () {
+                smemo.push($(this).val());
+            });
+
+            $.ajax({
+                url:"${path}/planner/insert",
+                data: {
+                    memNum : memNum,
+                    lnum : lnum,
+                    title : title,
+                    memo : memo,
+                    days : days,
+
+                    sday : sday,
+                    snum : snum,
+                    spoint : spoint,
+                    smemo : smemo,
+                    y : y,
+                    x : x
+                },
+                type:"post",
+                success: function () {
+                    location.href = "${path}/planner"
+                }
+            });
+        }
     }
 //--작성완료 버튼
 </script>
