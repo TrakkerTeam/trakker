@@ -44,30 +44,15 @@
         WHERE mem_email=#{mem_email}
     </update>
 
-    <select id="getupdateMember" resultType="member">
-        select mem_name
-        from member
-        order by mem_num desc
-    </select>
-
     <delete id="deleteMember">
         delete from member
         where mem_email = #{mem_email}
     </delete>
 
-    <select id="checkPw" resultType="int">
-        select count(*) from member
-        where mem_email=#{mem_email} and mem_pass=#{mem_pass}
-    </select>
-
-
-    <select id="pwCheck" resultType="String">
-        SELECT mem_pass FROM member WHERE mem_email = #{mem_email}
-    </select>
-
     <update id="pwUpdate">
         UPDATE member SET mem_pass = #{new_pass} WHERE mem_email = #{mem_email}
     </update>
+
 
 </mapper>
 

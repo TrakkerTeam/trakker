@@ -11,8 +11,8 @@
 function daumZipCode() {
 	new daum.Postcode({
         oncomplete: function(data) {
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
+            var addr = '';
+            var extraAddr = '';
             if (data.userSelectedType === 'R') {
                 addr = data.roadAddress;
             } else {
@@ -44,17 +44,21 @@ function daumZipCode() {
 			window.open("${path}/member/termsofuse.do", "개인정보처리방침",popOption);
 		}
 
-function check() { //회원가입 버튼눌렀을때 실행됨
-	//email 체크
+function check() {
     	var mem_email =$("#mem_email").val();
     	if(mem_email =="") {
     		alert("이메일을 필수 입력해주세요");
     		$("#mem_email").focus();
     		return;
-
     	}
 
-	//비밀번호 체크
+    	var email_check =$("#email_check").val();
+    	if(email_check =="") {
+    		alert("인증번호를 필수 입력해주세요");
+    		$("#email_check").focus();
+    		return;
+    	}
+
 	var mem_pass =$("#passwd").val();
 	if(mem_pass =="") {
 		alert("비밀번호를 필수 입력해주세요");
@@ -62,14 +66,13 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 		return;
 	}
 
-	//이름 체크
 	var mem_name =$("#name").val();
 	if(mem_name =="") {
 		alert("이름을 필수 입력해주세요");
 		$("#name").focus();
 		return;
 	}
-	//닉네임 체크
+
     	var mem_nickname =$("#nickname").val();
     	if(mem_nickname =="") {
     		alert("닉네임을 필수 입력해주세요");
@@ -77,7 +80,14 @@ function check() { //회원가입 버튼눌렀을때 실행됨
     		return;
     	}
 
-	//주소체크
+    	var maleRadioButton = document.getElementById("male");
+        var femaleRadioButton = document.getElementById("female");
+
+        if (!maleRadioButton.checked && !femaleRadioButton.checked) {
+          alert("성별을 선택해주세요.");
+          return;
+        }
+
 	var mem_zipcode =$("#zipcode").val();
 	if(mem_zipcode =="") {
 		alert("우편번호 찾기를 누르세요");
@@ -85,7 +95,6 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 		return;
 	}
 
-	//체크박스 여부체크
 	var checkbox = document.getElementById("checkbox");
         if (!checkbox.checked) {
             alert("이용약관에 동의해야 회원가입이 가능합니다.");
@@ -94,11 +103,9 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 	document.form1.submit();
 }
 </script>
-
 <style>
         body {
             font-family: Arial, sans-serif;
-
         }
 
         h2 {
@@ -181,10 +188,14 @@ function check() { //회원가입 버튼눌렀을때 실행됨
         color:#ff0000;
         display: none;
         }
-    </style>
+        #gender {
+        text-align:center;
+        }
 
+    </style>
 </head>
 <body>
+<div class="container" style="margin-top:80px;">
 	<h2>SIGN UP</h2>
 	<form name="form1" method="post"  action="${path}/member/insertMember.do" >
 		<div>
@@ -193,7 +204,7 @@ function check() { //회원가입 버튼눌렀을때 실행됨
 				<td  colspan="2">이메일</td>
 			</tr>
 			<tr>
-            	<td><input type="email" id="mem_email" name="mem_email" oninput = "checkEmail()"></td>
+            	<td><input type="email" id="mem_email" name="mem_email" oninput="checkEmail()"></td>
             	<td id="auth_number"><button  id="mailCheckBtn" name="mailCheckBtn">인증번호 발급</button></td>
             </tr>
 
@@ -244,12 +255,16 @@ function check() { //회원가입 버튼눌렀을때 실행됨
                  <td><input type="text" id="nickname" name="mem_nickname"></td>
             </tr>
             <tr>
-                <td>생년월일</td>
-                <td>성별</td>
+                <td colspan="2">생년월일</td>
             </tr>
             <tr>
                 <td><input type="text" id="birth" name="mem_birth"placeholder="생년월일 6자리 입력" maxlength="6"></td>
-                <td><input type="text" id="gender" name="mem_gender" placeholder="1~4까지의 숫자만 입력!" maxlength="1"></td>
+                <td id="gender">
+                <label for="male" style="margin-right: 20%;">
+                <input type="radio" id="male" name="mem_gender" value="1" >남자</label>
+                <label for="female">
+                <input type="radio" id="female" name="mem_gender" value="2" >여자</label>
+                </td>
             </tr>
              <tr>
                 	<td colspan="2">전화번호</td>
@@ -275,28 +290,30 @@ function check() { //회원가입 버튼눌렀을때 실행됨
                     <td colspan="2"><button type="button" id="signup" name="signup" onclick="check()">회원가입</button></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="button" id="logback" name="logback">뒤로가기</button></td>
+                    <td colspan="2"><button type="button" id="logback" name="logback" onclick="back();">뒤로가기</button></td>
                 </tr>
 		</table>
 		</div>
 	</form>
+	</div>
 	<%@ include file="../footer.jspf" %>
 
 	<script type="text/javascript">
       $(document).ready(function() {
         $('#mailCheckBtn').click(function(event) {
-          event.preventDefault(); // 폼 제출을 막음
+          event.preventDefault();
 
-          const mem_email = $('#mem_email').val(); // 이메일 주소값 얻어오기!
-          console.log('완성된 이메일: ' + mem_email); // 이메일 확인 출력
+          const mem_email = $('#mem_email').val();
+          console.log('완성된 이메일: ' + mem_email);
 
-          // 이메일 유효성 검사
               if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$/.test(mem_email)) {
                 alert('유효한 이메일 주소를 입력해주세요');
                 return;
               }
 
-          const checkInput = $('.mail-check-input'); // 인증번호 입력하는 곳
+          const checkInput = $('.mail-check-input');
+
+            alert('인증번호가 전송되었습니다.');
 
           $.ajax({
             type: 'get',
@@ -305,12 +322,11 @@ function check() { //회원가입 버튼눌렀을때 실행됨
               console.log("data: " + data);
               checkInput.attr('disabled', false);
               code = data;
-              alert('인증번호가 전송되었습니다.');
+
             }
-          }); // end ajax
+          });
         });
 
-        // 인증번호 비교
         $('.mail-check-input').blur(function () {
           const inputCode = $(this).val();
           const $resultMsg = $('#mail-check-warn');
@@ -331,14 +347,14 @@ function check() { //회원가입 버튼눌렀을때 실행됨
               var mem_email = $('#mem_email').val();
               $.ajax({
                   url:'${path}/member/emailCheck.do',
-                  type:'post', //POST 방식으로 전달
+                  type:'post',
                   data:{mem_email:mem_email},
                   success:function(cnt){
-                      if(cnt == 0){//사용가능한 아이디
+                      if(cnt == 0){
                           $('.id_ok').css("display","inline-block");
                           $('.id_already').css("display", "none");
                           $('#mailCheckBtn').removeAttr('disabled');
-                      } else { //존재하는 아이디
+                      } else {
                           $('.id_already').css("display","inline-block");
                           $('.id_ok').css("display", "none");
                           $('#mailCheckBtn').attr('disabled', 'disabled');
@@ -351,24 +367,21 @@ function check() { //회원가입 버튼눌렀을때 실행됨
               });
               };
 
-              function checkPass() { //비밀번호 정규화처리
+              function checkPass() {
                 var mem_pass = document.getElementById('passwd').value;
 
-                // 비밀번호 정규화 처리 (숫자,문자,특수문자 무조건 1개 이상, 비밀번호 최소 8자에서 최대 16자까지 허용)
                 var pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 
                 if (pattern.test(mem_pass)) {
-                  // 정규화 처리에 맞는 경우
                   document.getElementById('pass-error').textContent = '';
                   document.getElementById('pass-ok').textContent = '비밀번호 사용가능!';
                 } else {
-                  // 정규화 처리에 맞지 않는 경우
                   document.getElementById('pass-error').textContent = '숫자,문자,특수문자를 사용하여 최소 8자이상 16자이하';
                   document.getElementById('pass-ok').textContent = '';
                 }
               }
 
-              function checkPassMatch() { //비밀번호 확인
+              function checkPassMatch() {
                 var password = document.getElementById('passwd').value;
                 var confirmPassword = document.getElementById('passwd_ck').value;
 
@@ -381,7 +394,9 @@ function check() { //회원가입 버튼눌렀을때 실행됨
                 }
               }
 
+              function back() {
+                        history.back();
+                    }
     </script>
-
 </body>
 </html>
