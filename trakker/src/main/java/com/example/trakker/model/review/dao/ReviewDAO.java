@@ -9,10 +9,11 @@ import com.example.trakker.utils.ResponseResultList;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface ReviewDAO {
 
-    ResponseResultList list(PagingInfoVO vo);
+    List<ReviewDTO> list(Map data);
 
     void insert(ReviewDTO review);
 
@@ -29,5 +30,9 @@ public interface ReviewDAO {
     void ratingInsert(RatingDTO dto);
 
     List<ReviewDTO> main_list();
+
+    int total(Map data);
+
+    List<ReviewDTO> r_list(Map data);
 }
 

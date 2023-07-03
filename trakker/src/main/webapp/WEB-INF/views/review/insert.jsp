@@ -38,7 +38,7 @@
 <body>
 <form name="form1" method="post" action="${path}/review/insert">
     <div class="container"><br>
-        <select class="form-select w-25" aria-label="Default select example" name="l_num">
+        <select class="form-select w-25" aria-label="Default select example" name="lnum">
             <option selected>지역</option>
             <option value="1">서울</option>
             <option value="2">부산</option>

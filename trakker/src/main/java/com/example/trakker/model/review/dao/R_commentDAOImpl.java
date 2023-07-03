@@ -39,11 +39,11 @@ public class R_commentDAOImpl implements R_commentDAO {
     }
 
     @Override
-    public void addInsert(long mem_num, long review_num, long comment_num, Integer l_num, String addContent) {
+    public void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
         Map<String, Object> map = new HashMap<>();
         map.put("review_num",review_num);
         map.put("comment_num",comment_num);
-        map.put("l_num",l_num);
+        map.put("lnum",lnum);
         map.put("addContent",addContent);
         map.put("mem_num",mem_num);
         sqlSession.insert("r_comment.c_addInsert",map);

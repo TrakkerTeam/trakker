@@ -2,15 +2,12 @@ package com.example.trakker.model.review.dao;
 
 import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
-import com.example.trakker.utils.PagingInfoVO;
-import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ReviewDAOImpl implements ReviewDAO {
@@ -19,25 +16,11 @@ public class ReviewDAOImpl implements ReviewDAO {
     SqlSession sqlSession;
 
     @Override
-    public ResponseResultList list(PagingInfoVO vo) {
-        HashMap<String, Object> data = new HashMap<String, Object>();
+    public List<ReviewDTO> list(Map data) {
 
-        data.put("pageNum", vo.getPageNum());
-        data.put("pageRowCount", vo.getPageRowCount());
-        data.put("area", vo.getArea());
-        data.put("sort", vo.getSort());
-        data.put("searchType", vo.getStype());
-        data.put("keyword", vo.getSdata());
-
-        List<ReviewDTO> resultdata = sqlSession.selectList("review.list", data);
-        Integer cnt = (Integer) sqlSession.selectOne("review.total", data);
-        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), cnt, vo.getPageRowCount());
-        ResponseResultList responseResultList = new ResponseResultList();
-        responseResultList.setPagingInfo(pagingInfoVO);
-        responseResultList.setBody(resultdata);
-
-        return responseResultList;
+        return sqlSession.selectList("review.list", data);
     }
+
 
     @Override
     public void insert(ReviewDTO review) {
@@ -79,6 +62,16 @@ public class ReviewDAOImpl implements ReviewDAO {
     @Override
     public List<ReviewDTO> main_list() {
         return sqlSession.selectList("review.main_list");
+    }
+
+    @Override
+    public int total(Map data) {
+        return sqlSession.selectOne("review.total", data);
+    }
+
+    @Override
+    public List<ReviewDTO> r_list(Map data) {
+        return sqlSession.selectList("review.r_list", data);
     }
 
 }

@@ -7,8 +7,9 @@ import lombok.Setter;
 @Data
 @Setter(AccessLevel.NONE)
 public class LocalDTO {
-    private  Integer l_num;
-    private  String k_name;
-    private  String e_name;
+    private Integer lnum;
+    private String kname;
+    private String ename;
+
 
 }

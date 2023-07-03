@@ -48,9 +48,9 @@ public class R_commentController {
     }
 
     @PostMapping("/comment/addInsert")
-    public void insert(long mem_num, long review_num, long comment_num, Integer l_num, String addContent) {
+    public void insert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
 
-        rcommentService.addInsert(mem_num,review_num,comment_num,l_num,addContent);
+        rcommentService.addInsert(mem_num,review_num,comment_num,lnum,addContent);
 
     }
 

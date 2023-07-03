@@ -10,7 +10,7 @@ public class R_commentDTO {
     private long comment_num;
     private long review_num;
     private long mem_num;
-    private Integer l_num;
+    private Integer lnum;
     private long comment_p;
     private String content;
     private Date com_date;
