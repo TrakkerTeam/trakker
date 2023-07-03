@@ -22,7 +22,7 @@ public class R_commentController {
 
     @PostMapping("/comment/insert")
     public void insert(R_commentDTO dto, HttpSession session) {
-        long mem_num =(long)session.getAttribute("mem_num");
+        long mem_num = (long) session.getAttribute("mem_num");
         dto.setMem_num(mem_num);
 
         rcommentService.insert(dto);
@@ -31,15 +31,15 @@ public class R_commentController {
 
     @GetMapping("/comment/list")
     public ModelAndView list(R_commentDTO dto, ModelAndView mav) {
-        List<R_commentDTO> list=rcommentService.commentList(dto);
-        mav.setViewName("/review/commentList"); //포워딩 뷰
-        mav.addObject("list", list); //뷰에 전달할 데이터
+        List<R_commentDTO> list = rcommentService.commentList(dto);
+        mav.setViewName("/review/commentList");
+        mav.addObject("list", list);
         return mav;
     }
 
     @PostMapping("/comment/edit")
     public void update(long comment_num, String editContent) {
-        rcommentService.update(comment_num,editContent);
+        rcommentService.update(comment_num, editContent);
     }
 
     @PostMapping("/comment/delete")
@@ -50,7 +50,7 @@ public class R_commentController {
     @PostMapping("/comment/addInsert")
     public void insert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
 
-        rcommentService.addInsert(mem_num,review_num,comment_num,lnum,addContent);
+        rcommentService.addInsert(mem_num, review_num, comment_num, lnum, addContent);
 
     }
 

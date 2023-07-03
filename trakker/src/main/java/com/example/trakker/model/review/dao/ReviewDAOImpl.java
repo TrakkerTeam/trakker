@@ -50,13 +50,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 
     @Override
     public Double ratingAvg(long review_num) {
-        return sqlSession.selectOne("rating.ratingAvg",review_num);
+        return sqlSession.selectOne("rating.ratingAvg", review_num);
     }
 
     @Override
     public void ratingInsert(RatingDTO dto) {
 
-        sqlSession.insert("rating.ratingInsert",dto);
+        sqlSession.insert("rating.ratingInsert", dto);
     }
 
     @Override

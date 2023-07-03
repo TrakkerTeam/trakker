@@ -28,24 +28,24 @@ public class R_commentDAOImpl implements R_commentDAO {
     @Override
     public void update(long comment_num, String editContent) {
         Map<String, Object> map = new HashMap<>();
-        map.put("editContent",editContent);
-        map.put("comment_num",comment_num);
-        sqlSession.update("r_comment.c_update",map);
+        map.put("editContent", editContent);
+        map.put("comment_num", comment_num);
+        sqlSession.update("r_comment.c_update", map);
     }
 
     @Override
     public long delete(long comment_num) {
-        return sqlSession.update("r_comment.c_delete",comment_num);
+        return sqlSession.update("r_comment.c_delete", comment_num);
     }
 
     @Override
     public void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
         Map<String, Object> map = new HashMap<>();
-        map.put("review_num",review_num);
-        map.put("comment_num",comment_num);
-        map.put("lnum",lnum);
-        map.put("addContent",addContent);
-        map.put("mem_num",mem_num);
-        sqlSession.insert("r_comment.c_addInsert",map);
+        map.put("review_num", review_num);
+        map.put("comment_num", comment_num);
+        map.put("lnum", lnum);
+        map.put("addContent", addContent);
+        map.put("mem_num", mem_num);
+        sqlSession.insert("r_comment.c_addInsert", map);
     }
 }

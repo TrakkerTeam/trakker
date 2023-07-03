@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReviewController {
-    
+
     @Autowired
     private ReviewService reviewService;
 
@@ -28,10 +28,10 @@ public class ReviewController {
 
     @GetMapping("/review/list")
     public void list(Model model, @RequestParam("num") Integer num,
-                     @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
-                     @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword,
-                     @RequestParam(value = "area",required = false, defaultValue = "0") Integer area,
-                     @RequestParam(value = "sort",required = false, defaultValue = "add") String sort){
+                     @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+                     @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+                     @RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
+                     @RequestParam(value = "sort", required = false, defaultValue = "add") String sort) {
         PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(num);
         vo.setArea(area);
@@ -44,7 +44,7 @@ public class ReviewController {
         model.addAttribute("local", plannerService.localList());
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
-        model.addAttribute("keyword",keyword);
+        model.addAttribute("keyword", keyword);
     }
 
     @GetMapping("/review/write")
@@ -62,9 +62,8 @@ public class ReviewController {
     @GetMapping("/review/detail")
     public ModelAndView detail(long review_num, HttpServletRequest request, HttpServletResponse response) {
 
-        reviewService.count(review_num, request,response);
+        reviewService.count(review_num, request, response);
         ReviewDTO review = reviewService.detail(review_num);
-        /*평점 total 값 추가 */
         Double ratingavg = reviewService.ratingAvg(review_num);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/detail");
@@ -77,7 +76,7 @@ public class ReviewController {
     @GetMapping("/review/edit")
     public ModelAndView edit(long review_num, HttpServletRequest request, HttpServletResponse response) {
 
-        reviewService.count(review_num, request,response);
+        reviewService.count(review_num, request, response);
         ReviewDTO review = reviewService.detail(review_num);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/edit");
@@ -88,7 +87,7 @@ public class ReviewController {
     @PostMapping("/review/update")
     public String update(@ModelAttribute("reviewDTO") ReviewDTO review) {
         reviewService.update(review);
-        return "redirect:/review/detail?review_num="+review.getReview_num();
+        return "redirect:/review/detail?review_num=" + review.getReview_num();
     }
 
     @PostMapping("/review/delete")
@@ -98,8 +97,8 @@ public class ReviewController {
     }
 
     @PostMapping("/review/ratinginsert")
-    public String ratingInsert(long review_num, Double rating , Model model, HttpSession session) {
-        long mem_num =(long)session.getAttribute("mem_num");
+    public String ratingInsert(long review_num, Double rating, Model model, HttpSession session) {
+        long mem_num = (long) session.getAttribute("mem_num");
         RatingDTO dto = new RatingDTO();
         dto.setMem_num(mem_num);
         dto.setReview_num(review_num);
@@ -112,8 +111,6 @@ public class ReviewController {
 
         return "/review/rating";
     }
-
-
 
 
 }
