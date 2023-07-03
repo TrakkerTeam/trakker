@@ -16,4 +16,3 @@ public interface R_commentService {
 
     void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent);
 }
-

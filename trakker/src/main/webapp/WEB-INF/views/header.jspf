@@ -4,7 +4,7 @@
 <style>
     .navbar {
         background-color: #20c997;
-        position: fixed;
+        position: sticky;
         color: white;
         width: 100%;
         height: 80px;

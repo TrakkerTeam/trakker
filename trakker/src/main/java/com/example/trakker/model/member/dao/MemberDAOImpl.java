@@ -54,29 +54,6 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public boolean checkPw(String mem_email, String mem_pass) {
-		boolean result = false;
-		Map<String,String> map =new HashMap<>();
-		map.put("mem_email", mem_email);
-		map.put("mem_pass",mem_pass);
-		int count =sqlSession.selectOne("member.checkPw",map);
-		//비번이 맞으면(1), 틀리면 (0)리턴
-		if(count ==1) result =true;
-		return result;
-	}
-
-	@Override
-	public MemberDTO getupdateMember(String mem_email) {
-		return sqlSession.selectOne("member.getupdateMember", mem_email);
-	}
-
-
-	@Override
-	public String pwCheck(String mem_email){
-		return sqlSession.selectOne("member.pwCheck", mem_email);
-	}
-
-	@Override
 	public void pwUpdate(String mem_email, String new_pass){
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("mem_email", mem_email);

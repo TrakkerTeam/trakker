@@ -17,7 +17,6 @@ public class ResponseResult {
     private String msg;
     private HashMap<String, Object> meta;
 
-
     //상세페이지 이전,다음 값
     private Long prev;
     private Long next;
@@ -33,11 +32,12 @@ public class ResponseResult {
     public void setNext(Long next) {
         this.next = next;
     }
+
     public void addMetaItem(String key, Object value){
-    	if (meta == null){
-    		meta = new HashMap<String, Object>();
-    	}
-    	meta.put(key, value);
+        if (meta == null){
+            meta = new HashMap<String, Object>();
+        }
+        meta.put(key, value);
     }
 
     public HashMap<String, Object> getMeta() {

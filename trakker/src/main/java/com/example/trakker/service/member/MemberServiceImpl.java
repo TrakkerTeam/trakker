@@ -2,21 +2,27 @@ package com.example.trakker.service.member;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.trakker.item.HeartDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trakker.model.member.dao.MemberDAO;
 import com.example.trakker.model.member.dto.MemberDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
-//MemberServiceImpl 는 회원 관련 비즈니스 로직을 구현하고, MemberDAO를 사용하여 데이터 액세스 작업을 수행합니다
-//MemberServiceImpl 는 MemberService 인터페이스를 구현하여 회원 관련 비즈니스 로직을 처리합니다
+
 @Service
 public class MemberServiceImpl implements MemberService{
 
     @Autowired
     MemberDAO memberDao;
+    @Autowired
+    HeartDAO heartDAO;
 
     @Override
     public MemberDTO logincheck(MemberDTO dto, HttpSession session) {
@@ -60,17 +66,10 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void memberDelete(String mem_email) {
+    public void memberDelete(String mem_email,long memNum) {
         memberDao.memberDelete(mem_email);
+        heartDAO.deleteMember(memNum);
     }
-
-    @Override
-    public boolean checkPass(String mem_email, String mem_pass) {
-        return memberDao.checkPw(mem_email,mem_pass);
-    }
-
-
-
 
     @Override
     public MemberDTO getupdateMember(String mem_email) {
@@ -80,12 +79,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void logout(HttpSession session) {
         session.invalidate();
-    }
-
-
-    @Override
-    public String pwCheck(String mem_email){
-        return memberDao.pwCheck(mem_email);
     }
 
     @Override

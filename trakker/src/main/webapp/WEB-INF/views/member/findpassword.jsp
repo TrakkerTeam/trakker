@@ -12,7 +12,6 @@
             const mem_email = $('#mem_email').val();
             console.log('완성된 이메일: ' + mem_email);
 
-            // 이메일 유효성 검사
             if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$/.test(mem_email)) {
                 alert('유효한 이메일 주소를 입력해주세요');
                 return;
@@ -42,15 +41,10 @@
             })
         });
     });
-
-
 </script>
-
-
 <style>
 body {
   font-family: Arial, sans-serif;
-
 }
 h2 {
         padding:20px;
@@ -99,14 +93,15 @@ small {
 </style>
 </head>
 <body>
-
+<div class="container" style="margin-top:80px;">
 	<h2>비밀번호 찾기</h2>
 	<form name="form1" method="post">
+	<div>
 		<table  width="400px">
 			<tr>
             	<td>
             	<div class="form-floating mb-1">
-                                      <%--@declare id="floatinginput"--%><input type="email" class="form-control" id="mem_email" name="mem_email" placeholder="name@example.com">
+                                      <input type="email" class="form-control" id="mem_email" name="mem_email" placeholder="name@example.com">
                                       <label for="floatingInput">Email address</label>
                             </div></td>
             </tr>
@@ -127,11 +122,18 @@ small {
 
 			<tr>
             	<td  align="center">
-            			<button type="button" id="back">뒤로가기</button>
+            			<button type="button" id="logback" onclick="back();">뒤로가기</button>
             	</td>
             </tr>
 		</table>
+		</div>
 	</form>
+	</div>
 <%@ include file="../footer.jspf" %>
+<script>
+function back() {
+       history.back();
+}
+</script>
 </body>
 </html>
