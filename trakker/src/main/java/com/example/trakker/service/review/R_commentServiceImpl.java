@@ -26,7 +26,7 @@ public class R_commentServiceImpl implements R_commentService {
 
     @Override
     public void update(long comment_num, String editContent) {
-        commentDAO.update(comment_num,editContent);
+        commentDAO.update(comment_num, editContent);
     }
 
     @Override
@@ -36,7 +36,8 @@ public class R_commentServiceImpl implements R_commentService {
 
     @Override
     public void addInsert(long mem_num, long review_num, long comment_num, Integer lnum, String addContent) {
-        commentDAO.addInsert(mem_num,review_num,comment_num,lnum,addContent);
+        commentDAO.addInsert(mem_num, review_num, comment_num, lnum, addContent);
     }
 
 }
+

@@ -32,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
         data.put("area", vo.getArea());
         data.put("sort", vo.getSort());
         int total = reviewDao.total(data);
-        List<ReviewDTO>  list = reviewDao.list(data);
+        List<ReviewDTO> list = reviewDao.list(data);
         PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), total, vo.getPageRowCount());
         ResponseResultList resultList = new ResponseResultList();
         resultList.setBody(list);
@@ -51,31 +51,29 @@ public class ReviewServiceImpl implements ReviewService {
         Cookie[] cookies = request.getCookies();
         boolean visited = false;
 
-        if (cookies != null) { // 배열이 null이 아니면
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("visit_cookie")) { // 쿠키 이름이 "visit_cookie"인 경우에만 내부 블록 실행
-                    if (cookie.getValue().contains("_" + request.getParameter("review_num") + "_")) {// 쿠키 값 == 현재 리뷰 번호
+                if (cookie.getName().equals("visit_cookie")) {
+                    if (cookie.getValue().contains("_" + request.getParameter("review_num") + "_")) {
                         visited = true;
                         break;
-                    } else { // 포함하지 않은 경우
+                    } else {
                         cookie.setValue(cookie.getValue() + "_" + request.getParameter("review_num") + "_");
-                        cookie.setMaxAge(60 * 60); // 1시간 설정 (초 단위)
-                        response.addCookie(cookie); // 클라이언트 전송
+                        cookie.setMaxAge(60 * 60);
+                        response.addCookie(cookie);
                         visited = true;
-                        reviewDao.count(review_num); // 조회수 증가
+                        reviewDao.count(review_num);
                         break;
                     }
                 }
             }
         }
 
-        if (!visited) { // visited = false 인 경우
-            //review_num 파라미터 값 가져옴.
-            //새로운 cookie 생성
+        if (!visited) {
             Cookie newCookie = new Cookie("visit_cookie", "_" + request.getParameter("review_num") + "_");
-            newCookie.setMaxAge(60 * 60); // 1시간 설정 (초 단위)
-            response.addCookie(newCookie);// 새로운 쿠키 응답 추가
-            reviewDao.count(review_num); // 조회수 증가
+            newCookie.setMaxAge(60 * 60);
+            response.addCookie(newCookie);
+            reviewDao.count(review_num);
         }
     }
 
@@ -120,9 +118,9 @@ public class ReviewServiceImpl implements ReviewService {
         data.put("keyword", vo.getSdata());
         data.put("area", vo.getArea());
         data.put("sort", vo.getSort());
-        data.put("mem_num",mem_num);
+        data.put("mem_num", mem_num);
         int total = reviewDao.total(data);
-        List<ReviewDTO>  list = reviewDao.r_list(data);
+        List<ReviewDTO> list = reviewDao.r_list(data);
         PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), total, vo.getPageRowCount());
         ResponseResultList resultList = new ResponseResultList();
         resultList.setBody(list);
@@ -132,4 +130,3 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 }
-

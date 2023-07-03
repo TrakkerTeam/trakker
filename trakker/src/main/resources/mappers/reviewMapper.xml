@@ -54,22 +54,22 @@
     <select id="total" parameterType="hashMap" resultType="Integer">
         select count(*)
         from(SELECT r.review_num, r.title, r.content, m.mem_num, m.mem_nickname
-             FROM review r
+        FROM review r
         join member m
         on r.mem_num = m.mem_num)
         <trim prefix="WHERE" prefixOverrides="AND">
             <if test='keyword != "" and searchType != ""'>
-        <choose>
-            <when test='searchType.equals("title")'>
-                AND title LIKE '%' || #{keyword} || '%'
-            </when>
-            <when test='searchType.equals("content")'>
-                AND content LIKE '%' || #{keyword} || '%'
-            </when>
-            <when test='searchType.equals("mem_nickname")'>
-                AND mem_nickname LIKE '%' || #{keyword} || '%'
-            </when>
-        </choose>
+                <choose>
+                    <when test='searchType.equals("title")'>
+                        AND title LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        AND content LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("mem_nickname")'>
+                        AND mem_nickname LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
             </if>
         </trim>
     </select>
@@ -87,15 +87,23 @@
     </update>
 
     <select id="detail" resultMap="reviewResultMap">
-        select review_num, title,content, review_date, readcount,edit_date,
-               L_NUM, K_NAME,
-               mem_num, mem_nickname, picture_url,next,prev
+        select review_num,
+               title,
+               content,
+               review_date,
+               readcount,
+               edit_date,
+               L_NUM,
+               K_NAME,
+               mem_num,
+               mem_nickname,
+               picture_url, next, prev
         from
-            ( select r.review_num, r.title,r.content, r.review_date, r.readcount,r.edit_date,
+            ( select r.review_num, r.title, r.content, r.review_date, r.readcount, r.edit_date,
             l.L_NUM, l.K_NAME,
             m.mem_num, m.mem_nickname, m.picture_url,
-            lag(review_num,1,-1) over(order by review_num asc) as prev,
-            lead(review_num,1,-1) over(order by review_num asc) as next
+            lag(review_num, 1, -1) over(order by review_num asc) as prev,
+            lead(review_num, 1, -1) over(order by review_num asc) as next
             from review r
             join local l
             on r.L_NUM = l.L_NUM
@@ -128,20 +136,42 @@
     </delete>
 
     <select id="main_list" resultMap="reviewResultMap">
-        SELECT rn, review_num, title, content, review_date, K_NAME, L_NUM, mem_num, mem_nickname, ratingAvg
+        SELECT rn,
+               review_num,
+               title,
+               content,
+               review_date,
+               K_NAME,
+               L_NUM,
+               mem_num,
+               mem_nickname,
+               ratingAvg
         FROM (
-        SELECT ROW_NUMBER() OVER (ORDER BY ratingAvg DESC NULLS LAST) AS rn,
-        review_num, title, content, review_date, K_NAME, L_NUM, mem_num, mem_nickname, ratingAvg
-        FROM (
-        SELECT r.review_num, r.title, r.content, r.review_date,
-        l.K_NAME, l.L_NUM,
-        m.mem_num, m.mem_nickname,
-        (SELECT AVG(rt.rating) FROM rating rt WHERE rt.review_num = r.review_num) AS ratingAvg
-        FROM review r
-        JOIN local l ON r.L_NUM = l.L_NUM
-        JOIN member m ON r.mem_num = m.mem_num
-        )
-        )
+                 SELECT ROW_NUMBER() OVER (ORDER BY ratingAvg DESC NULLS LAST) AS rn,
+                        review_num,
+                        title,
+                        content,
+                        review_date,
+                        K_NAME,
+                        L_NUM,
+                        mem_num,
+                        mem_nickname,
+                        ratingAvg
+                 FROM (
+                          SELECT r.review_num,
+                                 r.title,
+                                 r.content,
+                                 r.review_date,
+                                 l.K_NAME,
+                                 l.L_NUM,
+                                 m.mem_num,
+                                 m.mem_nickname,
+                                 (SELECT AVG(rt.rating) FROM rating rt WHERE rt.review_num = r.review_num) AS ratingAvg
+                          FROM review r
+                                   JOIN local l ON r.L_NUM = l.L_NUM
+                                   JOIN member m ON r.mem_num = m.mem_num
+                      )
+             )
         WHERE rn &lt;= 9
     </select>
 
@@ -187,7 +217,6 @@
         WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} ) ) X
         WHERE X.rn &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
-
 
 
     <resultMap id="reviewResultMap" type="review">
