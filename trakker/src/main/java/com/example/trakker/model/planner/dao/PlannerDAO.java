@@ -8,14 +8,17 @@ import java.util.Map;
 
 public interface PlannerDAO {
     void insert(PlannerDTO planner);
+    Long getNum();
 
-    Integer count(Map param);
+    Long count(Map param);
     List<PlannerDTO> list(Map param);
 
-    Integer updateHit(Integer planNum);
-    HashMap<String, Object> detail(Integer planNum);
+    Integer updateHit(Map param);
+    HashMap<String, Object> detail(Map param);
+    Long prevNum(Long planNum);
+    Long nextNum(Long planNum);
 
     void update(PlannerDTO planner);
 
-    void delete(Integer planNum);
+    void delete(Long planNum);
 }
