@@ -1,14 +1,17 @@
 package com.example.trakker.model.trip.dao;
 
+
+import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
-import com.example.trakker.utils.PagingInfoVO;
-import com.example.trakker.utils.ResponseResultList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TripDAOImpl implements TripDAO {
@@ -21,6 +24,7 @@ public class TripDAOImpl implements TripDAO {
         return sqlSession.selectList("trip.list");
     }
 
+
     @Override
     public void insert(TripDTO dto) throws Exception {
         sqlSession.insert("trip.insert", dto);
@@ -32,45 +36,58 @@ public class TripDAOImpl implements TripDAO {
     }
 
     @Override
-    public void delete(int t_num) throws Exception {
+    public void delete(long t_num) throws Exception {
         sqlSession.delete("trip.delete", t_num);
     }
 
-//    @Override
-//    public void increaseViewcnt(int t_num, HttpSession session) throws Exception {
-//        sqlSession.update("trip.increaseViewcnt", t_num);
-//    }
 
     @Override
-    public TripDTO view(int t_num) throws Exception {
+    public TripDTO view(long t_num) throws Exception {
         return sqlSession.selectOne("trip.view", t_num);
     }
 
-
-    //    @Override
-//    public List<TripDTO> listPage(int displayPost, int postNum) throws Exception{
-//        HashMap<String, Integer> data = new HashMap<String, Integer>();
-//
-//        data.put("displayPost", displayPost);
-//        data.put("postNum", postNum);
-//
-//        return sqlSession.selectList("trip.listPage", data);
-//    }
     @Override
-    public ResponseResultList listPage(PagingInfoVO vo) {
-        HashMap<String, Object> data = new HashMap<String, Object>();
+    public int count(Map data) {
+        return sqlSession.selectOne("trip.listPageCount", data);
+    }
 
-        data.put("pageNum", vo.getPageNum());
-        data.put("pageRowCount", vo.getPageRowCount());
-        data.put("searchType", vo.getStype());
-        data.put("keyword", vo.getSdata());
+    @Override
+    public List<TripDTO> listPage(Map data) {
+        return sqlSession.selectList("trip.listPage", data);
+    }
 
-        List<TripDTO> resultdata = sqlSession.selectList("trip.listPage", data);
-        Integer cnt = (Integer) sqlSession.selectOne("trip.listPageCount", data);
-        PagingInfoVO pagingInfoVO = new PagingInfoVO(vo.getPageNum(), cnt, vo.getPageRowCount());
-        ResponseResultList responseResultList = new ResponseResultList();
-        responseResultList.setPagingInfo(pagingInfoVO);
-        responseResultList.setBody(resultdata);
-        return responseResultList;
+    @Override
+    public void deleteFile(String fullName) {
+        sqlSession.delete("trip.deleteFile", fullName);
+    }
+
+    @Override
+    public List<String> getAttach(long t_num) {
+        return sqlSession.selectList("trip.getAttach", t_num);
+    }
+
+    @Override
+    public void addAttach(String fullName) {
+        sqlSession.insert("trip.addAttach", fullName);
+    }
+
+    @Override
+    public void updateAttach(String fullName, long t_num) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("fullName", fullName);
+        map.put("t_num", t_num);
+        sqlSession.insert("trip.updateAttach", map);
+
+    }
+
+    @Override
+    public Double ratingAvg(long t_num) {
+        return sqlSession.selectOne("rating.ratingAvg_trip",t_num);
+    }
+
+    @Override
+    public void ratingInsert(RatingDTO dto) {
+        sqlSession.insert("rating.ratingInsert_trip",dto);
     }
 }
+

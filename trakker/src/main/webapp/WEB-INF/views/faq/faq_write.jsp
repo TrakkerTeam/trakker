@@ -1,4 +1,3 @@
-<!--faq를 추가하는 페이지입니다.-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html>
@@ -11,7 +10,8 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
  <script src="https://cdn.jsdelivr.net/npm/summernote-sticky-toolbar@1.0.0/summernote-sticky-toolbar.min.js"></script>
  <script type="text/javascript">
-  $(function () {
+
+  $(document).ready(function () {
    $("#btnSave").click(function () {
     if ($("#faq_subject").val() == "") {
      alert("제목을 입력하세요");
@@ -25,8 +25,10 @@
     }
     document.form2.submit();
    });
+
   });
  </script>
+
  <style>
   body {
    padding-top: 100px;
@@ -59,7 +61,7 @@
   <script>
    $('.summernote').summernote({
     placeholder: '내용을 입력해주세요.',
-    height: 750,
+    height: 300,
     lang: "ko-KR",
     minHeight: null,
     maxHeight: null,
@@ -76,14 +78,14 @@
      ['view', ['fullscreen', 'help']]
     ],
     stickyToolbar: {
-     enabled: true, // enable/disable sticky toolbar
-     offset: 0, //y offset from top
-     zIndex: 9999 //z-index of the toolbar
+     enabled: true,
+     offset: 0,
+     zIndex: 9999
     }
    });
   </script>
   <hr>
-  <input name="filename" value="이미지 이름"> <br><br>
+
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
    <div class="btn-group m-3" role="group" aria-label="First group">
     <button type="button" id="btnSave" class="btn btn-success btn-lg">등록</button>

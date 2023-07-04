@@ -6,9 +6,13 @@ import com.example.trakker.utils.ResponseResultList;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface PlannerService {
+
+    int localCount();
 
     String selectLocal(Integer lNum);
     void insert(PlannerDTO planner, List<String> sDay, List<String> sNum, List<String> sPoint, List<String> sMemo, List<String> y, List<String> x);
@@ -19,6 +23,7 @@ public interface PlannerService {
     List<LocalDTO> localList();
     ResponseResultList list(PagingInfoVO vo, Long memNum, String urlCheck);
 
+    void updateHit(Long planNum, HttpServletRequest request, HttpServletResponse response);
     ResponseResultList detail(Long planNum, Long memNum);
     List<Integer> getDayList(Integer days);
 

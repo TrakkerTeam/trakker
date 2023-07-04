@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="rating">
-
     <select id="ratingAvg" resultType="double">
         select avg(rating)
         from rating
         where review_num = #{review_num}
     </select>
-
     <insert id="ratingInsert">
-    insert into rating
-    (review_num,rating,mem_num) values (#{review_num},#{rating},#{mem_num})
+        insert into rating
+            (review_num,rating,mem_num) values (#{review_num},#{rating},#{mem_num})
     </insert>
 
+    <select id="ratingAvg_trip" resultType="double">
+        select avg(rating)
+        from rating r, trip t
+        where r.t_num = t.t_num and r.t_num = #{t_num}
+    </select>
+    <insert id="ratingInsert_trip">
+        insert into rating
+            (t_num,rating) values (#{t_num},#{rating})
+    </insert>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

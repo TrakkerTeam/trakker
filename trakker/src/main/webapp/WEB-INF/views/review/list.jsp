@@ -151,7 +151,7 @@
             </div>
         </div>
         <c:choose>
-        <c:when test="${list eq []}">
+        <c:when test="${list eq [] and param.searchType ne null}">
             <div class="center mt-5 mb-5 pb-5">
                 <h1><i class="bi bi-search"></i></h1>
                 <h3 class="pb-3">검색조건과 일치하는 리뷰글이 없습니다.</h3>
@@ -165,7 +165,7 @@
                     <div class="card rounded-3 shadow-sm">
                         <a href="${path}/review/detail?review_num=${review.review_num}"
                            style="text-decoration-line:none;">
-                            <c:set var="randomNumber" value="${Random().nextInt(6) + 1}"/>
+                            <c:set var="randomNumber" value="${Random().nextInt(5) + 1}"/>
                             <c:set var="region" value="${review.lnum}"/>
                             <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg"
                                  class="card-img-top w-100" style="height: 242px;">

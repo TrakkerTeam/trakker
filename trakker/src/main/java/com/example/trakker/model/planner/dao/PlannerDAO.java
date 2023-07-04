@@ -13,7 +13,7 @@ public interface PlannerDAO {
     Long count(Map param);
     List<PlannerDTO> list(Map param);
 
-    Integer updateHit(Map param);
+    Integer updateHit(Long planNum);
     HashMap<String, Object> detail(Map param);
     Long prevNum(Long planNum);
     Long nextNum(Long planNum);

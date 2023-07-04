@@ -10,7 +10,7 @@
 <head>
 
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>ADMIN</title>
 
 </head>
 <script type="text/javascript">
@@ -26,7 +26,7 @@
 		location.href="${path}/admin/admin_listPage?num=1";
 	}
 	function reviewList(){
-		location.href = "${path}/review/list.do";
+		location.href = "${path}/review/list?num=1";
 	}
 	function faqList(){
 		location.href = "${path}/faq/listPage?num=1";
@@ -54,6 +54,7 @@
 		align-items: center;
 		border-right: 1px solid #000000;
 		padding-top: 50px;
+		background-color: #20c997;
 	}
 
 	div a.menubar {
@@ -62,6 +63,7 @@
 		color: #000;
 		padding: 25px 25px 25px 25px;
 		font-weight: bold;
+		color: rgba(255, 255, 255, 0.55);
 	}
 
 
@@ -89,10 +91,10 @@
 <div id="container">
 	<div style="display: flex; height: auto;">
 		<div id="category" class="menu" style="width:10%; height:auto;">
-			<a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-			<a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
-			<a class="menubar" href="${path}/review/list?num=1" >리뷰리스트 관리</a>
-			<a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
+			<a class="menubar" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+			<a class="menubar" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-airplane">관광명소 관리</i></a>
+			<a class="menubar" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+			<a class="menubar" href="${path}/faq/listPage?num=1"><i class="bi bi-quora">FAQ</i></a>
 		</div>
 
 		<div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -127,7 +129,7 @@
 										<td>${dto.mem_email}</td>
 										<td><a href="${path}/admin/view.do?mem_num=${dto.mem_num}">${dto.mem_name}</a></td>
 										<td>${dto.mem_address1}</td>
-										<td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+										<td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd"/></td>
 									</tr>
 										</c:when>
 										</c:choose>
@@ -140,39 +142,33 @@
 							<div class="container">
 								<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
 									<h3>리뷰페이지</h3>
-									<button class="btn" type="button" onclick="memberList()" style="float:right;">
+									<button class="btn" type="button" onclick="reviewList()" style="float:right;">
 										<i class="bi bi-plus-lg"></i>
 									</button>
 								</div>
 								<table class="table table-hover">
 									<thead>
 									<tr>
-										<th>이메일</th>
-										<th>이름</th>
-										<th>주소</th>
-										<th>가입일자</th>
+										<th style="width: 10%;">번호</th>
+										<th style="width: 55%;">제목</th>
+										<th style="width: 20%;">작성일자</th>
+										<th style="width: 15%;">조회수</th>
 									</tr>
 									</thead>
 
 									<tbody>
-									<tr>
-										<td>dkjfwk@naver.com</td>
-										<td><a href="#" onclick="memberList()">홍길동</a></td>
-										<td>서울시 강남구</td>
-										<td>2023년 5월 31일</td>
-									</tr>
-									<tr>
-										<td>ddwwwd@naver.com</td>
-										<td><a href="#" onclick="memberList()">이순신</a></td>
-										<td>서울시 용산구</td>
-										<td>2023년 5월 3일</td>
-									</tr>
-									<tr>
-										<td>daaaewe@naver.com</td>
-										<td><a href="#" onclick="memberList()">김김김</a></td>
-										<td>서울시 종로구</td>
-										<td>2023년 5월 1일</td>
-									</tr>
+									<c:forEach var="dto" items="${reivewList}" varStatus="status">
+										<c:choose>
+											<c:when test="${status.index < 4}">
+												<tr>
+													<td>${dto.review_num}</td>
+													<td><a href="${path}//review/detail?review_num=${dto.review_num}">${dto.title}</a></td>
+													<td><fmt:formatDate value="${dto.review_date}" pattern="yyyy-MM-dd"/></td>
+													<td>${dto.readcount}</td>
+												</tr>
+											</c:when>
+										</c:choose>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>

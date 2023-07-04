@@ -155,10 +155,9 @@
         </div>
     </div>
     <%--//카테고리--%>
-
     <%--플래너 리스트--%>
     <c:choose>
-        <c:when test="${list eq []}">
+        <c:when test="${list eq [] and param.searchType ne null}">
             <div class="center mt-5 mb-5 pb-5">
                 <h1><i class="bi bi-search"></i></h1>
                 <h3 class="pb-3">검색조건과 일치하는 플래너가 없습니다.</h3>
@@ -171,7 +170,7 @@
                         <div class="card rounded-3 shadow-sm">
                             <a href="javascript:void(0);" onclick="detail(${list[i.index].planNum});" style="text-decoration-line:none;">
                                     <%--게시판 첨부 지역 이미지--%>
-                                <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
+                                <c:set var="randomNumber" value="${Random().nextInt(5) + 1}" />
                                 <img src="${path}/resources/images/local/${list[i.index].lnum}/${list[i.index].lnum}-${randomNumber}.jpg" class="card-img-top w-100">
                                 <div class="card-body rounded-3 p-0 w-100">
                                     <h6 class="text-muted ms-3 mt-3">${list[i.index].member.mem_nickname}</h6>
