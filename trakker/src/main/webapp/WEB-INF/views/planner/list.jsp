@@ -170,7 +170,7 @@
                         <div class="card rounded-3 shadow-sm">
                             <a href="javascript:void(0);" onclick="detail(${list[i.index].planNum});" style="text-decoration-line:none;">
                                     <%--게시판 첨부 지역 이미지--%>
-                                <c:set var="randomNumber" value="${Random().nextInt(6) + 1}" />
+                                <c:set var="randomNumber" value="${Random().nextInt(5) + 1}" />
                                 <img src="${path}/resources/images/local/${list[i.index].lnum}/${list[i.index].lnum}-${randomNumber}.jpg" class="card-img-top w-100">
                                 <div class="card-body rounded-3 p-0 w-100">
                                     <h6 class="text-muted ms-3 mt-3">${list[i.index].member.mem_nickname}</h6>
