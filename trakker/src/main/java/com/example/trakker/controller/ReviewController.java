@@ -68,7 +68,6 @@ public class ReviewController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("review/detail");
         mav.addObject("review", review);
-        /* 뷰단에 보내주기 */
         mav.addObject("ratingAvg", ratingavg);
         return mav;
     }

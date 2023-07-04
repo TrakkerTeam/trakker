@@ -62,5 +62,6 @@ public class PagingInfoVO extends BaseVO {
   public void setLastPageNum(int lastPageNum) {
     this.lastPageNum = lastPageNum;
   }
-
+  
 }
+
