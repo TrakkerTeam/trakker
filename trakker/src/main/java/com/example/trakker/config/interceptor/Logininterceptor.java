@@ -18,7 +18,7 @@ public class Logininterceptor extends HandlerInterceptorAdapter {
 
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("mem_email") == null){
+        if (session.getAttribute("mem_nickname") == null){
 
             response.sendRedirect(request.getContextPath()+"/login");
             return false;
