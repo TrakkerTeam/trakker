@@ -9,8 +9,6 @@ import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +23,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("planner")
 public class PlannerController {
-	private static final Logger logger = LoggerFactory.getLogger(PlannerController.class);
-
 	@Autowired
 	private PlannerService plannerService;
 	@Autowired
@@ -103,7 +99,6 @@ public class PlannerController {
 						 @PathVariable("planNum") Long planNum) {
 		Long memNum = (Long)session.getAttribute("mem_num");
 		if(memNum==null){
-			logger.info("로그인 값이 없습니다. 비회원 값을 부여합니다.");
 			memNum = 0L;
 		}
 		plannerService.updateHit(planNum, request, response);
