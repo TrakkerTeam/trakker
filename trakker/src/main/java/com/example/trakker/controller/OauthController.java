@@ -12,8 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +28,7 @@ public class OauthController {
 
 
 
-    /* NaverLoginBO */
+
     private NaverLoginBO naverLoginBO;
 
     private KakaoLoginBO kakaoLoginBO;
@@ -38,12 +36,12 @@ public class OauthController {
     @Autowired
     private OauthUserService oauthUserService;
 
-    /* NaverLoginBO */
+
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO){
         this.naverLoginBO = naverLoginBO;
     }
-    /* KakaoLoginBO */
+
     @Autowired
     private void setKakaoLoginBO(KakaoLoginBO kakaoLoginBO){
         this.kakaoLoginBO = kakaoLoginBO;
@@ -56,11 +54,11 @@ public class OauthController {
 
         String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
 
-        System.out.println("naverAuthUrl = " + naverAuthUrl);
+
         model.addAttribute("urlNaver", naverAuthUrl);
 
 
-        System.out.println("kakaoAuthUrl = " + kakaoAuthUrl);
+
         model.addAttribute("urlKakao", kakaoAuthUrl);
 
         return "login";
@@ -78,17 +76,17 @@ public class OauthController {
         jsonObj = (JSONObject) jsonParser.parse(apiResult);
         JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
-        //프로필 조회
+
         String mem_nickname = (String)response_obj.get("nickname");
         String mem_id = (String) response_obj.get("id");
         String mem_email = (String) response_obj.get("email");
         String mem_name = (String) response_obj.get("name");
 
 
-        // 회원 체크
+
         MemberDTO userCheck =oauthUserService.userCheck(mem_nickname);
 
-        // 디비 체크
+
         if (userCheck != null) {
 
 
@@ -124,7 +122,7 @@ public class OauthController {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj = (JSONObject) jsonParser.parse(apiResult);
 
-        // JSON 객체에서 필요한 정보를 추출합니다.
+
         JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
         JSONObject response_obj2 = (JSONObject) response_obj.get("profile");
 
