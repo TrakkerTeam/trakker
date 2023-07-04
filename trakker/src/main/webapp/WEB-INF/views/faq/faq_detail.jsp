@@ -8,27 +8,6 @@
 <style>
     @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-    .commentbox1 {
-        margin: 12px 0 29px;
-        padding: 16px 10px 10px 18px;
-        border: 1px solid #999999;
-        border-radius: 6px;
-        box-sizing: border-box;
-    }
-    #textarea1 {
-        border: none;
-        resize: none;
-        outline: none;
-        overflow: hidden;
-        overflow-wrap: break-word;
-        width: 100%;
-    }
-
-    #btn1 {
-        border-color: #20c997;
-        color: #20c997;
-        border-radius: 12px;
-    }
 </style>
 <script>
 
