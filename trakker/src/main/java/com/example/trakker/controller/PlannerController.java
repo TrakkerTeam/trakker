@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("planner")
 public class PlannerController {
 	private static final Logger logger = LoggerFactory.getLogger(PlannerController.class);
 
@@ -32,7 +33,7 @@ public class PlannerController {
 	private HeartService heartService;
 
 
-	@PostMapping("planner/new")
+	@PostMapping("/new")
 	public String write(Model model,
 						@RequestParam Map<String, Object> map) {
 		String kName = plannerService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
@@ -45,7 +46,7 @@ public class PlannerController {
 
 		return "planner/insert";
 	}
-	@PostMapping("planner/insert")
+	@PostMapping("/insert")
 	public void insert(PlannerDTO planner,
 					   @RequestParam(value = "sday[]") List<String> sday,
 					   @RequestParam(value = "snum[]") List<String> snum,
@@ -57,7 +58,7 @@ public class PlannerController {
 	}
 
 
-	@GetMapping("planner")
+	@GetMapping
 	public String list(Model model,
 					   HttpSession session,
 					   HttpServletRequest request,
@@ -94,7 +95,7 @@ public class PlannerController {
 	}
 
 
-	@GetMapping("planner/{planNum}")
+	@GetMapping("/{planNum}")
 	public String detail(Model model,
 						 HttpSession session,
 						 HttpServletRequest request,
@@ -119,13 +120,13 @@ public class PlannerController {
 	}
 
 	@ResponseBody
-	@PostMapping("planner/{planNum}")
+	@PostMapping("/{planNum}")
 	public void heart(HeartDTO heart) {
 		heartService.heartCheck(heart);
 	}
 
 
-	@PostMapping("planner/edit/{planNum}")
+	@PostMapping("/edit/{planNum}")
 	public String edit(Model model,
 					   @PathVariable("planNum") Long planNum,
 					   @RequestParam Map<String, Object> map) {
@@ -142,7 +143,7 @@ public class PlannerController {
 		return "planner/edit";
 	}
 	@ResponseBody
-	@PostMapping("planner/rewrite")
+	@PostMapping("/rewrite")
 	public void update(PlannerDTO planner,
 					   @RequestParam(value = "sday[]") List<String> sday,
 					   @RequestParam(value = "snum[]") List<String> snum,
@@ -155,7 +156,7 @@ public class PlannerController {
 
 
 	@ResponseBody
-	@PostMapping("planner/delete/{planNum}")
+	@PostMapping("/delete/{planNum}")
 	public void delete(@PathVariable Long planNum) {
 		plannerService.delete(planNum);
 	}
