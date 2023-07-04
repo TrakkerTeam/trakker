@@ -13,6 +13,8 @@ public class LocalDAOImpl implements LocalDAO {
     SqlSession sqlSession;
 
     @Override
+    public int getCount() { return sqlSession.selectOne("local.count");}
+    @Override
     public String getName(Integer lNum) {
         return sqlSession.selectOne("local.selectK", lNum);
     }

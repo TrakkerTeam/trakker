@@ -31,6 +31,10 @@ public class PlannerServiceImpl implements PlannerService {
     @Autowired
     private LocalDAO localDAO;
 
+    @Transactional(readOnly = true)
+    @Override
+    public int localCount() {return localDAO.getCount();}
+
     @Transactional(readOnly=true)
     @Override
     public String selectLocal(Integer lNum) {

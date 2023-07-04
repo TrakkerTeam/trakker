@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.example.trakker.item.LocalDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.admin.AdminService;
+import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,27 +28,26 @@ public class HomeController {
 	AdminService adminService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	PlannerService plannerService;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
-		// 총 이용자 수
 		int memberTotalCount = adminService.memberCount();
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-
-
-		String formattedDate = dateFormat.format(date);
+		int localTotalCount = plannerService.localCount();
 
 		List<ReviewDTO> review = reviewService.main_list();
-		model.addAttribute("review", review);
+		List<LocalDTO> local = plannerService.localList();
 
-		model.addAttribute("serverTime", formattedDate );
+
 		model.addAttribute("memberTotalCount" , memberTotalCount);
+		model.addAttribute("localTotalCount" , localTotalCount);
+
+		model.addAttribute("review", review);
+		model.addAttribute("local", local);
 
 		return "home";
 	}
