@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @PropertySource("classpath:upload.properties")
 public class MemberImgConfig implements WebMvcConfigurer {
 
-    @Value("${upload.path}") // properties 파일에서 설정된 경로를 가져옵니다
+    @Value("${upload.path}")
     private String uploadPath;
 
     @Override
