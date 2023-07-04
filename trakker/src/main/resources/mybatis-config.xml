@@ -18,6 +18,7 @@
 		<typeAlias type="com.example.trakker.item.LocalDTO" alias="local"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.PlannerDTO" alias="planner"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.ScheduleDTO" alias="schedule"/>
+		<typeAlias type="com.example.trakker.item.AttachDTO" alias="attach"/>
 	</typeAliases>
 </configuration>
 
