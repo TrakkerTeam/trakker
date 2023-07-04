@@ -7,7 +7,7 @@
     <insert id="insert" parameterType="java.util.List">
         INSERT INTO PLANNER (
             PLAN_NUM, MEM_NUM, L_NUM, TITLE, MEMO, DAYS
-        ) VALUES ( (SELECT NVL(MAX(PLAN_NUM), 0) + 1 FROM PLANNER), #{memNum}, #{lnum}, #{title}, #{memo}, #{days} )
+        ) VALUES ( planner_seq.NEXTVAL, #{memNum}, #{lnum}, #{title}, #{memo}, #{days} )
     </insert>
     <select id="selectNum" resultType="Long">
         SELECT MAX(PLAN_NUM)
