@@ -15,6 +15,7 @@
 		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faq"/>
 		<typeAlias type="com.example.trakker.model.trip.dto.TripDTO" alias="trip"/>
 		<typeAlias type="com.example.trakker.model.member.dto.MemberDTO" alias="member"/>
+		<typeAlias type="com.example.trakker.item.AttachDTO" alias="attach"/>
 		<typeAlias type="com.example.trakker.item.LocalDTO" alias="local"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.PlannerDTO" alias="planner"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.ScheduleDTO" alias="schedule"/>
