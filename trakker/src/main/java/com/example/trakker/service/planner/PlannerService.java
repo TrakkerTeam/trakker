@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface PlannerService {
 
+    int localCount();
+
     String selectLocal(Integer lNum);
     void insert(PlannerDTO planner, List<String> sDay, List<String> sNum, List<String> sPoint, List<String> sMemo, List<String> y, List<String> x);
     List<Double> changeDoubleList(List<String> list);
