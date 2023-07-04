@@ -8,5 +8,4 @@ public class BaseVO {
     private String sort = "";
     private String stype = "";
     private String sdata = "";
-
 }
