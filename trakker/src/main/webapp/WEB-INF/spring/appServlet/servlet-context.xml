@@ -51,7 +51,9 @@
 		<beans:property name="location" value="classpath:upload.properties"/>
 	</beans:bean>
 
-
+	<beans:bean id="uploadTripPath" class="java.lang.String">
+		<beans:constructor-arg value="c:/trakker_img"/>
+	</beans:bean>
 
 
 	<interceptors>
