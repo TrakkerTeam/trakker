@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="imgpath" value="/upload/displayFile?fileName="/>
 
 <!DOCTYPE html>
 <html>
@@ -76,14 +77,24 @@
 		font-size: 22px;
 	}
 
-	p.content2 {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 1; /* Set the number of lines to display */
-		-webkit-box-orient: vertical;
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
 	}
 
+	.modal-content {
+		display: block;
+		margin: 15% auto;
+		max-width: 900px;
+		padding: 20px;
+		border-radius: 5px;
+	}
 </style>
 <body>
 <%@ include file="../header.jspf" %>
@@ -94,7 +105,7 @@
 			<a class="menubar" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
 			<a class="menubar" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-airplane">관광명소 관리</i></a>
 			<a class="menubar" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
-			<a class="menubar" href="${path}/faq/listPage?num=1"><i class="bi bi-quora">FAQ</i></a>
+			<a class="menubar" href="${path}/faq/listPage?num=1"><i class="bi bi-person-gear">FAQ</i></a>
 		</div>
 
 		<div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -196,8 +207,8 @@
 									</tr>
 									</thead>
 									<tbody>
-									<c:set var="list" value="${list.subList(0, 4)}"/>
-									<c:forEach var="faq" items="${list}">
+									<c:set var="faqList" value="${faqList.subList(0, 4)}"/>
+									<c:forEach var="faq" items="${faqList}">
 										<tr>
 											<td>${faq.faq_num}</td>
 											<td>
@@ -232,12 +243,16 @@
 									</tr>
 									</thead>
 									<tbody>
-									<c:set var="lists" value="${lists.subList(0, 3)}"/>
-									<c:forEach var="trip" items="${lists}">
+									<c:set var="tripList" value="${tripList.subList(0, 3)}"/>
+									<c:forEach var="trip" items="${tripList}">
 										<tr>
 											<td>${trip.t_num}</td>
 											<td><a href="#" onclick="openModal('myModal${trip.t_num}')">${trip.t_subject}</a></td>
-											<td>${trip.content}</td>
+											<td class="limited-lines">
+												<div style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+														${trip.content}
+												</div>
+											</td>
 											<td><fmt:formatDate value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></td>
 										</tr>
 										<div id="myModal${trip.t_num}" class="modal">
@@ -252,8 +267,7 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="${path}/resources/images/hanook.png"
-															 alt="이미지" style="width: 100%; height: auto;">
+														<img src="${path}/${imgpath}${trip.attach.fullName}" style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">
 														<p style="float:right;">${trip.content}</p>
@@ -263,8 +277,6 @@
 													<div style="flex: 1;" class="d-flex justify-content-end align-items-center">
 														<small class="text-muted" style="margin-right: 10px;">작성일:<fmt:formatDate
 																value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
-														<button class="btn btn-outline-success" onclick="redirectToPage()">플래너
-														</button>
 													</div>
 												</div>
 											</div>

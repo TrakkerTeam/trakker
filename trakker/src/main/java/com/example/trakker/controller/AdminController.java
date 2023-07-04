@@ -8,9 +8,11 @@ import java.util.UUID;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
+import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
 import com.example.trakker.service.review.ReviewService;
+import com.example.trakker.service.trip.TripService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +50,10 @@ public class AdminController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
-	@Value("${upload.path}") // properties 파일에서 설정된 경로를 가져옵니다
+	@Autowired
+	TripService tripService;
+
+	@Value("${upload.path}")
 	private String uploadPath;
 
 	private MultipartFile uploadFile;
@@ -65,19 +70,19 @@ public class AdminController {
 	@RequestMapping("/adminPage.do")
 	public ModelAndView adminPage(ModelAndView mav) throws Exception{
 
-		List<FaqDTO> items = faqService.list();
+		List<FaqDTO> faqList = faqService.list();
+		List<TripDTO> tripList = tripService.list();
 		List<MemberDTO> memberList = adminService.memberList();
 		List<ReviewDTO> reviewList =  reviewService.main_list();
 
 
-		//레코드 개수
 		int memberCount = adminService.memberCount();
 
 		mav.setViewName("admin/admin_main");
 		mav.addObject("memberList", memberList);
 		mav.addObject("reivewList" , reviewList);
-		mav.addObject("list", items);
-		// View 단에 전송
+		mav.addObject("faqList", faqList);
+		mav.addObject("tripList",tripList);
 		mav.addObject("memberCount", memberCount);
 		return mav;
 	}
@@ -95,17 +100,12 @@ public class AdminController {
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest request) throws Exception {
 
-
-		// 기존 이미지 URL 가져오기
 		String existingImageUrl = (String) session.getAttribute("picture_url");
 
-		// 이미지가 선택되지 않았을 때 기존 파일 유지
+
 		if (file == null || file.isEmpty()) {
 			dto.setPicture_url(existingImageUrl);
 		} else {
-			// 이미지가 선택되었을 때의 로직은 여기에 작성
-
-			// 파일 저장 경로 및 URL 설정
 			String uploadFolder = "c:\\\\upload\\\\";
 			UUID uuid = UUID.randomUUID();
 			String[] uuids = uuid.toString().split("-");
@@ -117,7 +117,6 @@ public class AdminController {
 			}
 			String imageUrl = request.getContextPath() + "/picture_url/" + uniqueName +"."+ fileExtension;
 
-			// 파일 저장
 			File saveFile = new File(uploadFolder + "/" + uniqueName +"." + fileExtension);
 			try {
 				file.transferTo(saveFile);
@@ -125,10 +124,8 @@ public class AdminController {
 				e.printStackTrace();
 			}
 
-			// 업데이트된 이미지 URL 설정
 			dto.setPicture_url(imageUrl);
 
-			// 이전 파일 삭제 (선택적으로 진행)
 			if (existingImageUrl != null && !existingImageUrl.isEmpty()) {
 				String existingFileName = existingImageUrl.substring(existingImageUrl.lastIndexOf("/") + 1);
 				File existingFile = new File(uploadFolder + "/" + existingFileName);
@@ -136,15 +133,11 @@ public class AdminController {
 			}
 		}
 
-		// 나머지 로직은 동일하게 유지
-
-		// 비밀번호 암호화
 		String encodedPassword = passwordEncoder.encode(dto.getMem_pass());
 		dto.setMem_pass(encodedPassword);
 
 		adminService.updateMember(dto);
 
-		// 세션에 업데이트된 회원 정보 반영
 		MemberDTO updatedMember = adminService.getupdateMember(dto.getMem_email());
 		session.setAttribute("mem_name", updatedMember.getMem_name());
 		session.setAttribute("mem_nickname", updatedMember.getMem_nickname());
