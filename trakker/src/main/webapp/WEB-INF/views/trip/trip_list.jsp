@@ -70,6 +70,8 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
@@ -80,43 +82,12 @@
             border-radius: 5px;
         }
 
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .card .card-img-overlay {
-            overflow: hidden;
-            display: none;
-        }
-
         .card {
             transition: all 0.3s ease-in-out;
         }
 
         .card:hover {
             transform: scale(1.05);
-        }
-
-        .card:hover .card-img-overlay {
-            display: block;
-        }
-
-        .card-text {
-            display: -webkit-box;
-            max-width: 400px;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
     </style>
@@ -192,7 +163,7 @@
             </div>
         </div>
         <c:choose>
-        <c:when test="${triplist eq []}">
+        <c:when test="${triplist eq [] and param.searchType ne null}">
             <div class="center mt-5 mb-5 pb-5">
                 <h1><i class="bi bi-search"></i></h1>
                 <h3 class="pb-3">검색조건과 일치하는 관광지가 없습니다.</h3>
@@ -293,11 +264,11 @@
                                                            title="0.5점"></label>
                                                 </fieldset>
 
-                                                    <%--                <c:if test="${mem_num != null}">--%>
+                                                                    <c:if test="${mem_num != null}">
                                                 <button class="btn rating btn-outline-success" type="button"
                                                         name="rating_btn">등록
                                                 </button>
-                                                    <%--                </c:if>--%>
+                                                                    </c:if>
                                                 <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
 
                                             </div>

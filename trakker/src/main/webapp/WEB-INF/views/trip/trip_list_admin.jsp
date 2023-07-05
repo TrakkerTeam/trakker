@@ -23,6 +23,8 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
@@ -33,18 +35,6 @@
             border-radius: 5px;
         }
 
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
 
         #container {
             display: flex;
@@ -143,7 +133,7 @@
                 &nbsp;
             </div>
             <c:choose>
-            <c:when test="${lists eq []}">
+            <c:when test="${lists eq [] and param.searchType ne null}">
                 <div class="center mt-5 mb-5 pb-5 text-center">
                     <h1><i class="bi bi-search"></i></h1>
                     <h3 class="pb-3" style="margin-left: 200px;">검색조건과 일치하는 글이 없습니다.</h3>
