@@ -260,7 +260,9 @@ public class MemberController {
             dto.setPicture_url(existingImageUrl);
         } else {
 
+
             String uploadFolder = "c:/upload";
+
             UUID uuid = UUID.randomUUID();
             String[] uuids = uuid.toString().split("-");
             String uniqueName = uuids[0];

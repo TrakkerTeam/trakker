@@ -8,20 +8,20 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<!-- 드라이버 클래스 이름이 변경됨 -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<!-- 연결문자열에 log4jdbc가 추가됨 -->
 		<property name="url"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
+				  value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="trakker" />
 		<property name="password" value="trakker1234" />
 	</bean>
 	<!-- 아파치 DBCP 설정 -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
-		destroy-method="close"> <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" 
-		/> <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" /> 
-		<property name="username" value="java" /> <property name="password" value="java1234" 
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"
+		/> <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="username" value="java" /> <property name="password" value="java1234"
 		/> </bean> -->
 	<!-- SqlSessionFactory 객체 주입 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -31,7 +31,7 @@
 	</bean>
 	<!-- SqlSession 객체 주입 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
-		destroy-method="clearCache">
+		  destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
@@ -66,5 +66,4 @@
 
 
 </beans>
-
 

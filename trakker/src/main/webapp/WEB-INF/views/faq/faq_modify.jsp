@@ -1,4 +1,3 @@
-<!--faq를 수정하는 페이지입니다.-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <html>
@@ -21,9 +20,28 @@
                     document.form3.submit();
                 }
             });
-                $(".List").click(function() {
-                    location.href="${path}/faq/listPage?num=1";
-                });
+            $(".List").click(function() {
+                location.href="${path}/faq/listPage?num=1";
+            });
+            $(".prev").click(function() {
+                var prev = "${faq.prev}";
+
+                if (prev == -1) {
+                    alert("이전글이 존재하지 않습니다.");
+                } else {
+                    location.href = "${path}/faq/view.do?faq_num=" + prev;
+                }
+            });
+
+            $(".next").click(function() {
+                var next = "${faq.next}";
+
+                if (next == -1) {
+                    alert("다음글이 존재하지 않습니다.");
+                } else {
+                    location.href = "${path}/faq/view.do?faq_num=" + next;
+                }
+            });
         });
     </script>
     <style>
@@ -52,53 +70,59 @@
         <input type="hidden" name="faq_num" value="${faq.faq_num}">
         <div class="d-flex justify-content-between align-items-center mt-5 mb-5 justify-content-md-end text-end">
             <div>
+                <button type="button" class="btn btn-light end-0 prev">이전글</button>
+                <button type="button" class="btn btn-light end-0 next">다음글</button>
                 <button type="button" class="btn List btn-success end-0">목록</button>
             </div>
         </div>
-    <hr>
+        <div class="d-flex flex-column align-items-end">
+            <p class="opacity-50 mb-0 text-nowrap">
+                작성일자: <fmt:formatDate value="${faq.faq_reg_date}" pattern="yyyy-MM-dd"/>
+            </p>
+            <p class="opacity-50 mb-0 ms-2 text-nowrap">조회수: ${faq.readcount}</p>
+        </div>
+        <hr>
         <input class="form-control" type="text" id="faq_subject" name="faq_subject" value="${faq.faq_subject}" aria-label="default input example">
         <hr>
-    <textarea class="summernote" id="content" name="content">${faq.content}</textarea>
+        <textarea class="summernote" id="content" name="content">${faq.content}</textarea>
 
-    <script>
-        $('.summernote').summernote({
+        <script>
+            $('.summernote').summernote({
 
-            height: 300,
-            lang: "ko-KR",
-            minHeight: null,
-            maxHeight: null,
-            focus: true,
-            toolbar: [
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-                ['color', ['forecolor','color']],
-                ['table', ['table']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['insert',['picture','link','video']],
-                ['view', ['fullscreen', 'help']]
+                height: 300,
+                lang: "ko-KR",
+                minHeight: null,
+                maxHeight: null,
+                focus: true,
+                toolbar: [
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                    ['color', ['forecolor','color']],
+                    ['table', ['table']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert',['picture','link','video']],
+                    ['view', ['fullscreen', 'help']]
 
-            ],
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-            stickyToolbar: {
-                enabled: true, // enable/disable sticky toolbar
-                offset: 0, //y offset from top
-                zIndex: 9999 //z-index of the toolbar
-            }
-        });
-    </script>
-    <hr>
-        <div name="filename" value="이미지 이름">logo.png</div> <br><br>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <div class="btn-group m-3" role="group" aria-label="First group">
-            <button type="button" id="btnModify" class="btn btn-success btn-lg">수정</button>
-            <button type="button" id="btnDelete" class="btn btn-danger btn-lg">삭제</button>
+                ],
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+                fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+                stickyToolbar: {
+                    enabled: true,
+                    offset: 0,
+                    zIndex: 9999
+                }
+            });
+        </script>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div class="btn-group m-3" role="group" aria-label="First group">
+                <button type="button" id="btnModify" class="btn btn-success btn-lg">수정</button>
+                <button type="button" id="btnDelete" class="btn btn-danger btn-lg">삭제</button>
+            </div>
         </div>
-    </div>
 
-    <br>
+        <br>
         <%@include file="../footer.jspf" %>
     </form>
 </div>

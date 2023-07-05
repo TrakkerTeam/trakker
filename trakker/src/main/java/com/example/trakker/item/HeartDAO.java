@@ -1,15 +1,11 @@
 package com.example.trakker.item;
 
-import java.util.List;
-
 public interface HeartDAO {
 
-    Integer getCount(Integer memNum);
-    List<HeartDTO> getList(Integer memNum);
+    void insert(HeartDTO dto);
+    void delete(HeartDTO dto);
 
-    void insert(Integer memNum, Integer planNum);
+    void deletePlanner(Long planNum);
 
-    void delete(Integer memNum, Integer planNum);
-
-
+    void deleteMember(Long memNum);
 }

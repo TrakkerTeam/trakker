@@ -1,130 +1,161 @@
 package com.example.trakker.controller;
 
+import com.example.trakker.item.HeartDTO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
+import com.example.trakker.model.planner.dto.ScheduleDTO;
+import com.example.trakker.service.item.HeartService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.planner.PlannerService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.trakker.utils.PagingInfoVO;
+import com.example.trakker.utils.ResponseResultList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
+@RequestMapping("planner")
 public class PlannerController {
-	private static final Logger logger = LoggerFactory.getLogger(PlannerController.class);
-
 	@Autowired
-	private PlannerService planerService;
+	private PlannerService plannerService;
+	@Autowired
+	private HeartService heartService;
+	@Autowired
+	private LocalService localService;
 
-	//플래너 작성
-	@GetMapping("planner/new")
-	public String write(Model model) {
-		logger.info("작성 페이지 이동");
+
+	@PostMapping("/new")
+	public String write(Model model,
+						@RequestParam Map<String, Object> map) {
+		String kName = localService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
+
+		model.addAttribute("days", map.get("planner-days"));
+		model.addAttribute("lNum", map.get("planner-local"));
+		model.addAttribute("kName", kName);
+		model.addAttribute("title", map.get("planner-title"));
+		model.addAttribute("memo", map.get("planner-memo"));
+
 		return "planner/insert";
 	}
-	@PostMapping("planner/new")
-	public String insert(@PathVariable("planNum") int planNum) {
-		logger.info("작성완료 버튼");
-//		model.addAttribute(PlannerDTO planner)
-		//planerService.insert(planner, schedules);
-//Q. 리다이렉트 시 detail 페이지의 planNum값을 어떻게 넘기지? - model로 넘기나?
-		return "redirect:planner/detail";
+	@PostMapping("/insert")
+	public void insert(PlannerDTO planner,
+					   @RequestParam(value = "sday[]") List<String> sday,
+					   @RequestParam(value = "snum[]") List<String> snum,
+					   @RequestParam(value = "spoint[]") List<String> spoint,
+					   @RequestParam(value = "smemo[]") List<String> smemo,
+					   @RequestParam(value = "y[]") List<String> y,
+					   @RequestParam(value = "x[]") List<String> x) {
+		plannerService.insert(planner, sday, snum, spoint, smemo, y, x);
 	}
 
-	//플래너 목록
-	@GetMapping("planner")
-	public String list(Model model) {
-		logger.info("목록 페이지 이동");
-//Q. 검색 url 처리 어떻게 하지?
-//Q. 페이지네이션 AJAX 처리 어떻게 하지?
-//Q. 페이지 내에서 좋아요 추가/삭제 어떻게 처리하지?
+
+	@GetMapping
+	public String list(Model model,
+					   HttpSession session,
+					   HttpServletRequest request,
+					   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+					   @RequestParam(value = "area",required = false, defaultValue = "0") Integer area,
+					   @RequestParam(value = "sort",required = false, defaultValue = "add") String sort,
+					   @RequestParam(value = "searchType",required = false, defaultValue = "") String searchType,
+					   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) {
+		Long memNum = (Long) session.getAttribute("mem_num");
+		if(memNum==null){
+			memNum = 0L;
+		}
+
+		PagingInfoVO vo = new PagingInfoVO();
+		vo.setPageNum(page);
+		vo.setArea(area);
+		vo.setSort(sort);
+		vo.setStype(searchType);
+		vo.setSdata(keyword);
+
+		String urlCheck = request.getServletPath();
+		ResponseResultList responseResultList = plannerService.list(vo, memNum, urlCheck);
+
+		model.addAttribute("list", responseResultList.getBody());
+		model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
+		model.addAttribute("select", page);
+		model.addAttribute("local", localService.localList());
+		model.addAttribute("area", area);
+		model.addAttribute("sort", sort);
+		model.addAttribute("type", searchType);
+		model.addAttribute("keyword",keyword);
+
 		return "planner/list";
 	}
 
-	//플래너 상세
-	@GetMapping("planner/{planNum}")
-	public String detail(@PathVariable("planNum") int planNum, Model model) {
-		logger.info("상세 페이지 이동");
-//Q. 잘못된 url을 어떻게 판별하지?
-//Q. 사용자가 마음대로 번호 넣어서 넘겼을 때 에러 페이지 어떻게 대처하지?
+
+	@GetMapping("/{planNum}")
+	public String detail(Model model,
+						 HttpSession session,
+						 HttpServletRequest request,
+						 HttpServletResponse response,
+						 @PathVariable("planNum") Long planNum) {
+		Long memNum = (Long)session.getAttribute("mem_num");
+		if(memNum==null){
+			memNum = 0L;
+		}
+		plannerService.updateHit(planNum, request, response);
+		ResponseResultList responseResultList = plannerService.detail(planNum, memNum);
+		List<Integer> days = plannerService.getDayList((Integer)responseResultList.getMeta().get("days"));
+
+		model.addAttribute("planner", responseResultList.getMeta());
+		model.addAttribute("days", days);
+		model.addAttribute("schedules", responseResultList.getBody());
+		model.addAttribute("prev", responseResultList.getPrev());
+		model.addAttribute("next", responseResultList.getNext());
+
 		return "planner/detail";
 	}
-	@PostMapping("planner/{planNum}")
-	public void heart() {
-		logger.info("좋아요 버튼 클릭");
-//Q. 페이지 내에서 좋아요 추가/삭제 어떻게 처리하지?
+
+	@ResponseBody
+	@PostMapping("/{planNum}")
+	public void heart(HeartDTO heart) {
+		heartService.heartCheck(heart);
 	}
 
-	//플래너 수정
-	@GetMapping("planner/edit")
-	public void edit(Model model) {
-		logger.info("수정 페이지 이동");
+
+	@PostMapping("/edit/{planNum}")
+	public String edit(Model model,
+					   @PathVariable("planNum") Long planNum,
+					   @RequestParam Map<String, Object> map) {
+		List<ScheduleDTO> schedules = plannerService.selectEdit(planNum);
+
+		model.addAttribute("listDays", map.get("listDays"));
+		model.addAttribute("planNum", planNum);
+		model.addAttribute("kname", map.get("planner-local"));
+		model.addAttribute("days", map.get("planner-days"));
+		model.addAttribute("title", map.get("planner-title"));
+		model.addAttribute("memo", map.get("planner-memo"));
+		model.addAttribute("schedules", schedules);
+
+		return "planner/edit";
 	}
-	@PostMapping("planner/edit")
-	public String update(Model model) {
-		logger.info("수정완료 버튼");
-//Q. 리다이렉트 시 detail 페이지의 planNum값을 어떻게 넘기지? - model로 넘기나?
-		return "redirect:planner/detail";
-	}
-
-	//플래너 삭제
-	@PostMapping("planner/delete/{planNum}")
-	public String delete(Model model) {
-		logger.info("삭제 버튼");
-		return "redirect:planner/list";
-	}
-
-	//
-
-
-
-	@RequestMapping("planner/modal")
-		public void modal(Model model) {
-			logger.info("modal 호출");
-		}
-
-
-		//페이지 이동 정리
-//		1. 메인 페이지 -> 모달창 -> insert 페이지 이동
-//		2. insert 페이지 -> 작성완료 버튼 -> 제출 후 detail 페이지 리다이렉트? 이동
-
-//		1. list 페이지 이동 (검색 포함, 페이지네이션 json처리)
-//		2. detail 페이지 이동 (no 이외에 url 추가 X)
-
-//		1. 상세 페이지 -> 수정버튼 -> 모달창 -> edit 페이지 이동
-//		2. edit 페이지 -> 수정완료 버튼 -> 제출 후 detail 페이지 리다이렉트? 이동
-
-//		1. 상세 페이지 -> 삭제버튼 -> 확인창 -> list 페이지 리다이렉트 이동
-
-		//추가 ( json 방식 )
-//		1. 목록 페이지 -> 하트버튼 -> 좋아요 추가/삭제
-//		2. 상세 페이지 -> 하트버튼 -> 좋아요 추가/삭제
-
-
-
-
-	//테스트 페이지
-	@GetMapping("planner/test/mapTest")
-	public String mapTest(Integer plan_num, Model model) {
-		logger.info("플래너 번호: "+plan_num);
-		logger.info("모델?: "+model);
-
-		planerService.detail(plan_num);
-
-//		model.addAttribute("list",planner);
-
-		logger.info("상세테스트 호출");
-		return "planner/test/mapTest";
-	}
-	@RequestMapping("planner/test/simpleTest")
-	public void simpleTest(Model model) {
-		logger.info("심플 호출");
-	}
-	@RequestMapping("planner/test/mapSearchTest")
-	public void mapSearchTest(Model model) {
-		logger.info("검색테스트 호출");
+	@ResponseBody
+	@PostMapping("/rewrite")
+	public void update(PlannerDTO planner,
+					   @RequestParam(value = "sday[]") List<String> sday,
+					   @RequestParam(value = "snum[]") List<String> snum,
+					   @RequestParam(value = "spoint[]") List<String> spoint,
+					   @RequestParam(value = "smemo[]") List<String> smemo,
+					   @RequestParam(value = "y[]") List<String> y,
+					   @RequestParam(value = "x[]") List<String> x) {
+		plannerService.update(planner, sday, snum, spoint, smemo, y, x);
 	}
 
+
+	@ResponseBody
+	@PostMapping("/delete/{planNum}")
+	public void delete(@PathVariable Long planNum) {
+		plannerService.delete(planNum);
+	}
 }

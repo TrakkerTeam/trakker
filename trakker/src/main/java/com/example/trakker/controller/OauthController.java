@@ -12,8 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +26,9 @@ import java.io.IOException;
 @Controller
 public class OauthController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
-    /* NaverLoginBO */
+
     private NaverLoginBO naverLoginBO;
 
     private KakaoLoginBO kakaoLoginBO;
@@ -39,12 +36,12 @@ public class OauthController {
     @Autowired
     private OauthUserService oauthUserService;
 
-    /* NaverLoginBO */
+
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO){
         this.naverLoginBO = naverLoginBO;
     }
-    /* KakaoLoginBO */
+
     @Autowired
     private void setKakaoLoginBO(KakaoLoginBO kakaoLoginBO){
         this.kakaoLoginBO = kakaoLoginBO;
@@ -57,11 +54,11 @@ public class OauthController {
 
         String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
 
-        System.out.println("naverAuthUrl = " + naverAuthUrl);
+
         model.addAttribute("urlNaver", naverAuthUrl);
 
 
-        System.out.println("kakaoAuthUrl = " + kakaoAuthUrl);
+
         model.addAttribute("urlKakao", kakaoAuthUrl);
 
         return "login";
@@ -79,24 +76,24 @@ public class OauthController {
         jsonObj = (JSONObject) jsonParser.parse(apiResult);
         JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
-        //프로필 조회
-        String nickname = (String)response_obj.get("nickname");
-        String id = (String) response_obj.get("id");
-        String email = (String) response_obj.get("email");
-        String name = (String) response_obj.get("name");
+
+        String mem_nickname = (String)response_obj.get("nickname");
+        String mem_id = (String) response_obj.get("id");
+        String mem_email = (String) response_obj.get("email");
+        String mem_name = (String) response_obj.get("name");
 
 
-         // 회원 체크
-        MemberDTO userCheck =oauthUserService.userCheck(nickname);
 
-        // 디비 체크
+        MemberDTO userCheck =oauthUserService.userCheck(mem_nickname);
+
+
         if (userCheck != null) {
 
 
             session.setAttribute("signIn", apiResult);
-            session.setAttribute("email", email);
-            session.setAttribute("name", name);
-            session.setAttribute("nickname" , nickname);
+            session.setAttribute("email", mem_email);
+            session.setAttribute("name", mem_name);
+            session.setAttribute("mem_nickname" , mem_nickname);
 
             return "home";
 
@@ -105,14 +102,14 @@ public class OauthController {
 
             MemberDTO dto = new MemberDTO();
 
-            dto.setMem_id(id);
-            dto.setMem_name(name);
-            dto.setMem_email(email);
-            dto.setMem_nickname(nickname);
+            dto.setMem_id(mem_id);
+            dto.setMem_name(mem_name);
+            dto.setMem_email(mem_email);
+            dto.setMem_nickname(mem_nickname);
 
             oauthUserService.insertNaverUser(dto);
 
-            return "redirect:/loginSuccess.do";
+            return "home";
 
         }
     }
@@ -125,25 +122,25 @@ public class OauthController {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj = (JSONObject) jsonParser.parse(apiResult);
 
-        // JSON 객체에서 필요한 정보를 추출합니다.
+
         JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
         JSONObject response_obj2 = (JSONObject) response_obj.get("profile");
 
 
         long id = (long) jsonObj.get("id");
-        String nickname = (String) response_obj2.get("nickname");
-        String email = (String) response_obj.get("email");
+        String mem_nickname = (String) response_obj2.get("nickname");
+        String mem_email = (String) response_obj.get("email");
 
 
 
-        MemberDTO userCheck =oauthUserService.userCheck(nickname);
+        MemberDTO userCheck =oauthUserService.userCheck(mem_nickname);
 
 
         if(userCheck != null){
 
             session.setAttribute("signIn", apiResult);
             session.setAttribute("email", id);
-            session.setAttribute("name", nickname);
+            session.setAttribute("mem_nickname", mem_nickname);
 
 
             return "home";
@@ -151,27 +148,18 @@ public class OauthController {
         }else {
             MemberDTO dto = new MemberDTO();
 
-            dto.setMem_nickname(nickname);
-            dto.setMem_email(email);
+            dto.setMem_nickname(mem_nickname);
+            dto.setMem_email(mem_email);
 
             oauthUserService.insertKakaoUser(dto);
 
             session.setAttribute("signIn", apiResult);
             session.setAttribute("email", id);
-            session.setAttribute("name", nickname);
+            session.setAttribute("mem_nickname", mem_nickname);
 
-            return "redirect:/loginSuccess.do";
+            return "home";
 
         }
-
-
-
-
-
     }
 
-    @RequestMapping("/loginSuccess.do")
-    public String loginSuccess(){
-        return "loginSuccess";
-    }
 }

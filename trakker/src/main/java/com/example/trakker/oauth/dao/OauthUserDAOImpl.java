@@ -1,6 +1,6 @@
 package com.example.trakker.oauth.dao;
 
-import com.example.trakker.controller.AdminController;
+
 import com.example.trakker.model.member.dto.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class OauthUserDAOImpl implements OauthUserDAO{
-    private static final Logger logger = LoggerFactory.getLogger(OauthUserDAOImpl.class);
 
     @Autowired
     SqlSession session;

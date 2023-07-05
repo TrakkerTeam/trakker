@@ -11,7 +11,6 @@
 
         body {
             font-family: Arial, sans-serif;
-
         }
 
         h2 {
@@ -61,6 +60,7 @@
 
 </head>
 <body>
+<div class="container" style="margin-top:80px;">
     <h2>회원탈퇴</h2>
 <form name="form1" method="post" >
     <table width="400px">
@@ -93,11 +93,12 @@
         </tr>
     </table>
 </form>
+</div>
 
 <script type="text/javascript">
     function removeMember() {
-        var mem_email = document.getElementById("mem_email").value; // 이메일 입력 필드의 값 가져오기
-        var mem_pass = document.getElementById("mem_pass").value; // 비밀번호 입력 필드의 값 가져오기
+        var mem_email = document.getElementById("mem_email").value;
+        var mem_pass = document.getElementById("mem_pass").value;
 
         if (window.confirm("탈퇴하시겠습니까?")) {
             $.ajax({
@@ -108,7 +109,7 @@
                     mem_pass: mem_pass
                 },
                 success: function(response) {
-                    if (response === "success") { // 비밀번호 일치 여부 확인
+                    if (response === "success") {
                         console.log("회원 탈퇴 성공");
                         alert("회원 탈퇴 성공");
                         window.location.href = "${path}/member/home.do";

@@ -3,111 +3,154 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="planner">
-    <!--insert-->
+
     <insert id="insert" parameterType="java.util.List">
         INSERT INTO PLANNER (
-            MEM_NUM,L_NUM,TITLE,MEMO,DAYS
-        ) VALUES ( #{memNum},#{lNum},#{title},#{memo},#{days} );
+            PLAN_NUM, MEM_NUM, L_NUM, TITLE, MEMO, DAYS
+        ) VALUES ( planner_seq.NEXTVAL, #{memNum}, #{lnum}, #{title}, #{memo}, #{days} )
     </insert>
-
-    <!--list-->
-<!--게시글 총 수 : 작성중, sql 파일 체크할 것 -->
-    <select id="count" resultMap="planner">
-        SELECT COUNT(PLAN_NUM)
-        FROM (
-            SELECT P.PLAN_NUM,
-                P.L_NUM,
-                P.MEM_NUM, M.MEM_NICKNAME,
-                P.TITLE, P.MEMO
-            FROM PLANNER P
-                LEFT JOIN MEMBER M
-                    ON P.MEM_NUM = M.MEM_NUM
-        )
-        <if test='searchType.equals("writer")'>
-            WHERE mem_nickname LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("content")'>
-            WHERE TITLE LIKE '%' || #{keyword} || '%'
-            OR MEMO LIKE '%' || #{keyword} || '%'
-        </if>
+    <select id="selectNum" resultType="Long">
+        SELECT MAX(PLAN_NUM)
+        FROM PLANNER
     </select>
-<!--게시글 리스트 : 작성중, sql 파일 체크할 것 -->
+
+
+    <select id="count" resultType="Long">
+        SELECT COUNT(*)
+        FROM (
+        <include refid="select"/>
+        <include refid="join"/>
+        <include refid="search"/>
+        )
+    </select>
     <select id="list" resultMap="planner">
-        SELECT *
+        SELECT X.RN, X.PLAN_NUM, X.L_NUM, X.K_NAME, X.MEM_NUM, X.MEM_NICKNAME, X.TITLE, X.MEMO, X.HC, X.MH
         FROM (
-            SELECT P.PLAN_NUM,
-                P.L_NUM, L.K_NAME,
-                P.MEM_NUM, M.MEM_NICKNAME,
-                P.TITLE, P.MEMO
-            FROM PLANNER P
-                LEFT JOIN LOCAL L
-                    ON P.L_NUM = L.L_NUM
-                LEFT JOIN MEMBER M
-                    ON P.MEM_NUM = M.MEM_NUM
-            <if test='area != null'>
-
-            </if>
-            <if test='keyword != null'>
-                <choose>
-                    <when test='searchType.equals("writer")'>
-                        MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-                    </when>
-                    <when test='searchType.equals("content")'>
-                        TITLE LIKE '%' || #{keyword} || '%'
-                        OR MEMO LIKE '%' || #{keyword} || '%'
-                    </when>
-                </choose>
-            </if>
-        )
-        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}
+        SELECT ROWNUM AS RN, A.PLAN_NUM, A.L_NUM, A.K_NAME, A.MEM_NUM, A.MEM_NICKNAME, A.TITLE, A.MEMO, A.HC, A.MH
+        FROM (
+        <include refid="select"/>
+        <include refid="join"/>
+        <include refid="search"/>
+        <include refid="sort"/>
+        ) A
+        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} ) ) X
+        WHERE X.RN &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
 
-    <!--detail-->
+
     <update id="updateHit">
         UPDATE PLANNER
         SET HIT = HIT + 1
         WHERE PLAN_NUM = #{planNum}
     </update>
     <select id="detail" resultMap="planner">
-        SELECT P.PLAN_NUM,
-            P.L_NUM, L.K_NAME,
-            P.MEM_NUM, M.MEM_NICKNAME,
-            P.TITLE, P.MEMO, P.DAYS, P.REGDATE, P.HIT
-        FROM PLANNER P
-            LEFT JOIN LOCAL L
-                ON P.L_NUM = L.L_NUM
-            LEFT JOIN MEMBER M
-                ON P.MEM_NUM = M.MEM_NUM
+        <include refid="select"/> ,
+        P.DAYS, P.REGDATE, P.HIT
+        <include refid="join"/>
         WHERE P.PLAN_NUM = #{planNum}
     </select>
+    <select id="prev" resultType="Long">
+        SELECT MAX(PLAN_NUM)
+        FROM PLANNER
+        WHERE PLAN_NUM &lt; #{planNum}
+    </select>
+    <select id="next" resultType="Long">
+        SELECT MIN(PLAN_NUM)
+        FROM PLANNER
+        WHERE PLAN_NUM &gt; #{planNum}
+    </select>
 
-    <!--update-->
+
     <update id="update">
         UPDATE PLANNER
-        SET L_NUM = #{lNum}, TITLE = #{title}, MEMO = #{memo}, DAYS = #{days}
+        SET TITLE = #{title}, MEMO = #{memo}
         WHERE PLAN_NUM = #{planNum}
     </update>
 
-    <!--delete-->
+
     <delete id="delete">
         DELETE FROM PLANNER
         WHERE PLAN_NUM = #{planNum}
     </delete>
 
+
+
+    <sql id="select">
+        SELECT P.PLAN_NUM,
+               P.L_NUM, L.K_NAME,
+               P.MEM_NUM, M.MEM_NICKNAME,
+               P.TITLE, P.MEMO,
+               (SELECT COUNT(*) FROM HEART WHERE PLAN_NUM = P.PLAN_NUM) AS HC,
+               (SELECT COUNT(*) FROM HEART WHERE PLAN_NUM = P.PLAN_NUM and MEM_NUM =#{memNum}) AS MH
+    </sql>
+    <sql id="join">
+        FROM PLANNER P
+                LEFT JOIN LOCAL L
+                    ON P.L_NUM = L.L_NUM
+                LEFT JOIN MEMBER M
+                    ON P.MEM_NUM = M.MEM_NUM
+    </sql>
+    <sql id="search">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='myHeart'>
+                AND (SELECT COUNT(*) FROM HEART WHERE PLAN_NUM = P.PLAN_NUM and MEM_NUM = #{memNum}) = 1
+            </if>
+            <if test='area != 0 and area != null'>
+                AND P.L_NUM = #{area}
+            </if>
+            <if test='myPage'>
+                AND P.MEM_NUM = #{memNum}
+            </if>
+            <if test='keyword != "" and searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("writer")'>
+                        AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("title")'>
+                        AND TITLE LIKE '%' || #{keyword} || '%'
+                        OR MEMO LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+            <if test='!searchType.equals("writer") and !searchType.equals("title") and searchType != ""'>
+                AND MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+                OR TITLE LIKE '%' || #{keyword} || '%'
+                OR MEMO LIKE '%' || #{keyword} || '%'
+            </if>
+        </trim>
+    </sql>
+    <sql id="sort">
+        <choose>
+            <when test='sort.equals("add")'>
+                ORDER BY PLAN_NUM DESC
+            </when>
+            <when test='sort.equals("ht")'>
+                ORDER BY HC DESC , PLAN_NUM DESC
+            </when>
+        </choose>
+    </sql>
+
+
     <resultMap id="planner" type="planner">
         <id column="PLAN_NUM" property="planNum" />
         <id column="MEM_NUM" property="memNum" />
-        <id column="L_NUM" property="lNum" />
+        <id column="L_NUM" property="lnum" />
         <result column="TITLE" property="title" />
         <result column="MEMO" property="memo" />
         <result column="DAYS" property="days" />
         <result column="REGDATE" property="regdate" />
         <result column="HIT" property="hit" />
+        <result column="HC" property="hc" />
         <collection property="member" ofType="member">
             <result column="MEM_NICKNAME" property="mem_nickname" />
         </collection>
         <collection property="local" ofType="local" >
-            <result column="K_NAME" property="K_NAME" />
+            <result column="K_NAME" property="kname" />
+        </collection>
+        <collection property="heart" ofType="heart" >
+            <result column="PLAN_NUM" property="planNum" />
+            <result column="MEM_NUM" property="memNum" />
+            <result column="MH" property="mh" />
         </collection>
     </resultMap>
 </mapper>

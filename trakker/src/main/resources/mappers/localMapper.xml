@@ -3,5 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="local">
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM LOCAL
+    </select>
+    <select id="selectK" resultType="String">
+        SELECT K_NAME
+        FROM LOCAL
+        WHERE L_NUM = #{lNum}
+    </select>
+    <select id="list" resultMap="local">
+        SELECT L_NUM, K_NAME, E_NAME
+        FROM LOCAL
+    </select>
 
+    <resultMap id="local" type="local">
+        <id column="L_NUM" property="lnum" />
+        <result column="K_NAME" property="kname" />
+        <result column="E_NAME" property="ename" />
+    </resultMap>
 </mapper>

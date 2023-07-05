@@ -4,10 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="trip">
-    <select id="list" resultType="trip">
-        select t_num, t_subject, content, readcount, t_regdate
-        from trip
-        order by t_num desc
+    <select id="list"  parameterType="hashMap" resultMap="tripResultMap">
+        select rn,
+               t_num,
+               t_subject,
+               content,
+               t_regdate,
+               fullName,
+               nvl(ratingAvg, 0) as ratingAvg
+        from (
+                 SELECT ROW_NUMBER() OVER (ORDER BY ratingAvg DESC NULLS LAST) AS rn,
+                        t_num,
+                        t_subject,
+                        content,
+                        t_regdate,
+                        ratingAvg,
+                        fullName
+                 FROM (
+                          select t.t_num,
+                                 t.t_subject,
+                                 t.content,
+                                 t.t_regdate,
+                                 a.fullName,
+                                 (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
+                          FROM trip t
+                                   JOIN attach a ON t.t_num = a.t_num
+                      )
+             )
+        where rn &lt;= 6
     </select>
 
     <insert id="insert">
@@ -15,15 +39,12 @@
         values (trip_seq.nextval, #{t_subject}, #{content})
     </insert>
 
-<!--    <update id="increaseViewcnt">-->
-<!--        update trip-->
-<!--        set readcount=readcount + 1-->
-<!--        where t_num = #{t_num}-->
-<!--    </update>-->
-
     <select id="view" resultType="trip">
-        select t_num, t_subject, content, readcount, t_regdate
-        from trip
+        select t_num, t_subject, content, t_regdate, next,prev
+        from ( select t_num, t_subject,content,t_regdate,
+                      lag(t_num,1,-1) over(order by t_num asc) as prev,
+                      lead(t_num,1,-1) over(order by t_num asc) as next
+               from trip)
         where t_num = #{t_num}
     </select>
 
@@ -34,52 +55,42 @@
         where t_num = #{t_num}
     </update>
 
-    <delete id="delete">ㅋ
+    <delete id="delete">
         delete
         from trip
         where t_num = #{t_num}
     </delete>
 
-    <!--    <select id="listPage" parameterType="hashMap" resultType="trip">-->
-    <!--        SELECT *-->
-    <!--        FROM (-->
-    <!--                 SELECT rn, t_num, t_subject, content, readcount, t_regdate-->
-    <!--                 FROM (-->
-    <!--                          SELECT ROW_NUMBER() OVER (ORDER BY t_num DESC) AS rn,-->
-    <!--                                 t_num,-->
-    <!--                                 t_subject,-->
-    <!--                                 content,-->
-    <!--                                 readcount,-->
-    <!--                                 t_regdate-->
-    <!--                          FROM trip-->
-    <!--                      )-->
-    <!--             )-->
-    <!--        WHERE rn BETWEEN #{displayPost} + 1 AND #{displayPost} + #{postNum}-->
-    <!--    </select>-->
-
-    <select id="listPage" parameterType="hashMap" resultType="trip">
-        SELECT *
+    <select id="listPage" parameterType="hashMap" resultMap="tripResultMap">
+        SELECT rn, t_num, t_subject, content, t_regdate, fullName, nvl(ratingAvg,0) as ratingAvg
         FROM (
-             SELECT rn, t_num, t_subject, content, readcount, t_regdate
-              FROM (
-                      SELECT ROW_NUMBER() OVER (ORDER BY t_num DESC) AS rn,
-                              t_num,
-                              t_subject,
-                              content,
-                              readcount,
-                              t_regdate
-                        FROM trip
-                           <if test='searchType.equals("t_subject")'>
-                             WHERE t_subject LIKE '%' || #{keyword} || '%'
-                           </if>
-                           <if test='searchType.equals("content")'>
-                              WHERE content LIKE '%' || #{keyword} || '%'
-                           </if>
-                           <if test='searchType.equals("all")'>
-                             WHERE t_subject LIKE '%' || #{keyword} || '%'
-                             or content LIKE '%' || #{keyword} || '%'
-                          </if>
-                      )
+        SELECT ROW_NUMBER() OVER (ORDER BY t.t_num DESC) AS rn,
+        t.t_num, t.t_subject, t.content, t.t_regdate,
+        a.fullName, (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
+        FROM trip t
+        JOIN attach a ON t.t_num = a.t_num
+        <if test='keyword != "" and searchType != ""'>
+            <choose>
+                <when test='searchType.equals("t_subject")'>
+                    WHERE t_subject LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test='searchType.equals("content")'>
+                    WHERE content LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test='searchType.equals("all")'>
+                    WHERE t_subject LIKE '%' || #{keyword} || '%'
+                    or content LIKE '%' || #{keyword} || '%'
+                </when>
+            </choose>
+        </if>
+        <choose>
+            <when test='sort.equals("add")'>
+                ORDER BY t_num DESC
+            </when>
+            <when test='sort.equals("ratingAvg")'>
+                ORDER BY ratingAvg DESC NULLS LAST , t_num DESC
+            </when>
+        </choose>
         )
         WHERE rn between ${(pageNum -1) * pageRowCount} +1 and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
     </select>
@@ -87,17 +98,59 @@
     <select id="listPageCount" parameterType="hashMap" resultType="Integer">
         SELECT count(*)
         FROM trip
-        WHERE 1=1
-        <if test='searchType.equals("t_subject")'>
-            AND t_subject LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("content")'>
-            AND content LIKE '%' || #{keyword} || '%'
-        </if>
-        <if test='searchType.equals("all")'>
-            AND t_subject LIKE '%' || #{keyword} || '%'
-            or content LIKE '%' || #{keyword} || '%'
-        </if>
-
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='keyword != "" and searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("t_subject")'>
+                        AND t_subject LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        AND content LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("all")'>
+                        AND t_subject LIKE '%' || #{keyword} || '%'
+                        or content LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        </trim>
     </select>
+
+    <insert id="addAttach">
+        insert into attach (fullName, t_num) values
+            (#{fullName}, trip_seq.currval)
+    </insert>
+
+    <insert id="updateAttach">
+        insert into attach (fullName, t_num) values
+            (#{fullName}, #{t_num})
+    </insert>
+
+    <select id="getAttach" resultType="String">
+        select fullName
+        from attach
+        where t_num=#{t_num}
+    </select>
+
+    <delete id="deleteFile">
+        delete from attach
+        where fullName=#{fullName}
+    </delete>
+
+    <resultMap id="tripResultMap" type="trip">
+        <id property="t_num" column="t_num"/>
+        <result property="t_subject" column="t_subject"/>
+        <result property="content" column="content"/>
+        <result property="t_regdate" column="t_regdate"/>
+        <collection property="rating" ofType="rating">
+            <result property="rating" column="rating"/>
+            <result property="ratingAvg" column="ratingAvg"/>
+        </collection>
+        <collection property="attach" ofType="attach">
+            <result property="attach" column="attach"/>
+            <result property="fullName" column="fullName"/>
+        </collection>
+    </resultMap>
+
+
 </mapper>

@@ -4,31 +4,29 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class HeartDAOImpl implements HeartDAO {
 
     @Autowired
     SqlSession sqlSession;
 
+    //좋아요 클릭
     @Override
-    public Integer getCount(Integer memNum) {
-        return null;
+    public void insert(HeartDTO dto) {
+        sqlSession.insert("heart.insert", dto);
+    }
+    @Override
+    public void delete(HeartDTO dto) {
+        sqlSession.delete("heart.delete", dto);
     }
 
-    @Override
-    public List<HeartDTO> getList(Integer memNum) {
-        return null;
+    //플래너 삭제
+    public void deletePlanner(Long planNum) {
+        sqlSession.delete("heart.deletePlanner", planNum);
     }
 
-    @Override
-    public void insert(Integer memNum, Integer planNum) {
-
-    }
-
-    @Override
-    public void delete(Integer memNum, Integer planNum) {
-
+    //회원 탈퇴
+    public void deleteMember(Long memNum){
+        sqlSession.delete("heart.deleteMember", memNum);
     }
 }

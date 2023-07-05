@@ -7,8 +7,10 @@ import java.util.UUID;
 
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
+import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
+import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,9 @@ public class AdminController {
 	private FaqService faqService;
 
 	@Autowired
+	private ReviewService reviewService;
+
+	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
 	@Value("${upload.path}") // properties 파일에서 설정된 경로를 가져옵니다
@@ -60,18 +65,21 @@ public class AdminController {
 	@RequestMapping("/adminPage.do")
 	public ModelAndView adminPage(ModelAndView mav) throws Exception{
 
-			List<FaqDTO> items = faqService.list();
-			List<MemberDTO> memberList = adminService.memberList();
+		List<FaqDTO> items = faqService.list();
+		List<MemberDTO> memberList = adminService.memberList();
+		List<ReviewDTO> reviewList =  reviewService.main_list();
 
-			//레코드 개수
-			int memberCount = adminService.memberCount();
 
-			mav.setViewName("admin/admin_main");
-			mav.addObject("memberList", memberList);
-			mav.addObject("list", items);
-			// View 단에 전송
-			mav.addObject("memberCount", memberCount);
-			return mav;
+		//레코드 개수
+		int memberCount = adminService.memberCount();
+
+		mav.setViewName("admin/admin_main");
+		mav.addObject("memberList", memberList);
+		mav.addObject("reivewList" , reviewList);
+		mav.addObject("list", items);
+		// View 단에 전송
+		mav.addObject("memberCount", memberCount);
+		return mav;
 	}
 	@RequestMapping("/view.do")
 	public String view(Model model, @RequestParam int mem_num) {

@@ -7,11 +7,9 @@
 <title>Insert title here</title>
 <%@ include file="../header.jspf"%>
 
-
 <style>
         body {
             font-family: Arial, sans-serif;
-
         }
 
 
@@ -63,11 +61,10 @@
         .button-container button {
             width: 48%;
         }
-
     </style>
 </head>
 <body>
-
+<div class="container" style="margin-top:80px;">
     <h2>비밀번호 변경</h2>
     	<form name="form1" id="pwUpdateForm" method="post" style="text-align: left;">
             <table width="600px">
@@ -94,12 +91,13 @@
                     <td colspan="2"><button type="button" id="btnpwUpdate" name="btnpwUpdate" onclick="pwUpdate();">변경하기</button></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="button" id="logback" name="logback">취소하기</button>
+                    <td colspan="2"><button type="button" id="logback" name="logback" onclick="back();">취소하기</button>
                         <div style="color: red;">${message}</div>
                     </td>
                 </tr>
             </table>
         </form>
+        </div>
 
        <script type="text/javascript">
            function pwUpdate() {
@@ -107,17 +105,24 @@
                var mem_pass = document.getElementById("mem_pass").value;
                var new_pass = document.getElementById("new_pass").value;
                var new_pass2 = document.getElementById("new_pass2").value;
+               var pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 
                if (mem_pass === "") {
                    alert("현재 비밀번호를 입력해주세요.");
                    return;
                }
+
                if (new_pass === "") {
                    alert("신규 비밀번호를 입력해주세요.");
                    return;
                }
+                if (!pattern.test(new_pass)) {
+                   alert("비밀번호는 8~16자의 영문 대소문자, 숫자, 특수문자(~!@#$%^&*()+|=)를 조합해야 합니다.");
+                   return;
+                 }
+
                if (new_pass !== new_pass2) {
-                   alert("비밀번호 확인이 일치하지 않습니다.");
+                   alert("비밀번호가 일치하지 않습니다.");
                    return;
                }
 
@@ -149,10 +154,10 @@
                    });
                }
            }
+             function back() {
+                     history.back();
+                 }
        </script>
-
-
-
 	<%@ include file="../footer.jspf" %>
 </body>
 </html>
