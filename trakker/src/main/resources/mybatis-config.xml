@@ -13,7 +13,6 @@
 		<typeAlias type="com.example.trakker.model.review.dto.R_commentDTO" alias="r_comment"/>
 		<typeAlias type="com.example.trakker.model.item.HeartDTO" alias="heart"/>
 		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faq"/>
-		<typeAlias type="com.example.trakker.model.item.AttachDTO" alias="attach"/>
 		<typeAlias type="com.example.trakker.model.trip.dto.TripDTO" alias="trip"/>
 		<typeAlias type="com.example.trakker.model.member.dto.MemberDTO" alias="member"/>
 		<typeAlias type="com.example.trakker.model.item.LocalDTO" alias="local"/>
