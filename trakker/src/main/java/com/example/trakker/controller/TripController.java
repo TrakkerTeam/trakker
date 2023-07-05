@@ -97,9 +97,9 @@ public class TripController {
 
     @PostMapping("/trip/ratinginsert")
     public String ratingInsert(long t_num,  Double rating , Model model, HttpSession session){
-//        long mem_num =(long)session.getAttribute("mem_num");
+        long mem_num =(long)session.getAttribute("mem_num");
         RatingDTO dto = new RatingDTO();
-//        dto.setMem_num(mem_num);
+        dto.setMem_num(mem_num);
         dto.setT_num(t_num);
         dto.setRating(rating);
         tripService.ratingInsert(dto);
