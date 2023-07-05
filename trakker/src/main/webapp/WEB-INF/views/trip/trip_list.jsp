@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="imgpath" value="/upload/displayFile?fileName="/>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -179,7 +179,7 @@
                             <input type="hidden" name="num" id="num" value="${trip.t_num}">
                             <a onclick="openModal('myModal${trip.t_num}')"
                                style="text-decoration-line:none;">
-                                <img src="${path}/${imgpath}${trip.attach.fullName}" class="card-img-top"
+                                <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
                                      style="width: 100%; height: 225px;">
                                 <div class="card-body rounded-3 p-0 w-100">
                                     <h6 class="text-muted ms-3 mt-3">${trip.t_subject}
@@ -204,8 +204,8 @@
                             </div>
                             <div class="modal-body" style="display: flex;">
                                 <div style="flex: 1;">
-                                    <img src="${path}/${imgpath}${trip.attach.fullName}" class="card-img-top"
-                                         style="width: 100%; height: 200px;">
+                                    <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+                                         style="width: 100%; height: 225px;">
                                 </div>
                                 <div style="flex: 1; padding-left: 10px;">
                                     <p style="float:right;">${trip.content}</p>
@@ -264,13 +264,11 @@
                                                            title="0.5점"></label>
                                                 </fieldset>
 
-                                                                    <c:if test="${mem_num != null}">
+                                                <c:if test="${mem_num != null}">
                                                 <button class="btn rating btn-outline-success" type="button"
                                                         name="rating_btn">등록
                                                 </button>
-                                                                    </c:if>
-                                                <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
-
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>

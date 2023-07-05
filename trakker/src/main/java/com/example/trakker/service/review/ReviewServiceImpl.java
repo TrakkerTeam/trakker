@@ -1,6 +1,6 @@
 package com.example.trakker.service.review;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.review.dao.ReviewDAO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.utils.PagingInfoVO;

@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="imgpath" value="/upload/displayFile?fileName="/>
 
 <!DOCTYPE html>
 <html>
@@ -76,7 +75,6 @@
 	.bi-plus-lg {
 		font-size: 22px;
 	}
-
 	.modal {
 		display: none;
 		position: fixed;
@@ -95,6 +93,7 @@
 		padding: 20px;
 		border-radius: 5px;
 	}
+
 </style>
 <body>
 <%@ include file="../header.jspf" %>
@@ -102,10 +101,10 @@
 <div id="container">
 	<div style="display: flex; height: auto;">
 		<div id="category" class="menu" style="width:10%; height:auto;">
-			<a class="menubar" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
-			<a class="menubar" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-airplane">관광명소 관리</i></a>
-			<a class="menubar" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
-			<a class="menubar" href="${path}/faq/listPage?num=1"><i class="bi bi-person-gear">FAQ</i></a>
+			<a class="menubar" id=member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+			<a class="menubar" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+			<a class="menubar" id="review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+			<a class="menubar" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
 		</div>
 
 		<div class="container" style="padding-left: 50px; padding-right: 50px;">
@@ -203,7 +202,7 @@
 										<th style="width: 10%">번호</th>
 										<th style="width: 55%">제목</th>
 										<th style="width: 20%">작성일자</th>
-										<th style="width: 15%" class="center">조회수</th>
+										<th style="width: 15%">조회수</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -216,7 +215,7 @@
 											</td>
 											<td><fmt:formatDate value="${faq.faq_reg_date}"
 																pattern="yyyy-MM-dd"/></td>
-											<td class="center">${faq.readcount}</td>
+											<td>${faq.readcount}</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -267,7 +266,8 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="${path}/${imgpath}${trip.attach.fullName}" style="width: 100%; height: 225px;">
+														<img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+															 style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">
 														<p style="float:right;">${trip.content}</p>

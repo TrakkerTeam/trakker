@@ -1,6 +1,6 @@
 package com.example.trakker.service.trip;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dao.TripDAO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.utils.PagingInfoVO;
@@ -23,25 +23,9 @@ public class TripServiceImpl implements TripService {
         return tripDao.list();
     }
 
-    @Transactional
-    @Override
-    public void insert(TripDTO dto) throws Exception {
-        tripDao.insert(dto);
-        String[] files=dto.getFiles();
-        if(files==null) return;
-        for(String name : files) {
-            tripDao.addAttach(name);
-        }
-    }
     @Override
     public void update(TripDTO dto) throws Exception {
         tripDao.update(dto);
-        String[] files=dto.getFiles();
-        if(files==null) return;
-        for(String name : files) {
-            System.out.println("첨부파일 이름 : "+name);
-            tripDao.updateAttach(name, dto.getT_num());
-        }
     }
     @Override
     public void delete(long t_num) throws Exception {
@@ -67,24 +51,6 @@ public class TripServiceImpl implements TripService {
         resultList.setBody(list);
         resultList.setPagingInfo(pagingInfoVO);
         return resultList;
-    }
-
-    @Override
-    public void addAttach(String fullName) {
-
-    }
-    @Override
-    public void deleteFile(String fullName) {
-        tripDao.deleteFile(fullName);
-    }
-    @Override
-    public List<String> getAttach(long t_num) {
-        return tripDao.getAttach(t_num);
-    }
-
-    @Override
-    public void updateAttach(String fullName, long t_num) {
-
     }
 
     @Override

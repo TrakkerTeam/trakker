@@ -1,7 +1,7 @@
 package com.example.trakker.service.item;
 
-import com.example.trakker.item.LocalDAO;
-import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.item.LocalDAO;
+import com.example.trakker.model.item.LocalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +19,8 @@ public class LocalServiceImpl implements LocalService{
 
     @Transactional(readOnly=true)
     @Override
-    public String selectLocal(Integer lNum) {
-        return localDAO.getName(lNum);
+    public LocalDTO selectLocal(Integer lNum) {
+        return localDAO.getLocal(lNum);
     }
 
     @Transactional(readOnly=true)

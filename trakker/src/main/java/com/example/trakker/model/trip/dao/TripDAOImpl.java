@@ -1,15 +1,12 @@
 package com.example.trakker.model.trip.dao;
 
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +21,6 @@ public class TripDAOImpl implements TripDAO {
         return sqlSession.selectList("trip.list");
     }
 
-
-    @Override
-    public void insert(TripDTO dto) throws Exception {
-        sqlSession.insert("trip.insert", dto);
-    }
-
     @Override
     public void update(TripDTO dto) throws Exception {
         sqlSession.update("trip.update", dto);
@@ -39,7 +30,6 @@ public class TripDAOImpl implements TripDAO {
     public void delete(long t_num) throws Exception {
         sqlSession.delete("trip.delete", t_num);
     }
-
 
     @Override
     public TripDTO view(long t_num) throws Exception {
@@ -54,30 +44,6 @@ public class TripDAOImpl implements TripDAO {
     @Override
     public List<TripDTO> listPage(Map data) {
         return sqlSession.selectList("trip.listPage", data);
-    }
-
-    @Override
-    public void deleteFile(String fullName) {
-        sqlSession.delete("trip.deleteFile", fullName);
-    }
-
-    @Override
-    public List<String> getAttach(long t_num) {
-        return sqlSession.selectList("trip.getAttach", t_num);
-    }
-
-    @Override
-    public void addAttach(String fullName) {
-        sqlSession.insert("trip.addAttach", fullName);
-    }
-
-    @Override
-    public void updateAttach(String fullName, long t_num) {
-        Map<String,Object> map=new HashMap<>();
-        map.put("fullName", fullName);
-        map.put("t_num", t_num);
-        sqlSession.insert("trip.updateAttach", map);
-
     }
 
     @Override

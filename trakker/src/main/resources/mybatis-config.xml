@@ -9,18 +9,16 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.example.trakker.model.review.dto.ReviewDTO" alias="review"/>
-		<typeAlias type="com.example.trakker.item.RatingDTO" alias="rating"/>
+		<typeAlias type="com.example.trakker.model.item.RatingDTO" alias="rating"/>
 		<typeAlias type="com.example.trakker.model.review.dto.R_commentDTO" alias="r_comment"/>
-		<typeAlias type="com.example.trakker.item.HeartDTO" alias="heart"/>
+		<typeAlias type="com.example.trakker.model.item.HeartDTO" alias="heart"/>
 		<typeAlias type="com.example.trakker.model.faq.dto.FaqDTO" alias="faq"/>
-		<typeAlias type="com.example.trakker.item.AttachDTO" alias="attach"/>
 		<typeAlias type="com.example.trakker.model.trip.dto.TripDTO" alias="trip"/>
 		<typeAlias type="com.example.trakker.model.member.dto.MemberDTO" alias="member"/>
-		<typeAlias type="com.example.trakker.item.AttachDTO" alias="attach"/>
-		<typeAlias type="com.example.trakker.item.LocalDTO" alias="local"/>
+		<typeAlias type="com.example.trakker.model.item.LocalDTO" alias="local"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.PlannerDTO" alias="planner"/>
 		<typeAlias type="com.example.trakker.model.planner.dto.ScheduleDTO" alias="schedule"/>
-		<typeAlias type="com.example.trakker.item.AttachDTO" alias="attach"/>
+		<typeAlias type="com.example.trakker.model.item.AttachDTO" alias="attach"/>
 	</typeAliases>
 </configuration>
 

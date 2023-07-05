@@ -4,16 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="imgpath" value="/upload/displayFile?fileName="/>
+
 <html>
 <head>
     <meta charset="UTF-8">
 
     <title>Home</title>
     <%@ include file="../header.jspf" %>
-    <script src="${path}/include/js/common.js"></script>
     <style>
-
         .modal {
             display: none;
             position: fixed;
@@ -23,10 +21,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
         }
-
         .modal-content {
             display: block;
             margin: 15% auto;
@@ -34,15 +29,12 @@
             padding: 20px;
             border-radius: 5px;
         }
-
-
         #container {
             display: flex;
             height: 100%;
             width: 100%;
             flex-direction: column;
         }
-
         #category {
             display: flex;
             flex-direction: column;
@@ -52,23 +44,22 @@
             align-items: center;
             border-right: 1px solid #000000;
             padding-top: 50px;
+            background-color: #20c997;
         }
-
         div a.menubar {
             text-decoration: none;
             display: flex;
             color: #000;
             padding: 25px 25px 25px 25px;
             font-weight: bold;
+            color: rgba(255, 255, 255, 0.55);
         }
-
         .container {
             padding-top: 40px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .limited-lines {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -76,16 +67,27 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
+        div a.menubar {
+            text-decoration: none;
+            display: flex;
+            color: #000;
+            padding: 25px 25px 25px 25px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        #trip{
+            background-color: #333;
+        }
+        .menu > a:hover {
+            background-color: #333;
+            color: #fff;
+        }
     </style>
 
 </head>
 
 <script type="text/javascript">
     $(function () {
-        $("#btnWrite").click(function () {
-            location.href = "${path}/trip/write.do";
-        });
         $("#btnModify").click(function () {
             location.href = "${path}/trip/view.do";
         });
@@ -109,10 +111,10 @@
 <div id="container">
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
-            <a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-            <a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
-            <a class="menubar" href="${path}/review/list?num=1">리뷰리스트 관리</a>
-            <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
+            <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+            <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+            <a class="menubar w-100" id= "review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+            <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
         </div>
 
         <div class="container">
@@ -175,7 +177,8 @@
                         </div>
                         <div class="modal-body" style="display: flex;">
                             <div style="flex: 1;">
-                                <img src="${path}/${imgpath}${trip.attach.fullName}" style="width: 100%; height: auto;">
+                                <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+                                     style="width: 100%; height: 225px;">
                             </div>
                             <div style="flex: 1; padding-left: 10px;">
                                 <p style="float:right;">${trip.content}</p>
@@ -195,7 +198,7 @@
                 </c:choose>
                 </tbody>
             </table>
-            <button class="btn btn-outline-success" type="submit" id="btnWrite" style="margin-left:auto;">글쓰기</button>
+
 
             <c:if test="${not removePaginationIcons}">
                 <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5" style="padding-left: 25%">

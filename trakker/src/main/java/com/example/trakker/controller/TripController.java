@@ -1,6 +1,6 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.utils.PagingInfoVO;
@@ -9,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.util.List;
 
 
 @Controller
@@ -37,24 +34,10 @@ public class TripController {
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword",keyword);
-
-        System.out.println("dto테스트: "+responseResultList.getBody());
-    }
-
-    @GetMapping("/trip/write.do")
-    public String write() {
-        return "/trip/trip_write";
-    }
-
-
-    @PostMapping("/trip/insert.do")
-    public String insert(@ModelAttribute TripDTO dto) throws Exception {
-        tripService.insert(dto);
-        return "redirect:/trip/trip_list_admin?num=1";
     }
 
     @GetMapping("/trip/view.do")
-    public ModelAndView view(long t_num, HttpSession session) throws Exception {
+    public ModelAndView view(long t_num) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("trip/trip_modify");
         mav.addObject("trip",tripService.view(t_num));
@@ -91,17 +74,11 @@ public class TripController {
     }
 
 
-    @RequestMapping("/trip/getAttach/{t_num}")
-    @ResponseBody
-    public List<String> getAttach(@PathVariable long t_num){
-        return tripService.getAttach(t_num);
-    }
-
     @PostMapping("/trip/ratinginsert")
     public String ratingInsert(long t_num,  Double rating , Model model, HttpSession session){
-//        long mem_num =(long)session.getAttribute("mem_num");
+        long mem_num =(long)session.getAttribute("mem_num");
         RatingDTO dto = new RatingDTO();
-//        dto.setMem_num(mem_num);
+        dto.setMem_num(mem_num);
         dto.setT_num(t_num);
         dto.setRating(rating);
         tripService.ratingInsert(dto);

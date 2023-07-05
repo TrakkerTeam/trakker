@@ -2,18 +2,12 @@ package com.example.trakker.service.member;
 
 import javax.servlet.http.HttpSession;
 
-import com.example.trakker.item.HeartDAO;
+import com.example.trakker.model.item.HeartDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trakker.model.member.dao.MemberDAO;
 import com.example.trakker.model.member.dto.MemberDTO;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 
 @Service
