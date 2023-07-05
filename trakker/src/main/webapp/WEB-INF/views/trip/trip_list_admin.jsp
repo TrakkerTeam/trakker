@@ -13,7 +13,6 @@
     <%@ include file="../header.jspf" %>
     <script src="${path}/include/js/common.js"></script>
     <style>
-
         .modal {
             display: none;
             position: fixed;
@@ -24,7 +23,6 @@
             height: 100%;
             overflow: auto;
         }
-
         .modal-content {
             display: block;
             margin: 15% auto;
@@ -32,27 +30,12 @@
             padding: 20px;
             border-radius: 5px;
         }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
         #container {
             display: flex;
             height: 100%;
             width: 100%;
             flex-direction: column;
         }
-
         #category {
             display: flex;
             flex-direction: column;
@@ -62,23 +45,22 @@
             align-items: center;
             border-right: 1px solid #000000;
             padding-top: 50px;
+            background-color: #20c997;
         }
-
         div a.menubar {
             text-decoration: none;
             display: flex;
             color: #000;
             padding: 25px 25px 25px 25px;
             font-weight: bold;
+            color: rgba(255, 255, 255, 0.55);
         }
-
         .container {
             padding-top: 40px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .limited-lines {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -86,7 +68,21 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
+        div a.menubar {
+            text-decoration: none;
+            display: flex;
+            color: #000;
+            padding: 25px 25px 25px 25px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        #trip{
+            background-color: #333;
+        }
+        .menu > a:hover {
+            background-color: #333;
+            color: #fff;
+        }
     </style>
 
 </head>
@@ -119,10 +115,10 @@
 <div id="container">
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
-            <a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-            <a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
-            <a class="menubar" href="${path}/review/list?num=1">리뷰리스트 관리</a>
-            <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
+            <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+            <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+            <a class="menubar w-100" id= "review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+            <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
         </div>
 
         <div class="container">
@@ -143,7 +139,7 @@
                 &nbsp;
             </div>
             <c:choose>
-            <c:when test="${lists eq []}">
+            <c:when test="${lists eq [] and param.searchType ne null}">
                 <div class="center mt-5 mb-5 pb-5 text-center">
                     <h1><i class="bi bi-search"></i></h1>
                     <h3 class="pb-3" style="margin-left: 200px;">검색조건과 일치하는 글이 없습니다.</h3>
