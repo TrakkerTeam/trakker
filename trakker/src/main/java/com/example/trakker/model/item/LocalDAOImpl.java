@@ -1,4 +1,4 @@
-package com.example.trakker.item;
+package com.example.trakker.model.item;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

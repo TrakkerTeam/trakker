@@ -1,7 +1,7 @@
 package com.example.trakker.model.planner.dto;
 
-import com.example.trakker.item.HeartDTO;
-import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.item.HeartDTO;
+import com.example.trakker.model.item.LocalDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 import lombok.Data;
 

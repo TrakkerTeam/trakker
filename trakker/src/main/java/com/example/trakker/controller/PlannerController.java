@@ -1,7 +1,7 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.HeartDTO;
-import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.item.HeartDTO;
+import com.example.trakker.model.item.LocalDTO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
 import com.example.trakker.service.item.HeartService;

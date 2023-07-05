@@ -1,7 +1,7 @@
 package com.example.trakker.model.trip.dao;
 
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 
 
