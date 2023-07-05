@@ -21,7 +21,7 @@
     </select>
     <insert id="ratingInsert_trip">
         insert into rating
-            (t_num,rating) values (#{t_num},#{rating})
+            (t_num,rating,mem_num) values (#{t_num},#{rating}, #{mem_num})
     </insert>
 </mapper>
 
