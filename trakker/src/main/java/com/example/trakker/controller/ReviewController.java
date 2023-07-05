@@ -3,6 +3,7 @@ package com.example.trakker.controller;
 import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
@@ -24,7 +25,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @Autowired
-    private PlannerService plannerService;
+    private LocalService localService;
 
     @GetMapping("/review/list")
     public void list(Model model, @RequestParam("num") Integer num,
@@ -41,7 +42,7 @@ public class ReviewController {
         ResponseResultList responseResultList = reviewService.list(vo);
         model.addAttribute("list", responseResultList.getBody());
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword", keyword);

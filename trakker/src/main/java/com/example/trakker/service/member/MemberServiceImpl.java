@@ -56,7 +56,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public int emailCheck(String mem_email) {
         int cnt =memberDao.emailCheck(mem_email);
-        System.out.println("cnt :" + cnt);
         return cnt;
     }
 

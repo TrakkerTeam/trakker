@@ -3,15 +3,11 @@ package com.example.trakker.controller;
 import com.example.trakker.model.review.dto.R_commentDTO;
 import com.example.trakker.service.review.R_commentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
