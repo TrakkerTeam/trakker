@@ -269,8 +269,6 @@
                                                         name="rating_btn">등록
                                                 </button>
                                                                     </c:if>
-                                                <h3 class="mt-2 ps-2 pe-2 text-muted">/</h3>
-
                                             </div>
                                         </div>
                                     </div>

@@ -21,13 +21,10 @@
             flex-direction: column;
             align-items: flex-start;
         }
-
-
         table {
             width: 700px;
             border-collapse: collapse;
         }
-
         th, td {
             border: 1px solid black;
             padding: 8px;
@@ -38,6 +35,10 @@
             color: #000;
             padding: 25px 25px 25px 25px;
             font-weight: bold;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        #member{
+            background-color: #333;
         }
         .menu > a:hover {
             background-color: #333;
@@ -49,7 +50,6 @@
             width: 100%;
             flex-direction: column;
         }
-
         #category {
             display: flex;
             flex-direction: column;
@@ -59,10 +59,7 @@
             align-items: center;
             border-right: 1px solid #000000;
             padding-top: 50px;
-        }
-        .searchView{
-            width: 100%;
-            flex-direction: row-reverse;
+            background-color: #20c997;
         }
     </style>
 <body>
@@ -71,18 +68,16 @@
 <div id="container">
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
-            <a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-            <a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
-            <a class="menubar" href="${path}/review/list?num=1" >리뷰리스트 관리</a>
-            <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
+            <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+            <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+            <a class="menubar w-100" id= "review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+            <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
         </div>
 
         <div class="container" >
             <h2>유저 목록</h2>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
-            <%-- 검색 기능 추가--%>
             <div class="col-xl-3">
                 <form class="d-flex" role="search">
                     <input type="hidden" name="num" value="${page.pageNum}">
@@ -133,7 +128,7 @@
 
 
 
-                        <td><%-- 클릭 시 상세페이지 호출--%>
+                        <td>
                             <input type="hidden" id="mem_num" name="mem_num" value="${row.mem_num}">
                             <a href="${path}/admin/view.do?mem_num=${row.mem_num}">${row.mem_name}</a>
                         </td>
@@ -155,7 +150,7 @@
 
 
             </table>
-            <%--페이지 네이션 추가--%>
+
             <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5" style="padding-left: 35%">
 
 
