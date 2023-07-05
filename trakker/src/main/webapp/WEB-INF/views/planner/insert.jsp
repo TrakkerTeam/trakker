@@ -338,7 +338,7 @@
 
     //작성완료 버튼
     function submitTest() {
-        const memNum = sessionStorage.getItem('mem_num');
+        const memNum = "${sessionScope.mem_num}"
         const lnum = "${local.lnum}";
         const title = "${title}";
         const memo = "${memo}";
