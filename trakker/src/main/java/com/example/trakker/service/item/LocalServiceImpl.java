@@ -19,8 +19,8 @@ public class LocalServiceImpl implements LocalService{
 
     @Transactional(readOnly=true)
     @Override
-    public String selectLocal(Integer lNum) {
-        return localDAO.getName(lNum);
+    public LocalDTO selectLocal(Integer lNum) {
+        return localDAO.getLocal(lNum);
     }
 
     @Transactional(readOnly=true)

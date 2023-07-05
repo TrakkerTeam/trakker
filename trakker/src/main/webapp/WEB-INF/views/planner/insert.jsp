@@ -81,7 +81,7 @@
 <div class="d-flex flex-column flex-shrink-0" id="menu_wrap" style="padding-left:330px;width:550px;height:90%;position:fixed;z-index:3;">
     <div class="option">
         <form onsubmit="searchPlaces(); return false;" class="m-0">
-            <input type="text" value="${kName} 여행" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
+            <input type="text" value="${local.kName} 여행" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
             <button type="submit" class="rounded-3 border-1">검색</button>
         </form>
     </div>
@@ -339,7 +339,7 @@
     //작성완료 버튼
     function submitTest() {
         const memNum = sessionStorage.getItem('mem_num');
-        const lnum = "${lNum}";
+        const lnum = "${local.lnum}";
         const title = "${title}";
         const memo = "${memo}";
         const days = "${days}";
