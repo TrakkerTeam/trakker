@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 @Controller
@@ -35,24 +34,10 @@ public class TripController {
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword",keyword);
-
-        System.out.println("dto테스트: "+responseResultList.getBody());
-    }
-
-    @GetMapping("/trip/write.do")
-    public String write() {
-        return "/trip/trip_write";
-    }
-
-
-    @PostMapping("/trip/insert.do")
-    public String insert(@ModelAttribute TripDTO dto) throws Exception {
-        tripService.insert(dto);
-        return "redirect:/trip/trip_list_admin?num=1";
     }
 
     @GetMapping("/trip/view.do")
-    public ModelAndView view(long t_num, HttpSession session) throws Exception {
+    public ModelAndView view(long t_num) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("trip/trip_modify");
         mav.addObject("trip",tripService.view(t_num));
@@ -88,12 +73,6 @@ public class TripController {
         model.addAttribute("keyword",keyword);
     }
 
-
-    @RequestMapping("/trip/getAttach/{t_num}")
-    @ResponseBody
-    public List<String> getAttach(@PathVariable long t_num){
-        return tripService.getAttach(t_num);
-    }
 
     @PostMapping("/trip/ratinginsert")
     public String ratingInsert(long t_num,  Double rating , Model model, HttpSession session){
