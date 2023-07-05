@@ -7,8 +7,8 @@
         SELECT COUNT(*)
         FROM LOCAL
     </select>
-    <select id="selectK" resultType="String">
-        SELECT K_NAME
+    <select id="select" resultMap="local">
+        SELECT L_NUM, K_NAME, E_NAME
         FROM LOCAL
         WHERE L_NUM = #{lNum}
     </select>

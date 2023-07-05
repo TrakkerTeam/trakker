@@ -1,10 +1,9 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 
 import com.example.trakker.service.item.LocalService;
-import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;

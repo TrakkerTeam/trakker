@@ -1,7 +1,7 @@
 package com.example.trakker.model.review.dto;
 
-import com.example.trakker.item.LocalDTO;
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.LocalDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 import lombok.Data;
 

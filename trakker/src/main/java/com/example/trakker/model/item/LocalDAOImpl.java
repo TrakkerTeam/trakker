@@ -1,4 +1,4 @@
-package com.example.trakker.item;
+package com.example.trakker.model.item;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ public class LocalDAOImpl implements LocalDAO {
     @Override
     public int getCount() { return sqlSession.selectOne("local.count");}
     @Override
-    public String getName(Integer lNum) {
-        return sqlSession.selectOne("local.selectK", lNum);
+    public LocalDTO getLocal(Integer lNum) {
+        return sqlSession.selectOne("local.select", lNum);
     }
 
     @Override

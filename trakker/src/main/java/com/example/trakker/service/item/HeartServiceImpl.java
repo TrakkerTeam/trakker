@@ -1,7 +1,7 @@
 package com.example.trakker.service.item;
 
-import com.example.trakker.item.HeartDAO;
-import com.example.trakker.item.HeartDTO;
+import com.example.trakker.model.item.HeartDAO;
+import com.example.trakker.model.item.HeartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

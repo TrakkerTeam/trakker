@@ -1,9 +1,9 @@
-package com.example.trakker.item;
+package com.example.trakker.model.item;
 
 import java.util.List;
 
 public interface LocalDAO {
     int getCount();
-    String getName(Integer lNum);
+    LocalDTO getLocal(Integer lNum);
     List<LocalDTO> getList();
 }

@@ -1,6 +1,6 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.utils.PagingInfoVO;

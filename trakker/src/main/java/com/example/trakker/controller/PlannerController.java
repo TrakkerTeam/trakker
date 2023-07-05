@@ -1,6 +1,7 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.HeartDTO;
+import com.example.trakker.model.item.HeartDTO;
+import com.example.trakker.model.item.LocalDTO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
 import com.example.trakker.service.item.HeartService;
@@ -35,11 +36,10 @@ public class PlannerController {
 	@PostMapping("/new")
 	public String write(Model model,
 						@RequestParam Map<String, Object> map) {
-		String kName = localService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
+		LocalDTO local = localService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
 
 		model.addAttribute("days", map.get("planner-days"));
-		model.addAttribute("lNum", map.get("planner-local"));
-		model.addAttribute("kName", kName);
+		model.addAttribute("local", local);
 		model.addAttribute("title", map.get("planner-title"));
 		model.addAttribute("memo", map.get("planner-memo"));
 
