@@ -23,6 +23,7 @@ Team Member
 |**이학동(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/hakbook) [![Gmail Badge](https://img.shields.io/badge/-1324lhd@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:1324lhd@gmail.com)](mailto:1324lhd@gmail.com)|
 |**김윤규(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/yungyudd) [![Gmail Badge](https://img.shields.io/badge/-rladbsrb15@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:rladbsrb15@gmail.com)](mailto:rladbsrb15@gmail.com)|
 ***
+</br>
 
 ### ⚙️ _Blueprint_ 
 
@@ -42,7 +43,7 @@ Team Member
 
 
 ##  :pushpin: _ER Diagran_
-<a href="https://github.com/TrakkerTeam/trakker/assets/117561565/f017774f-7dac-458d-8b5a-191ee3b4635f">![TEAM_ERD (1)](https://github.com/TrakkerTeam/trakker/assets/117561565/f017774f-7dac-458d-8b5a-191ee3b4635f)
+<a href="https://github.com/TrakkerTeam/trakker/assets/117561565/f017774f-7dac-458d-8b5a-191ee3b4635f">![TEAM_ERD (1)](https://github.com/TrakkerTeam/trakker/assets/117561565/d1dcce90-35fd-46c6-bead-4bc3254fec46)
 </a>
 
 ## :pushpin:  _Usecase Diagram_
