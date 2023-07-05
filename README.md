@@ -9,9 +9,18 @@
 
 </br>
 
-## :pushpin: 프로젝트 기간 & 팀원
-• 2023년 5월 9일 - 2023년 7월 7일 </br>
-• 윤기환(팀장), 조은혜(팀원), 유재준(팀원), 이학동(팀원), 김윤규(팀원)
+## :pushpin: 프로젝트 기간 & 팀 소개
+• 2023년 5월 9일 - 2023년 7월 7일
+
+</br>
+
+|*Members*|*Contact*|
+|:---:|---|
+|**윤기환(팀장)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/KiHwanY) [![Gmail Badge](https://img.shields.io/badge/-drg2524@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:drg2524@gmail.com)](mailto:drg2524@gmail.com)|
+|**조은혜(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/Coco-9) [![Gmail Badge](https://img.shields.io/badge/-fltm86@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:fltm86@gmail.com)](mailto:fltm86@gmail.com)|
+|**유재준(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/dbwowns) [![Gmail Badge](https://img.shields.io/badge/-liuzaijun12@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:liuzaijun12@gmail.com)](mailto:liuzaijun12@gmail.com)|
+|**이학동(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/hakbook) [![Gmail Badge](https://img.shields.io/badge/-1324lhd@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:1324lhd@gmail.com)](mailto:1324lhd@gmail.com)|
+|**김윤규(팀원)**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/yungyudd) [![Gmail Badge](https://img.shields.io/badge/-rladbsrb15@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:rladbsrb15@gmail.com)](mailto:rladbsrb15@gmail.com)|
 
 </br>
 
