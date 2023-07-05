@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.util.List;
 
 
@@ -99,9 +97,9 @@ public class TripController {
 
     @PostMapping("/trip/ratinginsert")
     public String ratingInsert(long t_num,  Double rating , Model model, HttpSession session){
-//        long mem_num =(long)session.getAttribute("mem_num");
+        long mem_num =(long)session.getAttribute("mem_num");
         RatingDTO dto = new RatingDTO();
-//        dto.setMem_num(mem_num);
+        dto.setMem_num(mem_num);
         dto.setT_num(t_num);
         dto.setRating(rating);
         tripService.ratingInsert(dto);
