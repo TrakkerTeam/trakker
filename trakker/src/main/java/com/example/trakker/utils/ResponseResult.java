@@ -7,19 +7,11 @@ import java.util.HashMap;
 @JsonRootName(value="responseResult")
 public class ResponseResult {
 
-    public static final String RESULT_SUCCESS = "success";
-    public static final String RESULT_FAIL = "fail";
-    public static final String RESULT_FAIL_VALIDATION = "failValidation";
-    public static final String RESULT_FAIL_DUPLICATE = "failDuplicate";
-    public static final String RESULT_FAIL_CONSTRAINT_VIOLATION = "failConstraintViolation";
-
-    private String status = ResponseResult.RESULT_SUCCESS;
     private String msg;
     private HashMap<String, Object> meta;
-
-    //상세페이지 이전,다음 값
     private Long prev;
     private Long next;
+
     public Long getPrev() {
         return prev;
     }
@@ -47,7 +39,6 @@ public class ResponseResult {
                 returnMap.put(key, meta.get(key));
             }
         }
-
         return returnMap;
     }
 
@@ -58,25 +49,7 @@ public class ResponseResult {
                 returnMap.put(key, meta.get(key));
             }
         }
-
         this.meta = returnMap;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-
-        if (this.status.equals(RESULT_FAIL_DUPLICATE)){
-            this.msg = "Duplicated data.";
-        }else if(this.status.equals(RESULT_FAIL_CONSTRAINT_VIOLATION)){
-            this.msg = "constraint violation data";
-        }
-
-
-
     }
 
     public String getMsg() {

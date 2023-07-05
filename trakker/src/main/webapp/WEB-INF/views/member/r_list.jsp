@@ -169,7 +169,7 @@
             </div>
         </div>
     <c:choose>
-        <c:when test="${list eq []}">
+        <c:when test="${list eq [] and param.searchType ne null}">
             <div class="center mt-5 mb-5 pb-5">
                 <h1><i class="bi bi-search"></i></h1>
                 <h3 class="pb-3">검색조건과 일치하는 리뷰글이 없습니다.</h3>

@@ -47,5 +47,6 @@ version : 1.0 202306071500
 202306272114 - OAuth 소셜 로그인 member login page 코드 리팩토링
 202306280145 - 총 이용자수 HttpSessionListener 코드 리팩토링
 202306281620 - 총 이용자수 HttpSessionListener 코드 삭제 / MEMBER TABLE COUNT DB 연동 코드 리팩토링
+202307042130 - 담당 코드 주석 제거 및 git 병합
 
 

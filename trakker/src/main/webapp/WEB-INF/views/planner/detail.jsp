@@ -59,7 +59,7 @@
         <div>
             <p class="mb-0 h6"><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">${planner.member.mem_nickname}</p>
             <div>
-                <small class="opacity-50 mb-0 text-nowrap">${planner.regdate} !! 날짜 형식 변환 오류 !!</small>
+                <small class="opacity-50 mb-0 text-nowrap">${planner.regdate}</small>
                 <small class="opacity-50 mb-0 ms-2 text-nowrap">${planner.hit}</small>
             </div>
         </div>

@@ -15,7 +15,6 @@ public class PagingInfoVO extends BaseVO {
   }
 
 
-
   public PagingInfoVO(int pageNum, long pageTotalCount, int pageRowCount) {
     this.pageNum = pageNum;
     this.pageTotalCount = pageTotalCount;
@@ -27,7 +26,6 @@ public class PagingInfoVO extends BaseVO {
       }else{
         this.lastPageNum = Math.toIntExact(pageTotalCount / pageRowCount);
       }
-
       this.pageRowCount = pageRowCount;
     }
 
@@ -47,7 +45,6 @@ public class PagingInfoVO extends BaseVO {
 
   public void setPageTotalCount(long pageTotalCount) {
     this.pageTotalCount = pageTotalCount;
-//    dataCalc();
   }
 
   public int getPageRowCount() {
@@ -65,23 +62,6 @@ public class PagingInfoVO extends BaseVO {
   public void setLastPageNum(int lastPageNum) {
     this.lastPageNum = lastPageNum;
   }
-
-//  private void dataCalc() {
-//
-//    // 마지막 번호
-//    lastPageNum = (int)(Math.ceil((double)pageNum / (double)pageRowCount) * pageRowCount);
-//
-//    // 시작 번호
-//    startPageNum = lastPageNum - (pageRowCount - 1);
-//
-//    // 마지막 번호 재계산
-//    int lastPageNum_tmp = (int)(Math.ceil((double)pageTotalCount / (double)pageRowCount));
-//
-//    if(lastPageNum > lastPageNum_tmp) {
-//      lastPageNum = lastPageNum_tmp;
-//    }
-//
-//    prev = startPageNum == 1 ? false : true;
-//    next = lastPageNum * pageRowCount >= pageTotalCount ? false : true;
-//  }
+  
 }
+

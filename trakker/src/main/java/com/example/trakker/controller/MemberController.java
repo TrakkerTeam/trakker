@@ -3,34 +3,30 @@ package com.example.trakker.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.example.trakker.model.review.dto.ReviewDTO;
-import com.example.trakker.service.heart.HeartService;
+import com.example.trakker.service.item.HeartService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.member.MailSendService;
 import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 import com.example.trakker.service.member.MemberService;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Member;
+
 import java.util.*;
 
 @Controller
@@ -48,12 +44,12 @@ public class MemberController {
     PlannerService plannerService;
     @Autowired
     HeartService heartService;
+    @Autowired
+    LocalService localService;
 
     @Value("${upload.path}")
     private String memuploadPath;
 
-
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
     private MultipartFile uploadFile;
 
 
@@ -68,8 +64,6 @@ public class MemberController {
     @GetMapping("/member/mailCheck.do")
     @ResponseBody
     public String mailCheck(@RequestParam("mem_email") String mem_email) {
-        System.out.println("이메일 인증 요청이 들어옴!");
-        System.out.println("이메일 인증 이메일 : " + mem_email);
         return mailService.joinEmail(mem_email);
     }
 
@@ -92,13 +86,11 @@ public class MemberController {
 
     @RequestMapping("member/mypagePlanner")
     public String mypagecontent2(HttpServletRequest request) {
-        logger.info("내가만든 플래너 :"+request.getServletPath());
         return "member/mypagePlanner";
     }
 
     @RequestMapping("/member/mypageHeart")
     public String mypagecontent(HttpServletRequest request) {
-        logger.info("좋아요한 플래너 :"+request.getServletPath());
         return "member/mypageHeart";
     }
 
@@ -148,10 +140,9 @@ public class MemberController {
     @RequestMapping("/member/login_check.do")
     public ModelAndView login_check(MemberDTO dto, HttpSession session) {
         MemberDTO result = memberService.logincheck(dto, session);
-        System.out.println("테스트용 : " + result);
+
         ModelAndView mav = new ModelAndView();
 
-        System.out.println("dto.getMem_pass: " + dto.getMem_pass());
         if (result != null) {
             if (result.getMem_pass() != null) {
                 boolean pwdMatch = passwordEncoder.matches(dto.getMem_pass(), result.getMem_pass());
@@ -269,7 +260,9 @@ public class MemberController {
             dto.setPicture_url(existingImageUrl);
         } else {
 
-            String uploadFolder = "/Users/youjaejun/upload/";
+
+            String uploadFolder = "c:/upload";
+
             UUID uuid = UUID.randomUUID();
             String[] uuids = uuid.toString().split("-");
             String uniqueName = uuids[0];
@@ -334,7 +327,7 @@ public class MemberController {
         ResponseResultList responseResultList = reviewService.r_list(vo,mem_num);
         model.addAttribute("list", responseResultList.getBody());
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword",keyword);
@@ -353,7 +346,6 @@ public class MemberController {
 
         Long memNum = (Long) session.getAttribute("mem_num");
         dto.setMem_num(memNum);
-        System.out.println("asdasd : " + memNum);
 
         PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(page);
@@ -363,21 +355,19 @@ public class MemberController {
         vo.setSdata(keyword);
 
         String urlCheck = request.getServletPath();
-        logger.info("urlCheck : " + urlCheck);
 
         ResponseResultList responseResultList = plannerService.list(vo, memNum, urlCheck);
         model.addAttribute("list", responseResultList.getBody());
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
         model.addAttribute("select", page);
 
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("area", area);
         model.addAttribute("sort", sort);
 
         model.addAttribute("type", searchType);
         model.addAttribute("keyword",keyword);
 
-        logger.info("목록 페이지 이동");
 
         return "member/mypagePlanner";
     }
@@ -394,7 +384,6 @@ public class MemberController {
 
         Long memNum = (Long) session.getAttribute("mem_num");
         dto.setMem_num(memNum);
-        System.out.println("asdasd : " + memNum);
 
         PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(page);
@@ -404,21 +393,18 @@ public class MemberController {
         vo.setSdata(keyword);
 
         String urlCheck = request.getServletPath();
-        logger.info("urlCheck : " + urlCheck);
 
         ResponseResultList responseResultList = plannerService.list(vo, memNum, urlCheck);
         model.addAttribute("list", responseResultList.getBody());
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
         model.addAttribute("select", page);
 
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("area", area);
         model.addAttribute("sort", sort);
 
         model.addAttribute("type", searchType);
         model.addAttribute("keyword",keyword);
-
-        logger.info("목록 페이지 이동");
 
         return "member/mypageHeart";
     }
