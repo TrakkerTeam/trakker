@@ -8,28 +8,23 @@ import java.util.UUID;
 import com.example.trakker.model.faq.dto.FaqDTO;
 import com.example.trakker.model.member.dto.MemberDTO;
 
+import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
 import com.example.trakker.service.trip.TripService;
-import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -74,12 +69,14 @@ public class AdminController {
 		List<FaqDTO> faqList = faqService.list();
 		List<MemberDTO> memberList = adminService.memberList();
 		List<TripDTO> tripList = tripService.list();
+		List<ReviewDTO> reviewList = reviewService.main_list();
 		int memberCount = adminService.memberCount();
 
 		mav.setViewName("admin/admin_main");
 		mav.addObject("memberList", memberList);
 		mav.addObject("faqList", faqList);
 		mav.addObject("tripList",tripList);
+		mav.addObject("reviewList",reviewList);
 		mav.addObject("memberCount", memberCount);
 		return mav;
 	}
