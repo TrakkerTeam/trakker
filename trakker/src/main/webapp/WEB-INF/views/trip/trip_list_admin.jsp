@@ -4,14 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="imgpath" value="/upload/displayFile?fileName="/>
+
 <html>
 <head>
     <meta charset="UTF-8">
 
     <title>Home</title>
     <%@ include file="../header.jspf" %>
-    <script src="${path}/include/js/common.js"></script>
     <style>
         .modal {
             display: none;
@@ -89,9 +88,6 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#btnWrite").click(function () {
-            location.href = "${path}/trip/write.do";
-        });
         $("#btnModify").click(function () {
             location.href = "${path}/trip/view.do";
         });
@@ -181,7 +177,8 @@
                         </div>
                         <div class="modal-body" style="display: flex;">
                             <div style="flex: 1;">
-                                <img src="${path}/${imgpath}${trip.attach.fullName}" style="width: 100%; height: auto;">
+                                <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+                                     style="width: 100%; height: 225px;">
                             </div>
                             <div style="flex: 1; padding-left: 10px;">
                                 <p style="float:right;">${trip.content}</p>
@@ -201,7 +198,7 @@
                 </c:choose>
                 </tbody>
             </table>
-            <button class="btn btn-outline-success" type="submit" id="btnWrite" style="margin-left:auto;">글쓰기</button>
+
 
             <c:if test="${not removePaginationIcons}">
                 <div class="d-flex justify-content-center align-items-center pt-4 my-5 h5" style="padding-left: 25%">
