@@ -2,11 +2,10 @@ package com.example.trakker;
 
 import java.util.List;
 
-import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.item.LocalDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.item.LocalService;
-import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;

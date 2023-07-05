@@ -17,7 +17,7 @@ import java.util.UUID;
 @RestController
 public class FileController {
 
-    @Value("${upload.path}") // properties 파일에서 설정된 경로를 가져옵니다
+    @Value("${upload.path}")
     private String uploadPath;
 
     @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf-8")
@@ -25,14 +25,14 @@ public class FileController {
     public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         JsonObject jsonObject = new JsonObject();
 
-        String originalFileName = multipartFile.getOriginalFilename(); // 오리지널 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-        String savedFileName = UUID.randomUUID().toString() + extension; // 저장될 파일명
-        String savedFilePath = uploadPath + File.separator + savedFileName; // 저장될 파일 경로
+        String originalFileName = multipartFile.getOriginalFilename();
+        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String savedFileName = UUID.randomUUID().toString() + extension;
+        String savedFilePath = uploadPath + File.separator + savedFileName;
 
         try {
             Files.copy(multipartFile.getInputStream(), Paths.get(savedFilePath), StandardCopyOption.REPLACE_EXISTING);
-            String imageUrl = request.getContextPath() + "/summernoteImage/" + savedFileName; // 이미지 URL 생성
+            String imageUrl = request.getContextPath() + "/summernoteImage/" + savedFileName;
             jsonObject.addProperty("url", imageUrl);
             jsonObject.addProperty("responseCode", "success");
         } catch (IOException e) {
