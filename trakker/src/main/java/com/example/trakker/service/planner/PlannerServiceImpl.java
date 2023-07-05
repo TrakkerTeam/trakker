@@ -28,18 +28,8 @@ public class PlannerServiceImpl implements PlannerService {
     private ScheduleDAO scheduleDAO;
     @Autowired
     private HeartDAO heartDAO;
-    @Autowired
-    private LocalDAO localDAO;
 
-    @Transactional(readOnly = true)
-    @Override
-    public int localCount() {return localDAO.getCount();}
 
-    @Transactional(readOnly=true)
-    @Override
-    public String selectLocal(Integer lNum) {
-        return localDAO.getName(lNum);
-    }
     @Transactional
     @Override
     public void insert(PlannerDTO planner, List<String> sDay, List<String> sNum, List<String> sPoint, List<String> sMemo, List<String> y, List<String> x) {
@@ -106,11 +96,7 @@ public class PlannerServiceImpl implements PlannerService {
         return schedules;
     }
 
-    @Transactional(readOnly=true)
-    @Override
-    public List<LocalDTO> localList() {
-        return localDAO.getList();
-    }
+
     @Transactional(readOnly=true)
     @Override
     public ResponseResultList list(PagingInfoVO vo, Long memNum, String urlCheck) {

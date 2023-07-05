@@ -3,7 +3,8 @@ package com.example.trakker.controller;
 import com.example.trakker.item.HeartDTO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
-import com.example.trakker.service.heart.HeartService;
+import com.example.trakker.service.item.HeartService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.planner.PlannerService;
 
 import com.example.trakker.utils.PagingInfoVO;
@@ -27,12 +28,14 @@ public class PlannerController {
 	private PlannerService plannerService;
 	@Autowired
 	private HeartService heartService;
+	@Autowired
+	private LocalService localService;
 
 
 	@PostMapping("/new")
 	public String write(Model model,
 						@RequestParam Map<String, Object> map) {
-		String kName = plannerService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
+		String kName = localService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
 
 		model.addAttribute("days", map.get("planner-days"));
 		model.addAttribute("lNum", map.get("planner-local"));
@@ -81,7 +84,7 @@ public class PlannerController {
 		model.addAttribute("list", responseResultList.getBody());
 		model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
 		model.addAttribute("select", page);
-		model.addAttribute("local", plannerService.localList());
+		model.addAttribute("local", localService.localList());
 		model.addAttribute("area", area);
 		model.addAttribute("sort", sort);
 		model.addAttribute("type", searchType);
