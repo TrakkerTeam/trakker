@@ -7,7 +7,7 @@ import java.util.List;
 public interface LocalService {
     int localCount();
 
-    String selectLocal(Integer lNum);
+    LocalDTO selectLocal(Integer lNum);
 
     List<LocalDTO> localList();
 }
