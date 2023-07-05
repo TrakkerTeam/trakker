@@ -3,14 +3,13 @@ package com.example.trakker.controller;
 import com.example.trakker.item.HeartDTO;
 import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.planner.dto.ScheduleDTO;
-import com.example.trakker.service.heart.HeartService;
+import com.example.trakker.service.item.HeartService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.planner.PlannerService;
 
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +24,18 @@ import java.util.Map;
 @Controller
 @RequestMapping("planner")
 public class PlannerController {
-	private static final Logger logger = LoggerFactory.getLogger(PlannerController.class);
-
 	@Autowired
 	private PlannerService plannerService;
 	@Autowired
 	private HeartService heartService;
+	@Autowired
+	private LocalService localService;
 
 
 	@PostMapping("/new")
 	public String write(Model model,
 						@RequestParam Map<String, Object> map) {
-		String kName = plannerService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
+		String kName = localService.selectLocal(Integer.parseInt((String)map.get("planner-local")));
 
 		model.addAttribute("days", map.get("planner-days"));
 		model.addAttribute("lNum", map.get("planner-local"));
@@ -85,7 +84,7 @@ public class PlannerController {
 		model.addAttribute("list", responseResultList.getBody());
 		model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
 		model.addAttribute("select", page);
-		model.addAttribute("local", plannerService.localList());
+		model.addAttribute("local", localService.localList());
 		model.addAttribute("area", area);
 		model.addAttribute("sort", sort);
 		model.addAttribute("type", searchType);
@@ -103,7 +102,6 @@ public class PlannerController {
 						 @PathVariable("planNum") Long planNum) {
 		Long memNum = (Long)session.getAttribute("mem_num");
 		if(memNum==null){
-			logger.info("로그인 값이 없습니다. 비회원 값을 부여합니다.");
 			memNum = 0L;
 		}
 		plannerService.updateHit(planNum, request, response);
