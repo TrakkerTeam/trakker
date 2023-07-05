@@ -3,10 +3,7 @@ package com.example.trakker.model.review.dao;
 
 import com.example.trakker.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
-import com.example.trakker.utils.PagingInfoVO;
-import com.example.trakker.utils.ResponseResultList;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
