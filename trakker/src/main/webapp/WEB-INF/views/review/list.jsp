@@ -226,13 +226,13 @@
             </c:if>
         </span>
         </div>
-        <c:if test="${sessionScope.mem_nickname != null}">
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <div class="btn-group" role="group" aria-label="First group">
                     <button type="button" class="btn btn-success" id="Write">글쓰기</button>
                 </div>
             </div>
-        </c:if>
+
         <%@ include file="../footer.jspf" %>
     </div>
 </div>
