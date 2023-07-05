@@ -135,14 +135,14 @@
 									<tbody>
 									<c:forEach var="dto" items="${memberList}" varStatus="status">
 										<c:choose>
-										<c:when test="${status.index < 4}">
-									<tr>
-										<td>${dto.mem_email}</td>
-										<td><a href="${path}/admin/view.do?mem_num=${dto.mem_num}">${dto.mem_name}</a></td>
-										<td>${dto.mem_address1}</td>
-										<td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd"/></td>
-									</tr>
-										</c:when>
+											<c:when test="${status.index < 4}">
+												<tr>
+													<td>${dto.mem_email}</td>
+													<td><a href="${path}/admin/view.do?mem_num=${dto.mem_num}">${dto.mem_name}</a></td>
+													<td>${dto.mem_address1}</td>
+													<td><fmt:formatDate value="${dto.mem_join_date}" pattern="yyyy-MM-dd"/></td>
+												</tr>
+											</c:when>
 										</c:choose>
 									</c:forEach>
 									</tbody>
@@ -160,10 +160,10 @@
 								<table class="table table-hover">
 									<thead>
 									<tr>
-										<th style="width: 10%;">번호</th>
-										<th style="width: 55%;">제목</th>
+										<th style="width: 15%;">작성자</th>
+										<th style="width: 50%;">제목</th>
 										<th style="width: 20%;">작성일자</th>
-										<th style="width: 15%;">조회수</th>
+										<th style="width: 15%;" class="center">조회수</th>
 									</tr>
 									</thead>
 
@@ -172,10 +172,10 @@
 										<c:choose>
 											<c:when test="${status.index < 4}">
 												<tr>
-													<td>${dto.review_num}</td>
+													<td>${dto.member.mem_nickname}</td>
 													<td><a href="${path}//review/detail?review_num=${dto.review_num}">${dto.title}</a></td>
 													<td><fmt:formatDate value="${dto.review_date}" pattern="yyyy-MM-dd"/></td>
-													<td>${dto.readcount}</td>
+													<td class="center">${dto.readcount}</td>
 												</tr>
 											</c:when>
 										</c:choose>
@@ -203,7 +203,7 @@
 										<th style="width: 10%">번호</th>
 										<th style="width: 55%">제목</th>
 										<th style="width: 20%">작성일자</th>
-										<th style="width: 15%">조회수</th>
+										<th style="width: 15%" class="center">조회수</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -216,7 +216,7 @@
 											</td>
 											<td><fmt:formatDate value="${faq.faq_reg_date}"
 																pattern="yyyy-MM-dd"/></td>
-											<td>${faq.readcount}</td>
+											<td class="center">${faq.readcount}</td>
 										</tr>
 									</c:forEach>
 									</tbody>

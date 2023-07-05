@@ -51,36 +51,12 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/review/list"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-	</interceptors>
 
-	<interceptors>
-		<interceptor>
 			<mapping path="/member/mypage.do"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-	</interceptors>
-
-
-	<interceptors>
-		<interceptor>
 			<mapping path="/member/editprofile.do"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-	</interceptors>
-
-	<interceptors>
-		<interceptor>
 			<mapping path="/member/editpass.do"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-	</interceptors>
-
-	<interceptors>
-		<interceptor>
 			<mapping path="/member/memdelete.do"/>
+			<mapping path="/review/write"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

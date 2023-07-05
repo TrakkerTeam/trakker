@@ -12,15 +12,13 @@ import java.util.List;
 
 public interface PlannerService {
 
-    int localCount();
 
-    String selectLocal(Integer lNum);
     void insert(PlannerDTO planner, List<String> sDay, List<String> sNum, List<String> sPoint, List<String> sMemo, List<String> y, List<String> x);
     List<Double> changeDoubleList(List<String> list);
     List<Integer> changeIntegerList(List<String> list);
     List<ScheduleDTO> changeList(List<Integer> sDay, List<Integer> sNum, List<String> sPoint, List<String> sMemo, List<Double> y, List<Double> x, Long planNum);
 
-    List<LocalDTO> localList();
+
     ResponseResultList list(PagingInfoVO vo, Long memNum, String urlCheck);
 
     void updateHit(Long planNum, HttpServletRequest request, HttpServletResponse response);
