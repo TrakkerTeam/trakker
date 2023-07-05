@@ -13,8 +13,6 @@ import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.model.review.dto.ReviewDTO;
-import com.example.trakker.service.admin.AdminService;
-import com.example.trakker.service.faq.FaqService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
@@ -39,7 +37,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
 	private AdminService adminService;
@@ -50,7 +47,7 @@ public class AdminController {
 	@Autowired
 	private TripService tripService;
 
-  @Autowired
+	@Autowired
 	private ReviewService reviewService;
 
 
@@ -67,7 +64,6 @@ public class AdminController {
 		List<MemberDTO> list = adminService.memberList();
 		model.addAttribute("list", list);
 		long result = System.currentTimeMillis();
-		logger.info("유저 목록 페이지 : " + result + " ms" );
 
 		return "admin/admin_listPage?num=1";
 	}
@@ -75,34 +71,17 @@ public class AdminController {
 	public ModelAndView adminPage(ModelAndView mav) throws Exception{
 
 
-			List<FaqDTO> faqList = faqService.list();
-			List<MemberDTO> memberList = adminService.memberList();
-			List<TripDTO> tripList = tripService.list();
-			int memberCount = adminService.memberCount();
-
-			mav.setViewName("admin/admin_main");
-			mav.addObject("memberList", memberList);
-			mav.addObject("faqList", faqList);
-			mav.addObject("tripList",tripList);
-			mav.addObject("memberCount", memberCount);
-			return mav;
-
-		List<FaqDTO> items = faqService.list();
+		List<FaqDTO> faqList = faqService.list();
 		List<MemberDTO> memberList = adminService.memberList();
-		List<ReviewDTO> reviewList =  reviewService.main_list();
-
-
-		//레코드 개수
+		List<TripDTO> tripList = tripService.list();
 		int memberCount = adminService.memberCount();
 
 		mav.setViewName("admin/admin_main");
 		mav.addObject("memberList", memberList);
-		mav.addObject("reivewList" , reviewList);
-		mav.addObject("list", items);
-		// View 단에 전송
+		mav.addObject("faqList", faqList);
+		mav.addObject("tripList",tripList);
 		mav.addObject("memberCount", memberCount);
 		return mav;
-
 	}
 	@RequestMapping("/view.do")
 	public String view(Model model, @RequestParam int mem_num) {
