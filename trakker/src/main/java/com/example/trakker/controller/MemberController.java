@@ -3,14 +3,13 @@ package com.example.trakker.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.example.trakker.service.heart.HeartService;
+import com.example.trakker.service.item.HeartService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.member.MailSendService;
 import com.example.trakker.service.planner.PlannerService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +44,8 @@ public class MemberController {
     PlannerService plannerService;
     @Autowired
     HeartService heartService;
+    @Autowired
+    LocalService localService;
 
     @Value("${upload.path}")
     private String memuploadPath;
@@ -324,7 +325,7 @@ public class MemberController {
         ResponseResultList responseResultList = reviewService.r_list(vo,mem_num);
         model.addAttribute("list", responseResultList.getBody());
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("select", num);
         model.addAttribute("search", searchType);
         model.addAttribute("keyword",keyword);
@@ -358,7 +359,7 @@ public class MemberController {
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
         model.addAttribute("select", page);
 
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("area", area);
         model.addAttribute("sort", sort);
 
@@ -396,7 +397,7 @@ public class MemberController {
         model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
         model.addAttribute("select", page);
 
-        model.addAttribute("local", plannerService.localList());
+        model.addAttribute("local", localService.localList());
         model.addAttribute("area", area);
         model.addAttribute("sort", sort);
 
