@@ -1,6 +1,6 @@
 package com.example.trakker.controller;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.utils.PagingInfoVO;
@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.util.List;
 
 

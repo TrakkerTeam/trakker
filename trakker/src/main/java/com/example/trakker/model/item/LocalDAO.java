@@ -1,4 +1,4 @@
-package com.example.trakker.item;
+package com.example.trakker.model.item;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.trakker.service.item;
 
-import com.example.trakker.item.LocalDTO;
+import com.example.trakker.model.item.LocalDTO;
 
 import java.util.List;
 
