@@ -3,7 +3,7 @@
 <%@ include file="../itemfile.jspf" %>
 <html>
 <head>
-    <title>플래너 작성 영역테스트</title>
+    <title>플래너 만들기</title>
     <style>
         .col-10 {
             display: -webkit-box;
@@ -22,40 +22,25 @@
         #pagination a {display:inline-block;margin-right:10px;color:#5c636a;}
         #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-white p-0" style="z-index:1;">
-        <div class="container-fluid p-3">
-            <a class="navbar-brand" href="${path}"><img src="${path}/resources/images/logo.png" style="width: 60px;" height="30px;"></a>
-            <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        ${title} <c:if test="${empty memo ? false : true}"> - <i>"${memo}"</i></c:if>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="btn-group">
-                        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
-                            <i class="bi bi-person-circle"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-lg-end">
-                            <li><span class="dropdown-item">${sessionScope.name}닉네임</span></li>
-                            <li><a class="dropdown-item" href="#">회원가입</a></li>
-                            <li><a class="dropdown-item" href="#">로그인</a></li>
-                            <li><a class="dropdown-item" href="#">관리자페이지</a></li>
-                            <li><a class="dropdown-item" href="#">마이페이지</a></li>
-                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
-                        </ul>
-                    </li>
-                    <li class="btn-group px-3">
-                        <button type="button" class="btn btn-success" onclick="submitTest()">플래너 작성</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 </head>
 <body>
-<%--날짜 사이드바--%>
+<nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top navbar-white p-0" style="z-index:1;">
+    <a class="navbar-brand mx-2" href="${path}"><img src="${path}/resources/images/logo.png" style="width:120px;"></a>
+    <div class="container-fluid p-3">
+        <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item" style="font-size:22px;font-family:'Montserrat'">
+                    ${title} <c:if test="${empty memo ? false : true}"> - <small style="font-style:italic;"> ${memo}</small></c:if>
+                </li>
+            </ul>
+            <ul class="navbar-nav mt-0">
+                <li class="btn-group px-3">
+                    <button type="button" class="btn btn-success" onclick="submit()">플래너 만들기</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="d-flex flex-column flex-shrink-0 bg-light h-100" style="width:60px; position: fixed;z-index:5;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
         <c:forEach var="day" begin="1" end="${days}">
@@ -63,7 +48,6 @@
         </c:forEach>
     </ul>
 </div>
-<%--세부일정 사이드바--%>
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white overflow-auto" style="padding-left:60px;width:330px;height:90%;position:fixed;z-index:4;">
     <c:forEach var="day" begin="1" end="${days}">
         <div class="list-group list-group-flush border-bottom day-plans" data-date="${day}">
@@ -76,9 +60,7 @@
         </div>
     </c:forEach>
 </div>
-
-<%--검색 영역--%>
-<div class="d-flex flex-column flex-shrink-0" id="menu_wrap" style="padding-left:330px;width:550px;height:90%;position:fixed;z-index:3;">
+<div class="d-flex flex-column flex-shrink-0" id="menu_wrap" style="padding-left:330px;width:550px;height:85%;position:fixed;z-index:3;">
     <div class="option">
         <form onsubmit="searchPlaces(); return false;" class="m-0">
             <input type="text" value="${local.kname} 여행" id="keyword" class="ms-3 my-3 rounded-3 border-1" style="width:130px;">
@@ -88,51 +70,34 @@
     <ul class="list-unstyled p-2" id="placesList" style="height:80%!important;"></ul>
     <div id="pagination"></div>
 </div>
-
-<%--맵 영역--%>
 <div class="d-flex flex-column" id="map" style="margin-left:550px;width:65%!important;height:90%!important;position:fixed;"></div>
 
-
-<div class="alert fade alert-info" role="alert" tabindex="-1" aria-hidden="false">
-    일자 별 세부 일정을 1개 이상 등록해야 합니다!
-</div>
-
-<%--div 영역에 맵 띄우는 js코드--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff578b49f92891ac0c09c13cd0555703&libraries=services"></script>
 <script>
     "use strict";
-    // 마커를 담을 배열입니다
-    var markers = [];
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    let markers = [],
+        clickMarker = [];
+    const mapContainer = document.getElementById('map'),
         mapOption = {
-            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
-    // 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    // 장소 검색 객체를 생성합니다
-    var ps = new kakao.maps.services.Places();
-    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-    // 키워드로 장소를 검색합니다
+            center: new kakao.maps.LatLng(37.566826, 126.9786567),
+            level: 3
+        },
+        map = new kakao.maps.Map(mapContainer, mapOption),
+        ps = new kakao.maps.services.Places(),
+        infowindow = new kakao.maps.InfoWindow({zIndex: 1});
+
     searchPlaces();
-    // 키워드 검색을 요청하는 함수입니다
     function searchPlaces() {
-        var keyword = document.getElementById('keyword').value;
-        if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        const keyword = document.getElementById('keyword').value;
+        if (!keyword.replace(/^\s+|\s+$/g,'')) {
             alert('키워드를 입력해주세요!');
             return false;
         }
-        // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch( keyword, placesSearchCB,  { size: 5 });
     }
-    // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
-            // 정상적으로 검색이 완료됐으면
-            // 검색 목록과 마커를 표출합니다
             displayPlaces(data);
-            // 페이지 번호를 표출합니다
             displayPagination(pagination);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
             alert('검색 결과가 존재하지 않습니다.');
@@ -142,26 +107,19 @@
             return;
         }
     }
-    // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
-        var listEl = document.getElementById('placesList'),
+        const listEl = document.getElementById('placesList'),
             menuEl = document.getElementById('menu_wrap'),
             fragment = document.createDocumentFragment(),
-            bounds = new kakao.maps.LatLngBounds(),
-            listStr = '';
-        // 검색 결과 목록에 추가된 항목들을 제거합니다
-        removeAllChildNods(listEl);
-        // 지도에 표시되고 있는 마커를 제거합니다
-        removeMarker();
-        for ( var i=0; i<places.length; i++ ) {
-            // 마커를 생성하고 지도에 표시합니다
-            var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+            bounds = new kakao.maps.LatLngBounds();
+        removeAllChildNodes(listEl);
+        removeMarkers();
+        for (let i=0; i<places.length; i++ ) {
+            const placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
                 marker = addMarker(placePosition, i),
-                itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해 LatLngBounds 객체에 좌표를 추가합니다
+                itemEl = getListItem(i, places[i]);
             bounds.extend(placePosition);
 
-            // 마커와 검색결과 항목에 mouseover 했을때 해당 장소에 인포윈도우에 장소명을 표시합니다. mouseout 했을 때는 인포윈도우를 닫습니다
             (function(marker, title) {
                 kakao.maps.event.addListener(marker, 'mouseover', function() {
                     displayInfowindow(marker, title);
@@ -178,66 +136,58 @@
             })(marker, places[i].place_name);
             fragment.appendChild(itemEl);
         }
-        // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
         listEl.appendChild(fragment);
         menuEl.scrollTop = 0;
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
     }
-    // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
-        var el = document.createElement('li'),
-            itemStr = '<div class="d-flex w-100">' + '<div class="markerbg marker_' + (index+1) + '">'+(index+1)+'</div>' +
-                '<small class="m-0 mx-2 place-title w-75"><strong>' + places.place_name + '</strong></small>';
-        itemStr += '<button class="rounded-3 bg-white border-1" onclick="scheduleInsert(\'' + places.place_name + '\',\'' + places.y + '\',\'' + places.x +  '\')">+</button></div>';
+        let el = document.createElement('li'),
+        itemStr = '<div class="d-flex w-100"><div class="markerbg marker_'+(index + 1)+'">'+(index + 1)+'</div>' +
+                '<small class="m-0 mx-2 place-title w-75"><strong>' + places.place_name + '</strong></small>' +
+                '<button class="rounded-3 bg-white border-1" onclick="scheduleInsert(\''+places.place_name+'\',\''+ places.y+'\',\''+places.x+'\')">+</button></div>';
         if (places.road_address_name) {
-            itemStr += '<small class="road text-muted ms-2">' + places.road_address_name + '</small>' +
-                '<small class="jibun gray text-muted ms-2">' +  places.address_name  + '</small>';
+            itemStr += '<small class="road text-muted ms-2">'+places.road_address_name+'</small>' +
+                '<small class="jibun gray text-muted ms-2">'+places.address_name+'</small>';
         } else {
-            itemStr += '<small class="text-muted ms-2">' +  places.address_name  + '</small>';
+            itemStr += '<small class="text-muted ms-2">'+places.address_name+'</small>';
         }
-        if(places.phone) itemStr += '<small class="tel text-muted ms-2">' + 'tel: ' + places.phone + '</small>';
-
+        if(places.phone) itemStr += '<small class="tel text-muted ms-2">'+'tel: '+places.phone+'</small>';
         el.innerHTML = itemStr;
         el.className = 'item mb-3';
         return el;
     }
-    // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-    function addMarker(position, idx, title) {
-        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-            imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-            imgOptions =  {
-                spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-                spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-                offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+    function addMarker(position, idx) {
+        const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+            imageSize = new kakao.maps.Size(36, 37),
+            imgOptions = {
+                spriteSize: new kakao.maps.Size(36, 691),
+                spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10),
+                offset: new kakao.maps.Point(13, 37)
             },
             markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
             marker = new kakao.maps.Marker({
-                position: position, // 마커의 위치
+                position: position,
                 image: markerImage
             });
-        marker.setMap(map); // 지도 위에 마커를 표출합니다
-        markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+        marker.setMap(map);
+        markers.push(marker);
         return marker;
     }
-    // 지도 위에 표시되고 있는 마커를 모두 제거합니다
-    function removeMarker() {
-        for ( var i = 0; i < markers.length; i++ ) {
+    function removeMarkers() {
+        for (let i = 0; i < markers.length; i++ ) {
             markers[i].setMap(null);
         }
         markers = [];
     }
-    // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
     function displayPagination(pagination) {
-        var paginationEl = document.getElementById('pagination'),
+        let paginationEl = document.getElementById('pagination'),
             fragment = document.createDocumentFragment(),
             i;
-        // 기존에 추가된 페이지번호를 삭제합니다
         while (paginationEl.hasChildNodes()) {
             paginationEl.removeChild (paginationEl.lastChild);
         }
         for (i=1; i<=pagination.last; i++) {
-            var el = document.createElement('a');
+            const el = document.createElement('a');
             el.href = "javascript:void(0)";
             el.innerHTML = i;
             if (i===pagination.current) {
@@ -253,27 +203,23 @@
         }
         paginationEl.appendChild(fragment);
     }
-    // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-    // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title) {
-        var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
+        const content = '<div style="width:100%;padding:5px;z-index:1;">' + title + '   .' + '</div>';
         infowindow.setContent(content);
         infowindow.open(map, marker);
     }
-    // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-    function removeAllChildNods(el) {
+    function removeAllChildNodes(el) {
         while (el.hasChildNodes()) {
             el.removeChild (el.lastChild);
         }
     }
 
-    //세부일정 날짜 변경
-    var planslide = document.querySelectorAll('.day-plans');
+    const planslide = document.querySelectorAll('.day-plans');
     function plansChange(day) {
         day -=1;
-        var background = document.querySelectorAll('.day-list');
-        var color = document.querySelectorAll('.day-text ');
-        for(var i=0;i<planslide.length;i++){
+        const background = document.querySelectorAll('.day-list');
+        const color = document.querySelectorAll('.day-text ');
+        for(let i=0; i<planslide.length; i++){
             planslide[i].style.display = "none";
             background[i].style.background = "#dff0d8";
             color[i].style.color = '#198754';
@@ -282,15 +228,12 @@
         background[day].style.background = "#198754";
         color[day].style.color = '#ffffff';
     }
-    //페이지 첫 로드 시 DAY 1의 세부일정 띄우는 함수
     plansChange(1);
-    //--세부일정 날짜 변경
 
-    //세부일정 장소 추가
     function scheduleInsert(place_name, place_y, place_x){
-        var parent =  $('.day-plans[style*="display: block"]');
-        var day = parent.attr('data-date');
-        var num = parent.children().length; // 하위 엘리먼트이므로 "세부 일정" 영역도 포함
+        const parent = $('.day-plans[style*="display: block"]');
+        const day = parent.attr('data-date');
+        const num = parent.children().length;
         if(num<11){
             parent.append(getHtml(place_name,place_y,place_x,num,day));
         }else{
@@ -298,12 +241,12 @@
         }
     }
     function getHtml(place_name,place_y,place_x,num,day){
-        var div = "<div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='" + day + "' data-y=\"" + place_y + "\" data-x=\"" + place_x + "\" data-snum=\""+num+"\"" +
-            "onclick=\"planClick("+ place_y + "," + place_x + ",\'" + place_name + "\')\">" +
+        const div = "<div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='" + day + "' data-y=\"" + place_y + "\" data-x=\"" + place_x + "\" data-snum=\"" + num + "\"" +
+            "onclick=\"planClick(" + place_y + "," + place_x + ",\'" + place_name + "\')\">" +
             "<div class='d-flex w-100 align-items-center justify-content-between'>" +
-            "<i class='me-2 text-muted'>"+num+"</i>" +
+            "<i class='me-2 text-muted'>" + num + "</i>" +
             "<div class='text-decoration-none text-black w-75'>" +
-            "<strong class='mb-1 place-title plans-title' data-splace=\"" + place_name + "\" >"+place_name+"</strong>" +
+            "<strong class='mb-1 place-title plans-title' data-splace=\"" + place_name + "\" >" + place_name + "</strong>" +
             "</div>" +
             "<small><button class='btn-outline-success rounded-3 border-1' onclick=\"planDelete(\'" + num + "\')\">삭제</button></small>" +
             "</div>" +
@@ -311,33 +254,41 @@
             "</div>";
         return div;
     }
+
     function planClick(y,x, title) {
         map.setCenter(new kakao.maps.LatLng(y, x));
-        var marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(y, x)
-        });
-        marker.setMap(map)
-        var content = '<div style="width:100%;padding:5px;z-index:1;">' + title +'   .'+ '</div>';
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
+        const marker = addOne(new kakao.maps.LatLng(y,x));
+        displayInfowindow(marker, title);
     }
+    function addOne(position) {
+        removeOne(null)
+        const marker = new kakao.maps.Marker({
+            position : position
+        })
+        marker.setMap(map);
+        clickMarker.push(marker);
+        return marker;
+    }
+    function removeOne(map) {
+        for (let i = 0; i < clickMarker.length; i++) {
+            clickMarker[i].setMap(map);
+        }
+    }
+
     function planDelete(num){
-        var parent =  $('.day-plans[style*="display: block"]');
-        var kid = parent.children().eq(num); // 일정 부분에 세부일정 영역도 자식에 포함되기에 index +1
-        var next_kids = kid.nextAll();
-        kid.remove(); //선택한 문서를 제거합니다.
-        next_kids.each(function (index, element){
-            $(this).find('i').text(num); //세부 일정 넘버링 변경
-            //세부 일정 삭제 js코드 num 변경
+        const parent = $('.day-plans[style*="display: block"]');
+        const kid = parent.children().eq(num);
+        const next_kids = kid.nextAll();
+        kid.remove();
+        next_kids.each(function (){
+            $(this).find('i').text(num);
             var btn = "planDelete(" + num + ")";
             $(this).find('button').attr("onclick", btn);
             ++ num;
         });
     }
-    //--세부일정 장소 추가
 
-    //작성완료 버튼
-    function submitTest() {
+    function submit() {
         const memNum = "${sessionScope.mem_num}"
         const lnum = "${local.lnum}";
         const title = "${title}";
@@ -399,7 +350,6 @@
             });
         }
     }
-    //--작성완료 버튼
 </script>
 </body>
 </html>
