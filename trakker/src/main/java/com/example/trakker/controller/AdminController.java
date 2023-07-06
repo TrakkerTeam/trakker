@@ -12,6 +12,7 @@ import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.model.trip.dto.TripDTO;
 import com.example.trakker.service.admin.AdminService;
 import com.example.trakker.service.faq.FaqService;
+import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.trip.TripService;
 import com.example.trakker.service.review.ReviewService;
 import com.example.trakker.utils.PagingInfoVO;
@@ -44,6 +45,9 @@ public class AdminController {
 
 	@Autowired
 	private ReviewService reviewService;
+
+	@Autowired
+	LocalService localService;
 
 
 	@Autowired
@@ -157,6 +161,30 @@ public class AdminController {
 		model.addAttribute("search", searchType);
 		model.addAttribute("keyword",keyword);
 	}
+
+	@RequestMapping(value = "/Review_listPage", method = RequestMethod.GET)
+	public void list(Model model, @RequestParam("num") Integer num,
+					 @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+					 @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+					 @RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
+					 @RequestParam(value = "sort", required = false, defaultValue = "add") String sort) {
+		PagingInfoVO vo = new PagingInfoVO();
+		vo.setPageNum(num);
+		vo.setArea(area);
+		vo.setSort(sort);
+		vo.setStype(searchType);
+		vo.setSdata(keyword);
+		ResponseResultList responseResultList = adminService.ReviewlistPage(vo);
+		model.addAttribute("list", responseResultList.getBody());
+		model.addAttribute("page", responseResultList.getMeta().get("pagingInfo"));
+		model.addAttribute("local", localService.localList());
+		model.addAttribute("select", num);
+		model.addAttribute("search", searchType);
+		model.addAttribute("keyword", keyword);
+	}
+
+
+
 
 
 }
