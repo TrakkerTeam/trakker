@@ -81,7 +81,6 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/55e9908b-2708-47e8-93e8-
 
 https://github.com/TrakkerTeam/trakker/assets/117561565/105f56fc-eac5-4982-a998-9c955531671d
 
-
 </br>
 
 #### 회원가입 이메일 인증코드 영상
@@ -119,4 +118,30 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/5328d9f5-cb62-478a-90bd-
 https://github.com/TrakkerTeam/trakker/assets/117561565/08c4957f-2f0c-4792-8183-a77bc3f23c22
 
 </br>
+
+#### 플래너 게시판 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/0065c330-6272-49d5-b292-4ee6120fee19
+
+</br>
+
+#### 플래너 일정 생성 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/4c8a7c91-c415-4700-9dbc-184d9f8310d5
+
+</br>
+
+#### 플래너 상세 일정 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/d66e39e3-6c05-4ae3-beb0-5c16eb9251c6
+
+</br>
+
+#### 플래너 일정 수정 / 삭제 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/841b8aa6-7bb8-4063-bc06-b328756c027d
+
+</br>
+
+
 
