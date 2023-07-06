@@ -266,7 +266,8 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="${path}/${imgpath}${trip.attach.fullName}" style="width: 100%; height: 225px;">
+														<img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+															 style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">
 														<p style="float:right;">${trip.content}</p>

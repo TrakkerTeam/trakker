@@ -31,66 +31,6 @@ import javax.annotation.Resource;
 public class AjaxUploadController {
 
 
-    @Autowired
-    TripService tripService;
-
-
-    @Resource(name = "uploadTripPath")
-    String uploadPath;
-
-    @ResponseBody
-    @RequestMapping(value = "/upload/uploadAjax", method = RequestMethod.POST,
-            produces = "text/plain;charset=utf-8")
-    public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
-        return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath,
-                file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
-    }
-
-    @ResponseBody
-    @RequestMapping("/upload/displayFile")
-    public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
-        InputStream in = null;
-        ResponseEntity<byte[]> entity = null;
-        try {
-            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-            MediaType mType = MediaUtils.getMediaType(formatName);
-            HttpHeaders headers = new HttpHeaders();
-            in = new FileInputStream(uploadPath + fileName);
-            fileName = fileName.substring(fileName.indexOf("_")+1);
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.add("Content-Disposition", "attachment; fileName=\""
-                    + new String(fileName.getBytes("utf-8"), "iso-8859-1")+"\"");
-            entity = new ResponseEntity<byte[]>(
-                    IOUtils.toByteArray(in), headers, HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-        } finally {
-            if(in != null)
-                in.close();
-        }
-        return entity;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/upload/deleteFile")
-    public ResponseEntity<String> deleteFile(String fileName){
-
-        String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-        MediaType mType = MediaUtils.getMediaType(formatName);
-        if(mType != null) {
-            String front=fileName.substring(0, 12);
-            String end=fileName.substring(14);
-            new File(uploadPath+(front+end).replace(
-                    '/', File.pathSeparatorChar)).delete();
-        }
-
-        new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
-        tripService.deleteFile(fileName);
-        return new ResponseEntity<String>("deleted", HttpStatus.OK);
-
-    }
 }
 
 

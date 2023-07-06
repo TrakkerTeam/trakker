@@ -36,41 +36,7 @@
                     location.href = "${path}/trip/view.do?t_num=" + next;
                 }
             });
-            $(".fileDrop").on("dragenter dragover", function (e) {
-                e.preventDefault();
-            });
-            $(".fileDrop").on("drop", function (e) {
-                e.preventDefault();
-                var files = e.originalEvent.dataTransfer.files;
-                var file = files[0];
-                var formData = new FormData();
-                formData.append("file", file);
-                $.ajax({
-                    url: "${path}/upload/uploadAjax",
-                    data: formData,
-                    dataType: "text",
-                    processData: false,
-                    contentType: false,
-                    type: "post",
-                    success: function (data) {
-                        var fileInfo = getFileInfo(data);
-                        var html = "<a href='" + fileInfo.getLink + "'>" +
-                            fileInfo.fileName + "</a><br>";
-                        html += "<input type='hidden' class='file' value='"
-                            + fileInfo.fullName + "'>";
-                        $("#uploadedList").append(html);
-                    }
-                });
-            });
             $("#btnModify").click(function () {
-                var str = "";
-                $("#uploadedList .file").each(function (i) {
-
-                    str +=
-                        "<input type='hidden' name='files[" + i + "]' value='"
-                        + $(this).val() + "'>";
-                });
-                $("#form3").append(str);
                 document.form3.action = "${path}/trip/update.do";
                 document.form3.submit();
             });
@@ -80,44 +46,8 @@
                     document.form3.submit();
                 }
             });
-            listAttach();
-
-
-            $("#uploadedList").on("click", ".file_del", function (e) {
-                var that = $(this);
-                $.ajax({
-                    type: "post",
-                    url: "${path}/upload/deleteFile",
-                    data: "fileName=" + $(this).attr("data-src"),
-                    dataType: "text",
-                    success: function (result) {
-                        if (result == "deleted") {
-                            that.parent("div").remove();
-                        }
-                    }
-                });
-            });
         });
 
-        function listAttach() {
-            $.ajax({
-                type: "get",
-                dataType: "json",
-                url: "${path}/trip/getAttach/${trip.t_num}",
-                success: function (list) {
-                    $(list).each(function () {
-                        var fileInfo = getFileInfo(this);
-                        var html = "<div><a href='" + fileInfo.getLink + "'>"
-                            + fileInfo.fileName + "</a>&nbsp;&nbsp;";
-                        html += "<a href='#' class='file_del' data-src='"
-                            + this + "'>[삭제]</a></div>";
-                        $("#uploadedList").append(html);
-                        var imgTag = "<img src='" + fileInfo.imgsrc + "' alt='" + fileInfo.fileName + "'>";
-                        $("#uploadedImages").append(imgTag);
-                    });
-                }
-            });
-        }
     </script>
     <style>
         body {
@@ -140,12 +70,6 @@
             bottom: 0;
         }
 
-        .fileDrop {
-            width: 600px;
-            height: 100px;
-            border: 1px dotted gray;
-            background-color: gray;
-        }
     </style>
 </head>
 <body>
@@ -194,15 +118,6 @@
             });
         </script>
 
-        <div>
-            <div class="fileDrop"></div>
-            <div id="uploadedList"></div>
-            <div id="uploadedImages"></div>
-        </div>
-        <div style="width:700px; text-align:center;">
-            <input type="hidden" name="t_num" value="${trip.t_num}">
-
-        </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <div class="btn-group m-3" role="group" aria-label="First group">
                 <button type="button" id="btnDelete" class="btn btn-danger btn-lg">삭제</button>

@@ -10,7 +10,6 @@
                t_subject,
                content,
                t_regdate,
-               fullName,
                nvl(ratingAvg, 0) as ratingAvg
         from (
                  SELECT ROW_NUMBER() OVER (ORDER BY ratingAvg DESC NULLS LAST) AS rn,
@@ -18,26 +17,18 @@
                         t_subject,
                         content,
                         t_regdate,
-                        ratingAvg,
-                        fullName
+                        ratingAvg
                  FROM (
                           select t.t_num,
                                  t.t_subject,
                                  t.content,
                                  t.t_regdate,
-                                 a.fullName,
                                  (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
                           FROM trip t
-                                   JOIN attach a ON t.t_num = a.t_num
                       )
              )
         where rn &lt;= 6
     </select>
-
-    <insert id="insert">
-        insert into trip(t_num, t_subject, content)
-        values (trip_seq.nextval, #{t_subject}, #{content})
-    </insert>
 
     <select id="view" resultType="trip">
         select t_num, t_subject, content, t_regdate, next,prev
@@ -62,13 +53,12 @@
     </delete>
 
     <select id="listPage" parameterType="hashMap" resultMap="tripResultMap">
-        SELECT rn, t_num, t_subject, content, t_regdate, fullName, nvl(ratingAvg,0) as ratingAvg
+        SELECT rn, t_num, t_subject, content, t_regdate, nvl(ratingAvg,0) as ratingAvg
         FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY t.t_num DESC) AS rn,
         t.t_num, t.t_subject, t.content, t.t_regdate,
-        a.fullName, (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
+         (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
         FROM trip t
-        JOIN attach a ON t.t_num = a.t_num
         <if test='keyword != "" and searchType != ""'>
             <choose>
                 <when test='searchType.equals("t_subject")'>
@@ -116,26 +106,6 @@
         </trim>
     </select>
 
-    <insert id="addAttach">
-        insert into attach (fullName, t_num) values
-            (#{fullName}, trip_seq.currval)
-    </insert>
-
-    <insert id="updateAttach">
-        insert into attach (fullName, t_num) values
-            (#{fullName}, #{t_num})
-    </insert>
-
-    <select id="getAttach" resultType="String">
-        select fullName
-        from attach
-        where t_num=#{t_num}
-    </select>
-
-    <delete id="deleteFile">
-        delete from attach
-        where fullName=#{fullName}
-    </delete>
 
     <resultMap id="tripResultMap" type="trip">
         <id property="t_num" column="t_num"/>
@@ -146,11 +116,6 @@
             <result property="rating" column="rating"/>
             <result property="ratingAvg" column="ratingAvg"/>
         </collection>
-        <collection property="attach" ofType="attach">
-            <result property="attach" column="attach"/>
-            <result property="fullName" column="fullName"/>
-        </collection>
     </resultMap>
-
 
 </mapper>
