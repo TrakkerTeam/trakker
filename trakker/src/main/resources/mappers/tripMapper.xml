@@ -53,36 +53,32 @@
     </delete>
 
     <select id="listPage" parameterType="hashMap" resultMap="tripResultMap">
-        SELECT rn, t_num, t_subject, content, t_regdate, nvl(ratingAvg,0) as ratingAvg
+        SELECT rn, t_num, t_subject, content, t_regdate, nvl(ratingAvg, 0) AS ratingAvg
         FROM (
-        SELECT ROW_NUMBER() OVER (ORDER BY t.t_num DESC) AS rn,
-        t.t_num, t.t_subject, t.content, t.t_regdate,
-         (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
+        SELECT rn, t_num, t_subject, content, t_regdate, ratingAvg
+        FROM (
+        SELECT
+        ROW_NUMBER() OVER (
+        ORDER BY
+        <choose>
+            <when test='sort.equals("add")'>t.t_num DESC</when>
+            <when test='sort.equals("ratingAvg")'>(SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) DESC NULLS LAST, t.t_num DESC</when>
+            <otherwise>t.t_num DESC</otherwise>
+        </choose>
+        ) AS rn,
+        t.t_num, t.t_subject, t.content, t.t_regdate,  (SELECT AVG(rt.rating) FROM rating rt WHERE rt.t_num = t.t_num) AS ratingAvg
         FROM trip t
+
         <if test='keyword != "" and searchType != ""'>
             <choose>
-                <when test='searchType.equals("t_subject")'>
-                    WHERE t_subject LIKE '%' || #{keyword} || '%'
-                </when>
-                <when test='searchType.equals("content")'>
-                    WHERE content LIKE '%' || #{keyword} || '%'
-                </when>
-                <when test='searchType.equals("all")'>
-                    WHERE t_subject LIKE '%' || #{keyword} || '%'
-                    or content LIKE '%' || #{keyword} || '%'
-                </when>
+                <when test='searchType.equals("t_subject")'>t_subject LIKE '%' || #{keyword} || '%'</when>
+                <when test='searchType.equals("content")'>content LIKE '%' || #{keyword} || '%'</when>
+                <when test='searchType.equals("all")'>t_subject LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%'</when>
             </choose>
         </if>
-        <choose>
-            <when test='sort.equals("add")'>
-                ORDER BY t_num DESC
-            </when>
-            <when test='sort.equals("ratingAvg")'>
-                ORDER BY ratingAvg DESC NULLS LAST , t_num DESC
-            </when>
-        </choose>
         )
-        WHERE rn between ${(pageNum -1) * pageRowCount} +1 and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
+        )
+        WHERE rn BETWEEN ${(pageNum - 1) * pageRowCount + 1} AND ${(pageNum - 1) * pageRowCount + pageRowCount}
     </select>
 
     <select id="listPageCount" parameterType="hashMap" resultType="Integer">
@@ -106,6 +102,11 @@
         </trim>
     </select>
 
+    <select id="select" resultType="trip">
+        select t_num, t_subject, content, t_regdate
+        from trip
+        where t_num = #{t_num}
+    </select>
 
     <resultMap id="tripResultMap" type="trip">
         <id property="t_num" column="t_num"/>
