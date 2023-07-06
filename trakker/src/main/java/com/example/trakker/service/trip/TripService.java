@@ -17,4 +17,5 @@ public interface TripService {
     ResponseResultList listPage(PagingInfoVO vo);
     Double ratingAvg(long t_num);
     void ratingInsert(RatingDTO dto);
+    TripDTO selectTrip(Long t_num);
 }

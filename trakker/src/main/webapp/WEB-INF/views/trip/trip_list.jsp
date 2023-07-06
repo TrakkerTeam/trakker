@@ -264,7 +264,7 @@
                                                            title="0.5점"></label>
                                                 </fieldset>
 
-                                                <c:if test="${mem_num != null}">
+                                                <c:if test="${sessionScope.mem_num != null}">
                                                 <button class="btn rating btn-outline-success" type="button"
                                                         name="rating_btn">등록
                                                 </button>

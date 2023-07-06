@@ -62,4 +62,9 @@ public class TripServiceImpl implements TripService {
     public void ratingInsert(RatingDTO dto) {
         tripDao.ratingInsert(dto);
     }
+
+    @Override
+    public TripDTO selectTrip(Long t_num) {
+        return tripDao.getTrip(t_num);
+    }
 }
