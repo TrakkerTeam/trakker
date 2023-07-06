@@ -42,7 +42,9 @@
         max-width: calc(100% - 300px) !important;
         background: #fff !important;
     }
-
+    #modal-img_trip {
+        height: 400px;
+    }
 </style>
 <body>
 <%@include file="header.jspf"%>
@@ -187,6 +189,67 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         </div>
     </div>
 
+    <div class="uk-margin-large info-section">
+        <div class="main-section-text-container">
+            <div class="main-section-title"><h1>관광명소</h1></div>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-outline-success" onclick="redirectToTripPage()">더보기</button>
+        </div>
+        <div class="uk-position-relative uk-visible-toggle uk-light uk-slider uk-slider-container" tabindex="-1" uk-slider="">
+            <ul class="uk-slider-items uk-grid" id="topCityListForWebPage" style="transform: translate3d(0px, 0px, 0px);">
+                <c:forEach var="trip" items="${trip}">
+                    <a onclick="tripModal(${trip.t_num})" style="color:inherit!important;text-decoration:none!important;" data-bs-toggle="modal" data-bs-target="#trip_a">
+                        <div class="uk-panel" style="width: 100%;">
+                            <c:set var="img" value="${trip.t_subject}"/>
+                            <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                 style="width: 100%; height: 225px;">
+                            <div class="main-photo-linear"></div>
+                            <div class="uk-position-bottom uk-text-center" style="margin-bottom:8px;">
+                                <h3>${trip.t_subject}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </c:forEach>
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-icon uk-slidenav-previous uk-slidenav" href="#" uk-slidenav-previous="" uk-slider-item="previous">
+                <svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg">
+                    <polyline fill="none" stroke="#000" stroke-width="1.4" points="12.775,1 1.225,12 12.775,23 ">
+                    </polyline>
+                </svg>
+            </a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-icon uk-slidenav-next uk-slidenav" href="#" uk-slidenav-next="" uk-slider-item="next">
+                <svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg">
+                    <polyline fill="none" stroke="#000" stroke-width="1.4" points="1.225,23 12.775,12 1.225,1 ">
+                    </polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+<c:set var="t" value="${modal.t_num}" />
+<div class="uk-flex-top modal fade" id="trip_a" tabindex="-1" aria-hidden="true" style="top:8rem;">
+    <div class="modal-dialog uk-width-auto uk-margin-auto-vertical">
+        <div class="trip_modal-content border-0">
+            <div class="uk-grid-match uk-grid-small uk-grid">
+                <button class="uk-modal-close-full uk-close-large uk-icon uk-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <line fill="none" stroke="#000" stroke-width="1.4" x1="1" y1="1" x2="19" y2="19"></line>
+                        <line fill="none" stroke="#000" stroke-width="1.4" x1="19" y1="1" x2="1" y2="19"></line>
+                    </svg>
+                </button>
+                <div class="uk-width-1-3@l uk-first-column modal-side">
+                    <div class="uk-background-cover" id="modal-img_trip"></div>
+                </div>
+                <div class="modal-body uk-width-2-3@l">
+                    <div class="uk-padding-large" id="trip_modal-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <section id="removeani" class="content section">
         <article>
             <div id="city" class="headercont">
@@ -286,6 +349,28 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
                 $(".modal-body > #modal-content").html(content);
             }
         })
+    }
+
+    function tripModal(num) {
+        $.ajax({
+            url: "${path}/modal_trip",
+            data: {t_num : num},
+            type: "post",
+            dataType: 'json',
+            success: function (data) {
+                let img = '';
+                img += 'url(\'${path}/resources/images/trip/'+data.t_subject+'.jpg'+'\')';
+                $(".modal-side > #modal-img_trip").css("background-image",img);
+
+                let con = '';
+                con += '<h2 style="font-family:\'Montserrat\';font-weight: 900;margin-bottom:0;">'+data.t_subject+'</h2>' +
+                    '<div style="font-family:\'Montserrat\';font-size: 1.2rem;padding-bottom:1rem;">'+data.content+'</div>';
+                $(".modal-body > #trip_modal-content").html(con);
+            }
+        })
+    }
+    function redirectToTripPage() {
+        location.href = "${path}/trip/trip_list?num=1";
     }
 </script>
 </html>
