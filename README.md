@@ -84,14 +84,17 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/105f56fc-eac5-4982-a998-
 
 #### 회원가입 이메일 인증코드 영상
 https://github.com/TrakkerTeam/trakker/assets/117561565/32899839-8719-4ef0-a1bd-f943bd8fa6d3
+
 </br>
 
 #### 리뷰 게시글 작성 영상
 https://github.com/TrakkerTeam/trakker/assets/117561565/9235cd70-807d-4c5c-97b4-85dcc793d0a9
+
 </br>
 
 #### 리뷰 게시글 검색 영상
 https://github.com/TrakkerTeam/trakker/assets/117561565/f2e704e3-105e-447e-b310-8f33785543ef
+
 </br>
 
 #### 게시글 댓글 / 대댓글 /별점 영상
