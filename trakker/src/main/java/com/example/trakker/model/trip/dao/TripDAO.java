@@ -17,4 +17,5 @@ public interface TripDAO {
     List<TripDTO> listPage(Map data);
     Double ratingAvg(long t_num);
     void ratingInsert(RatingDTO dto);
+    TripDTO getTrip(Long t_num);
 }

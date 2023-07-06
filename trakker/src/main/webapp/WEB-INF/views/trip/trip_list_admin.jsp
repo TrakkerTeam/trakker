@@ -21,6 +21,8 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             display: block;
@@ -81,6 +83,9 @@
         .menu > a:hover {
             background-color: #333;
             color: #fff;
+        }
+        .bi-star-fill {
+            color: #ffca2c;
         }
     </style>
 
@@ -185,10 +190,17 @@
                             </div>
                         </div>
                         <div class="modal-footer d-flex">
-                            <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
-                                <small class="text-muted" style="margin-right: 15px;">작성일:<fmt:formatDate
+                            <div style="flex: 1;" class="d-flex justify-content-between align-items-center">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="bi bi-star-fill me-1" style="margin-right: 5px;"></i>
+                                    <div id="result" style="text-align: left;">
+                                        <h3 class="mt-2" style="margin: 0;">
+                                            <fmt:formatNumber value="${trip.rating.ratingAvg}" pattern="0.0"/>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <small class="text-muted" style="margin-left: auto;">작성일:<fmt:formatDate
                                         value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
-
                             </div>
                         </div>
                     </div>
