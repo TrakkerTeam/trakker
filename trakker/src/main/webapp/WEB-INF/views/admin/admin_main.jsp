@@ -268,8 +268,9 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="${path}/images/trip/${trip.t_subject}.jpg" onerror="this.src='${path}/images/trip/${trip.t_subject}.png'" class="card-img-top"
-															 style="width: 100%; height: 225px;">
+														<c:set var="img" value="${trip.t_subject}"/>
+                                                                                        <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                                                                             style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">
 														<p style="float:right;">${trip.content}</p>
