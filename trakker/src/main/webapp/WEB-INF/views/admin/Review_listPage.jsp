@@ -64,7 +64,7 @@
     <script type="text/javascript">
         $(function () {
             $("#btnWrite").click(function () {
-                location.href = "${path}/faq/write.do";
+                location.href = "${path}/review/write";
             });
         });
 
@@ -119,7 +119,7 @@
                 <c:forEach var="dto" items="${list}">
                     <tr>
                         <td>${dto.review_num}</td>
-                        <td><a href="${path}/review/view.do?faq_num=${faq.faq_num}">${dto.title}</a></td>
+                        <td><a href="${path}/admin/review_view.do?review_num=${dto.review_num}">${dto.title}</a></td>
                         <td>${dto.content}</td>
                         <td>${dto.member.mem_nickname}</td>
                     </tr>
