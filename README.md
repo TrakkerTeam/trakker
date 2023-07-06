@@ -27,7 +27,7 @@ Team Member
 
 ### ⚙️ _Blueprint_ 
 
-프로젝트 사전 발표
+프로젝트 사전 발표 </br>
 https://drg2524.tistory.com/132
 
 ***
