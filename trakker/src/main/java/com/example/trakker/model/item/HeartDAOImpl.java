@@ -10,7 +10,7 @@ public class HeartDAOImpl implements HeartDAO {
     @Autowired
     SqlSession sqlSession;
 
-    //좋아요 클릭
+
     @Override
     public void insert(HeartDTO dto) {
         sqlSession.insert("heart.insert", dto);
@@ -20,12 +20,11 @@ public class HeartDAOImpl implements HeartDAO {
         sqlSession.delete("heart.delete", dto);
     }
 
-    //플래너 삭제
+
     public void deletePlanner(Long planNum) {
         sqlSession.delete("heart.deletePlanner", planNum);
     }
 
-    //회원 탈퇴
     public void deleteMember(Long memNum){
         sqlSession.delete("heart.deleteMember", memNum);
     }

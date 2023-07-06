@@ -202,7 +202,7 @@
  <%@include file="../footer.jspf" %>
 <script>
  $("#logback").click(function (){
-  location.href="${path}/admin/memberList";
+  history.back();
 
  });
 

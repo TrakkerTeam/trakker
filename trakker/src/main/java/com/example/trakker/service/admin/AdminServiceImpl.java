@@ -29,18 +29,18 @@ public class AdminServiceImpl implements AdminService{
         return memberDao.adminViewMember(mem_num);
     }
 
-    // 수정 기능 추가
+
 
     public void updateMember(MemberDTO dto) {
         memberDao.adminupdateMember(dto);
     }
-    // 관리자 메인 페이지 ajax 박스 데이터 개수 정하는 메서드
+
 
     public int memberCount() throws Exception {
         return memberDao.memberCount();
     }
 
-    //유저 목록 페이징
+
     public ResponseResultList listPage(PagingInfoVO vo){
 
         return memberDao.listPage(vo);

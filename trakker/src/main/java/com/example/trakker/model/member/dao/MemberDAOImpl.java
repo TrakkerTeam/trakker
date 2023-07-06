@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//memberMapper 와의 상호작용을 담당합니다
+
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 
@@ -60,26 +60,23 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("new_pass", new_pass);
 		sqlSession.update("member.pwUpdate", map);
 	}
-	/* 관리자 회원관리 로직 */
 
-
-	// admin 회원 조회
 	@Override
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList("admin.adminMemberList");
 	}
-	// admin 회원 상세 정보 조회
+
 	@Override
 	public MemberDTO adminViewMember(int mem_num) {
 		return sqlSession.selectOne("admin.adminMemberView",mem_num);
 	}
-	// admin 회원 정보 업데이트
+
 	@Override
 	public void adminupdateMember(MemberDTO dto) {
 		sqlSession.update("admin.updateMember" , dto);
 	}
 
-	// admin 메인 페이지 회원 레코드 조회
+
 	@Override
 	public int memberCount() throws Exception {
 		return sqlSession.selectOne("admin.memberCount");

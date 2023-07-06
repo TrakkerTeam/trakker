@@ -1,10 +1,9 @@
 package com.example.trakker.utils;
 
-import org.imgscalr.Scalr;
+
 import org.springframework.util.FileCopyUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
