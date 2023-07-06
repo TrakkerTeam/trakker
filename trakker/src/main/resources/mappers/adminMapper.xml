@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+
 <mapper namespace="admin">
 	<select id="adminMemberList" resultType="member">
         select*from member
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     from member
     </select>
 
-    <!--유저 목록 페이징-->
+
     <select id="listPage"  parameterType="hashMap" resultType="member">
         SELECT *
         FROM (

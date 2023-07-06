@@ -3,8 +3,6 @@ package com.example.trakker.oauth.dao;
 
 import com.example.trakker.model.member.dto.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -84,6 +84,8 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
+		font-family: FontAwesome;
+		content: "\f005 ";
 	}
 
 	.modal-content {
@@ -101,9 +103,9 @@
 <div id="container">
 	<div style="display: flex; height: auto;">
 		<div id="category" class="menu" style="width:10%; height:auto;">
-			<a class="menubar" id=member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+			<a class="menubar" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
 			<a class="menubar" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
-			<a class="menubar" id="review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+			<a class="menubar" id="review" href="${path}/admin/Review_listPage?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
 			<a class="menubar" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
 		</div>
 
@@ -167,7 +169,7 @@
 									</thead>
 
 									<tbody>
-									<c:forEach var="dto" items="${reivewList}" varStatus="status">
+									<c:forEach var="dto" items="${reviewList}" varStatus="status">
 										<c:choose>
 											<c:when test="${status.index < 4}">
 												<tr>
@@ -266,8 +268,9 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
-															 style="width: 100%; height: 225px;">
+														<c:set var="img" value="${trip.t_subject}"/>
+                                                                                        <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                                                                             style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">
 														<p style="float:right;">${trip.content}</p>

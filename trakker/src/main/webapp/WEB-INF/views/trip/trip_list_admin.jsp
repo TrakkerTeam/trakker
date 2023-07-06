@@ -21,6 +21,8 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             display: block;
@@ -82,6 +84,9 @@
             background-color: #333;
             color: #fff;
         }
+        .bi-star-fill {
+            color: #ffca2c;
+        }
     </style>
 
 </head>
@@ -111,10 +116,10 @@
 <div id="container">
     <div style="display: flex; height: auto;">
         <div id="category" class="menu" style="width:10%; height:auto;">
-            <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
-            <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
-            <a class="menubar w-100" id= "review" href="${path}/review/list?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
-            <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
+              <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+                        <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+                        <a class="menubar w-100" id="review" href="${path}/admin/Review_listPage?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+                        <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
         </div>
 
         <div class="container">
@@ -177,18 +182,26 @@
                         </div>
                         <div class="modal-body" style="display: flex;">
                             <div style="flex: 1;">
-                                <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
-                                     style="width: 100%; height: 225px;">
+                                <c:set var="img" value="${trip.t_subject}"/>
+                                                                <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                                                     style="width: 100%; height: 225px;">
                             </div>
                             <div style="flex: 1; padding-left: 10px;">
                                 <p style="float:right;">${trip.content}</p>
                             </div>
                         </div>
                         <div class="modal-footer d-flex">
-                            <div style="flex: 1;" class="d-flex justify-content-end align-items-center">
-                                <small class="text-muted" style="margin-right: 15px;">작성일:<fmt:formatDate
+                            <div style="flex: 1;" class="d-flex justify-content-between align-items-center">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="bi bi-star-fill me-1" style="margin-right: 5px;"></i>
+                                    <div id="result" style="text-align: left;">
+                                        <h3 class="mt-2" style="margin: 0;">
+                                            <fmt:formatNumber value="${trip.rating.ratingAvg}" pattern="0.0"/>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <small class="text-muted" style="margin-left: auto;">작성일:<fmt:formatDate
                                         value="${trip.t_regdate}" pattern="yyyy-MM-dd"/></small>
-
                             </div>
                         </div>
                     </div>

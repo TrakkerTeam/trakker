@@ -189,9 +189,9 @@
                     </div>
                 </div>
             </c:forEach>
+        </div>
             </c:otherwise>
             </c:choose>
-        </div>
         <div class="d-flex justify-content-center align-items-center py-4 my-5 h5">
         <span>
             <c:if test="${page.pageNum > 2}">

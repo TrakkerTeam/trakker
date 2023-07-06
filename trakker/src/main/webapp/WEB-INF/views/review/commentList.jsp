@@ -101,7 +101,7 @@
                 </c:otherwise>
                 </c:choose>
                 <c:if test="${row.com_delete == '0'}">
-                    <h6><strong>${row.member.mem_nickname}</strong></h6>
+                    <h6><img src="${row.member.picture_url}" alt="mdo" width="50" height="50" class="rounded-circle"><strong>${row.member.mem_nickname}</strong></h6>
                 </c:if>
                 <p class="mb-2 opacity-70">
                     <c:choose>

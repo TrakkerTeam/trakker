@@ -27,10 +27,10 @@ public class MailSendService {
         }
 
         String generatedPassword = sb.toString();
-        System.out.println("임시비밀번호 genera:" + generatedPassword);
+
 
         authNumber = generatedPassword;
-        System.out.println("임시비밀번호 auth:" + authNumber);
+
     }
 
     public String getAuthNumber() {

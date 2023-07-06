@@ -20,6 +20,8 @@ version : 1.0 202306071500
 202306262013 - AdminInterceptor 보안 기능 구현
 202306262128 - MAIN 페이지 Video Random autoplay 자바 스크립트 구현
 202306280640 - MAIN 페이지 총 이용자수 MEMBER TABLE TOTAL COUNT 기능 구현
+202307052032 - ADMIN 페이지 REVIEW 게시판 기능 구현
+
 
 
 결함

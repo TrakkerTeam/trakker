@@ -55,5 +55,10 @@ public class TripDAOImpl implements TripDAO {
     public void ratingInsert(RatingDTO dto) {
         sqlSession.insert("rating.ratingInsert_trip",dto);
     }
+
+    @Override
+    public TripDTO getTrip(Long t_num) {
+        return sqlSession.selectOne("trip.select", t_num);
+    }
 }
 

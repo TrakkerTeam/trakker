@@ -135,10 +135,10 @@
 <div id="container">
  <div style="display: flex; height: auto;">
   <div id="category" class="menu" style="width:10%; height:auto;">
-   <a class="menubar" href="${path}/admin/admin_listPage?num=1">회원관리</a>
-   <a class="menubar" href="${path}/trip/trip_list_admin?num=1">관광명소 관리</a>
-   <a class="menubar" href="${path}/review/list?num=1" >리뷰리스트 관리</a>
-   <a class="menubar" href="${path}/faq/listPage?num=1">FAQ</a>
+          <a class="menubar w-100" id="member" href="${path}/admin/admin_listPage?num=1"><i class="bi bi-person-fill">회원관리</i></a>
+            <a class="menubar w-100" id="trip" href="${path}/trip/trip_list_admin?num=1"><i class="bi bi-file-earmark-image">관광명소 관리</i></a>
+            <a class="menubar" id="review" href="${path}/admin/Review_listPage?num=1" ><i class="bi bi-file-earmark-richtext">리뷰리스트 관리</i></a>
+            <a class="menubar w-100" id="faq" href="${path}/faq/listPage?num=1"><i class="bi bi-chat-right-text">FAQ</i></a>
   </div>
 
 <h2 style="font-size: 20px; margin-left: 100px;">프로필 수정</h2>
@@ -202,7 +202,7 @@
  <%@include file="../footer.jspf" %>
 <script>
  $("#logback").click(function (){
-  location.href="${path}/admin/memberList";
+  history.back();
 
  });
 
