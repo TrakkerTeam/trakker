@@ -1,6 +1,9 @@
 package com.example.trakker.model.trip.dto;
 
+
 import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.AttachDTO;
+import com.example.trakker.model.item.RatingDTO;
 import lombok.Data;
 
 

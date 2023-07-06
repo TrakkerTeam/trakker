@@ -1,6 +1,6 @@
 package com.example.trakker.model.review.dao;
 
-import com.example.trakker.item.RatingDTO;
+import com.example.trakker.model.item.RatingDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
