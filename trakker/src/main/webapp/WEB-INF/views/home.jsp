@@ -350,7 +350,6 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
             }
         })
     }
-
     function tripModal(num) {
         $.ajax({
             url: "${path}/modal_trip",

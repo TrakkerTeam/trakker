@@ -90,10 +90,8 @@
    cursor: pointer;
   }
 
-  .button-container {
-   display: flex;
-   justify-content: space-between;
-   margin-top: 16px;
+  #member{
+   background-color: #333;
   }
 
   .button-container button {

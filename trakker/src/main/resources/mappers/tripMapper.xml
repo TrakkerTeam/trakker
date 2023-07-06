@@ -84,7 +84,6 @@
         )
         WHERE rn between ${(pageNum -1) * pageRowCount} +1 and ${(pageNum -1) * pageRowCount} + ${pageRowCount}
     </select>
-
     <select id="listPageCount" parameterType="hashMap" resultType="Integer">
         SELECT count(*)
         FROM trip
