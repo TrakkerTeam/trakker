@@ -27,7 +27,7 @@ Team Member
 
 ### ⚙️ _Blueprint_ 
 
-프로젝트 사전 발표 </br>
+프로젝트 사전 발표
 https://drg2524.tistory.com/132
 
 ***
@@ -54,7 +54,6 @@ https://drg2524.tistory.com/132
 
 ##  :airplane:   _Demonstration Video_
 
-
 #### 관리자 페이지 영상
 
 </br>
@@ -69,14 +68,22 @@ https://drg2524.tistory.com/132
 
 </br>
 
-#### 마이페이지 영상
+#### 마이페이지 수정 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/55e9908b-2708-47e8-93e8-b742a4489284
+
+</br>
+
+####  마이페이지 카테고리 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/f42655db-2a73-4991-b17c-0f14c7e41a70
+
 
 </br>
 
 #### 회원가입 이메일 인증코드 영상
 
 </br>
-
 
 #### 리뷰 게시글 작성 영상
 
@@ -101,6 +108,4 @@ https://drg2524.tistory.com/132
 ####  관광명소  소개  모달
 
 </br>
-
-
 
