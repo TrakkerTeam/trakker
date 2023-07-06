@@ -22,7 +22,8 @@
                      com_date,
                      com_update,
                      com_delete,
-                     parent_comment_nickname
+                     parent_comment_nickname,
+                     picture_url
               FROM (
                        SELECT rc.comment_num,
                               rc.review_num,
@@ -31,6 +32,7 @@
                               rc.comment_p,
                               rc.content,
                               m.mem_nickname,
+                              m.picture_url,
                               rc.com_date,
                               rc.com_delete,
                               rc.com_update,
@@ -47,7 +49,7 @@
               WHERE comment_p = comment_p
              ) START WITH comment_p = 0
         CONNECT BY PRIOR comment_num = comment_p
-        ORDER SIBLINGS BY comment_num asc
+        ORDER SIBLINGS BY comment_p asc
     </select>
 
     <update id="c_update">
@@ -82,6 +84,7 @@
         <result property="parent_comment_nickname" column="parent_comment_nickname"/>
         <collection property="member" ofType="member">
             <result property="mem_nickname" column="mem_nickname"/>
+            <result property="picture_url" column="picture_url"/>
         </collection>
     </resultMap>
 
