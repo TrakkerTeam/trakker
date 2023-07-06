@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -182,6 +183,20 @@ public class AdminController {
 		model.addAttribute("search", searchType);
 		model.addAttribute("keyword", keyword);
 	}
+
+	@RequestMapping("review_view.do")
+	public ModelAndView detail(long review_num, HttpServletRequest request, HttpServletResponse response) {
+
+		reviewService.count(review_num, request, response);
+		ReviewDTO review = reviewService.detail(review_num);
+		Double ratingavg = reviewService.ratingAvg(review_num);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("review/detail");
+		mav.addObject("review", review);
+		mav.addObject("ratingAvg", ratingavg);
+		return mav;
+	}
+
 
 
 
