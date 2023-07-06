@@ -54,5 +54,60 @@ https://drg2524.tistory.com/132
 
 ##  :airplane:   _Demonstration Video_
 
+#### 관리자 페이지 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/1c5891f1-4f1f-415e-ad4f-c1f9ca34a056
 
+</br>
+
+
+#### 메인 페이지 영상
+
+
+</br>
+
+#### 유저 로그인 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/7b53ae0a-7a2d-4931-80d7-dfcb5eb4f6e0
+
+</br>
+
+#### 마이페이지 수정 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/55e9908b-2708-47e8-93e8-b742a4489284
+
+</br>
+
+####  마이페이지 카테고리 영상
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/105f56fc-eac5-4982-a998-9c955531671d
+
+
+</br>
+
+#### 회원가입 이메일 인증코드 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/32899839-8719-4ef0-a1bd-f943bd8fa6d3
+
+</br>
+
+#### 리뷰 게시글 작성 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/9235cd70-807d-4c5c-97b4-85dcc793d0a9
+
+</br>
+
+#### 리뷰 게시글 검색 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/f2e704e3-105e-447e-b310-8f33785543ef
+
+</br>
+
+#### 게시글 댓글 / 대댓글 /별점 영상
+https://github.com/TrakkerTeam/trakker/assets/117561565/1a446aaf-2f84-441a-bdc4-1261805b4b00
+
+</br>
+
+#### 관광명소 게시판 영상
+
+
+</br>
+
+####  관광명소  소개  모달
+
+</br>
 
