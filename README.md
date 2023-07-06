@@ -76,7 +76,7 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/55e9908b-2708-47e8-93e8-
 
 ####  마이페이지 카테고리 영상
 
-https://github.com/TrakkerTeam/trakker/assets/117561565/f42655db-2a73-4991-b17c-0f14c7e41a70
+[https://github.com/TrakkerTeam/trakker/assets/117561565/f42655db-2a73-4991-b17c-0f14c7e41a70](https://github.com/TrakkerTeam/trakker/assets/117561565/105f56fc-eac5-4982-a998-9c955531671d)
 
 
 </br>
