@@ -179,8 +179,9 @@
                             <input type="hidden" name="num" id="num" value="${trip.t_num}">
                             <a onclick="openModal('myModal${trip.t_num}')"
                                style="text-decoration-line:none;">
-                                <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
-                                     style="width: 100%; height: 225px;">
+                               <c:set var="img" value="${trip.t_subject}"/>
+                                                               <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                                                    style="width: 100%; height: 225px;">
                                 <div class="card-body rounded-3 p-0 w-100">
                                     <h6 class="text-muted ms-3 mt-3">${trip.t_subject}
                                         <p class="mt-2" style="float: right; margin-right: 10px;">
@@ -204,8 +205,9 @@
                             </div>
                             <div class="modal-body" style="display: flex;">
                                 <div style="flex: 1;">
-                                    <img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
-                                         style="width: 100%; height: 225px;">
+                                    <c:set var="img" value="${trip.t_subject}"/>
+                                                                    <img src="${path}/resources/images/trip/${img}.jpg" onerror="this.src='${path}/resources/images/trip/${img}.png'" class="card-img-top"
+                                                                         style="width: 100%; height: 225px;">
                                 </div>
                                 <div style="flex: 1; padding-left: 10px;">
                                     <p style="float:right;">${trip.content}</p>
