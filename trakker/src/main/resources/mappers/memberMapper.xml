@@ -9,7 +9,7 @@
         select mem_email,mem_pass,mem_name,mem_num
         from member
         where mem_email=#{mem_email}
-        <!--and mem_pass=#{mem_pass} -->
+
     </select>
 
     <select id="memberView" resultType="member">

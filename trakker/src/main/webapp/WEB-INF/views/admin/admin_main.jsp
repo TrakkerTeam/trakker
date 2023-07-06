@@ -169,7 +169,7 @@
 									</thead>
 
 									<tbody>
-									<c:forEach var="dto" items="${reivewList}" varStatus="status">
+									<c:forEach var="dto" items="${reviewList}" varStatus="status">
 										<c:choose>
 											<c:when test="${status.index < 4}">
 												<tr>
@@ -268,7 +268,7 @@
 												</div>
 												<div class="modal-body" style="display: flex;">
 													<div style="flex: 1;">
-														<img src="../images/trip/${trip.t_subject}.jpg" onerror="this.src='../images/trip/${trip.t_subject}.png'" class="card-img-top"
+														<img src="${path}/images/trip/${trip.t_subject}.jpg" onerror="this.src='${path}/images/trip/${trip.t_subject}.png'" class="card-img-top"
 															 style="width: 100%; height: 225px;">
 													</div>
 													<div style="flex: 1; padding-left: 10px;">

@@ -1,6 +1,6 @@
 package com.example.trakker.utils;
 
-import java.util.List;
+
 
 public class PagingInfoVO extends BaseVO {
   private int pageNum;
