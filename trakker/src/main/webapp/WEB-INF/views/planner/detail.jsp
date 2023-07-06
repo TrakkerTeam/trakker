@@ -50,11 +50,18 @@
 
         <div class="d-flex justify-content-between align-items-center"><a href="${path}/planner?area=${planner.lnum}" style="text-decoration-line:none;"><small class="mb-0 mt-4 text-success">${planner.local.kname} ></small></a></div>
         <div class="d-flex justify-content-between align-items-center"><div class="col-md-4 d-flex align-items-center"><p class="mb-0 h3 ps-1">${planner.title}</p></div></div>
-        <div>
-            <p class="mb-0 h6"><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">${planner.member.mem_nickname}</p>
-            <div>
-                <small class="opacity-50 mb-0 text-nowrap">${planner.regdate}</small>
-                <small class="opacity-50 mb-0 ms-2 text-nowrap">${planner.hit}</small>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-md-start mt-2">
+                <div class="col-3">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </div>
+                <div class="col-8">
+                    <small class="mb-0 h6">${planner.member.mem_nickname}</small> <br>
+                    <small class="opacity-50 mb-0 text-nowrap">${planner.regdate} 조회수 ${planner.hit}</small>
+                </div>
+            </div>
+            <div class="justify-content-md-end mb-0">
+                <button type="button" class="btn btn-outline-success" onclick="showAll()">전체 일정</button>
             </div>
         </div>
     <hr>
@@ -64,7 +71,7 @@
             <div class='col-sm-6 my-3 mx-3'>
                 <div class="col me-5 my-3">
                     <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3"><div class="my-0 fw-normal h5" onclick="showDayRoute(${days[i.index]})">DAY ${days[i.index]}</div></div>
+                        <div class="card-header py-3"><div class="my-0 fw-normal h5" onclick="showDay(${days[i.index]})">DAY ${days[i.index]}</div></div>
                         <div class="card-body ms-2">
                         <c:forEach items="${schedules}" var="sc">
                             <c:if test="${days[i.index] eq sc.sday}">
@@ -80,7 +87,7 @@
         </div>
 
         <div class="row my-5 justify-content-center">
-            <button class="btn btn-outline-danger rounded-3" onclick="heartClick(${sessionScope.mem_num})" style="width:6rem!important;height:3rem!important;">
+            <button class="btn btn-outline-danger rounded-3" onclick="heartClick(${sessionScope.mem_num})" style="width:8rem!important;height:3.5rem!important;font-size:1.2rem!important;">
             <c:choose>
                 <c:when test="${planner.heart.mh eq 1}">좋아요 <i class="bi bi-heart-fill" id="heartbtn"></i><input hidden id="heartCheck" value="${planner.heart.mh}"></c:when>
                 <c:when test="${planner.heart.mh eq 0}">좋아요 <i class="bi bi-heart" id="heartbtn"></i><input hidden id="heartCheck" value="${planner.heart.mh}"></c:when>
@@ -139,78 +146,100 @@
         $(window).on('scroll', function() {
             const sT = $(window).scrollTop();
             const vH = $(document).height() - window.innerHeight - footerHei;
-
-            if (sT >= vH) {
-                scrollMap.addClass('fix')
-            }
-            else {
-                scrollMap.removeClass('fix')
-            }
+            if (sT >= vH) {scrollMap.addClass('fix')}
+            else {scrollMap.removeClass('fix')}
         });
     });
 
     $('#topBtn').click(function (){
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //마커 담을 배열
-    let clickMarker = [],
-        positions = [];
 
     const mapContainer = document.getElementById('map'),
         mapOptions = {
             center: new kakao.maps.LatLng(37.565715842361456, 126.97791684733436),
             level: 7
         },
-        map = new kakao.maps.Map(mapContainer, mapOptions);
+        map = new kakao.maps.Map(mapContainer, mapOptions),
+        bounds = new kakao.maps.LatLngBounds();
 
-    //마커를 담는 반복문
-    <c:forEach items="${days}" varStatus="i"><c:forEach items="${schedules}" var="sc"><c:if test="${days[i.index] eq sc.sday}">
-        positions += {
-            day: ${days[i.index]},
-            num: ${sc.snum},
-            letlng: new kakao.maps.LatLng(${sc.y},${sc.x})
-        }
-    </c:if></c:forEach></c:forEach>
-
-    for (var i = 0; i < positions.length; i ++) {
-        var marker = new kakao.maps.Marker({
+    let allLatLng = [],
+        dayPoint = [],
+        setMarkers = [],
+        dayPath = [],
+        polyline = new kakao.maps.Polyline({
             map: map,
-            position: positions[i].latlng
-        })
+            path: [],
+            strokeWeight: 3,
+            strokeColor: '#5882fa',
+            strokeOpacity: 1,
+            strokeStyle: 'solid'
+        });
+
+<c:forEach items="${days}" varStatus="i"><c:forEach items="${schedules}" var="sc"><c:if test="${days[i.index] eq sc.sday}">
+    allLatLng.push( new kakao.maps.LatLng(${sc.y},${sc.x}) )
+    dayPoint.push({
+        day: ${days[i.index]},
+        latlng: new kakao.maps.LatLng(${sc.y},${sc.x})
+    })
+</c:if></c:forEach></c:forEach>
+
+    function showAll() {
+        // polyline.setMap(null);
+        // dayPath.slice(0,dayPath.length);
+        for (let i = 0; i < allLatLng.length; i++) {
+            bounds.extend(allLatLng[i]);
+            const marker = new kakao.maps.Marker({
+                position: allLatLng[i]
+            });
+            marker.setMap(map);
+            setMarkers.push(marker);
+        }
+        map.setBounds(bounds);
+    }
+    showAll();
+
+    function showDay(num) {
+        setMarker(null);
+        // polyline.setMap(null);
+        // dayPath.slice(0,dayPath.length);
+
+        for (let i = 0; i < dayPoint.length; i++) {
+            const latlng = dayPoint[i].latlng;
+            if(dayPoint[i].day == num) {
+                bounds.extend(latlng);
+                const marker = new kakao.maps.Marker({
+                    position: latlng
+                });
+                marker.setMap(map);
+                setMarkers.push(marker);
+                // dayPath.push(dayPoint[i].latlng);
+            }
+        }
+        map.setBounds(bounds);
+        // polyline.setPath(dayPath);
+        // polyline.setMap(map);
     }
 
-
-    // 날짜 별 경로 버튼
-    function showDayRoute() {
-        //1. 기존 마커들 & 선 삭제
-        //2. 마커들 출력
-        //3. 마커들 배열값으로 선 그리기
-    }
-
-    //세부일정 하나 클릭
     function setLatlng(y,x) {
-        map.setCenter(new kakao.maps.LatLng(y, x));
+        setMarker(null);
+        // polyline.setMap(null);
+        // dayPath.slice(0,dayPath.length);
+
+        const latlng = new kakao.maps.LatLng(y,x);
+        map.setCenter(latlng);
         map.setLevel(5);
-        addOne(new kakao.maps.LatLng(y,x));
-    }
-    function addOne(position) {
-        removeMarkers(null)
-        const marker = new kakao.maps.Marker({
-            position : position
-        })
+        const marker = new kakao.maps.Marker({ position : latlng })
         marker.setMap(map);
-        clickMarker.push(marker);
-        return marker;
+        setMarkers.push(marker);
     }
-    function removeMarkers(map) {
-        for (let i = 0; i < clickMarker.length; i++) {
-            clickMarker[i].setMap(map);
+
+    function setMarker(map) {
+        for (let i = 0; i < setMarkers.length; i++) {
+            setMarkers[i].setMap(map);
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////s
     function heartClick(memNum) {
         if(memNum==null || memNum==0) {
             if(confirm("로그인 후 이용하실 수 있는 기능입니다. 로그인하시겠습니까?")){
