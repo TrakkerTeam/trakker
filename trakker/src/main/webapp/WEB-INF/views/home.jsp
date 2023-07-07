@@ -314,6 +314,7 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
 
 <%@include file="footer.jspf"%>
 </body>
+
 <script>
     const videoFiles = [
         '${path}/include/trakker_video/trakkerMainVideo.mp4',

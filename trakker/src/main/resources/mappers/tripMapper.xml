@@ -45,7 +45,6 @@
             content=#{content}
         where t_num = #{t_num}
     </update>
-
     <delete id="delete">
         delete
         from trip

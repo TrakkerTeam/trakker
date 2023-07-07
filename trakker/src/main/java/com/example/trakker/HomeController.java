@@ -44,7 +44,6 @@ public class HomeController {
 
 		return "home";
 	}
-
 	@ResponseBody
 	@PostMapping("/modal")
 	public LocalDTO plannerModal(Integer lnum) {
