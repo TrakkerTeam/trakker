@@ -40,10 +40,10 @@ public class HomeController {
 		model.addAttribute("localTotalCount" , localTotalCount);
 		model.addAttribute("review", review);
 		model.addAttribute("local", local);
+		model.addAttribute("trip",trip);
 
 		return "home";
 	}
-
 	@ResponseBody
 	@PostMapping("/modal")
 	public LocalDTO plannerModal(Integer lnum) {
