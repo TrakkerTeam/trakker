@@ -311,11 +311,12 @@
         if(!nullCheck) {
             alert("각 여행일에는 최소 3개의 일정을 추가해주세요.");
         }
-        if(memNum == null && nullCheck== true) {
+        console.log(memNum)
+        if( (memNum == null || memNum == "") && nullCheck== true) {
             if(confirm("로그인 후 이용하실 수 있는 기능입니다. 로그인하시겠습니까?")){
                 location.href="${path}/login";
             }
-        }else if(memNum != null && nullCheck== true) {
+        }else if( (memNum != null || memNum != "") && nullCheck== true) {
             $('.plans-detail').each(function () {
                 sday.push($(this).attr("data-sday"));
                 y.push($(this).attr("data-y"));
