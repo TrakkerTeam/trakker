@@ -62,6 +62,15 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/1c5891f1-4f1f-415e-ad4f-
 
 #### 메인 페이지 영상
 
+##### 리뷰글 슬라이드
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/30623532-eebc-4277-b78a-c1b9e463f4f4
+
+</br>
+
+##### 관광명소 플래너 모달창 
+
+https://github.com/TrakkerTeam/trakker/assets/117561565/c3ad56c4-0979-4063-9aa7-dbb1ff0d5085
 
 </br>
 
@@ -142,6 +151,4 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/d66e39e3-6c05-4ae3-beb0-
 https://github.com/TrakkerTeam/trakker/assets/117561565/841b8aa6-7bb8-4063-bc06-b328756c027d
 
 </br>
-
-
 
