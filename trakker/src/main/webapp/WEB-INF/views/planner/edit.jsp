@@ -60,9 +60,9 @@
             </div>
             <c:forEach var="i" begin="0" end="${schedules.size()}">
                 <c:if test="${schedules[i].sday eq sday}">
-                    <div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='${sday}' data-y="${schedules[i].y}" data-x="${schedules[i].x}" data-snum="${schedules[i].snum}"  onclick="planClick(${schedules[i].y}, ${schedules[i].x}, '${schedules[i].spoint}')">
+                    <div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='${sday}' data-y="${schedules[i].y}" data-x="${schedules[i].x}" onclick="planClick(${schedules[i].y}, ${schedules[i].x}, '${schedules[i].spoint}')">
                         <div class='d-flex w-100 align-items-center justify-content-between'>
-                            <i class='me-2 text-muted'>${schedules[i].snum}</i>
+                            <i class='me-2 text-muted plans-snum'>${schedules[i].snum}</i>
                             <div class='text-decoration-none text-black w-75'><strong class='mb-1 place-title plans-title' data-splace="${schedules[i].spoint}">${schedules[i].spoint}</strong></div>
                             <small><button class='btn-outline-success rounded-3 border-1' onclick="planDelete(${schedules[i].snum})">삭제</button></small>
                         </div>
@@ -254,10 +254,10 @@
         }
     }
     function getHtml(place_name,place_y,place_x,num,day){
-        const div = "<div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='" + day + "' data-y=\"" + place_y + "\" data-x=\"" + place_x + "\" data-snum=\"" + num + "\"" +
+        const div = "<div class='list-group-item list-group-item-action py-3 lh-sm plans-detail' data-sday='" + day + "' data-y=\"" + place_y + "\" data-x=\"" + place_x + "\"" +
             "onclick=\"planClick(" + place_y + "," + place_x + ",\'" + place_name + "\')\">" +
             "<div class='d-flex w-100 align-items-center justify-content-between'>" +
-            "<i class='me-2 text-muted'>" + num + "</i>" +
+            "<i class='me-2 text-muted plans-snum'>" + num + "</i>" +
             "<div class='text-decoration-none text-black w-75'>" +
             "<strong class='mb-1 place-title plans-title' data-splace=\"" + place_name + "\" >" + place_name + "</strong>" +
             "</div>" +
@@ -322,7 +322,6 @@
         if(nullCheck == true) {
             $('.plans-detail').each(function () {
                 sday.push($(this).attr("data-sday"));
-                snum.push($(this).attr("data-snum"));
                 y.push($(this).attr("data-y"));
                 x.push($(this).attr("data-x"));
             });
@@ -332,7 +331,9 @@
             $('.plans-memo').each(function () {
                 smemo.push($(this).val());
             });
-
+            $('.plans-snum').each(function () {
+                snum.push($(this).text());
+            });
             $.ajax({
                 url:"${path}/planner/rewrite" ,
                 data: {

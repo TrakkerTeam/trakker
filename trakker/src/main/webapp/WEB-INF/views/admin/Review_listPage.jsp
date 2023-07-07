@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>FAQ</title>
+    <title>Review Admin</title>
     <%@ include file="../header.jspf" %>
     <style>
         #container {
@@ -111,8 +111,8 @@
                 <tr>
                     <th style="width: 10%">번호</th>
                     <th style="width: 60%">제목</th>
-                    <th style="width: 20%">본문</th>
-                    <th style="width: 10%">작성자</th>
+                    <th style="width: 20%">작성자</th>
+                    <th style="width: 10%">작성일자</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -120,8 +120,17 @@
                     <tr>
                         <td>${dto.review_num}</td>
                         <td><a href="${path}/admin/review_view.do?review_num=${dto.review_num}">${dto.title}</a></td>
-                        <td>${dto.content}</td>
                         <td>${dto.member.mem_nickname}</td>
+                        <td>
+                         <c:choose>
+                                                <c:when test="${dto.edit_date == null}">
+                                                    <fmt:formatDate value="${dto.review_date}" pattern="yyyy-MM-dd"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <fmt:formatDate value="${dto.edit_date}" pattern="yyyy-MM-dd"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
                 </c:otherwise>
