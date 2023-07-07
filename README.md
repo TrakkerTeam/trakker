@@ -31,7 +31,8 @@ https://drg2524.tistory.com/132
 
 ***
 ### ⚙️ _Result_ 
-프로젝트 완성 PPT
+프로젝트 완성 PPT </br>
+[trakker.pdf](https://github.com/TrakkerTeam/trakker/files/11980945/trakker.pdf)
 
 
 ***
