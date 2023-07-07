@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@ page import="java.util.Random" %>
 
 <!-- 세션 사용 옵션 -->
@@ -8,8 +8,8 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
-	<title>Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 
 </head>
 <style>
@@ -42,7 +42,9 @@
         max-width: calc(100% - 300px) !important;
         background: #fff !important;
     }
-
+    #modal-img_trip {
+        height: 400px;
+    }
 </style>
 <body>
 <%@include file="header.jspf"%>
@@ -74,11 +76,11 @@
             </div>
             <div style="margin: 0; padding: 0;" class="uk-width-3-5@m uk-grid-margin uk-first-column">
                 <div style="background-color: rgb(129,129,145); height: 100vh;">
-                        <div>
-                            <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
-                                <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
-                            </video>
-                        </div>
+                    <div>
+                        <video muted autoplay loop style="height: 100vh; max-width: none" id="mainVideo">
+                            <source type="video/mp4" src="${path}/include/trakker_video/trakkerMainVideo.mp4">
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,35 +152,35 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         <div class="uk-slider-container-offset uk-slider uk-slider-container" uk-slider="">
             <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" id="travelReview">
                 <ul class="uk-slider-items uk-child-width-1-2@s uk-grid" style="transform: translate3d(0px, 0px, 0px);">
-                <c:forEach var="review" items="${review}">
-                <li name="getBlog" tabindex="-1" class="" style="">
-                    <div class="uk-cover-container" style="cursor: pointer">
-                        <a href="${path}/review/detail?review_num=${review.review_num}">
-                                <c:set var="randomNumber" value="${Random().nextInt(5) + 1}" />
-                                <c:set var="region" value="${review.lnum}" />
+                    <c:forEach var="review" items="${review}">
+                        <li name="getBlog" tabindex="-1" class="" style="">
+                            <div class="uk-cover-container" style="cursor: pointer">
+                                <a href="${path}/review/detail?review_num=${review.review_num}">
+                                    <c:set var="randomNumber" value="${Random().nextInt(5) + 1}" />
+                                    <c:set var="region" value="${review.lnum}" />
                                     <img src="${path}/resources/images/local/${region}/${region}-${randomNumber}.jpg" loading="lazy">
-                        <div class="uk-overlay-primary uk-position-cover" style="background: rgba(34, 34, 34, 0.3)"></div>
-                            <div class="card-img-overlay rounded-3 p-0">
-                                <div class="card-body align-text-top text-end p-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3>${review.local.kname}</h3>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <i class="bi bi-star-fill me-1 pb-1"></i>
-                                            <h3 class="mt-3"><fmt:formatNumber value="${review.rating.ratingAvg}" pattern="0.0"/></h3>
+                                    <div class="uk-overlay-primary uk-position-cover" style="background: rgba(34, 34, 34, 0.3)"></div>
+                                    <div class="card-img-overlay rounded-3 p-0">
+                                        <div class="card-body align-text-top text-end p-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h3>${review.local.kname}</h3>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <i class="bi bi-star-fill me-1 pb-1"></i>
+                                                    <h3 class="mt-3"><fmt:formatNumber value="${review.rating.ratingAvg}" pattern="0.0"/></h3>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="d-flex bottom-left">
+                                        <h4>${review.member.mem_nickname}</h4>
+                                    </div>
+                                    <div class="centered">
+                                        <h2>${review.title}</h2>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="d-flex bottom-left">
-                                <h4>${review.member.mem_nickname}</h4>
-                            </div>
-                            <div class="centered">
-                                <h2>${review.title}</h2>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                </c:forEach>
+                        </li>
+                    </c:forEach>
                 </ul>
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-icon uk-slidenav-previous uk-slidenav" href="#" uk-slidenav-previous="" uk-slider-item="previous"><svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="#000" stroke-width="1.4" points="12.775,1 1.225,12 12.775,23 "></polyline></svg></a>
                 <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-icon uk-slidenav-next uk-slidenav" href="#" uk-slidenav-next="" uk-slider-item="next"><svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="#000" stroke-width="1.4" points="1.225,23 12.775,12 1.225,1 "></polyline></svg></a>
@@ -187,13 +189,13 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
         </div>
     </div>
 
-    <section id="removeani" class="content section">
-        <article>
-            <div id="city" class="headercont">
-                <h2><b>어디로 여행을 떠나시나요?</b></h2>
-            </div>
-            <div class="row" id="cityList">
-                <c:forEach items="${local}" varStatus="i">
+<section id="removeani" class="content section">
+    <article>
+        <div id="city" class="headercont">
+            <h2><b>어디로 여행을 떠나시나요?</b></h2>
+        </div>
+        <div class="row" id="cityList">
+            <c:forEach items="${local}" varStatus="i">
                 <div class="col s12 m6 l3" style="flex-basis:20rem!important;">
                     <a onclick="plannerModal(${local[i.index].lnum})" style="color:inherit!important;text-decoration:none!important;" data-bs-toggle="modal" data-bs-target="#plan_d">
                         <div class="city-card-style hoverable z-depth-2" style="margin:0;">
@@ -212,10 +214,10 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
                         </div>
                     </a>
                 </div>
-                </c:forEach>
-            </div>
-        </article>
-    </section>
+            </c:forEach>
+        </div>
+    </article>
+</section>
 </div>
 <div class="row my-5"></div>
 <div class="my-5" style="display: flex; justify-content: center">
@@ -286,6 +288,28 @@ align-items: center; flex-direction: column; background-color: #fff; height: 100
                 $(".modal-body > #modal-content").html(content);
             }
         })
+    }
+
+    function tripModal(num) {
+        $.ajax({
+            url: "${path}/modal_trip",
+            data: {t_num : num},
+            type: "post",
+            dataType: 'json',
+            success: function (data) {
+                let img = '';
+                img += 'url(\'${path}/resources/images/trip/'+data.t_subject+'.jpg'+'\')';
+                $(".modal-side > #modal-img_trip").css("background-image",img);
+
+                let con = '';
+                con += '<h2 style="font-family:\'Montserrat\';font-weight: 900;margin-bottom:0;">'+data.t_subject+'</h2>' +
+                    '<div style="font-family:\'Montserrat\';font-size: 1.2rem;padding-bottom:1rem;">'+data.content+'</div>';
+                $(".modal-body > #trip_modal-content").html(con);
+            }
+        })
+    }
+    function redirectToTripPage() {
+        location.href = "${path}/trip/trip_list?num=1";
     }
 </script>
 </html>
