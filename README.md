@@ -159,9 +159,9 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/841b8aa6-7bb8-4063-bc06-
 |*Members*|*Contact*|
 |:---:|---|
 |**윤기환(팀장)**|</a> <a href = "https://drg2524.tistory.com/133/"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>
-|**조은혜(팀원)**|</a> <a href = "https://drg2524.tistory.com/133/"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+|**조은혜(팀원)**|</a> <a href = "https://chodevelop.tistory.com/19"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
 |**유재준(팀원)**|</a> <a href = "https://liuzaijun123.tistory.com/4"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
-|**이학동(팀원)**|</a> <a href = "https://hakbook.tistory.com/"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+|**이학동(팀원)**|</a> <a href = "https://hakbook.tistory.com/4"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
 |**김윤규(팀원)**|</a> <a href = "https://qpfsh8.tistory.com/"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
 
 
