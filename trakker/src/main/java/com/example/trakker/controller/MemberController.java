@@ -318,6 +318,7 @@ public class MemberController {
         Long mem_num = (Long) session.getAttribute("mem_num");
         dto.setMem_num(mem_num);
 
+
         PagingInfoVO vo = new PagingInfoVO();
         vo.setPageNum(num);
         vo.setArea(area);
