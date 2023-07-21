@@ -31,7 +31,8 @@ https://drg2524.tistory.com/132
 
 ***
 ### ⚙️ _Result_ 
-프로젝트 완성 PPT
+프로젝트 완성 PPT </br>
+[trakker.pdf](https://github.com/TrakkerTeam/trakker/files/11980945/trakker.pdf)
 
 
 ***
@@ -151,4 +152,17 @@ https://github.com/TrakkerTeam/trakker/assets/117561565/d66e39e3-6c05-4ae3-beb0-
 https://github.com/TrakkerTeam/trakker/assets/117561565/841b8aa6-7bb8-4063-bc06-b328756c027d
 
 </br>
+
+****
+## :pushpin: _ProJect Review_
+
+|*Members*|*Contact*|
+|:---:|---|
+|**윤기환(팀장)**|</a> <a href = "https://drg2524.tistory.com/133/"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>
+|**조은혜(팀원)**|</a> <a href = "https://chodevelop.tistory.com/19"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+|**유재준(팀원)**|</a> <a href = "https://liuzaijun123.tistory.com/4"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+|**이학동(팀원)**|</a> <a href = "https://hakbook.tistory.com/4"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+|**김윤규(팀원)**|</a> <a href = "https://qpfsh8.tistory.com/5"> <img alt="Tistory" src ="https://img.shields.io/badge/Tistory-white.svg?&style=for-the-badge"/></a>|
+
+
 
