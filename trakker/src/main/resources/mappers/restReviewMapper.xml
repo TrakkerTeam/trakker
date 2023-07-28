@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Restreview">
+
+    <select id="count" resultType="Long">
+        SELECT COUNT(*)
+        FROM (
+        <include refid="select"/>
+        <include refid="join"/>
+        <include refid="search"/>
+        )
+    </select>
+    <select id="list" resultMap="reviewResultMap" parameterType="hashMap">
+        SELECT X.rn, X.review_num, X.title, X.content, X.review_date, X.K_NAME, X.L_NUM, X.mem_num,
+        X.mem_nickname, X.ratingAvg
+        FROM (
+        SELECT ROWNUM AS RN, A.review_num, A.title, A.content, A.review_date, A.K_NAME, A.L_NUM, A.mem_num,
+        A.mem_nickname, A.ratingAvg
+        FROM (
+        <include refid="select"/>
+        <include refid="join"/>
+        <include refid="search"/>
+        <include refid="sort"/>
+        )A
+        WHERE ROWNUM &lt;= ( ${(pageNum -1) * pageRowCount} + ${pageRowCount} ) ) X
+        WHERE X.rn &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
+    </select>
+
+    <sql id="select">
+        SELECT r.review_num, r.title, r.content, r.review_date,
+        l.K_NAME, l.L_NUM,
+        m.mem_num, m.mem_nickname,
+        (SELECT AVG(rt.rating) FROM rating rt WHERE rt.review_num = r.review_num) AS ratingAvg
+    </sql>
+    <sql id="join">
+        FROM review r
+        JOIN local l ON r.L_NUM = l.L_NUM
+        JOIN member m ON r.mem_num = m.mem_num
+    </sql>
+    <sql id="search">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test='area != 0 and area != null'>
+                AND l.L_NUM = #{area}
+            </if>
+            <if test='keyword != "" and searchType != ""'>
+                <choose>
+                    <when test='searchType.equals("title")'>
+                        AND title LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("content")'>
+                        AND content LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test='searchType.equals("mem_nickname")'>
+                        AND mem_nickname LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </if>
+        </trim>
+    </sql>
+    <sql id="sort">
+        <choose>
+            <when test='sort.equals("add")'>
+                ORDER BY review_num DESC
+            </when>
+            <when test='sort.equals("ratingAvg")'>
+                ORDER BY ratingAvg DESC NULLS LAST , review_num DESC
+            </when>
+        </choose>
+    </sql>
+
+
+    <resultMap id="reviewResultMap" type="review">
+        <id property="review_num" column="review_num"/>
+        <result property="mem_num" column="MEM_NUM"/>
+        <result property="lnum" column="L_NUM"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="review_date" column="review_date"/>
+        <result property="review_date" column="review_date"/>
+        <result property="readcount" column="readcount"/>
+        <result property="prev" column="prev"/>
+        <result property="next" column="next"/>
+        <result property="edit_date" column="edit_date"/>
+        <collection property="member" ofType="member">
+            <result property="mem_nickname" column="mem_nickname"/>
+            <result property="picture_url" column="picture_url"/>
+        </collection>
+        <collection property="local" ofType="local">
+            <result property="kname" column="K_NAME"/>
+        </collection>
+        <collection property="rating" ofType="rating">
+            <result property="rating" column="rating"/>
+            <result property="ratingAvg" column="ratingAvg"/>
+        </collection>
+    </resultMap>
+
+</mapper>

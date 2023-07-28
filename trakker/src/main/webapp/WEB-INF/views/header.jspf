@@ -36,6 +36,9 @@
                     <a class="nav-link" href="${path}/review/list?num=1"><i class="bi bi-file-earmark-richtext"></i>Review</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="${path}/reviewList"><i class="bi bi-file-earmark-richtext"></i>MyReview</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="${path}/trip/trip_list?num=1"><i class="bi bi-file-earmark-image">Spot</i></a>
                 </li>
             </ul>
