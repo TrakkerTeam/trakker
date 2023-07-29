@@ -80,6 +80,9 @@
            }
            location.href='${path}/reviewList?'+urlParams.toString();
        }
+        function detail(num) {
+               location.href = '/trakker/reviewList/'+num;
+        }
 
     $(function () {
         $("#Write").click(function () {
@@ -162,11 +165,11 @@
         </c:when>
         <c:otherwise>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <c:forEach var="review" items="${list}">
+            <c:forEach var="review" items="${list}" varStatus="i">
 
                 <div class="col p-5">
                     <div class="card rounded-3 shadow-sm">
-                        <a href="${path}/review/detail?review_num=${review.review_num}"
+                        <a href="javascript:void(0);" onclick="detail(${list[i.index].planNum});"
                            style="text-decoration-line:none;">
                             <c:set var="randomNumber" value="${Random().nextInt(5) + 1}"/>
                             <c:set var="region" value="${review.lnum}"/>

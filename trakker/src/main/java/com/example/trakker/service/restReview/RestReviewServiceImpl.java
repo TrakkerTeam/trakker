@@ -9,6 +9,9 @@ import com.example.trakker.utils.ResponseResultList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,5 +41,39 @@ public class RestReviewServiceImpl implements RestReviewService{
 
         return resultList;
 
+    }
+
+    @Override
+    public void count(Long review_num, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        boolean visited = false;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("visit_cookie")) {
+                    if (cookie.getValue().contains("_" + request.getParameter("review_num") + "_")) {
+                        visited = true;
+                        break;
+                    } else {
+                        cookie.setValue(cookie.getValue() + "_" + request.getParameter("review_num") + "_");
+                        cookie.setMaxAge(60 * 60);
+                        response.addCookie(cookie);
+                        visited = true;
+                        reviewDAO.count(review_num);
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        @Override
+    public ReviewDTO detail(Long review_num) {
+        return null;
+    }
+
+    @Override
+    public Double ratingAvg(Long review_num) {
+        return null;
     }
 }

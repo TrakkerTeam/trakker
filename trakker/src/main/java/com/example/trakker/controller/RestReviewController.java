@@ -1,5 +1,6 @@
 package com.example.trakker.controller;
 
+import com.example.trakker.model.review.dto.ReviewDTO;
 import com.example.trakker.service.item.LocalService;
 import com.example.trakker.service.restReview.RestReviewService;
 import com.example.trakker.utils.PagingInfoVO;
@@ -8,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("reviewList")
@@ -60,4 +65,23 @@ public class RestReviewController {
         return "reviewList/list";
     }
 
+    @GetMapping("/{review_num}")
+    public ModelAndView detail(Model model,
+                         HttpSession session,
+                         HttpServletRequest request,
+                         HttpServletResponse response,
+                         @PathVariable("review_num") Long review_num) {
+
+        reviewService.count(review_num, request, response);
+        ReviewDTO review = reviewService.detail(review_num);
+        Double ratingavg = reviewService.ratingAvg(review_num);
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("review/detail");
+        mav.addObject("review", review);
+        mav.addObject("ratingAvg", ratingavg);
+
+        return mav;
+
+    }
 }
