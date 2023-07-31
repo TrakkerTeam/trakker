@@ -12,4 +12,9 @@ public interface RestReviewDAO {
     List<ReviewDTO> list(Map param);
 
 
+    void updateREAD(Long reviewNum);
+
+    ReviewDTO detail(Long reviewNum);
+
+    Double ratingAvg(Long reviewNum);
 }

@@ -77,7 +77,7 @@ public class RestReviewController {
         Double ratingavg = reviewService.ratingAvg(review_num);
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("review/detail");
+        mav.setViewName("reviewList/detail");
         mav.addObject("review", review);
         mav.addObject("ratingAvg", ratingavg);
 
