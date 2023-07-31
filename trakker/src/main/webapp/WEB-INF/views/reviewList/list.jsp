@@ -169,7 +169,7 @@
 
                 <div class="col p-5">
                     <div class="card rounded-3 shadow-sm">
-                        <a href="javascript:void(0);" onclick="detail(${list[i.index].planNum});"
+                        <a href="javascript:void(0);" onclick="detail(${list[i.index].review_num});"
                            style="text-decoration-line:none;">
                             <c:set var="randomNumber" value="${Random().nextInt(5) + 1}"/>
                             <c:set var="region" value="${review.lnum}"/>

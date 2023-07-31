@@ -28,6 +28,37 @@
         WHERE X.rn &gt;= ( ${(pageNum -1) * pageRowCount} +1 )
     </select>
 
+    <select id="detail" resultMap="reviewResultMap">
+        select review_num,
+        title,
+        content,
+        review_date,
+        readcount,
+        edit_date,
+        L_NUM,
+        K_NAME,
+        mem_num,
+        mem_nickname,
+        picture_url, next, prev
+        from
+        ( select r.review_num, r.title, r.content, r.review_date, r.readcount, r.edit_date,
+        l.L_NUM, l.K_NAME,
+        m.mem_num, m.mem_nickname, m.picture_url,
+        lag(review_num, 1, -1) over(order by review_num asc) as prev,
+        lead(review_num, 1, -1) over(order by review_num asc) as next
+        from review r
+        join local l
+        on r.L_NUM = l.L_NUM
+        join member m
+        on r.mem_num = m.mem_num)
+        where review_num = #{reviewNum}    </select>
+
+    <update id="updateREAD">
+        UPDATE REVIEW
+        SET READCOUNT = READCOUNT + 1
+        WHERE REVIEW_NUM = #{reviewNum}
+    </update>
+
     <sql id="select">
         SELECT r.review_num, r.title, r.content, r.review_date,
         l.K_NAME, l.L_NUM,

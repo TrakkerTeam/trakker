@@ -1,6 +1,4 @@
 package com.example.trakker.model.restReview;
-
-import com.example.trakker.model.planner.dto.PlannerDTO;
 import com.example.trakker.model.review.dto.ReviewDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +20,20 @@ public class RestReviewDAOImpl implements RestReviewDAO{
     @Override
     public List<ReviewDTO> list(Map param) {
         return session.selectList("Restreview.list", param);
+    }
+
+    @Override
+    public void updateREAD(Long reviewNum) {
+         session.update("Restreview.updateREAD", reviewNum);
+    }
+
+    @Override
+    public ReviewDTO detail(Long reviewNum) {
+        return session.selectOne("Restreview.detail", reviewNum);
+    }
+
+    @Override
+    public Double ratingAvg(Long review_Num) {
+        return session.selectOne("rating.ratingAvg", review_Num);
     }
 }

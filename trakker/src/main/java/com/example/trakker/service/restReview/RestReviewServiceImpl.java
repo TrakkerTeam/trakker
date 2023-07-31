@@ -1,6 +1,7 @@
 package com.example.trakker.service.restReview;
 
 import com.example.trakker.model.planner.dto.PlannerDTO;
+import com.example.trakker.model.planner.dto.ScheduleDTO;
 import com.example.trakker.model.restReview.RestReviewDAO;
 import com.example.trakker.model.review.dao.ReviewDAO;
 import com.example.trakker.model.review.dto.ReviewDTO;
@@ -8,6 +9,7 @@ import com.example.trakker.utils.PagingInfoVO;
 import com.example.trakker.utils.ResponseResultList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -59,21 +61,22 @@ public class RestReviewServiceImpl implements RestReviewService{
                         cookie.setMaxAge(60 * 60);
                         response.addCookie(cookie);
                         visited = true;
-                        reviewDAO.count(review_num);
+                        reviewDAO.updateREAD(review_num);
                         break;
                     }
                 }
             }
         }
-
-
-        @Override
-    public ReviewDTO detail(Long review_num) {
-        return null;
     }
 
     @Override
+    public ReviewDTO detail(Long reviewNum) {
+        return reviewDAO.detail(reviewNum);
+    }
+
+
+    @Override
     public Double ratingAvg(Long review_num) {
-        return null;
+        return reviewDAO.ratingAvg(review_num);
     }
 }
