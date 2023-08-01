@@ -58,6 +58,15 @@
         VALUES (review_seq.nextval, #{mem_num}, #{lnum},#{title} , #{content})
 
     </insert>
+    <update id="update">
+        UPDATE REVIEW
+        SET
+        L_NUM = #{lnum},
+        TITLE = #{title},
+        CONTENT = #{content}
+        EDIT_DATE = SYSDATE
+        WHERE REVIEW_NUM = #{review_num}
+    </update>
 
     <update id="updateREAD">
         UPDATE REVIEW

@@ -153,11 +153,11 @@
         });
 
         $(".List").click(function () {
-            location.href = "${path}/review/list?num=1";
+            location.href = "${path}/reviewList";
         });
 
         $(".Edit").click(function () {
-            location.href = "${path}/review/edit?review_num=${review.review_num}";
+            location.href = "${path}/reviewList/edit/${review_num}";
         });
 
         $(".Delete").click(function () {

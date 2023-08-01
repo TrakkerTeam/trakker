@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>insert</title>
+    <title>edit</title>
     <%@ include file="../itemfile.jspf" %>
     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
@@ -28,24 +28,17 @@
 </style>
 <script>
     $(function () {
-        $("#Insert").click(function () {
-        var lnum = $("#lnum").val();
-        console.log= lnum;
-            if(lnum == ""){
-            alert("지역 선택은 필수입니다!!");
-            }else{
-            document.form1.action="${path}/reviewList/insert";
+        $("#Update").click(function () {
+
             document.form1.submit();
-            }
         });
     });
-
 </script>
 <body>
-<form name="form1" method="post">
+<form name="form1" method="POST" action="${path}/reviewList/update/${review_num}">
     <div class="container"><br>
-        <select class="form-select w-25" aria-label="Default select example" name="lnum" id="lnum">
-            <option selected>지역</option>
+        <select class="form-select w-25" aria-label="Default select example" name="lnum">
+            <option selected value="${review.lnum}">${review.local.kname}</option>
             <option value="1">서울</option>
             <option value="2">부산</option>
             <option value="3">대구</option>
@@ -64,12 +57,11 @@
             <option value="16">제주</option>
         </select>
         <hr>
-        <input class="form-control" type="text" placeholder="제목을 입력하세요" aria-label="default input example" id="title"
-               name="title">
+        <input class="form-control" type="text" id="title" name="title" value="${review.title}"
+               aria-label="default input example">
         <hr>
-        <textarea class="summernote" id="summernote" name="content"></textarea>
+        <textarea class="summernote" id="content" name="content">${review.content}</textarea>
         <script>
-            //summernote 부분
             $('.summernote').summernote({
                 height: 750,
                 lang: "ko-KR",
@@ -96,9 +88,9 @@
                 },
                 callbacks: {
                     onImageUpload: function (files, editor, welEditable) {
-                        // 파일 업로드(다중업로드를 위해 반복문 사용)
                         for (var i = files.length - 1; i >= 0; i--) {
-                            uploadSummernoteImageFile(files[i], this);
+                            uploadSummernoteImageFile(files[i],
+                                this);
                         }
                     }
                 }
@@ -119,14 +111,11 @@
                     }
                 });
             }
-
         </script>
         <hr>
-        <input type="hidden" name="mem_num" value="${sessionScope.mem_num}">
-        <br><br>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <div class="btn-group m-3" role="group" aria-label="First group">
-                <button type="button" id="Insert" class="btn btn-success btn-lg">등록</button>
+                <button type="button" id="Update" class="btn btn-success btn-lg">수정</button>
             </div>
         </div>
         <br>

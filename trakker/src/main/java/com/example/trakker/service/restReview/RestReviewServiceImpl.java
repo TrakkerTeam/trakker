@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class RestReviewServiceImpl implements RestReviewService{
 
     @Autowired
     private RestReviewDAO reviewDAO;
+    private static final List<ReviewDTO> reviews = new ArrayList<>();
     @Override
     public ResponseResultList list(PagingInfoVO vo, Long memNum, String urlCheck) {
 
@@ -78,5 +80,16 @@ public class RestReviewServiceImpl implements RestReviewService{
     @Override
     public void insert(ReviewDTO review) {
         reviewDAO.insert(review);
+    }
+
+    @Override
+    public void update(Long review_Num,ReviewDTO review) {
+        reviews.stream().
+                forEach(reviewID ->{
+                if (reviewID.getReview_num() == review_Num){
+                    reviewDAO.update(review);
+                }
+        });
+
     }
 }
