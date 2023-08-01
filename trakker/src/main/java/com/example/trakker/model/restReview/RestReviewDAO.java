@@ -17,4 +17,6 @@ public interface RestReviewDAO {
     ReviewDTO detail(Long reviewNum);
 
     Double ratingAvg(Long reviewNum);
+
+    void insert(ReviewDTO review);
 }

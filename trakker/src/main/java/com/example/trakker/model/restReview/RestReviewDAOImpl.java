@@ -36,4 +36,10 @@ public class RestReviewDAOImpl implements RestReviewDAO{
     public Double ratingAvg(Long review_Num) {
         return session.selectOne("rating.ratingAvg", review_Num);
     }
+
+    @Override
+    public void insert(ReviewDTO review) {
+        session.insert("Restreview.insert",review);
+
+    }
 }

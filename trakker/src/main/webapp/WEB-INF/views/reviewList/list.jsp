@@ -86,7 +86,7 @@
 
     $(function () {
         $("#Write").click(function () {
-            location.href = "${path}/review/write";
+            location.href = "${path}/reviewList/write";
         });
     });
 
@@ -95,7 +95,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8"><h2 class="ps-5 mt-5"><a href="${path}/review/list?num=1">리뷰게시판</a></h2></div>
+            <div class="col-sm-8"><h2 class="ps-5 mt-5"><a href="${path}/reviewList/list?num=1">리뷰게시판</a></h2></div>
             <div class="col-sm-4">
                 <div class="d-flex pe-5 mt-5">
                     <form class="d-flex" role="search">

@@ -53,6 +53,12 @@
         on r.mem_num = m.mem_num)
         where review_num = #{reviewNum}    </select>
 
+    <insert id="insert">
+        INSERT INTO REVIEW (REVIEW_NUM, MEM_NUM, L_NUM, TITLE, CONTENT)
+        VALUES (review_seq.nextval, #{mem_num}, #{lnum},#{title} , #{content})
+
+    </insert>
+
     <update id="updateREAD">
         UPDATE REVIEW
         SET READCOUNT = READCOUNT + 1
