@@ -21,4 +21,5 @@ public interface RestReviewService {
 
     void update(Long review_num,ReviewDTO review);
 
+    void delete(Long reviewNum);
 }

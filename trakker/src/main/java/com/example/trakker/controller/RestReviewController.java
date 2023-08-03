@@ -114,6 +114,12 @@ public class RestReviewController {
         return "redirect:/review/list?num=1";
     }
 
+    @ResponseBody
+    @PostMapping("{review_num}")
+    public void delete(@PathVariable Long review_num) {
+        reviewService.delete(review_num);
+    }
+
 
 
 }

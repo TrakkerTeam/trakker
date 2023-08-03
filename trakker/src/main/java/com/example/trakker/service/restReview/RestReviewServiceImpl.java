@@ -92,4 +92,9 @@ public class RestReviewServiceImpl implements RestReviewService{
         });
 
     }
+
+    @Override
+    public void delete(Long reviewNum) {
+        reviewDAO.delete(reviewNum);
+    }
 }

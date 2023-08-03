@@ -74,6 +74,12 @@
         WHERE REVIEW_NUM = #{reviewNum}
     </update>
 
+    <delete id="delete">
+        DELETE
+        FROM REVIEW
+        WHERE REVIEW_NUM = #{reviewNum}
+    </delete>
+
     <sql id="select">
         SELECT r.review_num, r.title, r.content, r.review_date,
         l.K_NAME, l.L_NUM,

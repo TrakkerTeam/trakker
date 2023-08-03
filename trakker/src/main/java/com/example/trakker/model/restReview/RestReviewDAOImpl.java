@@ -49,4 +49,9 @@ public class RestReviewDAOImpl implements RestReviewDAO{
     public void update(ReviewDTO review) {
         session.update("Restreview.update",review);
     }
+
+    @Override
+    public void delete(Long reviewNum) {
+        session.delete("Restreview.delete" , reviewNum);
+    }
 }

@@ -162,7 +162,7 @@
 
         $(".Delete").click(function () {
             if (confirm("삭제하시겠습니까?")) {
-                document.form1.action = "${path}/review/delete";
+                document.form1.action = "${path}/reviewList/${review_num}";
                 document.form1.submit();
             }
         });

@@ -22,4 +22,5 @@ public interface RestReviewDAO {
 
     void update(ReviewDTO review);
 
+    void delete(Long reviewNum);
 }
