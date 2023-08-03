@@ -58,12 +58,27 @@
         VALUES (review_seq.nextval, #{mem_num}, #{lnum},#{title} , #{content})
 
     </insert>
+    <update id="update">
+        UPDATE REVIEW
+        SET
+        L_NUM = #{lnum},
+        TITLE = #{title},
+        CONTENT = #{content}
+        EDIT_DATE = SYSDATE
+        WHERE REVIEW_NUM = #{review_num}
+    </update>
 
     <update id="updateREAD">
         UPDATE REVIEW
         SET READCOUNT = READCOUNT + 1
         WHERE REVIEW_NUM = #{reviewNum}
     </update>
+
+    <delete id="delete">
+        DELETE
+        FROM REVIEW
+        WHERE REVIEW_NUM = #{reviewNum}
+    </delete>
 
     <sql id="select">
         SELECT r.review_num, r.title, r.content, r.review_date,

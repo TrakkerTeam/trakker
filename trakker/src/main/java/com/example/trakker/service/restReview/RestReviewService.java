@@ -18,4 +18,8 @@ public interface RestReviewService {
     Double ratingAvg(Long reviewNum);
 
     void insert(ReviewDTO review);
+
+    void update(Long review_num,ReviewDTO review);
+
+    void delete(Long reviewNum);
 }

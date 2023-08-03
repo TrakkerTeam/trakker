@@ -89,9 +89,36 @@ public class RestReviewController {
     @PostMapping("/insert")
     public String insert(@ModelAttribute("reviewDTO") ReviewDTO review) {
         reviewService.insert(review);
+
+        return "redirect:/reviewList";
+    }
+
+    @GetMapping("/edit/{review_num}")
+    public ModelAndView edit(@PathVariable("review_num") Long reviewNum,
+                               HttpServletRequest request,
+                               HttpServletResponse response){
+
+        reviewService.count(reviewNum,request,response);
+        ReviewDTO review = reviewService.detail(reviewNum);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("reviewList/edit");
+        mav.addObject("review",review);
+
+        return mav;
+    }
+
+    @PostMapping ("/update/{review_num}")
+    public String update(@PathVariable Long review_num, @ModelAttribute("reviewDTO") ReviewDTO review){
+        reviewService.update(review_num,review);
+
         return "redirect:/review/list?num=1";
     }
 
+    @ResponseBody
+    @PostMapping("{review_num}")
+    public void delete(@PathVariable Long review_num) {
+        reviewService.delete(review_num);
+    }
 
 
 

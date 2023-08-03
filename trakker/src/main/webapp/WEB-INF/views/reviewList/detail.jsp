@@ -153,16 +153,16 @@
         });
 
         $(".List").click(function () {
-            location.href = "${path}/review/list?num=1";
+            location.href = "${path}/reviewList";
         });
 
         $(".Edit").click(function () {
-            location.href = "${path}/review/edit?review_num=${review.review_num}";
+            location.href = "${path}/reviewList/edit/${review_num}";
         });
 
         $(".Delete").click(function () {
             if (confirm("삭제하시겠습니까?")) {
-                document.form1.action = "${path}/review/delete";
+                document.form1.action = "${path}/reviewList/${review_num}";
                 document.form1.submit();
             }
         });

@@ -49,12 +49,12 @@
 
 	<interceptors>
 		<interceptor>
-
 			<mapping path="/member/mypage.do"/>
 			<mapping path="/member/editprofile.do"/>
 			<mapping path="/member/editpass.do"/>
 			<mapping path="/member/memdelete.do"/>
 			<mapping path="/review/write"/>
+			<mapping path="/reviewList/write"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
